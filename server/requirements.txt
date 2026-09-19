@@ -1,0 +1,3 @@
+Flask>=3.0
+# Optional: only needed when DATABASE_URL points at Postgres / Tiger Data.
+# psycopg2-binary>=2.9

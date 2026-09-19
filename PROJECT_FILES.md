@@ -29,8 +29,8 @@ All deployable application files are under:
 | --- | --- | --- |
 | `index.html` | `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2/dist/index.html` | Application shell, route controls, floorplan controls, map region, data dialog, and accessible labels. |
 | `styles.css` | `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2/dist/styles.css` | Responsive visual design, layout, route cards, map, floorplan viewer, dialogs, and status styles. |
-| `app.js` | `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2/dist/app.js` | UI state, data loading, map rendering, route comparison, closure simulation, floorplan viewer, and browser-agent tools. |
-| `router.mjs` | `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2/dist/router.mjs` | Data-driven graph builder and routing engine. Handles closures, entrance conditions, unknown evidence, restricted indoor passages, and unmapped connectors. |
+| `app.js` | `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2/dist/app.js` | UI state, data loading, map rendering, route comparison, closure simulation, floorplan viewer, browser-agent tools, the Ask AccessPath assistant (Gemini, with a local keyword fallback), and Read aloud narration (ElevenLabs, with a native `speechSynthesis` fallback). |
+| `router.mjs` | `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2/dist/router.mjs` | Data-driven graph builder and routing engine. Handles closures, entrance conditions, unknown evidence, restricted indoor passages, and connectors — wiring the twelve of known mechanism into the graph as real floor-to-floor edges, and leaving the seven of unknown mechanism unmapped. |
 
 ## Imported application data
 
@@ -92,13 +92,18 @@ All Leaflet assets are under:
 | File | Location | Purpose |
 | --- | --- | --- |
 | `import_pilot.py` | `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2/scripts/import_pilot.py` | Reproducibly imports the supplied ZIP and floorplan directory into `dist/data` and `dist/floorplans`. It uses explicit file handling and does not execute source code from the archive. |
-| `router.test.mjs` | `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2/tests/router.test.mjs` | 14 routing and data-integrity tests covering real-data comparisons, strict preferences, closures, status freshness, unmapped connectors, restricted passages, immutability, and floorplan references. |
+| `router.test.mjs` | `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2/tests/router.test.mjs` | Routing and data-integrity tests covering real-data comparisons, strict preferences, closures, status freshness, connector wiring (mapped vs. unmapped, Hitt Hall's elevator/stairs, the Whittemore bridge that stays unreachable), restricted passages, immutability, and floorplan references. |
 
 Run the checks from the project root:
 
 ```sh
 node --test tests/*.test.mjs
 ```
+
+No Node runtime was available in the environment this was built in. The suite
+above is the authoritative one to run — it was instead exercised by loading
+`dist/router.mjs` as a module in a browser and running the same assertions
+against it live, which is not a substitute for actually running it.
 
 Run the local static app from the project root:
 
@@ -109,6 +114,19 @@ python3 -m http.server 5173 --bind 127.0.0.1 --directory dist
 Then open:
 
 `http://127.0.0.1:5173/`
+
+## Admin tool (separate from the static app)
+
+| File | Location | Purpose |
+| --- | --- | --- |
+| `server/app.py` | `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2/server/app.py` | Flask admin form and CSV bulk-import for `status.csv`-shaped reports, with the same status/confidence vocabulary validation as `router.mjs`. Exports a `status-records.json` or `status.csv` to review and drop into `dist/data/`. |
+| `server/db.py` | `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2/server/db.py` | Dialect-aware adapter: local SQLite by default, or Postgres (Tiger Data-compatible) via `DATABASE_URL`. |
+| `server/requirements.txt` | `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2/server/requirements.txt` | `Flask`, with `psycopg2-binary` noted as optional (Postgres only). |
+
+Tested against SQLite in this environment (add, CSV import with a mix of
+valid/invalid rows, unrecognized-asset flagging, and both export formats all
+verified with `curl`). No Postgres server was available to test the
+`DATABASE_URL` path directly; that code was reviewed, not live-tested.
 
 ## Preserved source material
 
@@ -143,6 +161,15 @@ Only the 41 floorplan images listed above were copied into the deployable pilot 
 - The supplied entrance and path accessibility fields are unverified.
 - Entrance coordinates are approximate placeholders.
 - The historical floorplans do not provide current room-level routing.
-- Connector records are displayed but are not yet connected to the walking graph.
+- Twelve of nineteen connector records (elevators, stairs, bridges of known
+  mechanism) are wired into the walking graph and affect real routes and
+  closures; the seven of unknown mechanism stay unmapped rather than guessed,
+  and a wired connector can still be structurally unreachable if its own
+  building has no surveyed floor-1 link (Whittemore's bridge, for example).
 - The supplied status records are examples, not a live Virginia Tech Facilities feed.
 - The current project is a private pilot while source reuse terms and field verification are established.
+- `server/` adds an optional admin form/CSV-import workflow and optional,
+  bring-your-own-key AI (Gemini) and voice (ElevenLabs) features in the
+  browser app; none of these are required for the core static planner to run.
+  See the README's **VTHacks 14 tracks** section for which sponsor tracks
+  these were built for and which were deliberately skipped, and why.

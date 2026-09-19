@@ -2,6 +2,10 @@ import {buildGraph, compareRoutes, resolvePlace} from './router.mjs';
 const $ = selector => document.querySelector(selector);
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const state = {origin:'POI-PERRY-PLACE',destination:'VT-PAMPLIN',requireStepFree:false,avoidStairs:true,avoidUnknown:false,selected:'indoor',closedAsset:null,view:'routes',planBuilding:'VT-TORGERSEN',planFloor:'01',planZoom:1};
+const GEMINI_MODEL = 'gemini-2.5-flash', ELEVEN_VOICE = '21m00Tcm4TlvDq8ikWAM';
+const KEY_STORAGE = {gemini: 'accesspath_key_gemini', elevenlabs: 'accesspath_key_elevenlabs'};
+const getKey = name => { try { return localStorage.getItem(KEY_STORAGE[name]) || ''; } catch { return ''; } };
+const setKey = (name, value) => { try { value ? localStorage.setItem(KEY_STORAGE[name], value) : localStorage.removeItem(KEY_STORAGE[name]); } catch {} };
 let data, graph, comparison, map, baseLayer, routeLayer, selectedLayer, markersLayer, tilesLoaded = 0;
 const latLng = coords => [coords[1], coords[0]];
 const duration = route => { const m = Math.max(1, Math.round(route.seconds / 60)); return route.samePlace ? '0 min' : m + '–' + (m + 2) + ' min'; };
@@ -62,7 +66,14 @@ function wireEvents() {
   $('#nav-plans').addEventListener('click',()=>switchView('plans'));
   for(const id of ['about-open','sources-open']) $('#'+id).addEventListener('click',()=>{renderData();$('#about-dialog').showModal();});
   $('#about-close').addEventListener('click',()=>$('#about-dialog').close());
-  $('#about-dialog').addEventListener('click',e=>{if(e.target===e.currentTarget){const r=e.target.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)e.target.close();}});
+  for(const id of ['about-dialog','settings-dialog','assistant-dialog']) $('#'+id).addEventListener('click',e=>{if(e.target===e.currentTarget){const r=e.target.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)e.target.close();}});
+  $('#settings-open').addEventListener('click',()=>{$('#key-gemini').value=getKey('gemini');$('#key-elevenlabs').value=getKey('elevenlabs');$('#settings-dialog').showModal();});
+  $('#settings-close').addEventListener('click',()=>$('#settings-dialog').close());
+  $('#settings-form').addEventListener('submit',e=>{e.preventDefault();setKey('gemini',$('#key-gemini').value.trim());setKey('elevenlabs',$('#key-elevenlabs').value.trim());$('#settings-dialog').close();});
+  $('#settings-clear').addEventListener('click',()=>{setKey('gemini','');setKey('elevenlabs','');$('#key-gemini').value='';$('#key-elevenlabs').value='';});
+  $('#assistant-open').addEventListener('click',()=>{$('#assistant-dialog').showModal();$('#assistant-input').focus();});
+  $('#assistant-close').addEventListener('click',()=>$('#assistant-dialog').close());
+  $('#assistant-form').addEventListener('submit',e=>{e.preventDefault();const input=$('#assistant-input'),text=input.value.trim();if(!text)return;input.value='';askAssistant(text);});
   $('#plan-building').addEventListener('change',e=>{state.planBuilding=e.target.value;state.planFloor='01';state.planZoom=1;renderFloor();});
   $('#plan-floor').addEventListener('change',e=>{state.planFloor=e.target.value;state.planZoom=1;renderFloor();});
   $('#plan-zoom-in').addEventListener('click',()=>{state.planZoom=Math.min(4,state.planZoom+.5);applyPlanZoom();});
@@ -94,8 +105,9 @@ function render(fit=false) {
     const savings=state.selected==='indoor'&&comparison.savedMeters>1?'<div class="savings"><span aria-hidden="true">↗</span> About '+Math.round(comparison.savedMeters)+' m shorter than outdoors</div>':'';
     $('#route-summary').innerHTML=savings+'<div class="trust-card"><div class="trust-top"><strong>Accessibility unverified</strong><span>'+route.unverifiedPercent+'%</span></div><div class="trust-track"><i style="width:'+route.unverifiedPercent+'%"></i></div><p>This is a route preview. Entrance positions and path access still need checking.'+(route.indoorBuildings.length?' Building hours and entry rules are also unknown.':'')+'</p></div>';
     const startEntrance=route.startEntrance?.entrance_name||'Mapped entrance',endEntrance=route.endEntrance?.entrance_name||'Mapped entrance';
-    $('#directions').innerHTML='<div class="directions-title"><h3>Route details</h3><span>'+route.legs.length+' segments</span></div><ol class="directions"><li class="endpoint"><span class="step-icon">A</span><div><strong>'+esc(route.start.name)+'</strong><small>'+esc(startEntrance)+' · Approximate</small></div></li>'+route.legs.map((e,i)=>'<li><span class="step-icon">'+(e.connector_type?'⇧':e.is_indoor?'⌂':'↗')+'</span><div><strong>'+esc(edgeName(e))+'</strong><small>'+(e.fixedSeconds?'~'+Math.round(e.seconds)+' s':Math.round(e.meters)+' m')+' · '+(e.is_indoor?'Indoor · ':'')+(e.verified?'Access verified':'Access unknown')+'</small>'+(e.is_indoor?'<button class="text-button" data-floor-building="'+esc(graph.nodes.get(e.from)?.building||'')+'">View floorplan ↗</button>':'')+'</div></li>').join('')+'<li class="endpoint"><span class="step-icon destination">B</span><div><strong>'+esc(route.end.name)+'</strong><small>'+esc(endEntrance)+' · Approximate</small></div></li></ol>';
+    $('#directions').innerHTML='<div class="directions-title"><h3>Route details</h3><button id="read-aloud" class="text-button" type="button">▶ Read aloud</button><span>'+route.legs.length+' segments</span></div><ol class="directions"><li class="endpoint"><span class="step-icon">A</span><div><strong>'+esc(route.start.name)+'</strong><small>'+esc(startEntrance)+' · Approximate</small></div></li>'+route.legs.map((e,i)=>'<li><span class="step-icon">'+(e.connector_type?'⇧':e.is_indoor?'⌂':'↗')+'</span><div><strong>'+esc(edgeName(e))+'</strong><small>'+(e.fixedSeconds?'~'+Math.round(e.seconds)+' s':Math.round(e.meters)+' m')+' · '+(e.is_indoor?'Indoor · ':'')+(e.verified?'Access verified':'Access unknown')+'</small>'+(e.is_indoor?'<button class="text-button" data-floor-building="'+esc(graph.nodes.get(e.from)?.building||'')+'">View floorplan ↗</button>':'')+'</div></li>').join('')+'<li class="endpoint"><span class="step-icon destination">B</span><div><strong>'+esc(route.end.name)+'</strong><small>'+esc(endEntrance)+' · Approximate</small></div></li></ol>';
     $('#directions').querySelectorAll('[data-floor-building]').forEach(button=>button.addEventListener('click',()=>{state.planBuilding=button.dataset.floorBuilding;state.planFloor='01';$('#plan-building').value=state.planBuilding;switchView('plans');}));
+    $('#read-aloud')?.addEventListener('click',()=>readAloud(route));
   }
   const asset=graph.assets.get($('#closure-asset').value), isConnector=graph.connectors.some(c=>c.id===asset?.id);
   $('#closure-toggle').textContent=state.closedAsset?'Restore':isConnector?'Close connector':'Close path';
@@ -156,17 +168,85 @@ function renderData(){
   $('#data-stats').innerHTML=[['16','buildings'],['64','path segments'],[String(count),'archival plans'],['0','verified access paths']].map(([n,label])=>'<div><strong>'+n+'</strong><span>'+label+'</span></div>').join('');
   $('#status-list').innerHTML=graph.statusLog.map(r=>'<div class="status-record"><div><strong>'+esc(r.asset_id)+'</strong><span>'+esc(r.status)+' · '+esc(r.result)+'</span></div><p>'+esc(r.reason)+'</p><small>Supplied source: '+esc(r.source)+' · '+esc(r.reported_at)+'</small></div>').join('');
 }
+function applyRouteConfig(input){
+  if(!input||typeof input!=='object'||!Object.hasOwn(input,'origin')||!Object.hasOwn(input,'destination')||Object.keys(input).some(k=>!['origin','destination','requireStepFree','avoidUnknown'].includes(k)))throw new Error('Invalid route configuration');
+  for(const key of ['origin','destination'])if(typeof input[key]!=='string'||!graph.places.some(p=>p.id===input[key]))throw new Error('Choose a valid place ID');
+  for(const key of ['requireStepFree','avoidUnknown'])if(key in input&&typeof input[key]!=='boolean')throw new Error('Preferences must be boolean');
+  Object.assign(state,input);$('#origin').value=state.origin;$('#destination').value=state.destination;$('#step-free').checked=state.requireStepFree;$('#avoid-unknown').checked=state.avoidUnknown;switchView('routes');render(true);
+  return {found:comparison[state.selected].found,meters:comparison[state.selected].meters??null,reason:comparison[state.selected].reason??'Unverified route preview'};
+}
+function narrationScript(route){
+  const lines=['Route preview from '+route.start.name+' to '+route.end.name+'. This is not a verified accessible route. '+route.unverifiedPercent+' percent of it is unverified.'];
+  route.legs.forEach((e,i)=>lines.push('Step '+(i+1)+': '+edgeName(e)+', about '+(e.fixedSeconds?Math.round(e.seconds)+' seconds':Math.round(e.meters)+' meters')+', '+(e.verified?'access verified':'access unknown')+'.'));
+  lines.push('You should arrive near '+(route.endEntrance?.entrance_name||'the mapped entrance')+'. This position is approximate.');
+  return lines.join(' ');
+}
+async function readAloud(route){
+  const button=$('#read-aloud'),text=narrationScript(route);
+  if(button){button.disabled=true;button.textContent='Reading…';}
+  try{
+    const key=getKey('elevenlabs');
+    if(key){
+      const res=await fetch('https://api.elevenlabs.io/v1/text-to-speech/'+ELEVEN_VOICE,{method:'POST',headers:{'Content-Type':'application/json','xi-api-key':key},body:JSON.stringify({text,model_id:'eleven_multilingual_v2'})});
+      if(!res.ok)throw new Error('ElevenLabs request failed ('+res.status+')');
+      const audio=new Audio(URL.createObjectURL(await res.blob()));
+      await new Promise((resolve,reject)=>{audio.onended=resolve;audio.onerror=reject;audio.play().catch(reject);});
+    }else if('speechSynthesis' in window){
+      window.speechSynthesis.cancel();
+      const spoken=new Promise(resolve=>{const u=new SpeechSynthesisUtterance(text);u.onend=resolve;u.onerror=resolve;window.speechSynthesis.speak(u);});
+      const safetyTimeout=new Promise(resolve=>setTimeout(resolve,Math.min(60000,Math.max(8000,text.length*90))));
+      await Promise.race([spoken,safetyTimeout]);
+    }else throw new Error('Voice playback is not supported in this browser.');
+  }catch(err){console.error(err);}
+  finally{if(button){button.disabled=false;button.textContent='▶ Read aloud';}}
+}
+function addAssistantMessage(role,text){
+  const div=document.createElement('div');div.className='assistant-msg '+role;div.textContent=text;
+  $('#assistant-log').appendChild(div);$('#assistant-log').scrollTop=$('#assistant-log').scrollHeight;
+  return div;
+}
+function localIntent(text){
+  const lower=text.toLowerCase();
+  const matches=graph.places.filter(p=>lower.includes(p.name.toLowerCase())||(p.aliases||[]).some(a=>lower.includes(a.toLowerCase())));
+  if(matches.length<2)return{action:'clarify',message:'I can only match places from the pilot list. Try naming two of them directly, like "Perry Place to Pamplin Hall" — add a Gemini key in AI & voice keys for more flexible phrasing.'};
+  const [origin,destination]=matches,requireStepFree=/\b(step[- ]free|wheelchair|verified accessible)\b/.test(lower),avoidUnknown=/\b(only confirmed|verified only|no unknowns?)\b/.test(lower);
+  return{action:'route',origin:origin.id,destination:destination.id,requireStepFree,avoidUnknown,message:'Set the route from '+origin.name+' to '+destination.name+(requireStepFree?', requiring verified step-free access':'')+'. No Gemini key configured, so this used simple keyword matching, not AI.'};
+}
+async function askGemini(text,key){
+  const placeList=graph.places.map(p=>p.id+' = "'+p.name+'"'+(p.aliases?.length?' (aka '+p.aliases.join(', ')+')':'')).join('\n');
+  const system='You configure a campus route PREVIEW for AccessPath, a Virginia Tech accessibility pilot. '
+    +'Pick origin and destination ONLY from this exact list of place IDs (never invent a place, never return a name in place of its id):\n'+placeList
+    +'\n\nRules: this app has NOT verified any accessibility claim in the field. Never state or imply that a route is confirmed accessible, safe, or step-free — that is for the app’s own data to show, not you. '
+    +'If the request names two places from the list, respond with action "route" and both IDs. Set requireStepFree true only if the user explicitly asked for confirmed or verified step-free or wheelchair access. Set avoidUnknown true only if they asked to exclude unverified conditions. '
+    +'If you cannot confidently match two places from the list, respond with action "clarify" and a short question naming a few real places from the list. Keep "message" to one short, plain sentence.';
+  const schema={type:'OBJECT',properties:{action:{type:'STRING',enum:['route','clarify']},origin:{type:'STRING'},destination:{type:'STRING'},requireStepFree:{type:'BOOLEAN'},avoidUnknown:{type:'BOOLEAN'},message:{type:'STRING'}},required:['action','message']};
+  const res=await fetch('https://generativelanguage.googleapis.com/v1beta/models/'+GEMINI_MODEL+':generateContent?key='+encodeURIComponent(key),{
+    method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({systemInstruction:{parts:[{text:system}]},contents:[{role:'user',parts:[{text}]}],generationConfig:{responseMimeType:'application/json',responseSchema:schema}})
+  });
+  if(!res.ok)throw new Error('Gemini request failed ('+res.status+')');
+  const body=await res.json(),raw=body?.candidates?.[0]?.content?.parts?.[0]?.text;
+  if(!raw)throw new Error('Gemini returned no usable response');
+  let parsed;try{parsed=JSON.parse(raw);}catch{throw new Error('Gemini response was not valid JSON');}
+  if(parsed.action==='route'&&(!graph.places.some(p=>p.id===parsed.origin)||!graph.places.some(p=>p.id===parsed.destination)))return{action:'clarify',message:'That didn’t match two places in the pilot area. Try naming them directly.'};
+  return parsed;
+}
+async function askAssistant(text){
+  addAssistantMessage('user',text);
+  const thinking=addAssistantMessage('assistant','Thinking…');
+  try{
+    const key=getKey('gemini'),result=key?await askGemini(text,key):localIntent(text);
+    thinking.remove();
+    if(result.action==='route'){applyRouteConfig({origin:result.origin,destination:result.destination,requireStepFree:!!result.requireStepFree,avoidUnknown:!!result.avoidUnknown});}
+    addAssistantMessage('assistant',result.message||'Updated the route preview.');
+  }catch(err){thinking.remove();addAssistantMessage('assistant','That didn’t work: '+err.message);}
+}
 function registerAgentTools(){
   const context=document.modelContext;if(!context?.registerTool)return;
   const lifecycle=new AbortController();
   const register=tool=>{try{Promise.resolve(context.registerTool(tool,{signal:lifecycle.signal})).catch(()=>{});}catch{}};
   register({name:'get_accesspath_route',description:'Read the current exploratory route, preferences, and data limitations.',inputSchema:{type:'object',properties:{},additionalProperties:false},annotations:{readOnlyHint:true,untrustedContentHint:true},execute:()=>({preferences:{...state},route:comparison[state.selected],warning:'Supplied pilot data; accessibility is unverified.'})});
-  register({name:'configure_accesspath_route',description:'Change the visible campus route preview using listed place IDs. This does not start real navigation.',inputSchema:{type:'object',properties:{origin:{type:'string'},destination:{type:'string'},requireStepFree:{type:'boolean'},avoidUnknown:{type:'boolean'}},required:['origin','destination'],additionalProperties:false},annotations:{readOnlyHint:false,untrustedContentHint:true},execute:input=>{
-    if(!input||typeof input!=='object'||!Object.hasOwn(input,'origin')||!Object.hasOwn(input,'destination')||Object.keys(input).some(k=>!['origin','destination','requireStepFree','avoidUnknown'].includes(k)))throw new Error('Invalid route configuration');
-    for(const key of ['origin','destination'])if(typeof input[key]!=='string'||!graph.places.some(p=>p.id===input[key]))throw new Error('Choose a valid place ID');
-    for(const key of ['requireStepFree','avoidUnknown'])if(key in input&&typeof input[key]!=='boolean')throw new Error('Preferences must be boolean');
-    Object.assign(state,input);$('#origin').value=state.origin;$('#destination').value=state.destination;$('#step-free').checked=state.requireStepFree;$('#avoid-unknown').checked=state.avoidUnknown;switchView('routes');render(true);return {found:comparison[state.selected].found,meters:comparison[state.selected].meters??null,reason:comparison[state.selected].reason??'Unverified route preview'};
-  }});
+  register({name:'configure_accesspath_route',description:'Change the visible campus route preview using listed place IDs. This does not start real navigation.',inputSchema:{type:'object',properties:{origin:{type:'string'},destination:{type:'string'},requireStepFree:{type:'boolean'},avoidUnknown:{type:'boolean'}},required:['origin','destination'],additionalProperties:false},annotations:{readOnlyHint:false,untrustedContentHint:true},execute:input=>applyRouteConfig(input)});
   window.addEventListener('pagehide',()=>lifecycle.abort(),{once:true});
 }
 load().catch(error=>{$('#route-summary').innerHTML='<div class="no-route"><h3>We couldn’t load the planner.</h3><p>'+esc(error.message)+'</p><button class="primary-button" onclick="location.reload()">Try again</button></div>';console.error(error);});

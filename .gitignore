@@ -1,3 +1,6 @@
 .sites-runtime/
 .DS_Store
 node_modules/
+server/accesspath.db
+server/__pycache__/
+__pycache__/
