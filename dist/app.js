@@ -1,4 +1,4 @@
-import {buildGraph, compareRoutes, resolvePlace} from './router.mjs';
+import {buildGraph, compareRoutes, resolvePlace, isConfirmed} from './router.mjs';
 const $ = selector => document.querySelector(selector);
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const state = {origin:'POI-PERRY-PLACE',destination:'VT-PAMPLIN',requireStepFree:false,avoidStairs:true,avoidUnknown:false,selected:'indoor',closedAsset:null,view:'routes',planBuilding:'VT-TORGERSEN',planFloor:'01',planZoom:1};
@@ -165,7 +165,9 @@ function renderFloor(){
 function applyPlanZoom(){ $('#floor-image').style.width=(state.planZoom*100)+'%';$('#floor-image').style.maxWidth='none';$('#plan-fit').textContent=state.planZoom===1?'Fit':Math.round(state.planZoom*100)+'%';$('#floor-canvas').scrollTo({top:0,left:0,behavior:'instant'}); }
 function renderData(){
   const count=Object.values(data.floorplans).reduce((n,b)=>n+b.plans.length,0);
-  $('#data-stats').innerHTML=[['16','buildings'],['64','path segments'],[String(count),'archival plans'],['0','verified access paths']].map(([n,label])=>'<div><strong>'+n+'</strong><span>'+label+'</span></div>').join('');
+  const verifiedPaths=graph.edges.filter(e=>isConfirmed(e.confidence)).length;
+  const officialConnectors=graph.connectors.filter(c=>isConfirmed(c.confidence)).length;
+  $('#data-stats').innerHTML=[[String(graph.buildings.size),'buildings'],[String(graph.edges.length),'path segments'],[String(count),'archival plans'],[String(verifiedPaths),'verified access paths'],[String(officialConnectors),'official-confidence connectors']].map(([n,label])=>'<div><strong>'+n+'</strong><span>'+label+'</span></div>').join('');
   $('#status-list').innerHTML=graph.statusLog.map(r=>'<div class="status-record"><div><strong>'+esc(r.asset_id)+'</strong><span>'+esc(r.status)+' · '+esc(r.result)+'</span></div><p>'+esc(r.reason)+'</p><small>Supplied source: '+esc(r.source)+' · '+esc(r.reported_at)+'</small></div>').join('');
 }
 function applyRouteConfig(input){

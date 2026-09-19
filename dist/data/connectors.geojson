@@ -349,6 +349,557 @@
         "evidence_source": "NO DATA",
         "notes": "Building does not exist yet - completion 2028."
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "connector_id": "00153-ELEV-HYD-0001",
+        "building_id": "VT-PAMPLIN",
+        "from_node": "N-PAMPLIN-L0",
+        "to_node": "N-PAMPLIN-L3",
+        "connector_type": "elevator",
+        "floors_served": "00-03",
+        "accessibility_status": "step_free",
+        "operational_status": "available",
+        "confidence": "official",
+        "operational_confidence": "official",
+        "display_tier": "CONFIRMED",
+        "evidence_source": "VT Facilities 'Critical Elevators' layer (arcgis-central.gis.vt.edu/arcgis/rest/services/facilities/CriticalElevators), elevator_id 00153-ELEV-HYD-0001, last edited 2026-04-07",
+        "notes": "Passenger elevator, functional as of 2026-04-07 per VT Facilities. Standard cab elevator."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "connector_id": "00153-ELEV-HYD-0002",
+        "building_id": "VT-PAMPLIN",
+        "from_node": "N-PAMPLIN-L0",
+        "to_node": "N-PAMPLIN-L3",
+        "connector_type": "elevator",
+        "floors_served": "00-03",
+        "accessibility_status": "step_free",
+        "operational_status": "available",
+        "confidence": "official",
+        "operational_confidence": "official",
+        "display_tier": "CONFIRMED",
+        "evidence_source": "VT Facilities 'Critical Elevators' layer (arcgis-central.gis.vt.edu/arcgis/rest/services/facilities/CriticalElevators), elevator_id 00153-ELEV-HYD-0002, last edited 2026-04-07",
+        "notes": "Passenger elevator, functional as of 2026-04-07 per VT Facilities. Standard cab elevator."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "connector_id": "00176-ELEV-TRC-0001",
+        "building_id": "VT-BURRUSS",
+        "from_node": "N-BURRUSS-L1",
+        "to_node": "N-BURRUSS-L3",
+        "connector_type": "elevator",
+        "floors_served": "01-03",
+        "accessibility_status": "step_free",
+        "operational_status": "available",
+        "confidence": "official",
+        "operational_confidence": "official",
+        "display_tier": "CONFIRMED",
+        "evidence_source": "VT Facilities 'Critical Elevators' layer (arcgis-central.gis.vt.edu/arcgis/rest/services/facilities/CriticalElevators), elevator_id 00176-ELEV-TRC-0001, last edited 2026-04-07",
+        "notes": "Passenger elevator, functional as of 2026-04-07 per VT Facilities. Standard cab elevator."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "connector_id": "00134-ELEV-TRC-0002",
+        "building_id": "VT-WHITTEMORE",
+        "from_node": "N-WHITTEMORE-L1",
+        "to_node": "N-WHITTEMORE-L6",
+        "connector_type": "elevator",
+        "floors_served": "01-06",
+        "accessibility_status": "step_free",
+        "operational_status": "available",
+        "confidence": "official",
+        "operational_confidence": "official",
+        "display_tier": "CONFIRMED",
+        "evidence_source": "VT Facilities 'Critical Elevators' layer (arcgis-central.gis.vt.edu/arcgis/rest/services/facilities/CriticalElevators), elevator_id 00134-ELEV-TRC-0002, last edited 2026-05-01",
+        "notes": "Freight elevator, functional as of 2026-05-01 per VT Facilities. Standard cab elevator."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "connector_id": "00134-ELEV-TRC-0001",
+        "building_id": "VT-WHITTEMORE",
+        "from_node": "N-WHITTEMORE-L1",
+        "to_node": "N-WHITTEMORE-L6",
+        "connector_type": "elevator",
+        "floors_served": "01-06",
+        "accessibility_status": "step_free",
+        "operational_status": "closed",
+        "confidence": "official",
+        "operational_confidence": "official",
+        "display_tier": "CONFIRMED",
+        "evidence_source": "VT Facilities 'Critical Elevators' layer (arcgis-central.gis.vt.edu/arcgis/rest/services/facilities/CriticalElevators), elevator_id 00134-ELEV-TRC-0001, last edited 2026-05-01",
+        "notes": "Passenger elevator, CLOSED for repairs as of 2026-05-01 per VT Facilities. Standard cab elevator."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "connector_id": "00151-ELEV-TRC-0001",
+        "building_id": "VT-MCBRYDE",
+        "from_node": "N-MCBRYDE-L1",
+        "to_node": "N-MCBRYDE-L6",
+        "connector_type": "elevator",
+        "floors_served": "01-06",
+        "accessibility_status": "step_free",
+        "operational_status": "closed",
+        "confidence": "official",
+        "operational_confidence": "official",
+        "display_tier": "CONFIRMED",
+        "evidence_source": "VT Facilities 'Critical Elevators' layer (arcgis-central.gis.vt.edu/arcgis/rest/services/facilities/CriticalElevators), elevator_id 00151-ELEV-TRC-0001, last edited 2026-09-08",
+        "notes": "Passenger elevator, CLOSED for repairs as of 2026-09-08 per VT Facilities. Standard cab elevator."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "connector_id": "00188-ELEV-HYD-0003",
+        "building_id": "VT-CFA",
+        "from_node": "N-CFA-L1",
+        "to_node": "N-CFA-L2",
+        "connector_type": "elevator",
+        "floors_served": "01-02",
+        "accessibility_status": "step_free",
+        "operational_status": "available",
+        "confidence": "official",
+        "operational_confidence": "official",
+        "display_tier": "CONFIRMED",
+        "evidence_source": "VT Facilities 'Critical Elevators' layer (arcgis-central.gis.vt.edu/arcgis/rest/services/facilities/CriticalElevators), elevator_id 00188-ELEV-HYD-0003, last edited 2026-04-07",
+        "notes": "Passenger elevator, functional as of 2026-04-07 per VT Facilities. Standard cab elevator."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "connector_id": "00177-ELEV-TRC-0001",
+        "building_id": "VT-NEWMAN-LIB",
+        "from_node": "N-NEWMAN-LIB-L1",
+        "to_node": "N-NEWMAN-LIB-L6",
+        "connector_type": "elevator",
+        "floors_served": "01-06",
+        "accessibility_status": "step_free",
+        "operational_status": "available",
+        "confidence": "official",
+        "operational_confidence": "official",
+        "display_tier": "CONFIRMED",
+        "evidence_source": "VT Facilities 'Critical Elevators' layer (arcgis-central.gis.vt.edu/arcgis/rest/services/facilities/CriticalElevators), elevator_id 00177-ELEV-TRC-0001, last edited 2026-04-07",
+        "notes": "Passenger elevator, functional as of 2026-04-07 per VT Facilities. Standard cab elevator."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "connector_id": "00180-ELEV-HYD-7116",
+        "building_id": "VT-SQUIRES",
+        "from_node": "N-SQUIRES-L1",
+        "to_node": "N-SQUIRES-L3",
+        "connector_type": "elevator",
+        "floors_served": "01-03",
+        "accessibility_status": "step_free",
+        "operational_status": "available",
+        "confidence": "official",
+        "operational_confidence": "official",
+        "display_tier": "CONFIRMED",
+        "evidence_source": "VT Facilities 'Critical Elevators' layer (arcgis-central.gis.vt.edu/arcgis/rest/services/facilities/CriticalElevators), elevator_id 00180-ELEV-HYD-7116, last edited 2026-04-13",
+        "notes": "Passenger elevator, functional as of 2026-04-13 per VT Facilities. Standard cab elevator."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "connector_id": "00155-ELEV-TRC-0001",
+        "building_id": "VT-DERRING",
+        "from_node": "N-DERRING-L1",
+        "to_node": "N-DERRING-L5",
+        "connector_type": "elevator",
+        "floors_served": "01-05",
+        "accessibility_status": "step_free",
+        "operational_status": "available",
+        "confidence": "official",
+        "operational_confidence": "official",
+        "display_tier": "CONFIRMED",
+        "evidence_source": "VT Facilities 'Critical Elevators' layer (arcgis-central.gis.vt.edu/arcgis/rest/services/facilities/CriticalElevators), elevator_id 00155-ELEV-TRC-0001, last edited 2026-04-07",
+        "notes": "Passenger elevator, functional as of 2026-04-07 per VT Facilities. Standard cab elevator."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "connector_id": "00174-ELEV-HYD-0002",
+        "building_id": "VT-TORGERSEN",
+        "from_node": "N-TORGERSEN-L1",
+        "to_node": "N-TORGERSEN-L3",
+        "connector_type": "elevator",
+        "floors_served": "01-03",
+        "accessibility_status": "step_free",
+        "operational_status": "available",
+        "confidence": "official",
+        "operational_confidence": "official",
+        "display_tier": "CONFIRMED",
+        "evidence_source": "VT Facilities 'Critical Elevators' layer (arcgis-central.gis.vt.edu/arcgis/rest/services/facilities/CriticalElevators), elevator_id 00174-ELEV-HYD-0002, last edited 2026-04-23",
+        "notes": "Passenger elevator, functional as of 2026-04-23 per VT Facilities. Standard cab elevator."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "connector_id": "00177-ELEV-TRC-0004",
+        "building_id": "VT-NEWMAN-LIB",
+        "from_node": "N-NEWMAN-LIB-L1",
+        "to_node": "N-NEWMAN-LIB-L5",
+        "connector_type": "elevator",
+        "floors_served": "01-05",
+        "accessibility_status": "step_free",
+        "operational_status": "available",
+        "confidence": "official",
+        "operational_confidence": "official",
+        "display_tier": "CONFIRMED",
+        "evidence_source": "VT Facilities 'Critical Elevators' layer (arcgis-central.gis.vt.edu/arcgis/rest/services/facilities/CriticalElevators), elevator_id 00177-ELEV-TRC-0004, last edited 2026-04-07",
+        "notes": "Passenger elevator, functional as of 2026-04-07 per VT Facilities. Standard cab elevator."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "connector_id": "00155-ELEV-TRC-0002",
+        "building_id": "VT-DERRING",
+        "from_node": "N-DERRING-L1",
+        "to_node": "N-DERRING-L5",
+        "connector_type": "elevator",
+        "floors_served": "01-05",
+        "accessibility_status": "step_free",
+        "operational_status": "available",
+        "confidence": "official",
+        "operational_confidence": "official",
+        "display_tier": "CONFIRMED",
+        "evidence_source": "VT Facilities 'Critical Elevators' layer (arcgis-central.gis.vt.edu/arcgis/rest/services/facilities/CriticalElevators), elevator_id 00155-ELEV-TRC-0002, last edited 2026-04-07",
+        "notes": "Passenger elevator, functional as of 2026-04-07 per VT Facilities. Standard cab elevator."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "connector_id": "00176-ELEV-HYD-0002",
+        "building_id": "VT-BURRUSS",
+        "from_node": "N-BURRUSS-L1",
+        "to_node": "N-BURRUSS-L3",
+        "connector_type": "elevator",
+        "floors_served": "01-03",
+        "accessibility_status": "step_free",
+        "operational_status": "available",
+        "confidence": "official",
+        "operational_confidence": "official",
+        "display_tier": "CONFIRMED",
+        "evidence_source": "VT Facilities 'Critical Elevators' layer (arcgis-central.gis.vt.edu/arcgis/rest/services/facilities/CriticalElevators), elevator_id 00176-ELEV-HYD-0002, last edited 2026-07-29",
+        "notes": "Passenger elevator, functional as of 2026-07-29 per VT Facilities. Standard cab elevator."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "connector_id": "0133C-ELEV-HYD-0001",
+        "building_id": "VT-HANCOCK",
+        "from_node": "N-HANCOCK-L0",
+        "to_node": "N-HANCOCK-L2",
+        "connector_type": "elevator",
+        "floors_served": "00-02",
+        "accessibility_status": "step_free",
+        "operational_status": "available",
+        "confidence": "official",
+        "operational_confidence": "official",
+        "display_tier": "CONFIRMED",
+        "evidence_source": "VT Facilities 'Critical Elevators' layer (arcgis-central.gis.vt.edu/arcgis/rest/services/facilities/CriticalElevators), elevator_id 0133C-ELEV-HYD-0001, last edited 2026-04-07",
+        "notes": "Passenger elevator, functional as of 2026-04-07 per VT Facilities. Standard cab elevator."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "connector_id": "00129-ELEV-HYD-0001",
+        "building_id": "VT-KELLY",
+        "from_node": "N-KELLY-L1",
+        "to_node": "N-KELLY-L4",
+        "connector_type": "elevator",
+        "floors_served": "01-04",
+        "accessibility_status": "step_free",
+        "operational_status": "available",
+        "confidence": "official",
+        "operational_confidence": "official",
+        "display_tier": "CONFIRMED",
+        "evidence_source": "VT Facilities 'Critical Elevators' layer (arcgis-central.gis.vt.edu/arcgis/rest/services/facilities/CriticalElevators), elevator_id 00129-ELEV-HYD-0001, last edited 2026-06-04",
+        "notes": "Passenger elevator, functional as of 2026-06-04 per VT Facilities. Standard cab elevator."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "connector_id": "00126-ELEV-HYD-0002",
+        "building_id": "VT-DURHAM",
+        "from_node": "N-DURHAM-L1",
+        "to_node": "N-DURHAM-L4",
+        "connector_type": "elevator",
+        "floors_served": "01-04",
+        "accessibility_status": "step_free",
+        "operational_status": "closed",
+        "confidence": "official",
+        "operational_confidence": "official",
+        "display_tier": "CONFIRMED",
+        "evidence_source": "VT Facilities 'Critical Elevators' layer (arcgis-central.gis.vt.edu/arcgis/rest/services/facilities/CriticalElevators), elevator_id 00126-ELEV-HYD-0002, last edited 2026-04-07",
+        "notes": "Passenger elevator, CLOSED for repairs as of 2026-04-07 per VT Facilities. Standard cab elevator."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "connector_id": "00151-ELEV-TRC-0002",
+        "building_id": "VT-MCBRYDE",
+        "from_node": "N-MCBRYDE-L1",
+        "to_node": "N-MCBRYDE-L6",
+        "connector_type": "elevator",
+        "floors_served": "01-06",
+        "accessibility_status": "step_free",
+        "operational_status": "closed",
+        "confidence": "official",
+        "operational_confidence": "official",
+        "display_tier": "CONFIRMED",
+        "evidence_source": "VT Facilities 'Critical Elevators' layer (arcgis-central.gis.vt.edu/arcgis/rest/services/facilities/CriticalElevators), elevator_id 00151-ELEV-TRC-0002, last edited 2026-09-08",
+        "notes": "Passenger elevator, CLOSED for repairs as of 2026-09-08 per VT Facilities. Standard cab elevator."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "connector_id": "00188-ELEV-HYD-0006",
+        "building_id": "VT-CFA",
+        "from_node": "N-CFA-L1",
+        "to_node": "N-CFA-L5",
+        "connector_type": "elevator",
+        "floors_served": "01-05",
+        "accessibility_status": "step_free",
+        "operational_status": "available",
+        "confidence": "official",
+        "operational_confidence": "official",
+        "display_tier": "CONFIRMED",
+        "evidence_source": "VT Facilities 'Critical Elevators' layer (arcgis-central.gis.vt.edu/arcgis/rest/services/facilities/CriticalElevators), elevator_id 00188-ELEV-HYD-0006, last edited 2026-04-07",
+        "notes": "Passenger elevator, functional as of 2026-04-07 per VT Facilities. Standard cab elevator."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "connector_id": "00188-ELEV-HYD-0004",
+        "building_id": "VT-CFA",
+        "from_node": "N-CFA-L1",
+        "to_node": "N-CFA-L2",
+        "connector_type": "elevator",
+        "floors_served": "01-02",
+        "accessibility_status": "step_free",
+        "operational_status": "available",
+        "confidence": "official",
+        "operational_confidence": "official",
+        "display_tier": "CONFIRMED",
+        "evidence_source": "VT Facilities 'Critical Elevators' layer (arcgis-central.gis.vt.edu/arcgis/rest/services/facilities/CriticalElevators), elevator_id 00188-ELEV-HYD-0004, last edited 2026-04-07",
+        "notes": "Passenger elevator, functional as of 2026-04-07 per VT Facilities. Standard cab elevator."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "connector_id": "00188-ELEV-TRC-0002",
+        "building_id": "VT-CFA",
+        "from_node": "N-CFA-L1",
+        "to_node": "N-CFA-L3",
+        "connector_type": "elevator",
+        "floors_served": "01-03",
+        "accessibility_status": "step_free",
+        "operational_status": "available",
+        "confidence": "official",
+        "operational_confidence": "official",
+        "display_tier": "CONFIRMED",
+        "evidence_source": "VT Facilities 'Critical Elevators' layer (arcgis-central.gis.vt.edu/arcgis/rest/services/facilities/CriticalElevators), elevator_id 00188-ELEV-TRC-0002, last edited 2026-04-07",
+        "notes": "Passenger elevator, functional as of 2026-04-07 per VT Facilities. Standard cab elevator."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "connector_id": "00188-ELEV-TRC-0001",
+        "building_id": "VT-CFA",
+        "from_node": "N-CFA-L1",
+        "to_node": "N-CFA-L3",
+        "connector_type": "elevator",
+        "floors_served": "01-03",
+        "accessibility_status": "step_free",
+        "operational_status": "available",
+        "confidence": "official",
+        "operational_confidence": "official",
+        "display_tier": "CONFIRMED",
+        "evidence_source": "VT Facilities 'Critical Elevators' layer (arcgis-central.gis.vt.edu/arcgis/rest/services/facilities/CriticalElevators), elevator_id 00188-ELEV-TRC-0001, last edited 2026-04-07",
+        "notes": "Passenger elevator, functional as of 2026-04-07 per VT Facilities. Standard cab elevator."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "connector_id": "00177-ELEV-TRC-0002",
+        "building_id": "VT-NEWMAN-LIB",
+        "from_node": "N-NEWMAN-LIB-L1",
+        "to_node": "N-NEWMAN-LIB-L6",
+        "connector_type": "elevator",
+        "floors_served": "01-06",
+        "accessibility_status": "step_free",
+        "operational_status": "closed",
+        "confidence": "official",
+        "operational_confidence": "official",
+        "display_tier": "CONFIRMED",
+        "evidence_source": "VT Facilities 'Critical Elevators' layer (arcgis-central.gis.vt.edu/arcgis/rest/services/facilities/CriticalElevators), elevator_id 00177-ELEV-TRC-0002, last edited 2026-08-26",
+        "notes": "Passenger elevator, CLOSED for repairs as of 2026-08-26 per VT Facilities. Standard cab elevator."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "connector_id": "00136-ELEV-TRC-0002",
+        "building_id": "VT-GOODWIN",
+        "from_node": "N-GOODWIN-L1",
+        "to_node": "N-GOODWIN-L4",
+        "connector_type": "elevator",
+        "floors_served": "01-04",
+        "accessibility_status": "step_free",
+        "operational_status": "closed",
+        "confidence": "official",
+        "operational_confidence": "official",
+        "display_tier": "CONFIRMED",
+        "evidence_source": "VT Facilities 'Critical Elevators' layer (arcgis-central.gis.vt.edu/arcgis/rest/services/facilities/CriticalElevators), elevator_id 00136-ELEV-TRC-0002, last edited 2026-09-16",
+        "notes": "Passenger elevator, CLOSED for repairs as of 2026-09-16 per VT Facilities. Standard cab elevator."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "connector_id": "00136-ELEV-TRC-0001",
+        "building_id": "VT-GOODWIN",
+        "from_node": "N-GOODWIN-L1",
+        "to_node": "N-GOODWIN-L4",
+        "connector_type": "elevator",
+        "floors_served": "01-04",
+        "accessibility_status": "step_free",
+        "operational_status": "available",
+        "confidence": "official",
+        "operational_confidence": "official",
+        "display_tier": "CONFIRMED",
+        "evidence_source": "VT Facilities 'Critical Elevators' layer (arcgis-central.gis.vt.edu/arcgis/rest/services/facilities/CriticalElevators), elevator_id 00136-ELEV-TRC-0001, last edited 2026-04-07",
+        "notes": "Passenger elevator, functional as of 2026-04-07 per VT Facilities. Standard cab elevator."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "connector_id": "00180-ELEV-HYD-0004",
+        "building_id": "VT-SQUIRES",
+        "from_node": "N-SQUIRES-L1",
+        "to_node": "N-SQUIRES-L2",
+        "connector_type": "elevator",
+        "floors_served": "01-02",
+        "accessibility_status": "step_free",
+        "operational_status": "closed",
+        "confidence": "official",
+        "operational_confidence": "official",
+        "display_tier": "CONFIRMED",
+        "evidence_source": "VT Facilities 'Critical Elevators' layer (arcgis-central.gis.vt.edu/arcgis/rest/services/facilities/CriticalElevators), elevator_id 00180-ELEV-HYD-0004, last edited 2026-04-21",
+        "notes": "Freight elevator, CLOSED for repairs as of 2026-04-21 per VT Facilities. Standard cab elevator."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "connector_id": "00137-ELEV-0001",
+        "building_id": "VT-DDS",
+        "from_node": "N-DDS-L1",
+        "to_node": "N-DDS-L5",
+        "connector_type": "elevator",
+        "floors_served": "01-05",
+        "accessibility_status": "step_free",
+        "operational_status": "available",
+        "confidence": "official",
+        "operational_confidence": "official",
+        "display_tier": "CONFIRMED",
+        "evidence_source": "VT Facilities 'Critical Elevators' layer (arcgis-central.gis.vt.edu/arcgis/rest/services/facilities/CriticalElevators), elevator_id 00137-ELEV-0001, last edited 2026-07-21",
+        "notes": "Passenger elevator, functional as of 2026-07-21 per VT Facilities. Standard cab elevator."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "connector_id": "00137-ELEV-0002",
+        "building_id": "VT-DDS",
+        "from_node": "N-DDS-L1",
+        "to_node": "N-DDS-L4",
+        "connector_type": "elevator",
+        "floors_served": "01-04",
+        "accessibility_status": "step_free",
+        "operational_status": "available",
+        "confidence": "official",
+        "operational_confidence": "official",
+        "display_tier": "CONFIRMED",
+        "evidence_source": "VT Facilities 'Critical Elevators' layer (arcgis-central.gis.vt.edu/arcgis/rest/services/facilities/CriticalElevators), elevator_id 00137-ELEV-0002, last edited 2026-04-07",
+        "notes": "Passenger elevator, functional as of 2026-04-07 per VT Facilities. Standard cab elevator."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "connector_id": "00188-ELEV-0005",
+        "building_id": "VT-CFA",
+        "from_node": "N-CFA-L0",
+        "to_node": "N-CFA-L1",
+        "connector_type": "elevator",
+        "floors_served": "00-01",
+        "accessibility_status": "step_free",
+        "operational_status": "available",
+        "confidence": "official",
+        "operational_confidence": "official",
+        "display_tier": "CONFIRMED",
+        "evidence_source": "VT Facilities 'Critical Elevators' layer (arcgis-central.gis.vt.edu/arcgis/rest/services/facilities/CriticalElevators), elevator_id 00188-ELEV-0005, last edited 2026-04-07",
+        "notes": "Passenger elevator, functional as of 2026-04-07 per VT Facilities. Standard cab elevator."
+      }
     }
   ]
 }

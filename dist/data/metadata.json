@@ -7,7 +7,7 @@
   "vertical_datum": null,
   "last_field_verified": null,
   "license": "Mixed / unresolved \u2014 see docs/DATA_SOURCES.md",
-  "warning": "NO ACCESSIBILITY VALUE IN THIS DATASET HAS BEEN VERIFIED BY A HUMAN. Building coordinates are official VT figures. Entrance positions are placeholders offset from building centroids and may be 30-50 m out. Treat confidence='inferred' as no data.",
+  "warning": "NO ENTRANCE OR PATH ACCESSIBILITY VALUE IN THIS DATASET HAS BEEN VERIFIED BY A HUMAN AT THE DOOR. Building coordinates are official VT figures (vt.edu building pages and, since 2026-09-19, VT's Enterprise GIS Buildings layer, used to correct 6 of them). Entrance positions are placeholders offset from building centroids and may be 30-50 m out. 29 elevator/chairlift connectors carry confidence='official' from VT Facilities' own asset system (current open/closed status, not a field survey) \u2014 stronger than a guess, still not a person who stood at the door. Treat confidence='inferred' as no data everywhere else.",
   "confirmed_confidence_values": [
     "field_verified",
     "official"
@@ -15,5 +15,13 @@
   "counts": {
     "buildings": 16,
     "nodes": 48
-  }
+  },
+  "additional_sources": [
+    {
+      "name": "VT Enterprise GIS (arcgis-central.gis.vt.edu, public ArcGIS REST catalog)",
+      "fetched": "2026-09-19",
+      "used_for": "6 building coordinate corrections (buildings.geojson) and 29 official-confidence elevator/chairlift connectors (connectors.geojson)",
+      "see": "source-data/DATA_SOURCES.md"
+    }
+  ]
 }

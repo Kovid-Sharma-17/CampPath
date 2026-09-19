@@ -43,7 +43,7 @@ All imported runtime data is under:
 | `buildings.geojson` | `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2/dist/data/buildings.geojson` | 16 pilot buildings, names, coordinates, addresses, and evidence fields. |
 | `entrances.geojson` | `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2/dist/data/entrances.geojson` | 32 building entrances and their graph node IDs. |
 | `paths.geojson` | `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2/dist/data/paths.geojson` | 64 walking and indoor path segments. |
-| `connectors.geojson` | `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2/dist/data/connectors.geojson` | 19 recorded vertical or indoor connectors, including elevators and stairs. |
+| `connectors.geojson` | `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2/dist/data/connectors.geojson` | 48 recorded vertical or indoor connectors (19 from the original 2006-floorplan-derived import, 29 real ones added 2026-09-19 from VT Facilities' elevator asset system), including elevators, chairlifts, stairs, and bridges. |
 | `pois.geojson` | `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2/dist/data/pois.geojson` | 8 named pilot destinations such as Perry Place, the Cube, and the Newman Library cafe. |
 | `metadata.json` | `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2/dist/data/metadata.json` | Dataset metadata, provenance, and coverage notes. |
 | `status-records.json` | `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2/dist/data/status-records.json` | Converted status records used for closure, future-report, expiry, and confidence behavior. |
@@ -92,7 +92,9 @@ All Leaflet assets are under:
 | File | Location | Purpose |
 | --- | --- | --- |
 | `import_pilot.py` | `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2/scripts/import_pilot.py` | Reproducibly imports the supplied ZIP and floorplan directory into `dist/data` and `dist/floorplans`. It uses explicit file handling and does not execute source code from the archive. |
-| `router.test.mjs` | `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2/tests/router.test.mjs` | Routing and data-integrity tests covering real-data comparisons, strict preferences, closures, status freshness, connector wiring (mapped vs. unmapped, Hitt Hall's elevator/stairs, the Whittemore bridge that stays unreachable), restricted passages, immutability, and floorplan references. |
+| `merge_vt_gis.py` | `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2/scripts/merge_vt_gis.py` | One-time, safely-rerunnable correction pass (applied 2026-09-19) that applies the 6 building coordinate fixes and adds the 29 real elevator/chairlift connectors documented in the README, sourced from VT's public Enterprise GIS. Kept for provenance, the same way `import_pilot.py` documents the original import. |
+| `vt_gis_snapshot_20260919.py` | `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2/scripts/vt_gis_snapshot_20260919.py` | The raw VT Enterprise GIS data `merge_vt_gis.py` merges in, hand-transcribed from a live fetch on 2026-09-19 (see its own docstring for the exact source query). |
+| `router.test.mjs` | `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2/tests/router.test.mjs` | Routing and data-integrity tests covering real-data comparisons, strict preferences, closures, status freshness, connector wiring (mapped vs. unmapped, real VT Facilities elevators, the entrance-to-floor link that must not become a free accessibility-check-free shortcut, Hitt Hall's elevator/stairs, the Whittemore bridge that stays unreachable even with a confirmed elevator), restricted passages, immutability, and floorplan references. |
 
 Run the checks from the project root:
 
@@ -158,14 +160,21 @@ Only the 41 floorplan images listed above were copied into the deployable pilot 
 
 ## Current project limitations
 
-- The supplied entrance and path accessibility fields are unverified.
-- Entrance coordinates are approximate placeholders.
+- The supplied entrance and path accessibility fields are unverified. 29 of 48
+  connectors (elevators/chairlifts) carry `confidence: official` from VT
+  Facilities' own asset system (a current open/closed status, not a field
+  survey) — stronger than a guess, still not a person who stood at the door.
+- Entrance coordinates are approximate placeholders; 6 building coordinates
+  (one, Hitt Hall, by ~255 m) were corrected 2026-09-19 against VT's own
+  Enterprise GIS — see the README's **Coordinate corrections** section.
 - The historical floorplans do not provide current room-level routing.
-- Twelve of nineteen connector records (elevators, stairs, bridges of known
-  mechanism) are wired into the walking graph and affect real routes and
-  closures; the seven of unknown mechanism stay unmapped rather than guessed,
-  and a wired connector can still be structurally unreachable if its own
-  building has no surveyed floor-1 link (Whittemore's bridge, for example).
+- Forty-one of forty-eight connector records (elevators, chairlifts, stairs,
+  bridges of known mechanism) are wired into the walking graph and affect
+  real routes and closures; the seven of unknown mechanism stay unmapped
+  rather than guessed, and a wired connector can still be structurally
+  unreachable if its own building has no confirmed floor-to-floor link
+  reaching it (Whittemore's bridge, for example — its elevator is real and
+  confirmed, but modelled as a single edge that doesn't stop at that floor).
 - The supplied status records are examples, not a live Virginia Tech Facilities feed.
 - The current project is a private pilot while source reuse terms and field verification are established.
 - `server/` adds an optional admin form/CSV-import workflow and optional,

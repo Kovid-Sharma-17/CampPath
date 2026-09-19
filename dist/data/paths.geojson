@@ -1,2060 +1,2060 @@
 {
- "type": "FeatureCollection",
- "name": "paths",
- "crs": {
-  "type": "name",
-  "properties": {
-   "name": "urn:ogc:def:crs:OGC:1.3/CRS84"
-  }
- },
- "features": [
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.425258,
-      37.232015
-     ],
-     [
-      -80.42462,
-      37.232055
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-001",
-    "from_node": "N-GOODWIN-E1",
-    "to_node": "J-PERRY-W",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Perry Street frontage. Not surveyed."
-   }
+  "type": "FeatureCollection",
+  "name": "paths",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3/CRS84"
+    }
   },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.42462,
-      37.232055
-     ],
-     [
-      -80.424202,
-      37.231629
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-002",
-    "from_node": "J-PERRY-W",
-    "to_node": "N-DURHAM-E1",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Not surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.42382,
-      37.231416
-     ],
-     [
-      -80.424135,
-      37.231405
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-003",
-    "from_node": "N-DURHAM-E2",
-    "to_node": "J-PERRY-E",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Not surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.424135,
-      37.231405
-     ],
-     [
-      -80.424311,
-      37.231374
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-004",
-    "from_node": "J-PERRY-E",
-    "to_node": "N-WHITTEMORE-E1",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Not surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.424415,
-      37.230747
-     ],
-     [
-      -80.42436,
-      37.230615
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-005",
-    "from_node": "N-WHITTEMORE-E2",
-    "to_node": "J-WHIT-S",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Not surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.42436,
-      37.230615
-     ],
-     [
-      -80.42391,
-      37.230185
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-006",
-    "from_node": "J-WHIT-S",
-    "to_node": "N-HANCOCK-E2",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Not surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.42463,
-      37.230135
-     ],
-     [
-      -80.423867,
-      37.229325
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-007",
-    "from_node": "N-HANCOCK-E1",
-    "to_node": "J-DF-NW",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Old Turner Street toward the Drillfield. Not surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.423867,
-      37.229325
-     ],
-     [
-      -80.423632,
-      37.229354
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-008",
-    "from_node": "J-DF-NW",
-    "to_node": "N-BURRUSS-E2",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Not surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.423198,
-      37.228928
-     ],
-     [
-      -80.421475,
-      37.22888
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-009",
-    "from_node": "N-BURRUSS-E1",
-    "to_node": "J-DF-N",
-    "accessibility_status": "stairs",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Drillfield front of Burruss: stepped approach. Step count and grade NOT measured."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.421475,
-      37.22888
-     ],
-     [
-      -80.419911,
-      37.228796
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-010",
-    "from_node": "J-DF-N",
-    "to_node": "J-DF-E",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "paved",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Drillfield perimeter walk. Paved, grade NOT measured."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.419911,
-      37.228796
-     ],
-     [
-      -80.41964,
-      37.228704
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-011",
-    "from_node": "J-DF-E",
-    "to_node": "N-NEWMAN-LIB-E1",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Not surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.419169,
-      37.229079
-     ],
-     [
-      -80.419568,
-      37.229219
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-012",
-    "from_node": "N-NEWMAN-LIB-E2",
-    "to_node": "J-ALUMNI-W",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "paved",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Alumni Mall west end. Not surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.419568,
-      37.229219
-     ],
-     [
-      -80.41997,
-      37.229456
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-013",
-    "from_node": "J-ALUMNI-W",
-    "to_node": "N-TORGERSEN-E1",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "paved",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Alumni Mall under the Torgersen bridge. Not surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.419568,
-      37.229219
-     ],
-     [
-      -80.418536,
-      37.229233
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-014",
-    "from_node": "J-ALUMNI-W",
-    "to_node": "J-ALUMNI-E",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "paved",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Alumni Mall spine. CLOSED in the Status Updates demo - the app should reroute via SEG-015/016."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.419568,
-      37.229219
-     ],
-     [
-      -80.419052,
-      37.229721
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-015",
-    "from_node": "J-ALUMNI-W",
-    "to_node": "J-ALUMNI-N",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Parallel route north of the mall. Gives the closure demo an alternative. NOT surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.419052,
-      37.229721
-     ],
-     [
-      -80.418536,
-      37.229233
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-016",
-    "from_node": "J-ALUMNI-N",
-    "to_node": "J-ALUMNI-E",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Parallel route north of the mall. NOT surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.418536,
-      37.229233
-     ],
-     [
-      -80.41848,
-      37.22962
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-017",
-    "from_node": "J-ALUMNI-E",
-    "to_node": "N-SQUIRES-E1",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "paved",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Not surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.41997,
-      37.230104
-     ],
-     [
-      -80.420784,
-      37.230158
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-018",
-    "from_node": "N-TORGERSEN-E2",
-    "to_node": "J-MCB-S",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Not surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.420784,
-      37.230158
-     ],
-     [
-      -80.42178,
-      37.23026
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-019",
-    "from_node": "J-MCB-S",
-    "to_node": "N-MCBRYDE-ES",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Not surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.42178,
-      37.23098
-     ],
-     [
-      -80.42382,
-      37.231416
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-020",
-    "from_node": "N-MCBRYDE-EN",
-    "to_node": "N-DURHAM-E2",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Stanger Street. Not surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.425258,
-      37.232015
-     ],
-     [
-      -80.42618,
-      37.232115
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-021",
-    "from_node": "N-GOODWIN-E1",
-    "to_node": "J-NAD-1",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Not surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.42618,
-      37.232115
-     ],
-     [
-      -80.426495,
-      37.231798
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-022",
-    "from_node": "J-NAD-1",
-    "to_node": "N-DDS-E2",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Not surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.426785,
-      37.232198
-     ],
-     [
-      -80.42727,
-      37.23163
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-023",
-    "from_node": "N-DDS-E1",
-    "to_node": "J-NAD-2",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Not surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.42727,
-      37.23163
-     ],
-     [
-      -80.427678,
-      37.231046
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-024",
-    "from_node": "J-NAD-2",
-    "to_node": "N-HITT-E1",
-    "accessibility_status": "step_free",
-    "operational_status": "unknown",
-    "surface": "paved",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Innovation Plaza. VT Facilities states the Hitt Hall project installed a section of the 'Infinite Loop', a planned two-mile fully accessible pathway. Design intent, NOT a measured grade."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.427155,
-      37.231462
-     ],
-     [
-      -80.42462,
-      37.232055
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-025",
-    "from_node": "N-HITT-E2",
-    "to_node": "J-PERRY-W",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Perry Street, Hitt back toward Goodwin/Durham. Long segment, NOT surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.422127,
-      37.230936
-     ],
-     [
-      -80.42178,
-      37.23098
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-026",
-    "from_node": "N-KELLY-E1",
-    "to_node": "N-MCBRYDE-EN",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Stanger Street. Not surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.422796,
-      37.23103
-     ],
-     [
-      -80.424135,
-      37.231405
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-027",
-    "from_node": "N-KELLY-E2",
-    "to_node": "J-PERRY-E",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Not surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.423009,
-      37.23092
-     ],
-     [
-      -80.424135,
-      37.231405
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-028",
-    "from_node": "N-MITCHELL-E1",
-    "to_node": "J-PERRY-E",
-    "accessibility_status": "unknown",
-    "operational_status": "closed",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Approach to the Mitchell Hall site. CLOSED - active construction until 2028."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.417812,
-      37.231985
-     ],
-     [
-      -80.417805,
-      37.23098
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-029",
-    "from_node": "N-CFA-E1",
-    "to_node": "J-MAIN-N",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Not surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.417805,
-      37.23098
-     ],
-     [
-      -80.41796,
-      37.22998
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-030",
-    "from_node": "J-MAIN-N",
-    "to_node": "N-SQUIRES-E2",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Not surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.425258,
-      37.232015
-     ],
-     [
-      -80.424912,
-      37.23237
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-P01",
-    "from_node": "N-GOODWIN-E1",
-    "to_node": "N-GOODWIN-E2",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Perimeter link between this building's doors. NOT surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.424202,
-      37.231629
-     ],
-     [
-      -80.42382,
-      37.231416
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-P02",
-    "from_node": "N-DURHAM-E1",
-    "to_node": "N-DURHAM-E2",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Perimeter link. NOT surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.424311,
-      37.231374
-     ],
-     [
-      -80.424415,
-      37.230747
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-P03",
-    "from_node": "N-WHITTEMORE-E1",
-    "to_node": "N-WHITTEMORE-E2",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Perimeter link. NOT surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.42178,
-      37.23098
-     ],
-     [
-      -80.422232,
-      37.23062
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-P04",
-    "from_node": "N-MCBRYDE-EN",
-    "to_node": "N-MCBRYDE-EW",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Perimeter link. NOT surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.422232,
-      37.23062
-     ],
-     [
-      -80.42178,
-      37.23026
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-P05",
-    "from_node": "N-MCBRYDE-EW",
-    "to_node": "N-MCBRYDE-ES",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Perimeter link. NOT surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.42463,
-      37.230135
-     ],
-     [
-      -80.42391,
-      37.230185
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-P06",
-    "from_node": "N-HANCOCK-E1",
-    "to_node": "N-HANCOCK-E2",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Perimeter link. NOT surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.41997,
-      37.229456
-     ],
-     [
-      -80.41997,
-      37.230104
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-P07",
-    "from_node": "N-TORGERSEN-E1",
-    "to_node": "N-TORGERSEN-E2",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Perimeter link. NOT surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.423198,
-      37.228928
-     ],
-     [
-      -80.423632,
-      37.229354
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-P08",
-    "from_node": "N-BURRUSS-E1",
-    "to_node": "N-BURRUSS-E2",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Perimeter link. The only way to reach Burruss without SEG-009's steps, so its real status matters. NOT surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.41964,
-      37.228704
-     ],
-     [
-      -80.419169,
-      37.229079
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-P09",
-    "from_node": "N-NEWMAN-LIB-E1",
-    "to_node": "N-NEWMAN-LIB-E2",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Perimeter link. NOT surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.41848,
-      37.22962
-     ],
-     [
-      -80.41796,
-      37.22998
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-P10",
-    "from_node": "N-SQUIRES-E1",
-    "to_node": "N-SQUIRES-E2",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Perimeter link. NOT surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.426785,
-      37.232198
-     ],
-     [
-      -80.426495,
-      37.231798
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-P11",
-    "from_node": "N-DDS-E1",
-    "to_node": "N-DDS-E2",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Perimeter link. NOT surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.422127,
-      37.230936
-     ],
-     [
-      -80.422796,
-      37.23103
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-P12",
-    "from_node": "N-KELLY-E1",
-    "to_node": "N-KELLY-E2",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Perimeter link. NOT surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.417812,
-      37.231985
-     ],
-     [
-      -80.417176,
-      37.23234
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-P13",
-    "from_node": "N-CFA-E1",
-    "to_node": "N-CFA-E2",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Perimeter link. NOT surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.427678,
-      37.231046
-     ],
-     [
-      -80.427155,
-      37.231462
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-P14",
-    "from_node": "N-HITT-E1",
-    "to_node": "N-HITT-E2",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Perimeter link. NOT surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.427678,
-      37.231046
-     ],
-     [
-      -80.4265,
-      37.230124
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-031",
-    "from_node": "N-HITT-E1",
-    "to_node": "J-WCD-N",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "paved",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "West Campus Drive footway. NOT surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.4265,
-      37.230124
-     ],
-     [
-      -80.425774,
-      37.22946
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-032",
-    "from_node": "J-WCD-N",
-    "to_node": "N-DERRING-EN",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "paved",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Approach to Derring north side. NOT surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.425774,
-      37.22946
-     ],
-     [
-      -80.424935,
-      37.229668
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-033",
-    "from_node": "N-DERRING-EN",
-    "to_node": "J-DERRING-NE",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "AROUND the north-east corner of Derring. This is the leg the cut-through skips."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.424935,
-      37.229668
-     ],
-     [
-      -80.425037,
-      37.229041
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-034",
-    "from_node": "J-DERRING-NE",
-    "to_node": "N-DERRING-EE",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "AROUND the north-east corner of Derring."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.425037,
-      37.229041
-     ],
-     [
-      -80.425093,
-      37.228727
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-035",
-    "from_node": "N-DERRING-EE",
-    "to_node": "N-PAMPLIN-EW",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "paved",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Short link between Derring and Pamplin. NOT surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.425093,
-      37.228727
-     ],
-     [
-      -80.424458,
-      37.229115
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-036",
-    "from_node": "N-PAMPLIN-EW",
-    "to_node": "N-PAMPLIN-EN",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Perimeter link. NOT surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.425774,
-      37.22946
-     ],
-     [
-      -80.42617,
-      37.228432
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-037",
-    "from_node": "N-DERRING-EN",
-    "to_node": "J-DERRING-SW",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "AROUND the south-west side of Derring."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.42617,
-      37.228432
-     ],
-     [
-      -80.425037,
-      37.229041
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-038",
-    "from_node": "J-DERRING-SW",
-    "to_node": "N-DERRING-EE",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "AROUND the south-west side of Derring."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.424458,
-      37.229115
-     ],
-     [
-      -80.423867,
-      37.229325
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-039",
-    "from_node": "N-PAMPLIN-EN",
-    "to_node": "J-DF-NW",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Pamplin toward the Drillfield north-west. NOT surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.42617,
-      37.228432
-     ],
-     [
-      -80.42463,
-      37.230135
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "SEG-040",
-    "from_node": "J-DERRING-SW",
-    "to_node": "N-HANCOCK-E1",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "unknown",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": false,
-    "open_hours": null,
-    "access_control": "outdoor",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Derring toward Hancock. NOT surveyed."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.425774,
-      37.22946
-     ],
-     [
-      -80.425037,
-      37.229041
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "IND-DERRING-1",
-    "from_node": "N-DERRING-EN",
-    "to_node": "N-DERRING-EE",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "indoor",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": true,
-    "open_hours": "unknown",
-    "access_control": "unknown",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "THE DEMO EDGE. Cut through Derring north-to-east instead of walking the corner. Derring is 208,000 sq ft, VT's largest undergraduate science lab building, so the corner walk is long. Interior route, hours and swipe policy are ALL unverified."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.427678,
-      37.231046
-     ],
-     [
-      -80.427155,
-      37.231462
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "IND-HITT-1",
-    "from_node": "N-HITT-E1",
-    "to_node": "N-HITT-E2",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "indoor",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": true,
-    "open_hours": "unknown",
-    "access_control": "unknown",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Through Hitt Hall past Perry Place. Dining hall hours will differ from building hours - do not assume they match."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.41997,
-      37.229456
-     ],
-     [
-      -80.41997,
-      37.230104
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "IND-TORG-1",
-    "from_node": "N-TORGERSEN-E1",
-    "to_node": "N-TORGERSEN-E2",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "indoor",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": true,
-    "open_hours": "unknown",
-    "access_control": "unknown",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Through Torgersen Hall."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.41997,
-      37.229456
-     ],
-     [
-      -80.419169,
-      37.229079
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "IND-TORG-NEWMAN",
-    "from_node": "N-TORGERSEN-E1",
-    "to_node": "N-NEWMAN-LIB-E2",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "indoor",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": true,
-    "open_hours": "unknown",
-    "access_control": "unknown",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Through Torgersen and over the enclosed bridge into Newman Library. Crosses TWO buildings and changes floor (Torgersen 2 -> Newman 3), so it depends on connector VT-TORG-NEWMAN-BRIDGE and on a working lift at each end."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.41848,
-      37.22962
-     ],
-     [
-      -80.41796,
-      37.22998
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "IND-SQUIRES-1",
-    "from_node": "N-SQUIRES-E1",
-    "to_node": "N-SQUIRES-E2",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "indoor",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": true,
-    "open_hours": "unknown",
-    "access_control": "unknown",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Through Squires between Alumni Mall and College Avenue."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.42178,
-      37.23098
-     ],
-     [
-      -80.42178,
-      37.23026
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "IND-MCBRYDE-1",
-    "from_node": "N-MCBRYDE-EN",
-    "to_node": "N-MCBRYDE-ES",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "indoor",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": true,
-    "open_hours": "unknown",
-    "access_control": "unknown",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Through McBryde north to south."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.422232,
-      37.23062
-     ],
-     [
-      -80.42178,
-      37.23026
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "IND-MCBRYDE-2",
-    "from_node": "N-MCBRYDE-EW",
-    "to_node": "N-MCBRYDE-ES",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "indoor",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": true,
-    "open_hours": "unknown",
-    "access_control": "unknown",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Through McBryde west to south."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.423198,
-      37.228928
-     ],
-     [
-      -80.423632,
-      37.229354
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "IND-BURRUSS-1",
-    "from_node": "N-BURRUSS-E1",
-    "to_node": "N-BURRUSS-E2",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "indoor",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": true,
-    "open_hours": "unknown",
-    "access_control": "unknown",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Through Burruss. The Drillfield door is stepped, so this only helps if the north door is step-free."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.425093,
-      37.228727
-     ],
-     [
-      -80.424458,
-      37.229115
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "IND-PAMPLIN-1",
-    "from_node": "N-PAMPLIN-EW",
-    "to_node": "N-PAMPLIN-EN",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "indoor",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": true,
-    "open_hours": "unknown",
-    "access_control": "unknown",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Through the Pamplin atrium, which links the 1957 and 1988 wings."
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "LineString",
-    "coordinates": [
-     [
-      -80.424311,
-      37.231374
-     ],
-     [
-      -80.42382,
-      37.231416
-     ]
-    ]
-   },
-   "properties": {
-    "segment_id": "IND-WHIT-DURHAM",
-    "from_node": "N-WHITTEMORE-E1",
-    "to_node": "N-DURHAM-E2",
-    "accessibility_status": "unknown",
-    "operational_status": "unknown",
-    "surface": "indoor",
-    "max_grade_pct": null,
-    "width_m": null,
-    "is_indoor": true,
-    "open_hours": "unknown",
-    "access_control": "unknown",
-    "confidence": "inferred",
-    "display_tier": "UNKNOWN",
-    "notes": "Whittemore to Durham via the 3rd-floor bridge. Needs a working lift in both buildings."
-   }
-  }
- ]
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.425258,
+            37.232015
+          ],
+          [
+            -80.42462,
+            37.232055
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-001",
+        "from_node": "N-GOODWIN-E1",
+        "to_node": "J-PERRY-W",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Perry Street frontage. Not surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.42462,
+            37.232055
+          ],
+          [
+            -80.424202,
+            37.231629
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-002",
+        "from_node": "J-PERRY-W",
+        "to_node": "N-DURHAM-E1",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Not surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.42382,
+            37.231416
+          ],
+          [
+            -80.424135,
+            37.231405
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-003",
+        "from_node": "N-DURHAM-E2",
+        "to_node": "J-PERRY-E",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Not surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.424135,
+            37.231405
+          ],
+          [
+            -80.424311,
+            37.231374
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-004",
+        "from_node": "J-PERRY-E",
+        "to_node": "N-WHITTEMORE-E1",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Not surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.424415,
+            37.230747
+          ],
+          [
+            -80.42436,
+            37.230615
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-005",
+        "from_node": "N-WHITTEMORE-E2",
+        "to_node": "J-WHIT-S",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Not surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.42436,
+            37.230615
+          ],
+          [
+            -80.42391,
+            37.230185
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-006",
+        "from_node": "J-WHIT-S",
+        "to_node": "N-HANCOCK-E2",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Not surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.42463,
+            37.230135
+          ],
+          [
+            -80.423867,
+            37.229325
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-007",
+        "from_node": "N-HANCOCK-E1",
+        "to_node": "J-DF-NW",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Old Turner Street toward the Drillfield. Not surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.423867,
+            37.229325
+          ],
+          [
+            -80.423632,
+            37.229354
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-008",
+        "from_node": "J-DF-NW",
+        "to_node": "N-BURRUSS-E2",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Not surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.423198,
+            37.228928
+          ],
+          [
+            -80.421475,
+            37.22888
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-009",
+        "from_node": "N-BURRUSS-E1",
+        "to_node": "J-DF-N",
+        "accessibility_status": "stairs",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Drillfield front of Burruss: stepped approach. Step count and grade NOT measured."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.421475,
+            37.22888
+          ],
+          [
+            -80.419911,
+            37.228796
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-010",
+        "from_node": "J-DF-N",
+        "to_node": "J-DF-E",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "paved",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Drillfield perimeter walk. Paved, grade NOT measured."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.419911,
+            37.228796
+          ],
+          [
+            -80.41964,
+            37.228704
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-011",
+        "from_node": "J-DF-E",
+        "to_node": "N-NEWMAN-LIB-E1",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Not surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.419169,
+            37.229079
+          ],
+          [
+            -80.419568,
+            37.229219
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-012",
+        "from_node": "N-NEWMAN-LIB-E2",
+        "to_node": "J-ALUMNI-W",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "paved",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Alumni Mall west end. Not surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.419568,
+            37.229219
+          ],
+          [
+            -80.41997,
+            37.229456
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-013",
+        "from_node": "J-ALUMNI-W",
+        "to_node": "N-TORGERSEN-E1",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "paved",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Alumni Mall under the Torgersen bridge. Not surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.419568,
+            37.229219
+          ],
+          [
+            -80.418536,
+            37.229233
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-014",
+        "from_node": "J-ALUMNI-W",
+        "to_node": "J-ALUMNI-E",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "paved",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Alumni Mall spine. CLOSED in the Status Updates demo - the app should reroute via SEG-015/016."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.419568,
+            37.229219
+          ],
+          [
+            -80.419052,
+            37.229721
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-015",
+        "from_node": "J-ALUMNI-W",
+        "to_node": "J-ALUMNI-N",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Parallel route north of the mall. Gives the closure demo an alternative. NOT surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.419052,
+            37.229721
+          ],
+          [
+            -80.418536,
+            37.229233
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-016",
+        "from_node": "J-ALUMNI-N",
+        "to_node": "J-ALUMNI-E",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Parallel route north of the mall. NOT surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.418536,
+            37.229233
+          ],
+          [
+            -80.41848,
+            37.22962
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-017",
+        "from_node": "J-ALUMNI-E",
+        "to_node": "N-SQUIRES-E1",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "paved",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Not surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.41997,
+            37.230104
+          ],
+          [
+            -80.420784,
+            37.230158
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-018",
+        "from_node": "N-TORGERSEN-E2",
+        "to_node": "J-MCB-S",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Not surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.420784,
+            37.230158
+          ],
+          [
+            -80.42178,
+            37.23026
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-019",
+        "from_node": "J-MCB-S",
+        "to_node": "N-MCBRYDE-ES",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Not surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.42178,
+            37.23098
+          ],
+          [
+            -80.42382,
+            37.231416
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-020",
+        "from_node": "N-MCBRYDE-EN",
+        "to_node": "N-DURHAM-E2",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Stanger Street. Not surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.425258,
+            37.232015
+          ],
+          [
+            -80.42618,
+            37.232115
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-021",
+        "from_node": "N-GOODWIN-E1",
+        "to_node": "J-NAD-1",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Not surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.42618,
+            37.232115
+          ],
+          [
+            -80.426495,
+            37.231798
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-022",
+        "from_node": "J-NAD-1",
+        "to_node": "N-DDS-E2",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Not surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.426785,
+            37.232198
+          ],
+          [
+            -80.42727,
+            37.23163
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-023",
+        "from_node": "N-DDS-E1",
+        "to_node": "J-NAD-2",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Not surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.42727,
+            37.23163
+          ],
+          [
+            -80.42630184309635,
+            37.22901449773915
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-024",
+        "from_node": "J-NAD-2",
+        "to_node": "N-HITT-E1",
+        "accessibility_status": "step_free",
+        "operational_status": "unknown",
+        "surface": "paved",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Redrawn 2026-09-19 after the Hitt Hall coordinate correction moved E1 ~255 m (see buildings.geojson). Straight-line distance from J-NAD-2 grew 74 m to 303 m - the original geometry assumed Hitt sat much closer to this junction, which was wrong. SEG-031 (via J-WCD-N, 125 m) is now the shorter approach and matches this entrance's own \"West Campus Drive\" name better; this segment is kept for graph connectivity but its role as a primary approach should be reviewed during the zone survey, not assumed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.42588082028163,
+            37.22993659660589
+          ],
+          [
+            -80.42462,
+            37.232055
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-025",
+        "from_node": "N-HITT-E2",
+        "to_node": "J-PERRY-W",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Redrawn 2026-09-19 after the Hitt Hall coordinate correction moved E2 ~255 m. Straight-line distance to J-PERRY-W grew 234 m to 261 m. Still NOT surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.422127,
+            37.230936
+          ],
+          [
+            -80.42178,
+            37.23098
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-026",
+        "from_node": "N-KELLY-E1",
+        "to_node": "N-MCBRYDE-EN",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Stanger Street. Not surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.422796,
+            37.23103
+          ],
+          [
+            -80.424135,
+            37.231405
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-027",
+        "from_node": "N-KELLY-E2",
+        "to_node": "J-PERRY-E",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Not surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.423009,
+            37.23092
+          ],
+          [
+            -80.424135,
+            37.231405
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-028",
+        "from_node": "N-MITCHELL-E1",
+        "to_node": "J-PERRY-E",
+        "accessibility_status": "unknown",
+        "operational_status": "closed",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Approach to the Mitchell Hall site. CLOSED - active construction until 2028."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.417812,
+            37.231985
+          ],
+          [
+            -80.417805,
+            37.23098
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-029",
+        "from_node": "N-CFA-E1",
+        "to_node": "J-MAIN-N",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Not surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.417805,
+            37.23098
+          ],
+          [
+            -80.41796,
+            37.22998
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-030",
+        "from_node": "J-MAIN-N",
+        "to_node": "N-SQUIRES-E2",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Not surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.425258,
+            37.232015
+          ],
+          [
+            -80.424912,
+            37.23237
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-P01",
+        "from_node": "N-GOODWIN-E1",
+        "to_node": "N-GOODWIN-E2",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Perimeter link between this building's doors. NOT surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.424202,
+            37.231629
+          ],
+          [
+            -80.42382,
+            37.231416
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-P02",
+        "from_node": "N-DURHAM-E1",
+        "to_node": "N-DURHAM-E2",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Perimeter link. NOT surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.424311,
+            37.231374
+          ],
+          [
+            -80.424415,
+            37.230747
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-P03",
+        "from_node": "N-WHITTEMORE-E1",
+        "to_node": "N-WHITTEMORE-E2",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Perimeter link. NOT surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.42178,
+            37.23098
+          ],
+          [
+            -80.422232,
+            37.23062
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-P04",
+        "from_node": "N-MCBRYDE-EN",
+        "to_node": "N-MCBRYDE-EW",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Perimeter link. NOT surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.422232,
+            37.23062
+          ],
+          [
+            -80.42178,
+            37.23026
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-P05",
+        "from_node": "N-MCBRYDE-EW",
+        "to_node": "N-MCBRYDE-ES",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Perimeter link. NOT surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.42463,
+            37.230135
+          ],
+          [
+            -80.42391,
+            37.230185
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-P06",
+        "from_node": "N-HANCOCK-E1",
+        "to_node": "N-HANCOCK-E2",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Perimeter link. NOT surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.41997,
+            37.229456
+          ],
+          [
+            -80.41997,
+            37.230104
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-P07",
+        "from_node": "N-TORGERSEN-E1",
+        "to_node": "N-TORGERSEN-E2",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Perimeter link. NOT surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.423198,
+            37.228928
+          ],
+          [
+            -80.423632,
+            37.229354
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-P08",
+        "from_node": "N-BURRUSS-E1",
+        "to_node": "N-BURRUSS-E2",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Perimeter link. The only way to reach Burruss without SEG-009's steps, so its real status matters. NOT surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.41964,
+            37.228704
+          ],
+          [
+            -80.419169,
+            37.229079
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-P09",
+        "from_node": "N-NEWMAN-LIB-E1",
+        "to_node": "N-NEWMAN-LIB-E2",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Perimeter link. NOT surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.41848,
+            37.22962
+          ],
+          [
+            -80.41796,
+            37.22998
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-P10",
+        "from_node": "N-SQUIRES-E1",
+        "to_node": "N-SQUIRES-E2",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Perimeter link. NOT surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.426785,
+            37.232198
+          ],
+          [
+            -80.426495,
+            37.231798
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-P11",
+        "from_node": "N-DDS-E1",
+        "to_node": "N-DDS-E2",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Perimeter link. NOT surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.422127,
+            37.230936
+          ],
+          [
+            -80.422796,
+            37.23103
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-P12",
+        "from_node": "N-KELLY-E1",
+        "to_node": "N-KELLY-E2",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Perimeter link. NOT surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.417812,
+            37.231985
+          ],
+          [
+            -80.417176,
+            37.23234
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-P13",
+        "from_node": "N-CFA-E1",
+        "to_node": "N-CFA-E2",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Perimeter link. NOT surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.42630184309635,
+            37.22901449773915
+          ],
+          [
+            -80.42588082028163,
+            37.22993659660589
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-P14",
+        "from_node": "N-HITT-E1",
+        "to_node": "N-HITT-E2",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Redrawn 2026-09-19 after the Hitt Hall coordinate correction. Perimeter link between Hitt's own two entrances. NOT surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.42630184309635,
+            37.22901449773915
+          ],
+          [
+            -80.4265,
+            37.230124
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-031",
+        "from_node": "N-HITT-E1",
+        "to_node": "J-WCD-N",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "paved",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Redrawn 2026-09-19 after the Hitt Hall coordinate correction moved E1 ~255 m; distance to J-WCD-N actually shortened (146 m to 125 m), consistent with VT News placing Hitt Hall near Derring/West Campus Drive. West Campus Drive footway. Still NOT surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.4265,
+            37.230124
+          ],
+          [
+            -80.425774,
+            37.22946
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-032",
+        "from_node": "J-WCD-N",
+        "to_node": "N-DERRING-EN",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "paved",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Approach to Derring north side. NOT surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.425774,
+            37.22946
+          ],
+          [
+            -80.424935,
+            37.229668
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-033",
+        "from_node": "N-DERRING-EN",
+        "to_node": "J-DERRING-NE",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "AROUND the north-east corner of Derring. This is the leg the cut-through skips."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.424935,
+            37.229668
+          ],
+          [
+            -80.425037,
+            37.229041
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-034",
+        "from_node": "J-DERRING-NE",
+        "to_node": "N-DERRING-EE",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "AROUND the north-east corner of Derring."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.425037,
+            37.229041
+          ],
+          [
+            -80.425093,
+            37.228727
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-035",
+        "from_node": "N-DERRING-EE",
+        "to_node": "N-PAMPLIN-EW",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "paved",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Short link between Derring and Pamplin. NOT surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.425093,
+            37.228727
+          ],
+          [
+            -80.424458,
+            37.229115
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-036",
+        "from_node": "N-PAMPLIN-EW",
+        "to_node": "N-PAMPLIN-EN",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Perimeter link. NOT surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.425774,
+            37.22946
+          ],
+          [
+            -80.42617,
+            37.228432
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-037",
+        "from_node": "N-DERRING-EN",
+        "to_node": "J-DERRING-SW",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "AROUND the south-west side of Derring."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.42617,
+            37.228432
+          ],
+          [
+            -80.425037,
+            37.229041
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-038",
+        "from_node": "J-DERRING-SW",
+        "to_node": "N-DERRING-EE",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "AROUND the south-west side of Derring."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.424458,
+            37.229115
+          ],
+          [
+            -80.423867,
+            37.229325
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-039",
+        "from_node": "N-PAMPLIN-EN",
+        "to_node": "J-DF-NW",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Pamplin toward the Drillfield north-west. NOT surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.42617,
+            37.228432
+          ],
+          [
+            -80.42463,
+            37.230135
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-040",
+        "from_node": "J-DERRING-SW",
+        "to_node": "N-HANCOCK-E1",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Derring toward Hancock. NOT surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.425774,
+            37.22946
+          ],
+          [
+            -80.425037,
+            37.229041
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "IND-DERRING-1",
+        "from_node": "N-DERRING-EN",
+        "to_node": "N-DERRING-EE",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "indoor",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": true,
+        "open_hours": "unknown",
+        "access_control": "unknown",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "THE DEMO EDGE. Cut through Derring north-to-east instead of walking the corner. Derring is 208,000 sq ft, VT's largest undergraduate science lab building, so the corner walk is long. Interior route, hours and swipe policy are ALL unverified."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.42630184309635,
+            37.22901449773915
+          ],
+          [
+            -80.42588082028163,
+            37.22993659660589
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "IND-HITT-1",
+        "from_node": "N-HITT-E1",
+        "to_node": "N-HITT-E2",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "indoor",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": true,
+        "open_hours": "unknown",
+        "access_control": "unknown",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Redrawn 2026-09-19 after the Hitt Hall coordinate correction (both endpoints are Hitt's own entrances, so the indoor path itself is unaffected in kind, only in the straight-line distance used for the preview). Through Hitt Hall past Perry Place. Dining hall hours will differ from building hours - do not assume they match."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.41997,
+            37.229456
+          ],
+          [
+            -80.41997,
+            37.230104
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "IND-TORG-1",
+        "from_node": "N-TORGERSEN-E1",
+        "to_node": "N-TORGERSEN-E2",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "indoor",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": true,
+        "open_hours": "unknown",
+        "access_control": "unknown",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Through Torgersen Hall."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.41997,
+            37.229456
+          ],
+          [
+            -80.419169,
+            37.229079
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "IND-TORG-NEWMAN",
+        "from_node": "N-TORGERSEN-E1",
+        "to_node": "N-NEWMAN-LIB-E2",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "indoor",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": true,
+        "open_hours": "unknown",
+        "access_control": "unknown",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Through Torgersen and over the enclosed bridge into Newman Library. Crosses TWO buildings and changes floor (Torgersen 2 -> Newman 3), so it depends on connector VT-TORG-NEWMAN-BRIDGE and on a working lift at each end."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.41848,
+            37.22962
+          ],
+          [
+            -80.41796,
+            37.22998
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "IND-SQUIRES-1",
+        "from_node": "N-SQUIRES-E1",
+        "to_node": "N-SQUIRES-E2",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "indoor",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": true,
+        "open_hours": "unknown",
+        "access_control": "unknown",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Through Squires between Alumni Mall and College Avenue."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.42178,
+            37.23098
+          ],
+          [
+            -80.42178,
+            37.23026
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "IND-MCBRYDE-1",
+        "from_node": "N-MCBRYDE-EN",
+        "to_node": "N-MCBRYDE-ES",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "indoor",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": true,
+        "open_hours": "unknown",
+        "access_control": "unknown",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Through McBryde north to south."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.422232,
+            37.23062
+          ],
+          [
+            -80.42178,
+            37.23026
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "IND-MCBRYDE-2",
+        "from_node": "N-MCBRYDE-EW",
+        "to_node": "N-MCBRYDE-ES",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "indoor",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": true,
+        "open_hours": "unknown",
+        "access_control": "unknown",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Through McBryde west to south."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.423198,
+            37.228928
+          ],
+          [
+            -80.423632,
+            37.229354
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "IND-BURRUSS-1",
+        "from_node": "N-BURRUSS-E1",
+        "to_node": "N-BURRUSS-E2",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "indoor",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": true,
+        "open_hours": "unknown",
+        "access_control": "unknown",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Through Burruss. The Drillfield door is stepped, so this only helps if the north door is step-free."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.425093,
+            37.228727
+          ],
+          [
+            -80.424458,
+            37.229115
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "IND-PAMPLIN-1",
+        "from_node": "N-PAMPLIN-EW",
+        "to_node": "N-PAMPLIN-EN",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "indoor",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": true,
+        "open_hours": "unknown",
+        "access_control": "unknown",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Through the Pamplin atrium, which links the 1957 and 1988 wings."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.424311,
+            37.231374
+          ],
+          [
+            -80.42382,
+            37.231416
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "IND-WHIT-DURHAM",
+        "from_node": "N-WHITTEMORE-E1",
+        "to_node": "N-DURHAM-E2",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "indoor",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": true,
+        "open_hours": "unknown",
+        "access_control": "unknown",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Whittemore to Durham via the 3rd-floor bridge. Needs a working lift in both buildings."
+      }
+    }
+  ]
 }

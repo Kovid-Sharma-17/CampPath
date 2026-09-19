@@ -22,17 +22,21 @@ need internet access; the route network remains usable if basemap tiles fail.
 
 ## First demo
 
-1. Start with Perry Place → Pamplin Hall: approximately 360 m through Derring,
-   compared with 428 m outdoors, based on the supplied approximate geometry.
-2. Close the Derring shortcut using the simulation control. The preview reroutes.
+1. Start with Perry Place → Pamplin Hall: approximately 338 m through Derring,
+   compared with 406 m outdoors — both on the supplied approximate geometry,
+   corrected 2026-09-19 (see **Coordinate corrections** below; the ~68 m
+   saving is essentially unchanged, since it was Hitt Hall that moved, not
+   Derring or Pamplin).
+2. Close the Derring shortcut using the simulation control. The preview
+   reroutes — now through a second, still-unverified indoor path (Derring's
+   real elevator lobby), not straight to the outdoor detour, since Derring's
+   elevators are wired into the graph too.
 3. Turn on **Require verified step-free**. The app correctly returns no route
    because none of the supplied path accessibility has been verified.
-4. Switch the simulation to **Hitt Hall · elevator · floors 01-03** and close it.
-   Hitt's elevator and stairs are wired into the actual route graph (not just
-   displayed), so this is a real closure with a real effect on any route that
-   depends on it — unlike most other buildings' connectors, which stay
-   unmapped until their mechanism is confirmed (see **Indoor and vertical
-   routing** below).
+4. Switch the simulation to **Whittemore Hall · elevator · floors 01-06**
+   (`00134-ELEV-TRC-0001`) and note it's already shown closed — that's VT
+   Facilities' own real, current status, not a demo fabrication (see
+   **Indoor and vertical routing**).
 5. Open **Floorplans** → Torgersen Hall. View floors 1–3 and the penthouse sheet.
 6. Open **Ask AccessPath** and type something like "get from Perry Place to
    Pamplin Hall avoiding stairs." Without a Gemini key it falls back to
@@ -43,6 +47,20 @@ need internet access; the route network remains usable if basemap tiles fail.
    browser's built-in voice; add an ElevenLabs key in **AI & voice keys** for
    higher-quality narration.
 8. Open **About the data** for imported status dates and coverage limitations.
+
+## Coordinate corrections (2026-09-19)
+
+Hitt Hall's supplied coordinate was a Perry Street address interpolation and
+turned out to be **~255 m from its actual location** — a big enough error to
+have put the pilot's own flagship demo route (Perry Place / Hitt → Derring →
+Pamplin) on the wrong side of campus. It, five other buildings (>30 m off:
+Center for the Arts, Data and Decision Sciences, Kelly, Goodwin, Burruss),
+their entrance placeholders, and the path geometry connecting them were
+corrected against VT's own Enterprise GIS — see **VT Enterprise GIS** below
+for how, and `buildings.geojson` / `entrances.geojson` / `paths.geojson` for
+the per-record notes. The other ten buildings' existing vt.edu-sourced
+coordinates were cross-checked and left alone (within ~15 m, ordinary
+centroid-vs-address-point variance).
 
 ## Data and limitations
 
@@ -64,23 +82,71 @@ need internet access; the route network remains usable if basemap tiles fail.
 
 ## Indoor and vertical routing
 
-Nineteen connector records exist (elevators, stairs, and three enclosed
-bridges). `dist/router.mjs`'s `buildGraph()` now wires the twelve with a known
-mechanism into the actual route graph: it creates a floor pseudo-node per
-connector endpoint, links each building's floor 1 to its entrances, and adds
-the connector as a real edge with a fixed time cost (elevator/lift 45 s flat,
-stairs/ramp 25 s per flight, bridge 10 s). Closing one — from `status.csv` or
-the simulation control — now reroutes anything that depends on it, the same
-as closing an outdoor path.
+Forty-eight connector records exist (elevators, chairlifts, stairs, and three
+enclosed bridges) — nineteen from the original 2006-floorplan-derived import,
+twenty-nine real ones added 2026-09-19 from VT Facilities' own elevator asset
+system (see **VT Enterprise GIS** below). `dist/router.mjs`'s `buildGraph()`
+wires the forty-one of known mechanism into the actual route graph: it
+creates a floor pseudo-node per connector endpoint, links each building's
+entrances to whichever floor its connectors touch that is *lowest* (not
+hardcoded to "1" — real elevator data lists some buildings' ground access as
+floor "0"), and adds the connector as a real edge with a fixed time cost
+(elevator/lift/chairlift 45 s flat, stairs/ramp 25 s per flight, bridge 10 s).
+Closing one — from `status.csv` or the simulation control — now reroutes
+anything that depends on it, the same as closing an outdoor path.
+
+That entrance-to-floor link deliberately is **not** a free, zero-cost
+shortcut the way the entrance-to-building-centroid bookkeeping link is. An
+earlier version of this made it one, which meant any building with a
+connector let the router hop entrance A → floor node → entrance B for free
+and with no accessibility check — an invisible bypass around whatever real,
+surveyed indoor edge (e.g. `IND-DERRING-1`) was supposed to represent that
+exact walk. It's now a real `indoor` edge with unknown accessibility and a
+real door-to-floor-node distance, so it shows up honestly in directions and
+in the unverified percentage, and a genuine surveyed indoor edge still wins
+when one exists and is usable.
 
 The seven connectors of unknown mechanism (`connector_type: unknown`) stay
 unmapped rather than guessed. So does anything reachable only through them:
-Torgersen's bridge lands on its floor 2, and Whittemore's on floor 3, and
-neither building has a surveyed floor-1 link to get there, so those bridges
-are wired but structurally unreachable until that gap is surveyed — not
-patched over with an invented middle floor. Hitt Hall is the one building
-where floor 1, its elevator, and its stairs are all present, so it is the
-clearest place to see this working end to end.
+Torgersen's bridge lands on its floor 2, and Whittemore's on floor 3 — and
+even though Whittemore now has a real, confirmed elevator to floor 1, that
+elevator is modelled as a single floor-1-to-floor-6 edge (matching how every
+multi-floor connector here is modelled, not a new limitation), so it doesn't
+stop at floor 3 as its own node. Both bridges are wired but structurally
+unreachable until that gap is surveyed — not patched over with an invented
+middle floor. Hitt Hall remains the clearest building to see the whole
+mechanism working end to end, since its elevator, stairs, and both entrances
+are all present and correctly connected.
+
+## VT Enterprise GIS
+
+Virginia Tech's Interactive Campus Map (vt.edu/maps.html → "Interactive
+Campus Map") is built on a public, **unauthenticated** ArcGIS REST catalog at
+`arcgis-central.gis.vt.edu/arcgis/rest/services` — no campus IP, login, or
+request to Facilities required, contrary to what `source-data/DATA_SOURCES.md`
+assumed before 2026-09-19. Two services from it were used directly:
+
+- `vtcampusmap/Buildings/FeatureServer/0` — real building footprints and an
+  official point per building. Used to correct the 6 coordinates above.
+- `facilities/CriticalElevators/MapServer/0` — a named-contact-maintained
+  (Facilities' elevator manager, per its own service description) inventory
+  of elevators, floors served, mechanism type, and **current open/closed
+  status**. Used for the 29 real connectors above.
+
+Also found but **not yet used**: `facilities/ADA_Routes_Only` (an actual
+ADA-checked path network with slope classification — 428 segments intersect
+this pilot's zone alone), `facilities/Slope` (a raster slope layer), and
+`facilities/NorthAcademicDistrictAlternatePathways` (pathways around the
+2022–2024 construction this pilot's own zone sits in). Conflating those onto
+this dataset's 64 path segments is a real spatial-matching task with a real
+failure mode — a wrong match silently promotes an unrelated segment to
+`step_free` — so it wasn't done under time pressure here. See
+`source-data/DATA_SOURCES.md` for the full service list and what each one
+would still need.
+
+This closes access to data, not the reuse question: public and queryable is
+not the same as cleared for redistribution in a published app. That's still
+open — see **Licensing** in `source-data/DATA_SOURCES.md`.
 
 ## Optional AI & voice
 

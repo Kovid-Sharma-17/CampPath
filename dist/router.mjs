@@ -30,7 +30,7 @@ export function buildGraph(data, {now = new Date(), closedAssets = []} = {}) {
     const e = {...p, id: p.segment_id, kind: p.is_indoor ? 'indoor' : 'footway', coordinates, meters: pathLength(coordinates), operational_confidence: p.operational_confidence || 'inferred', unmapped: UNMAPPED_BRIDGES.has(p.segment_id)};
     graph.edges.push(e); graph.assets.set(e.id, e);
   }
-  graph.connectors = data.connectors.features.map(f => ({...f.properties, id: f.properties.connector_id, kind: f.properties.connector_type, operational_confidence: 'inferred', unmapped: f.properties.connector_type === 'unknown'}));
+  graph.connectors = data.connectors.features.map(f => ({...f.properties, id: f.properties.connector_id, kind: f.properties.connector_type, operational_confidence: f.properties.operational_confidence || 'inferred', unmapped: f.properties.connector_type === 'unknown'}));
   for (const c of graph.connectors) graph.assets.set(c.id, c);
   for (const c of graph.connectors) for (const n of [c.from_node, c.to_node]) if (!graph.nodes.has(n)) { const b = graph.buildings.get(c.building_id); graph.nodes.set(n, {coordinates: b?.coordinates, building: c.building_id, name: (b?.name || c.building_id) + ' — upper floor'}); }
   const records = [...(data.status || [])].sort((a, b) => Date.parse(a.reported_at) - Date.parse(b.reported_at));
@@ -64,18 +64,37 @@ export function buildGraph(data, {now = new Date(), closedAssets = []} = {}) {
     if (graph.nodes.has(centroid)) link({id: 'VIRT-' + entrance.entrance_id, kind: 'virtual', from_node: centroid, to_node: node, meters: 0, coordinates: [graph.nodes.get(centroid).coordinates, entrance.coordinates]});
   }
   const floorOf = node => { const m = /-L(\d+)$/.exec(node); return m ? Number(m[1]) : null; };
-  const floor1 = new Map();
+  const groundFloorByBuilding = new Map();
   for (const c of graph.connectors) {
     if (c.unmapped) continue;
-    for (const n of [c.from_node, c.to_node]) if (floorOf(n) === 1) floor1.set(n, c.building_id);
+    for (const n of [c.from_node, c.to_node]) {
+      const num = floorOf(n); if (num === null) continue;
+      const current = groundFloorByBuilding.get(c.building_id);
+      if (!current || num < current.num) groundFloorByBuilding.set(c.building_id, {num, node: n});
+    }
     const vertical = c.kind === 'stairs' || c.kind === 'ramp';
     const flights = vertical ? Math.abs((floorOf(c.to_node) ?? 0) - (floorOf(c.from_node) ?? 0)) || 1 : 1;
     const fixedSeconds = (vertical ? 25 : c.kind === 'bridge' ? 10 : 45) * (vertical ? flights : 1);
     link({...c, is_indoor: true, meters: 0, fixedSeconds, coordinates: [graph.nodes.get(c.from_node).coordinates, graph.nodes.get(c.to_node).coordinates]});
   }
-  for (const [floorNode, buildingId] of floor1) for (const [entNode, entrance] of graph.entrances) {
+  // Entrances reach the lowest floor any of the building's connectors touch -
+  // not a hardcoded floor 1. Real VT elevator data lists some buildings' ground
+  // access as floor "0" (a basement-style numbering), not "1".
+  //
+  // This link is deliberately NOT `kind: 'virtual'` (free, no accessibility
+  // check) the way the entrance<->centroid link above is. A building with two
+  // entrances and one connector would otherwise let the router hop entrance A
+  // -> floor node -> entrance B for zero cost and zero accessibility check -
+  // an invisible shortcut between doors that bypasses whatever real indoor
+  // edge (e.g. IND-DERRING-1) actually represents that walk, and that edge's
+  // own confidence and accessibility_status. Modelling it as a real indoor leg
+  // (unknown accessibility, a real door-to-floor-node distance) means it shows
+  // up honestly in directions and in the unverified percentage, and loses to
+  // an actual surveyed indoor edge when one exists and is usable.
+  for (const [buildingId, ground] of groundFloorByBuilding) for (const [entNode, entrance] of graph.entrances) {
     if (entrance.building_id !== buildingId) continue;
-    link({id: 'VIRT-FLOOR-' + entrance.entrance_id, kind: 'virtual', from_node: entNode, to_node: floorNode, meters: 0, coordinates: [entrance.coordinates, graph.nodes.get(floorNode).coordinates]});
+    const coordinates = [entrance.coordinates, graph.nodes.get(ground.node).coordinates];
+    link({id: 'VIRT-FLOOR-' + entrance.entrance_id, kind: 'indoor', is_indoor: true, accessibility_status: 'unknown', operational_status: 'unknown', confidence: 'inferred', operational_confidence: 'inferred', from_node: entNode, to_node: ground.node, meters: pathLength(coordinates), coordinates});
   }
   for (const f of data.pois.features) {
     const p = f.properties;

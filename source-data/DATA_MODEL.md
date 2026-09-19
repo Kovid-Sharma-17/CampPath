@@ -37,7 +37,7 @@ That bug was real; `engine/router.py` guards against it now.
 ```
 accessibility_status : step_free | stairs | limited | unknown
 operational_status   : available | closed  | unknown
-connector_type       : elevator  | ramp    | stairs | lift | bridge | unknown
+connector_type       : elevator  | ramp    | stairs | lift | bridge | chairlift | unknown
 confidence           : official  | field_verified | community_report | inferred
 ```
 
@@ -115,19 +115,25 @@ everywhere. ADA tops out at 1:12, about 8.3%. Until this column has numbers,
 Null geometry is deliberate: a lift is a real edge with nothing to draw on a map.
 
 **Wired, with a real gap.** `dist/router.mjs`'s `buildGraph()` creates a floor
-pseudo-node per connector endpoint, links each building's floor 1 to its
-entrances, and adds the connector itself as a normal `Edge` (`elevator`/`lift`
+pseudo-node per connector endpoint, links each building's entrances to
+whichever floor its connectors touch that is lowest (not hardcoded to "1" -
+VT's real elevator data lists some buildings' ground access as floor "0"),
+and adds the connector itself as a normal `Edge` (`elevator`/`lift`/`chairlift`
 45 s flat, `stairs`/`ramp` 25 s per flight, `bridge` 10 s — see Costs). A route
 can now call an elevator or take stairs if its accessibility and operational
 status allow it, and closing one (`status.csv` or the simulator) reroutes around
 it like any other asset.
 
-The gap this does not close: floor 1 is the only floor joined to entrances, so a
-connector whose lower end is anything else — Torgersen's floor-2 bridge landing,
-Whittemore's floor-3 bridge landing with no elevator row of its own — stays
-structurally unreachable until the missing floor-to-floor legs are surveyed and
-added. That is a missing-data problem, not a routing bug; do not paper over it
-with an invented middle floor.
+The gap this does not close: a multi-floor connector becomes ONE edge between
+its lowest and highest served floor, not a stop at every floor in between
+(matching how the original 2006-derived connector rows were already modelled
+before any of this was wired up - not a limitation introduced now). So a
+connector whose relevant landing is a floor in between - Torgersen's bridge at
+floor 2, Whittemore's at floor 3, when their elevators are only modelled as
+floor-1-to-top - stays structurally unreachable, even though the real data
+says those elevators do stop there. That is a graph-modelling simplification
+inherited from the original design, not something to guess around by
+inventing a middle-floor stop that isn't its own edge in the data.
 
 Torgersen's second floor connects to Newman Library's third by an enclosed bridge
 over Alumni Mall; Whittemore has third-floor patio bridges to Durham and Hancock.
