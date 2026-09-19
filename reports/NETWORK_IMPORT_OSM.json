@@ -1,0 +1,390 @@
+{
+  "source": "OpenStreetMap",
+  "source_url": "https://api.openstreetmap.org/api/0.6/map (official OSM API, tiled fetch)",
+  "attribution": "\u00a9 OpenStreetMap contributors, ODbL - https://www.openstreetmap.org/copyright",
+  "source_features": 5071,
+  "segments": 5706,
+  "nodes": 4689,
+  "components": 159,
+  "largest_component_nodes": 3595,
+  "building_markers": 350,
+  "new_approaches": 271,
+  "new_approaches_on_core_component": 181,
+  "buildings_without_nearby_walkway": [
+    {
+      "building_id": "VT-SALT-TRUCK-EQUIPMENT-SHED",
+      "name": "SALT TRUCK EQUIPMENT SHED",
+      "gap_m": 211.9
+    },
+    {
+      "building_id": "VT-EQUIPMENT-STORAGE",
+      "name": "Equipment Storage",
+      "gap_m": 141.0
+    },
+    {
+      "building_id": "VT-TURFGRASS-SHELTER",
+      "name": "(Turfgrass Shelter)",
+      "gap_m": 205.0
+    },
+    {
+      "building_id": "VT-RUN-IN-SHED",
+      "name": "(Run-In Shed)",
+      "gap_m": 186.4
+    },
+    {
+      "building_id": "VT-HORSE-BARN",
+      "name": "Horse Barn",
+      "gap_m": 191.4
+    },
+    {
+      "building_id": "VT-METAL-STORAGE-BUILDING",
+      "name": "Metal Storage Building",
+      "gap_m": 177.6
+    },
+    {
+      "building_id": "VT-RESIDENCE",
+      "name": "Residence",
+      "gap_m": 158.7
+    },
+    {
+      "building_id": "VT-PLANT-PATHOLOGY-GREENHOUSE",
+      "name": "Plant Pathology Greenhouse",
+      "gap_m": 130.1
+    },
+    {
+      "building_id": "VT-POLE-BARN",
+      "name": "Pole Barn",
+      "gap_m": 114.0
+    },
+    {
+      "building_id": "VT-CHUTE-SHED",
+      "name": "Chute Shed",
+      "gap_m": 186.7
+    },
+    {
+      "building_id": "VT-WOOD-SHED",
+      "name": "Wood Shed",
+      "gap_m": 108.4
+    },
+    {
+      "building_id": "VT-RUN-IN-SHED-NUMBER-7-2",
+      "name": "Run-In Shed Number 7.2",
+      "gap_m": 166.5
+    },
+    {
+      "building_id": "VT-RUN-IN-SHED-NUMBER-7-1",
+      "name": "Run-In Shed Number 7.1",
+      "gap_m": 211.3
+    },
+    {
+      "building_id": "VT-PLANT-PATHOLOGY-LAB-GREENHOUSE",
+      "name": "Plant Pathology Lab Greenhouse",
+      "gap_m": 117.8
+    },
+    {
+      "building_id": "VT-RUN-IN-SHED-NUMBER-3",
+      "name": "Run-In Shed Number 3",
+      "gap_m": 235.2
+    },
+    {
+      "building_id": "VT-PLANT-PATHOLOGY-LAB",
+      "name": "Plant Pathology Lab",
+      "gap_m": 114.4
+    },
+    {
+      "building_id": "VT-RUN-IN-SHED-NUMBER-4",
+      "name": "Run-In Shed Number 4",
+      "gap_m": 213.7
+    },
+    {
+      "building_id": "VT-RUN-IN-SHED-NUMBER-6",
+      "name": "Run-In Shed Number 6",
+      "gap_m": 144.5
+    },
+    {
+      "building_id": "VT-URBAN-PEST-CONTROL-FACILITY",
+      "name": "Urban Pest Control Facility",
+      "gap_m": 136.1
+    },
+    {
+      "building_id": "VT-INCINERATOR",
+      "name": "Incinerator",
+      "gap_m": 179.2
+    },
+    {
+      "building_id": "VT-METAL-STORAGE-SHED",
+      "name": "Metal Storage Shed",
+      "gap_m": 138.5
+    },
+    {
+      "building_id": "VT-SALT-STORAGE-SHED",
+      "name": "Salt Storage Shed",
+      "gap_m": 123.3
+    },
+    {
+      "building_id": "VT-RUN-IN-SHED-NUMBER-10",
+      "name": "Run-In Shed Number 10",
+      "gap_m": 149.6
+    },
+    {
+      "building_id": "VT-RUN-IN-SHED-NUMBER-9",
+      "name": "Run-In Shed Number 9",
+      "gap_m": 158.7
+    },
+    {
+      "building_id": "VT-RUN-IN-SHED-NUMBER-1",
+      "name": "Run-In Shed Number 1",
+      "gap_m": 124.7
+    },
+    {
+      "building_id": "VT-RUN-IN-SHED-NUMBER-8",
+      "name": "Run-In Shed Number 8",
+      "gap_m": 196.3
+    },
+    {
+      "building_id": "VT-RECREATION-FIELDS-BUILDING",
+      "name": "Recreation Fields Building",
+      "gap_m": 139.9
+    },
+    {
+      "building_id": "VT-TURFGRASS-RESEARCH-CENTER",
+      "name": "Turfgrass Research Center",
+      "gap_m": 165.1
+    },
+    {
+      "building_id": "VT-BROODER-HOUSE",
+      "name": "Brooder House",
+      "gap_m": 102.7
+    },
+    {
+      "building_id": "VT-LAYING-HOUSE-NO-1",
+      "name": "Laying House No. 1",
+      "gap_m": 102.1
+    },
+    {
+      "building_id": "VT-SOUTHWEST-CHILLER-PLANT",
+      "name": "Southwest Chiller Plant",
+      "gap_m": 149.9
+    },
+    {
+      "building_id": "VT-SOCHINSKI-MCKEE-MARCHING-VIRGINIANS-CENT",
+      "name": "Sochinski-McKee Marching Virginians Center",
+      "gap_m": 241.7
+    },
+    {
+      "building_id": "VT-POULTRY-VIRUS-HOLDING",
+      "name": "Poultry Virus Holding",
+      "gap_m": 145.7
+    },
+    {
+      "building_id": "VT-VIRUS-HOLDING-BUILDING-A",
+      "name": "Virus Holding Building A",
+      "gap_m": 121.7
+    },
+    {
+      "building_id": "VT-SATELLITE-TRACKING-STATION",
+      "name": "Satellite Tracking Station",
+      "gap_m": 114.7
+    },
+    {
+      "building_id": "VT-VET-MED-PHASE-4C-INFECTIOUS-DISEASE",
+      "name": "Vet Med Phase 4C [Infectious Disease]",
+      "gap_m": 159.8
+    },
+    {
+      "building_id": "VT-HAY-DRYING-SHED",
+      "name": "Hay Drying Shed",
+      "gap_m": 119.9
+    },
+    {
+      "building_id": "VT-VIRUS-ISOLATION-BUILDING-NO-2",
+      "name": "Virus Isolation Building No. 2",
+      "gap_m": 105.9
+    },
+    {
+      "building_id": "VT-HOG-BUILDING",
+      "name": "Hog Building",
+      "gap_m": 107.6
+    },
+    {
+      "building_id": "VT-SWINE-DISEASE-RESEARCH",
+      "name": "Swine Disease Research",
+      "gap_m": 143.1
+    },
+    {
+      "building_id": "VT-POULTRY-VIRUS-HOLDING-B",
+      "name": "Poultry Virus Holding B",
+      "gap_m": 113.3
+    },
+    {
+      "building_id": "VT-POULTRY-ISOLATION-BUILDING",
+      "name": "Poultry Isolation Building",
+      "gap_m": 139.0
+    },
+    {
+      "building_id": "VT-VIRUS-ISOLATION-BUILDING-NO-4",
+      "name": "Virus Isolation Building No. 4",
+      "gap_m": 133.2
+    },
+    {
+      "building_id": "VT-METAL-EQUIPMENT-SHED-MAINTENANCE-BUILDIN",
+      "name": "Metal Equipment Shed [Maintenance Building]",
+      "gap_m": 119.1
+    },
+    {
+      "building_id": "VT-HOLDING-BUILDING",
+      "name": "Holding Building",
+      "gap_m": 108.0
+    },
+    {
+      "building_id": "VT-REYNOLDS-ALUMINUM-GRAIN-STORAGE",
+      "name": "Reynolds Aluminum Grain Storage",
+      "gap_m": 104.5
+    },
+    {
+      "building_id": "VT-POULTRY-VIRUS-HOLDING-A",
+      "name": "Poultry Virus Holding A",
+      "gap_m": 119.0
+    },
+    {
+      "building_id": "VT-VET-SCIENCE-STORAGE-BUILDING",
+      "name": "Vet Science Storage Building",
+      "gap_m": 109.4
+    },
+    {
+      "building_id": "VT-VIRUS-ISOLATION-BUILDING-NO-3",
+      "name": "Virus Isolation Building No. 3",
+      "gap_m": 104.9
+    },
+    {
+      "building_id": "VT-VIRUS-HOLDING-BUILDING-B",
+      "name": "Virus Holding Building B",
+      "gap_m": 120.5
+    },
+    {
+      "building_id": "VT-POULTRY-VIRUS-HOLDING-C",
+      "name": "Poultry Virus Holding C",
+      "gap_m": 138.8
+    },
+    {
+      "building_id": "VT-LANE-STORAGE",
+      "name": "Lane Storage",
+      "gap_m": 165.6
+    },
+    {
+      "building_id": "VT-VET-MED-PALPATATION-BARN",
+      "name": "Vet Med Palpatation Barn",
+      "gap_m": 177.3
+    },
+    {
+      "building_id": "VT-DISTLER-MARCHING-VIRGINIANS-TOWER",
+      "name": "Distler Marching Virginians Tower",
+      "gap_m": 242.3
+    },
+    {
+      "building_id": "VT-LPRF-EQUINE-BARN",
+      "name": "LPRF - Equine Barn",
+      "gap_m": 134.9
+    },
+    {
+      "building_id": "VT-LPRF-HAY-BARN-SMITHFIELD-HORSE-CENTER",
+      "name": "LPRF - Hay Barn (Smithfield Horse Center)",
+      "gap_m": 137.0
+    },
+    {
+      "building_id": "VT-GOLF-COURSE-GARAGE-BRICK",
+      "name": "Golf Course Garage [Brick]",
+      "gap_m": 145.6
+    },
+    {
+      "building_id": "VT-TURFGRASS-RESEARCH-CENTER-STORAGE-SHELTE",
+      "name": "Turfgrass Research Center Storage Shelter",
+      "gap_m": 184.8
+    },
+    {
+      "building_id": "VT-TURFGRASS-STORAGE-SHED",
+      "name": "(Turfgrass Storage Shed)",
+      "gap_m": 172.3
+    },
+    {
+      "building_id": "VT-CONSTRUCTION-TRAILER-NEW-RESIDENCE-HALLS",
+      "name": "Construction Trailer - New Residence Halls Whiting Turner",
+      "gap_m": 112.7
+    }
+  ],
+  "existing_nodes_not_linked": [
+    {
+      "node": "N-DURHAM-E2",
+      "gap_m": 20.3
+    },
+    {
+      "node": "N-WHITTEMORE-E2",
+      "gap_m": 22.3
+    },
+    {
+      "node": "J-WHIT-S",
+      "gap_m": 14.8
+    },
+    {
+      "node": "N-HANCOCK-E2",
+      "gap_m": 11.2
+    },
+    {
+      "node": "J-DF-NW",
+      "gap_m": 20.5
+    },
+    {
+      "node": "N-BURRUSS-E2",
+      "gap_m": 10.1
+    },
+    {
+      "node": "J-ALUMNI-E",
+      "gap_m": 19.1
+    },
+    {
+      "node": "J-ALUMNI-N",
+      "gap_m": 13.9
+    },
+    {
+      "node": "N-TORGERSEN-E2",
+      "gap_m": 10.1
+    },
+    {
+      "node": "N-MITCHELL-E1",
+      "gap_m": 36.2
+    },
+    {
+      "node": "N-CFA-E1",
+      "gap_m": 27.4
+    },
+    {
+      "node": "N-SQUIRES-E2",
+      "gap_m": 10.3
+    },
+    {
+      "node": "N-GOODWIN-E2",
+      "gap_m": 12.6
+    },
+    {
+      "node": "J-DERRING-SW",
+      "gap_m": 22.3
+    },
+    {
+      "node": "J-DERRING-S",
+      "gap_m": 32.6
+    },
+    {
+      "node": "N-NEWMAN-LIB-E1",
+      "gap_m": 9.6
+    },
+    {
+      "node": "N-NEWMAN-LIB-E2",
+      "gap_m": 28.5
+    },
+    {
+      "node": "N-WILLIAMS-E1",
+      "gap_m": 8.4
+    }
+  ],
+  "note": "Kept as a separate layer from the VT ADA import by design - no deduplication against it. Disconnected components are not bridged."
+}

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#133c38"><title>Route editor · AccessPath</title>
+<link rel="stylesheet" href="vendor/leaflet/leaflet.css"><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="route-editor.css">
+<script defer src="vendor/leaflet/leaflet.js"></script><script type="module" src="route-editor.js"></script>
+</head>
+<body class="editor-page">
+<header class="header"><a class="brand" href="./">AccessPath<span>.</span></a><nav aria-label="App views"><a href="./" class="nav-button">Route planner</a><span class="nav-button active">Route editor</span></nav><div class="header-actions"><button id="undo-edit" class="quiet-button" disabled>Undo save</button><button id="export-edits" class="quiet-button">Export edits</button><button id="import-edits" class="quiet-button">Import edits</button><input id="import-file" type="file" accept=".json,application/json" hidden></div></header>
+<main>
+<div class="editor-intro"><div><span class="eyebrow">CAMPUS NETWORK</span><h1>Shape the way there<span>.</span></h1></div><p id="network-count">Loading mapped paths…</p></div>
+<div class="workspace editor-workspace">
+<aside class="sidebar" id="editor-controls">
+<section class="editor-start"><div class="editor-actions"><button id="new-path" class="primary-button">＋ New path</button><button id="new-entrance" class="quiet-button">＋ Entrance / exit</button></div><p id="editor-status" class="editor-status" role="status" aria-live="polite">Click a path to edit it.</p><label class="input-label" for="path-search">Find a path or building</label><input id="path-search" class="text-input" placeholder="Derring, Cochrane, VT-WALK…"><select id="path-list" class="standalone-select" aria-label="Select a mapped path"><option value="">Choose a path…</option></select><select id="building-jump" class="standalone-select" aria-label="Zoom to a building"><option value="">Zoom to a building…</option></select></section>
+<section id="path-panel" hidden>
+<div class="panel-heading"><h2 id="path-heading">Edit path</h2><span id="path-length"></span></div>
+<p class="field-hint">Drag points to move them. Click a line to insert a point. Click a point, then remove it to shorten the path.</p>
+<div class="editor-actions"><button id="remove-point" class="quiet-button" disabled>Remove point</button><button id="finish-draw" class="quiet-button" hidden>Finish drawing</button></div>
+<label class="input-label" for="path-name">Path name</label><input class="text-input" id="path-name">
+<label class="input-label" for="path-access">Access</label><select class="standalone-select" id="path-access"><option value="unknown">Unknown</option><option value="stairs">Stairs</option><option value="not_step_free">Not step-free</option><option value="step_free">Step-free</option><option value="limited">Limited</option></select>
+<label class="input-label" for="path-confidence">Evidence</label><select class="standalone-select" id="path-confidence"><option value="inferred">Not checked</option><option value="community_report">Student report</option><option value="field_verified">Checked in person</option><option value="official">Official record</option></select>
+<label class="toggle"><span>Includes an indoor passage</span><input id="path-indoor" type="checkbox"><i aria-hidden="true"></i></label>
+<label class="input-label" for="path-notes">Notes / evidence</label><textarea id="path-notes" class="text-input" rows="2"></textarea>
+<p id="path-source" class="field-hint"></p>
+<div class="editor-actions"><button id="save-path" class="primary-button">Save path</button><button id="delete-path" class="quiet-button danger-button">Delete path</button><button id="cancel-edit" class="quiet-button">Cancel</button></div>
+<div class="stair-tools"><h3>Stair section</h3><p class="field-hint">Mark its first and last point. The rest of the path stays unchanged.</p><button id="mark-stairs" class="quiet-button">Mark stairs on this path</button><div id="stair-actions" hidden><button id="find-alternate" class="quiet-button">Find mapped alternative</button><button id="draw-alternate" class="quiet-button">Draw an alternative</button></div><p id="alternate-status" class="field-hint" role="status"></p></div>
+</section>
+<section id="entrance-panel" hidden><h2 id="entrance-heading">Place an entrance / exit</h2><p class="field-hint">Choose the building, then click its door on the map. Drag the marker to adjust it.</p><label class="input-label" for="entrance-building">Building</label><select id="entrance-building" class="standalone-select"></select><label class="input-label" for="entrance-name">Door name</label><input id="entrance-name" class="text-input" value="Entrance / exit"><label class="input-label" for="entrance-floor">Floor reached</label><input id="entrance-floor" class="text-input" placeholder="Unknown, 1, 2…"><label class="input-label" for="entrance-direction">Door use</label><select id="entrance-direction" class="standalone-select"><option value="both">Entrance and exit</option><option value="entry">Entrance only</option><option value="exit">Exit only</option></select><div class="editor-actions"><button id="save-entrance" class="primary-button">Save door</button><button id="cancel-entrance" class="quiet-button">Cancel</button></div></section>
+<section class="editor-help"><p><strong>Saved in this browser.</strong> The planner uses your saved edits immediately. Export a backup to share or move them to another browser.</p><p>Sidewalk approaches are not confirmed doors. Marked stairs and student paths do not establish a verified step-free route.</p></section>
+</aside>
+<section class="map-panel" aria-label="Editable campus route network"><div id="map-view"><div id="campus-map" aria-label="Select a path, drag its points, or draw a new connection"></div><div class="map-legend"><span><i class="editor-key sidewalk"></i>Sidewalk</span><span><i class="editor-key custom"></i>Student path</span><span><i class="editor-key stairs"></i>Stairs</span><span><i class="editor-key entrance"></i>Door</span><span><i class="editor-key approach"></i>Approach only</span></div></div></section>
+</div></main></body></html>

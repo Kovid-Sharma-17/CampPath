@@ -1,0 +1,121 @@
+import {haversine, pathLength} from './router.mjs';
+
+export const STORAGE_KEY='accesspath_network_edits_v1';
+export const clone=value=>JSON.parse(JSON.stringify(value));
+export const emptyEdits=()=>({version:1,paths:{},entrances:{},studentLegs:{},nodes:{}});
+export function readEdits(storage=globalThis.localStorage){
+  const text=storage.getItem(STORAGE_KEY);
+  if(!text)return emptyEdits();
+  return validateEdits(JSON.parse(text));
+}
+const validPoint=p=>Array.isArray(p)&&p.length===2&&p.every(Number.isFinite)&&p[0]>=-180&&p[0]<=180&&p[1]>=-90&&p[1]<=90;
+export function validateEdits(edits){
+  if(!edits || edits.version!==1)throw Error('This is not an AccessPath editor file.');
+  for(const key of ['paths','entrances','studentLegs','nodes'])if(!edits[key]||typeof edits[key]!=='object'||Array.isArray(edits[key]))throw Error('Missing editor section: '+key);
+  for(const [id,f] of Object.entries(edits.paths))if(f){
+    if(f.properties?.segment_id!==id||!f.properties.from_node||!f.properties.to_node||f.geometry?.type!=='LineString'||f.geometry.coordinates.length<2||!f.geometry.coordinates.every(validPoint))throw Error('Invalid path: '+id);
+    if(!['unknown','stairs','not_step_free','step_free','limited'].includes(f.properties.accessibility_status))throw Error('Invalid accessibility: '+id);
+  }
+  for(const [id,f] of Object.entries(edits.entrances))if(f && (f.properties?.entrance_id!==id||!f.properties.node_id||!f.properties.building_id||!validPoint(f.geometry?.coordinates)))throw Error('Invalid entrance: '+id);
+  for(const [id,leg] of Object.entries(edits.studentLegs))if(leg&&(!Array.isArray(leg.coordinates)||leg.coordinates.length<2||!leg.coordinates.every(validPoint)))throw Error('Invalid screenshot path: '+id);
+  for(const p of Object.values(edits.nodes))if(!validPoint(p))throw Error('Invalid junction coordinate.');
+  return edits;
+}
+export function saveEdits(edits,storage=globalThis.localStorage){
+  validateEdits(edits);storage.setItem(STORAGE_KEY,JSON.stringify(edits));
+}
+function mergeFeatures(features,changes,key){
+  const byId=new Map(features.map(f=>[f.properties[key],clone(f)]));
+  for(const [id,f] of Object.entries(changes))f?byId.set(id,clone(f)):byId.delete(id);
+  return [...byId.values()];
+}
+export function applyEdits(source,edits=emptyEdits()){
+  validateEdits(edits);const data=clone(source);
+  // Expose screenshot passages as regular editable edges as well as presets.
+  // Shared endpoint coordinates reuse a physical node instead of making islands.
+  const nodes=[];
+  for(const f of data.entrances.features)nodes.push([f.properties.node_id,data.studentRoutes?.entranceCoordinates?.[f.properties.node_id]||f.geometry.coordinates]);
+  for(const f of data.paths.features){const c=data.studentRoutes?.edgeOverrides?.[f.properties.segment_id]||f.geometry.coordinates;nodes.push([f.properties.from_node,c[0]],[f.properties.to_node,c.at(-1)]);}
+  const nodeFor=p=>{const found=nodes.find(([,q])=>haversine(p,q)<.4);if(found)return found[0];const id='J-TRACE-'+nodes.length;nodes.push([id,p]);return id;};
+  const traceNodes={};
+  for(const [id,leg] of Object.entries(data.studentRoutes?.legs||{})){
+    const c=leg.coordinates;
+    const from=nodeFor(c[0]),to=nodeFor(c.at(-1));traceNodes[id]=[from,to];
+    data.paths.features.push(makePath('TRACE-'+id,from,to,c,{name:leg.name,is_indoor:leg.is_indoor,access_control:leg.is_indoor?'indoor':'outdoor',source:leg.source,building:leg.building,trace_leg:id}));
+  }
+  data.paths.features=mergeFeatures(data.paths.features,edits.paths,'segment_id');
+  data.entrances.features=mergeFeatures(data.entrances.features,edits.entrances,'entrance_id');
+  if(data.studentRoutes){
+    for(const id of Object.keys(edits.paths))delete data.studentRoutes.edgeOverrides[id];
+    for(const [id,leg] of Object.entries(edits.studentLegs)){
+      if(leg)data.studentRoutes.legs[id]=clone(leg);else delete data.studentRoutes.legs[id];
+    }
+    // Deleting a prescribed passage removes the affected preset; regular network routing remains.
+    data.studentRoutes.routes=data.studentRoutes.routes.filter(r=>[...r.legs,...(r.outdoor||[])].every(key=>{const id=key.replace(/^-/,'');return data.studentRoutes.legs[id]&&!Object.hasOwn(edits.paths,'TRACE-'+id)&&!(traceNodes[id]||[]).some(node=>Object.hasOwn(edits.nodes,node));}));
+  }
+  for(const f of data.paths.features){
+    const p=f.properties,c=f.geometry.coordinates;
+    if(edits.nodes[p.from_node])c[0]=clone(edits.nodes[p.from_node]);
+    if(edits.nodes[p.to_node])c[c.length-1]=clone(edits.nodes[p.to_node]);
+  }
+  for(const f of data.entrances.features){
+    const node=f.properties.node_id;
+    if(edits.nodes[node])f.geometry.coordinates=clone(edits.nodes[node]);
+    if(data.studentRoutes && (edits.entrances[f.properties.entrance_id]||edits.nodes[node]))data.studentRoutes.entranceCoordinates[node]=clone(f.geometry.coordinates);
+  }
+  if(data.studentRoutes)for(const floor of ['1','2']){
+    const f=data.entrances.features.find(f=>f.properties.node_id==='N-DDS-E'+floor);
+    if(f)data.studentRoutes.anchors['dds'+floor]=data.studentRoutes.entranceCoordinates[f.properties.node_id]||f.geometry.coordinates;
+  }
+  return data;
+}
+export function moveNode(edits,node,point){edits.nodes[node]=clone(point);}
+export function nextId(prefix,existing){let n=1;while(existing.has(prefix+n))n++;return prefix+n;}
+export function makePath(id,from,to,coordinates,properties={}){
+  if(coordinates.length<2||(from===to&&pathLength(coordinates)<0.1))throw Error('Draw at least two different points.');
+  return {type:'Feature',geometry:{type:'LineString',coordinates:clone(coordinates)},properties:{segment_id:id,from_node:from,to_node:to,name:'Edited campus path',accessibility_status:'unknown',operational_status:'unknown',confidence:'inferred',operational_confidence:'inferred',is_indoor:false,surface:'unknown',access_control:'outdoor',open_hours:'unknown',source:'AccessPath route editor',...properties}};
+}
+export function projectPoint(point,line){
+  let best;
+  for(let i=0;i<line.length-1;i++){
+    const a=line[i],b=line[i+1],sx=Math.cos(point[1]*Math.PI/180),dx=(b[0]-a[0])*sx,dy=b[1]-a[1];
+    const t=Math.max(0,Math.min(1,(((point[0]-a[0])*sx)*dx+(point[1]-a[1])*dy)/(dx*dx+dy*dy||1)));
+    const coordinates=[a[0]+t*(b[0]-a[0]),a[1]+t*(b[1]-a[1])],meters=haversine(point,coordinates);
+    if(!best||meters<best.meters)best={coordinates,index:i,t,meters};
+  }return best;
+}
+export function splitPath(feature,point,nodeId,newId){
+  const c=feature.geometry.coordinates,p=projectPoint(point,c);
+  if(haversine(p.coordinates,c[0])<0.5)return {node:feature.properties.from_node,point:c[0],features:[]};
+  if(haversine(p.coordinates,c.at(-1))<0.5)return {node:feature.properties.to_node,point:c.at(-1),features:[]};
+  const left=clone(feature),right=clone(feature);
+  left.geometry.coordinates=[...c.slice(0,p.index+1),p.coordinates];left.properties.to_node=nodeId;
+  right.geometry.coordinates=[p.coordinates,...c.slice(p.index+1)];right.properties.from_node=nodeId;right.properties.segment_id=newId;
+  return {node:nodeId,point:p.coordinates,features:[left,right]};
+}
+// A stair section is split at chosen vertices. Its endpoints become graph junctions,
+// so a drawn ramp/elevator alternative can reconnect only that section.
+export function markStairSpan(feature,startIndex,endIndex,idPrefix){
+  const c=feature.geometry.coordinates,lo=Math.min(startIndex,endIndex),hi=Math.max(startIndex,endIndex);
+  if(lo<0||hi>=c.length||lo===hi)throw Error('Choose two different path points.');
+  const a=lo===0?feature.properties.from_node:idPrefix+'-A',b=hi===c.length-1?feature.properties.to_node:idPrefix+'-B';
+  const result=[];
+  if(lo>0)result.push(makePath(idPrefix+'-before',feature.properties.from_node,a,c.slice(0,lo+1),{...feature.properties,segment_id:idPrefix+'-before',from_node:feature.properties.from_node,to_node:a}));
+  result.push(makePath(idPrefix+'-stairs',a,b,c.slice(lo,hi+1),{...feature.properties,segment_id:idPrefix+'-stairs',from_node:a,to_node:b,name:(feature.properties.name||'Path')+' · stairs',accessibility_status:'stairs',confidence:'community_report',recorded_stair_span:true,source:'Stairs marked in route editor'}));
+  if(hi<c.length-1)result.push(makePath(idPrefix+'-after',b,feature.properties.to_node,c.slice(hi),{...feature.properties,segment_id:idPrefix+'-after',from_node:b,to_node:feature.properties.to_node}));
+  return {features:result,from:a,to:b,coordinates:[c[lo],c[hi]]};
+}
+
+export async function loadDataset(){
+  const files={buildings:'buildings.geojson',entrances:'entrances.geojson',paths:'paths.geojson',connectors:'connectors.geojson',pois:'pois.geojson',metadata:'metadata.json',status:'status-records.json',floorplans:'floorplans.json',studentRoutes:'student-routes.json',barriers:'barriers.geojson'};
+  const data=Object.fromEntries(await Promise.all(Object.entries(files).map(async([key,file])=>{const r=await fetch('data/'+file,{cache:'no-store'});if(!r.ok)throw Error('Could not load '+file);return[key,await r.json()];})));
+  // Optional network import is separate from hand-edited pilot files.
+  const manifest=await fetch('data/network-manifest.json',{cache:'no-store'});
+  if(manifest.ok){data.networkManifest=await manifest.json();for(const [key,entry] of Object.entries(data.networkManifest.files||{})){
+    for(const file of Array.isArray(entry)?entry:[entry]){
+      const r=await fetch('data/'+file,{cache:'no-store'});if(!r.ok)throw Error('Could not load '+file);
+      const extra=await r.json();data[key].features.push(...extra.features);
+    }
+  }}
+  return data;
+}

@@ -2247,6 +2247,1422 @@
         "display_tier": "UNKNOWN",
         "notes": "NEW 2026-09-19: direct Prices Fork Rd connection, matching the rider-supplied 'red' trace to D&DS's Prices Fork Road entrance. The rider's route notes this as the 1st-floor entrance - NOT confirmed against building plans, carried over as-is from the trace. Rider-supplied Apple Maps route screenshots (2026-09-19), annotated to mark the preferred walking route vs. the app's stock suggestion. Shape approximated against real VT GIS building footprints, not itself a survey."
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.427814,
+            37.231698
+          ],
+          [
+            -80.42779,
+            37.231747
+          ],
+          [
+            -80.427838,
+            37.231843
+          ],
+          [
+            -80.426803,
+            37.232371
+          ],
+          [
+            -80.42592,
+            37.232779
+          ],
+          [
+            -80.425888,
+            37.232721
+          ],
+          [
+            -80.426014,
+            37.23255
+          ],
+          [
+            -80.425819,
+            37.232313
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-048",
+        "from_node": "N-DDS-E1",
+        "to_node": "N-GOODWIN-L4",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": true,
+        "open_hours": null,
+        "access_control": "indoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Added via the route editor; not yet surveyed. Includes an indoor passage, as clarified by the user in the supplied route list."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.426605,
+            37.229622
+          ],
+          [
+            -80.426387,
+            37.229567
+          ],
+          [
+            -80.426068,
+            37.230261
+          ],
+          [
+            -80.425344,
+            37.230819
+          ],
+          [
+            -80.425164,
+            37.231031
+          ],
+          [
+            -80.424947,
+            37.231232
+          ],
+          [
+            -80.424775,
+            37.231306
+          ],
+          [
+            -80.424574,
+            37.23137
+          ],
+          [
+            -80.423799,
+            37.231933
+          ],
+          [
+            -80.423707,
+            37.232051
+          ],
+          [
+            -80.423201,
+            37.232158
+          ],
+          [
+            -80.422683,
+            37.23191
+          ],
+          [
+            -80.421886,
+            37.23119
+          ],
+          [
+            -80.421736,
+            37.231296
+          ],
+          [
+            -80.421634,
+            37.231247
+          ],
+          [
+            -80.421615,
+            37.231198
+          ],
+          [
+            -80.42113,
+            37.231194
+          ],
+          [
+            -80.421159,
+            37.23109
+          ],
+          [
+            -80.419998,
+            37.229989
+          ],
+          [
+            -80.419893,
+            37.229976
+          ],
+          [
+            -80.419569,
+            37.229634
+          ],
+          [
+            -80.419271,
+            37.229331
+          ],
+          [
+            -80.419094,
+            37.229156
+          ],
+          [
+            -80.419169,
+            37.229079
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-049",
+        "from_node": "N-NCB-E1",
+        "to_node": "N-NEWMAN-LIB-E2",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": true,
+        "open_hours": null,
+        "access_control": "indoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Added via the route editor; not yet surveyed. Includes an indoor passage, as clarified by the user in the supplied route list."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.425819,
+            37.232313
+          ],
+          [
+            -80.425583,
+            37.232182
+          ],
+          [
+            -80.425347,
+            37.231975
+          ],
+          [
+            -80.425181,
+            37.23186
+          ],
+          [
+            -80.425304,
+            37.231552
+          ],
+          [
+            -80.425149,
+            37.231026
+          ],
+          [
+            -80.425664,
+            37.230586
+          ],
+          [
+            -80.425901,
+            37.230113
+          ],
+          [
+            -80.425513,
+            37.229735
+          ],
+          [
+            -80.425507,
+            37.229643
+          ],
+          [
+            -80.425851,
+            37.229262
+          ],
+          [
+            -80.42588,
+            37.229162
+          ],
+          [
+            -80.425588,
+            37.228881
+          ],
+          [
+            -80.425019,
+            37.228442
+          ],
+          [
+            -80.424925,
+            37.228361
+          ],
+          [
+            -80.424754,
+            37.228506
+          ],
+          [
+            -80.42462,
+            37.22876
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-050",
+        "from_node": "N-GOODWIN-L4",
+        "to_node": "N-PAMPLIN-L3",
+        "accessibility_status": "not_step_free",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": true,
+        "open_hours": null,
+        "access_control": "indoor",
+        "confidence": "field_verified",
+        "display_tier": "CONFIRMED",
+        "notes": "Added via the route editor; not yet surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.424862,
+            37.227179
+          ],
+          [
+            -80.425016,
+            37.227351
+          ],
+          [
+            -80.425274,
+            37.227592
+          ],
+          [
+            -80.424939,
+            37.227832
+          ],
+          [
+            -80.424823,
+            37.228276
+          ],
+          [
+            -80.425588,
+            37.228881
+          ],
+          [
+            -80.42588,
+            37.229162
+          ],
+          [
+            -80.42625,
+            37.229443
+          ],
+          [
+            -80.426395,
+            37.229567
+          ],
+          [
+            -80.426605,
+            37.229622
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-051",
+        "from_node": "N-DAVIDSON-E1",
+        "to_node": "N-NCB-E1",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": true,
+        "open_hours": null,
+        "access_control": "indoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Added via the route editor; not yet surveyed. Includes an indoor passage, as clarified by the user in the supplied route list."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.42382,
+            37.23174
+          ],
+          [
+            -80.424064,
+            37.231402
+          ],
+          [
+            -80.424214,
+            37.231284
+          ],
+          [
+            -80.42445,
+            37.23107
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-052",
+        "from_node": "N-DURHAM-L4",
+        "to_node": "N-WHITTEMORE-L6",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": true,
+        "open_hours": null,
+        "access_control": "indoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Added via the route editor; not yet surveyed. Includes an indoor passage, as clarified by the user in the supplied route list."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.42462,
+            37.22876
+          ],
+          [
+            -80.424469,
+            37.228854
+          ],
+          [
+            -80.424391,
+            37.228907
+          ],
+          [
+            -80.424214,
+            37.229053
+          ],
+          [
+            -80.4236,
+            37.228933
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-053",
+        "from_node": "N-PAMPLIN-L3",
+        "to_node": "N-BURRUSS-L3",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Added via the route editor; not yet surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.422232,
+            37.23062
+          ],
+          [
+            -80.422401,
+            37.230645
+          ],
+          [
+            -80.424442,
+            37.229207
+          ],
+          [
+            -80.424941,
+            37.229625
+          ],
+          [
+            -80.425153,
+            37.229774
+          ],
+          [
+            -80.425421,
+            37.229591
+          ],
+          [
+            -80.42551,
+            37.229642
+          ],
+          [
+            -80.425633,
+            37.229443
+          ],
+          [
+            -80.425851,
+            37.229262
+          ],
+          [
+            -80.42625,
+            37.229432
+          ],
+          [
+            -80.426605,
+            37.229622
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-054",
+        "from_node": "N-MCBRYDE-EW",
+        "to_node": "N-NCB-E1",
+        "accessibility_status": "not_step_free",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "field_verified",
+        "display_tier": "CONFIRMED",
+        "notes": "Added via the route editor; not yet surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.42178,
+            37.23098
+          ],
+          [
+            -80.422153,
+            37.231066
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-055",
+        "from_node": "N-MCBRYDE-EN",
+        "to_node": "N-KELLY-E1",
+        "accessibility_status": "step_free",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "field_verified",
+        "display_tier": "CONFIRMED",
+        "notes": "Added via the route editor; not yet surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.41815,
+            37.231881
+          ],
+          [
+            -80.418121,
+            37.231582
+          ],
+          [
+            -80.418009,
+            37.231394
+          ],
+          [
+            -80.418298,
+            37.231197
+          ],
+          [
+            -80.418352,
+            37.231031
+          ],
+          [
+            -80.418529,
+            37.230898
+          ],
+          [
+            -80.41997,
+            37.230104
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-056",
+        "from_node": "N-CFA-L0",
+        "to_node": "N-TORGERSEN-E2",
+        "accessibility_status": "step_free",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": true,
+        "open_hours": null,
+        "access_control": "indoor",
+        "confidence": "official",
+        "display_tier": "CONFIRMED",
+        "notes": "Added via the route editor; not yet surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.41997,
+            37.230104
+          ],
+          [
+            -80.419838,
+            37.229924
+          ],
+          [
+            -80.419264,
+            37.229326
+          ],
+          [
+            -80.419081,
+            37.22915
+          ],
+          [
+            -80.41924,
+            37.22876
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-057",
+        "from_node": "N-TORGERSEN-E2",
+        "to_node": "N-NEWMAN-LIB-L5",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": true,
+        "open_hours": null,
+        "access_control": "indoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Added via the route editor; not yet surveyed. Includes an indoor passage, as clarified by the user in the supplied route list."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.41964,
+            37.228704
+          ],
+          [
+            -80.419999,
+            37.228537
+          ],
+          [
+            -80.420053,
+            37.22805
+          ],
+          [
+            -80.420825,
+            37.228785
+          ],
+          [
+            -80.420997,
+            37.2289
+          ],
+          [
+            -80.421302,
+            37.229002
+          ],
+          [
+            -80.421533,
+            37.229126
+          ],
+          [
+            -80.421555,
+            37.229272
+          ],
+          [
+            -80.421624,
+            37.229349
+          ],
+          [
+            -80.422976,
+            37.228477
+          ],
+          [
+            -80.423148,
+            37.228567
+          ],
+          [
+            -80.423255,
+            37.228626
+          ],
+          [
+            -80.42333,
+            37.228699
+          ],
+          [
+            -80.423395,
+            37.228729
+          ],
+          [
+            -80.423181,
+            37.228904
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-058",
+        "from_node": "N-NEWMAN-LIB-E1",
+        "to_node": "N-BURRUSS-E1",
+        "accessibility_status": "not_step_free",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "official",
+        "display_tier": "CONFIRMED",
+        "notes": "Added via the route editor; not yet surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.425851,
+            37.229262
+          ],
+          [
+            -80.42588,
+            37.229162
+          ],
+          [
+            -80.425588,
+            37.228881
+          ],
+          [
+            -80.425369,
+            37.228733
+          ],
+          [
+            -80.425235,
+            37.228584
+          ],
+          [
+            -80.425031,
+            37.228748
+          ],
+          [
+            -80.424703,
+            37.229011
+          ],
+          [
+            -80.424382,
+            37.228891
+          ],
+          [
+            -80.423963,
+            37.228541
+          ],
+          [
+            -80.423507,
+            37.228883
+          ],
+          [
+            -80.4236,
+            37.228933
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-059",
+        "from_node": "N-HITT-E1",
+        "to_node": "N-BURRUSS-L3",
+        "accessibility_status": "not_step_free",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": true,
+        "open_hours": null,
+        "access_control": "indoor",
+        "confidence": "field_verified",
+        "display_tier": "CONFIRMED",
+        "notes": "Added via the route editor; not yet surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.424202,
+            37.231629
+          ],
+          [
+            -80.424441,
+            37.231454
+          ],
+          [
+            -80.424768,
+            37.2313
+          ],
+          [
+            -80.42495,
+            37.231219
+          ],
+          [
+            -80.425143,
+            37.231023
+          ],
+          [
+            -80.426179,
+            37.23186
+          ],
+          [
+            -80.426179,
+            37.23186
+          ],
+          [
+            -80.426286,
+            37.231903
+          ],
+          [
+            -80.426372,
+            37.23198
+          ],
+          [
+            -80.426838,
+            37.231642
+          ],
+          [
+            -80.427074,
+            37.231826
+          ],
+          [
+            -80.427458,
+            37.231547
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-060",
+        "from_node": "N-DURHAM-E1",
+        "to_node": "N-DDS-L5",
+        "accessibility_status": "step_free",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "official",
+        "display_tier": "CONFIRMED",
+        "notes": "Added via the route editor; not yet surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.424862,
+            37.227179
+          ],
+          [
+            -80.424869,
+            37.227461
+          ],
+          [
+            -80.425046,
+            37.227756
+          ],
+          [
+            -80.423525,
+            37.228875
+          ],
+          [
+            -80.4236,
+            37.228933
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-061",
+        "from_node": "N-DAVIDSON-E1",
+        "to_node": "N-BURRUSS-L3",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Added via the route editor; not yet surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.42178,
+            37.23062
+          ],
+          [
+            -80.422232,
+            37.23062
+          ],
+          [
+            -80.422554,
+            37.23053
+          ],
+          [
+            -80.424435,
+            37.229206
+          ],
+          [
+            -80.424936,
+            37.229627
+          ],
+          [
+            -80.424984,
+            37.229627
+          ],
+          [
+            -80.425126,
+            37.22958
+          ],
+          [
+            -80.425271,
+            37.229701
+          ],
+          [
+            -80.425421,
+            37.229592
+          ],
+          [
+            -80.425502,
+            37.229639
+          ],
+          [
+            -80.425851,
+            37.229262
+          ],
+          [
+            -80.426067,
+            37.229455
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-062",
+        "from_node": "N-MCBRYDE-L6",
+        "to_node": "N-HITT-L2",
+        "accessibility_status": "not_step_free",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "official",
+        "display_tier": "CONFIRMED",
+        "notes": "Added via the route editor; not yet surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.41815,
+            37.231881
+          ],
+          [
+            -80.418647,
+            37.231594
+          ],
+          [
+            -80.418835,
+            37.231756
+          ],
+          [
+            -80.420632,
+            37.230564
+          ],
+          [
+            -80.420782,
+            37.230397
+          ],
+          [
+            -80.420766,
+            37.23029
+          ],
+          [
+            -80.420948,
+            37.230265
+          ],
+          [
+            -80.421072,
+            37.230269
+          ],
+          [
+            -80.421077,
+            37.230453
+          ],
+          [
+            -80.42178,
+            37.23062
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-063",
+        "from_node": "N-CFA-L0",
+        "to_node": "N-MCBRYDE-L6",
+        "accessibility_status": "not_step_free",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "official",
+        "display_tier": "CONFIRMED",
+        "notes": "Added via the route editor; not yet surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.42178,
+            37.23062
+          ],
+          [
+            -80.42178,
+            37.23098
+          ],
+          [
+            -80.421764,
+            37.231094
+          ],
+          [
+            -80.421597,
+            37.231201
+          ],
+          [
+            -80.421141,
+            37.231192
+          ],
+          [
+            -80.419602,
+            37.232244
+          ],
+          [
+            -80.41921,
+            37.232043
+          ],
+          [
+            -80.418862,
+            37.232038
+          ],
+          [
+            -80.418776,
+            37.232115
+          ],
+          [
+            -80.418652,
+            37.232026
+          ],
+          [
+            -80.418422,
+            37.23215
+          ],
+          [
+            -80.41815,
+            37.231881
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-064",
+        "from_node": "N-MCBRYDE-L6",
+        "to_node": "N-CFA-L0",
+        "accessibility_status": "step_free",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": true,
+        "open_hours": null,
+        "access_control": "indoor",
+        "confidence": "official",
+        "display_tier": "CONFIRMED",
+        "notes": "Added via the route editor; not yet surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.41997,
+            37.230104
+          ],
+          [
+            -80.420267,
+            37.230219
+          ],
+          [
+            -80.420755,
+            37.230304
+          ],
+          [
+            -80.420777,
+            37.230244
+          ],
+          [
+            -80.420965,
+            37.230278
+          ],
+          [
+            -80.421083,
+            37.230278
+          ],
+          [
+            -80.421077,
+            37.229958
+          ],
+          [
+            -80.421469,
+            37.229424
+          ],
+          [
+            -80.421758,
+            37.229283
+          ],
+          [
+            -80.424226,
+            37.22756
+          ],
+          [
+            -80.424371,
+            37.227445
+          ],
+          [
+            -80.4245,
+            37.227133
+          ],
+          [
+            -80.424585,
+            37.226949
+          ],
+          [
+            -80.424837,
+            37.22674
+          ],
+          [
+            -80.424862,
+            37.227179
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-065",
+        "from_node": "N-TORGERSEN-E2",
+        "to_node": "N-DAVIDSON-E1",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "Added via the route editor; not yet surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.422431,
+            37.231409
+          ],
+          [
+            -80.422153,
+            37.231066
+          ],
+          [
+            -80.422109,
+            37.231018
+          ],
+          [
+            -80.422323,
+            37.230865
+          ],
+          [
+            -80.422452,
+            37.230839
+          ],
+          [
+            -80.422669,
+            37.230719
+          ],
+          [
+            -80.422554,
+            37.230531
+          ],
+          [
+            -80.4239,
+            37.229723
+          ],
+          [
+            -80.423968,
+            37.229661
+          ],
+          [
+            -80.424295,
+            37.229941
+          ],
+          [
+            -80.424547,
+            37.230144
+          ],
+          [
+            -80.42463,
+            37.230135
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-066",
+        "from_node": "N-KELLY-L4",
+        "to_node": "N-HANCOCK-E1",
+        "accessibility_status": "step_free",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "field_verified",
+        "display_tier": "CONFIRMED",
+        "notes": "Added via the route editor; not yet surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.41924,
+            37.22876
+          ],
+          [
+            -80.419169,
+            37.229079
+          ],
+          [
+            -80.419092,
+            37.229166
+          ],
+          [
+            -80.419822,
+            37.229871
+          ],
+          [
+            -80.41997,
+            37.230104
+          ],
+          [
+            -80.420058,
+            37.230042
+          ],
+          [
+            -80.421136,
+            37.231085
+          ],
+          [
+            -80.421136,
+            37.231196
+          ],
+          [
+            -80.421598,
+            37.231204
+          ],
+          [
+            -80.421651,
+            37.231157
+          ],
+          [
+            -80.421775,
+            37.231106
+          ],
+          [
+            -80.422509,
+            37.231794
+          ],
+          [
+            -80.423212,
+            37.23217
+          ],
+          [
+            -80.423673,
+            37.232055
+          ],
+          [
+            -80.424092,
+            37.232285
+          ],
+          [
+            -80.425074,
+            37.232123
+          ],
+          [
+            -80.425288,
+            37.231944
+          ],
+          [
+            -80.425535,
+            37.232174
+          ],
+          [
+            -80.425583,
+            37.232182
+          ],
+          [
+            -80.425819,
+            37.232313
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "IND-NEW-1",
+        "from_node": "N-NEWMAN-LIB-L5",
+        "to_node": "N-GOODWIN-L4",
+        "accessibility_status": "step_free",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": true,
+        "open_hours": null,
+        "access_control": "indoor",
+        "confidence": "field_verified",
+        "display_tier": "CONFIRMED",
+        "notes": "Added via the route editor; not yet surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.425819,
+            37.232313
+          ],
+          [
+            -80.425583,
+            37.232182
+          ],
+          [
+            -80.425186,
+            37.231837
+          ],
+          [
+            -80.425272,
+            37.231593
+          ],
+          [
+            -80.425277,
+            37.231478
+          ],
+          [
+            -80.425213,
+            37.231093
+          ],
+          [
+            -80.424601,
+            37.230572
+          ],
+          [
+            -80.424757,
+            37.230457
+          ],
+          [
+            -80.423201,
+            37.229102
+          ],
+          [
+            -80.423507,
+            37.228884
+          ],
+          [
+            -80.4236,
+            37.228933
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-067",
+        "from_node": "N-GOODWIN-L4",
+        "to_node": "N-BURRUSS-L3",
+        "accessibility_status": "not_step_free",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "official",
+        "display_tier": "CONFIRMED",
+        "notes": "Added via the route editor; not yet surveyed."
+      }
     }
   ]
 }

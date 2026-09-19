@@ -1,9 +1,14 @@
 # AccessPath — first campus pilot
 
 A browser application using the supplied Virginia Tech pilot data, plus a
-2026-09-19 expansion (3 buildings, corrected coordinates and path geometry -
-see below): 19 buildings, 35 entrances, 70 path segments, 8 named places, and
-41 archived floorplan images across 8 buildings. Routing runs locally in the
+2026-09-19 expansion. The routable pilot zone is still 19 buildings, 35
+entrances, 91 path segments, and 8 named places — but the map itself now
+marks all 462 named campus buildings (via VT's Enterprise GIS, including the
+residential side, which the original pilot omitted), as a first draft for
+deciding which ones to route next. Those 462 have a marker and a name only —
+no entrances, paths, or accessibility data — see **Adding a building's
+entrances** below. Plus 41 archived floorplan images across 8 buildings.
+Routing runs locally in the
 browser. No account, API key,
 location permission, or backend database is needed for the core planner —
 voice narration and the natural-language assistant are optional, bring-your-own-key
@@ -245,6 +250,50 @@ before depending on it. Export from the admin page produces a
 `status-records.json` or `status.csv` you review and drop into `dist/data/`,
 the same as the original ZIP import — the static planner still ships with no
 required backend.
+
+### Adding a route by hand
+
+Before this, adding a path segment meant hand-editing `dist/data/paths.geojson`
+— raw `lng,lat` coordinate arrays and about 15 properties per segment. Two
+tools cover that now, both defaulting new segments to `unknown`/`inferred` so
+a quick add never masquerades as a surveyed fact:
+
+- **Visual**: open `dist/route-editor.html` (linked from the header as
+  "Add a route"). Click a start marker, an end marker, then trace the path on
+  the real map — it builds the command below for you and copies it to your
+  clipboard.
+- **Command line**: `python3 scripts/add_route.py --from <node> --to <node>
+  --coords "lng,lat lng,lat ..."`. Endpoints must be existing entrance or
+  junction ids (`N-*` / `J-*`) — the router links buildings to their own
+  entrances automatically, so a building centroid is never a valid endpoint.
+
+Either way, nothing is written until the command actually runs — the editor
+only ever produces a command to review, the same as everything else in this
+pilot that touches accessibility data.
+
+### Adding a building's entrances
+
+`scripts/add_all_campus_buildings.py` (2026-09-19) marked all 462 named VT
+buildings from the Enterprise GIS inventory, including the residential side
+of campus that the original pilot left out entirely — but on purpose, it's
+markers only: no entrances, so none of those 443 new buildings are routable
+yet. That's the deliberate first draft: get every building on the map, then
+add real entry/exit points building by building instead of guessing them
+from a footprint.
+
+To make one of those buildings routable, add its entrances:
+
+```sh
+python3 scripts/add_entrance.py --building VT-PRITCHARD-HALL \
+  --name "Main entrance, Washington St side" --coords=-80.4231,37.2318
+```
+
+`--building` must match an existing `building_id` in `buildings.geojson`.
+`--coords` needs the `=` form (`--coords=lng,lat`) since a single point
+starts with `-` and has no space, which argparse would otherwise misread as
+another flag. Once a building has at least one entrance, connect it to the
+network the same way as any other route — see **Adding a route by hand**
+above.
 
 ## VTHacks 14 tracks
 

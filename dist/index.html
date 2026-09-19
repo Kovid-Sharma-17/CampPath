@@ -15,6 +15,7 @@
 <a class="brand" href="./"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M8 25V11a4 4 0 018 0v10a4 4 0 008 0V7"/><circle cx="24" cy="6" r="2"/></svg></span>AccessPath<span>.</span></a>
 <nav aria-label="App views"><button id="nav-routes" class="nav-button active" aria-pressed="true">Route planner</button><button id="nav-plans" class="nav-button" aria-pressed="false">Floorplans <span class="nav-count">41</span></button></nav>
 <div class="header-actions">
+<a href="route-editor.html" class="quiet-button"><span aria-hidden="true">✎</span> Route editor</a>
 <button id="assistant-open" class="quiet-button"><span aria-hidden="true">✦</span> Ask AccessPath</button>
 <button id="settings-open" class="quiet-button"><span aria-hidden="true">⚙</span> AI &amp; voice keys</button>
 <button id="about-open" class="quiet-button"><span aria-hidden="true">ⓘ</span> About the data</button>
@@ -38,6 +39,7 @@
 </div>
 <div class="result-heading"><h3>Compare routes</h3><span class="preview-label">Exploratory</span></div>
 <div id="route-options" class="route-options" aria-label="Route alternatives"></div>
+<p><a id="google-compare" class="text-button" href="https://www.google.com/maps/dir/" target="_blank" rel="noopener noreferrer">Compare walking directions in Google Maps ↗</a></p>
 <div id="route-summary" aria-live="polite" aria-atomic="true"><p class="muted">Loading your pilot dataset…</p></div>
 <div id="directions"></div>
 </section>

@@ -1,4 +1,5 @@
 import {buildGraph, compareRoutes, resolvePlace, isConfirmed} from './router.mjs';
+import {loadDataset,applyEdits,readEdits,STORAGE_KEY} from './editor-model.mjs';
 const $ = selector => document.querySelector(selector);
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const state = {origin:'POI-PERRY-PLACE',destination:'VT-PAMPLIN',requireStepFree:false,avoidStairs:true,avoidUnknown:false,selected:'indoor',view:'routes',planBuilding:'VT-TORGERSEN',planFloor:'01',planZoom:1};
@@ -27,12 +28,7 @@ function connectorName(c) {
   return building + ' · ' + kind + ' · floors ' + c.floors_served + (c.unmapped ? ' · not yet routable' : '');
 }
 async function load() {
-  const files = {buildings:'buildings.geojson',entrances:'entrances.geojson',paths:'paths.geojson',connectors:'connectors.geojson',pois:'pois.geojson',metadata:'metadata.json',status:'status-records.json',floorplans:'floorplans.json',studentRoutes:'student-routes.json'};
-  data = Object.fromEntries(await Promise.all(Object.entries(files).map(async ([key,file]) => {
-    const response = await fetch('data/' + file);
-    if (!response.ok) throw new Error('The pilot dataset could not be loaded.');
-    return [key, await response.json()];
-  })));
+  data = applyEdits(await loadDataset(),readEdits());
   graph = buildGraph(data,{enableClosures:false});
   const options = '<optgroup label="Named places">' + graph.places.filter(p=>p.type!=='building').map(option).join('') + '</optgroup><optgroup label="Campus buildings">' + graph.places.filter(p=>p.type==='building').sort((a,b)=>a.name.localeCompare(b.name)).map(option).join('') + '</optgroup>';
   for (const key of ['origin','destination']) { $('#'+key).innerHTML=options; $('#'+key).value=state[key]; $('#'+key).disabled=false; }
@@ -41,13 +37,13 @@ async function load() {
   $('#plan-building').value=state.planBuilding;
   const planCount=Object.values(data.floorplans).reduce((n,b)=>n+b.plans.length,0);
   $('.nav-count').textContent=planCount;
-  $('#pilot-counts').textContent=graph.buildings.size+' buildings · '+graph.places.filter(p=>p.type!=='building').length+' named places';
+  $('#pilot-counts').textContent=graph.buildings.size+' buildings · '+graph.edges.length.toLocaleString()+' path segments';
   initMap(); wireEvents(); render(true); renderFloor(); registerAgentTools();
 }
 function option(p) { return '<option value="'+esc(p.id)+'">'+esc(p.name)+'</option>'; }
 function initMap() {
   if (!window.L) throw new Error('The local map library could not be loaded.');
-  map=L.map('campus-map',{zoomControl:false,scrollWheelZoom:true}).setView([37.2303,-80.4238],16);
+  map=L.map('campus-map',{zoomControl:false,scrollWheelZoom:true,preferCanvas:true}).setView([37.2303,-80.4238],16);
   L.control.zoom({position:'topright'}).addTo(map);
   const tiles=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'});
   tiles.on('tileload',()=>{tilesLoaded++;$('#map-offline').hidden=true;});
@@ -87,6 +83,9 @@ function switchView(view) {
 function render(fit=false) {
   graph=buildGraph(data,{enableClosures:false});
   comparison=compareRoutes(graph,state.origin,state.destination,state);
+  const from=resolvePlace(graph,state.origin),to=resolvePlace(graph,state.destination);
+  const url=new URL('https://www.google.com/maps/dir/');url.searchParams.set('api','1');url.searchParams.set('travelmode','walking');
+  if(from?.coordinates&&to?.coordinates){url.searchParams.set('origin',from.coordinates[1]+','+from.coordinates[0]);url.searchParams.set('destination',to.coordinates[1]+','+to.coordinates[0]);$('#google-compare').href=url.href;}
   const sameRoute=comparison.indoor.found&&comparison.outdoor.found&&JSON.stringify(comparison.indoor.legs.map(e=>e.coordinates))===JSON.stringify(comparison.outdoor.legs.map(e=>e.coordinates));
   if(sameRoute || (!comparison[state.selected].found && comparison.indoor.found))state.selected='indoor';
   const cards=[['indoor',comparison.indoor.studentRoute?'Student route':'Campus route','Follow the mapped path'],['outdoor','Outdoor only','Stay on the outdoor network']];
@@ -249,3 +248,4 @@ function registerAgentTools(){
   window.addEventListener('pagehide',()=>lifecycle.abort(),{once:true});
 }
 load().catch(error=>{$('#route-summary').innerHTML='<div class="no-route"><h3>We couldn’t load the planner.</h3><p>'+esc(error.message)+'</p><button class="primary-button" onclick="location.reload()">Try again</button></div>';console.error(error);});
+window.addEventListener('storage',event=>{if(event.key===STORAGE_KEY)location.reload();});
