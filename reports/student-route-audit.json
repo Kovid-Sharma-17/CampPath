@@ -1,0 +1,1369 @@
+{
+  "auditTime": "2026-09-19T16:00:00Z",
+  "routes": [
+    {
+      "label": "Perry Place → Pamplin",
+      "indoor": {
+        "found": true,
+        "meters": 189.3339584776164,
+        "seconds": 164.6382247631447,
+        "startEntrance": "VT-HITT-E1",
+        "endEntrance": "VT-PAMPLIN-EW",
+        "legs": [
+          {
+            "id": "SEG-031",
+            "from": "N-HITT-E1",
+            "to": "J-WCD-N",
+            "meters": 20.131441499640523,
+            "indoor": false,
+            "coordinates": [
+              [
+                -80.42630184309635,
+                37.22901449773915
+              ],
+              [
+                -80.42627758049753,
+                37.228834484971706
+              ]
+            ]
+          },
+          {
+            "id": "SEG-041",
+            "from": "J-WCD-N",
+            "to": "J-DERRING-S",
+            "meters": 35.75506216035002,
+            "indoor": false,
+            "coordinates": [
+              [
+                -80.42627758049753,
+                37.228834484971706
+              ],
+              [
+                -80.4259989649811,
+                37.2286017128896
+              ]
+            ]
+          },
+          {
+            "id": "SEG-042",
+            "from": "J-DERRING-S",
+            "to": "N-DERRING-EE",
+            "meters": 98.18198017186333,
+            "indoor": false,
+            "coordinates": [
+              [
+                -80.4259989649811,
+                37.2286017128896
+              ],
+              [
+                -80.425037,
+                37.229041
+              ]
+            ]
+          },
+          {
+            "id": "SEG-035",
+            "from": "N-DERRING-EE",
+            "to": "N-PAMPLIN-EW",
+            "meters": 35.2654746457625,
+            "indoor": false,
+            "coordinates": [
+              [
+                -80.425037,
+                37.229041
+              ],
+              [
+                -80.425093,
+                37.228727
+              ]
+            ]
+          }
+        ]
+      },
+      "outdoor": {
+        "found": true,
+        "meters": 189.3339584776164,
+        "seconds": 164.6382247631447,
+        "startEntrance": "VT-HITT-E1",
+        "endEntrance": "VT-PAMPLIN-EW",
+        "legs": [
+          {
+            "id": "SEG-031",
+            "from": "N-HITT-E1",
+            "to": "J-WCD-N",
+            "meters": 20.131441499640523,
+            "indoor": false,
+            "coordinates": [
+              [
+                -80.42630184309635,
+                37.22901449773915
+              ],
+              [
+                -80.42627758049753,
+                37.228834484971706
+              ]
+            ]
+          },
+          {
+            "id": "SEG-041",
+            "from": "J-WCD-N",
+            "to": "J-DERRING-S",
+            "meters": 35.75506216035002,
+            "indoor": false,
+            "coordinates": [
+              [
+                -80.42627758049753,
+                37.228834484971706
+              ],
+              [
+                -80.4259989649811,
+                37.2286017128896
+              ]
+            ]
+          },
+          {
+            "id": "SEG-042",
+            "from": "J-DERRING-S",
+            "to": "N-DERRING-EE",
+            "meters": 98.18198017186333,
+            "indoor": false,
+            "coordinates": [
+              [
+                -80.4259989649811,
+                37.2286017128896
+              ],
+              [
+                -80.425037,
+                37.229041
+              ]
+            ]
+          },
+          {
+            "id": "SEG-035",
+            "from": "N-DERRING-EE",
+            "to": "N-PAMPLIN-EW",
+            "meters": 35.2654746457625,
+            "indoor": false,
+            "coordinates": [
+              [
+                -80.425037,
+                37.229041
+              ],
+              [
+                -80.425093,
+                37.228727
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "label": "Pamplin → NCB",
+      "indoor": {
+        "found": true,
+        "meters": 261.4790668755049,
+        "seconds": 227.37310163087383,
+        "startEntrance": "VT-PAMPLIN-EW",
+        "endEntrance": "VT-NCB-E1",
+        "legs": [
+          {
+            "id": "SEG-035",
+            "from": "N-PAMPLIN-EW",
+            "to": "N-DERRING-EE",
+            "meters": 35.2654746457625,
+            "indoor": false,
+            "coordinates": [
+              [
+                -80.425093,
+                37.228727
+              ],
+              [
+                -80.425037,
+                37.229041
+              ]
+            ]
+          },
+          {
+            "id": "SEG-042",
+            "from": "N-DERRING-EE",
+            "to": "J-DERRING-S",
+            "meters": 98.18198017186333,
+            "indoor": false,
+            "coordinates": [
+              [
+                -80.425037,
+                37.229041
+              ],
+              [
+                -80.4259989649811,
+                37.2286017128896
+              ]
+            ]
+          },
+          {
+            "id": "SEG-041",
+            "from": "J-DERRING-S",
+            "to": "J-WCD-N",
+            "meters": 35.75506216035002,
+            "indoor": false,
+            "coordinates": [
+              [
+                -80.4259989649811,
+                37.2286017128896
+              ],
+              [
+                -80.42627758049753,
+                37.228834484971706
+              ]
+            ]
+          },
+          {
+            "id": "SEG-044",
+            "from": "J-WCD-N",
+            "to": "N-NCB-E1",
+            "meters": 92.27654989752904,
+            "indoor": false,
+            "coordinates": [
+              [
+                -80.42627758049753,
+                37.228834484971706
+              ],
+              [
+                -80.42660535483103,
+                37.22962224221091
+              ]
+            ]
+          }
+        ]
+      },
+      "outdoor": {
+        "found": true,
+        "meters": 261.4790668755049,
+        "seconds": 227.37310163087383,
+        "startEntrance": "VT-PAMPLIN-EW",
+        "endEntrance": "VT-NCB-E1",
+        "legs": [
+          {
+            "id": "SEG-035",
+            "from": "N-PAMPLIN-EW",
+            "to": "N-DERRING-EE",
+            "meters": 35.2654746457625,
+            "indoor": false,
+            "coordinates": [
+              [
+                -80.425093,
+                37.228727
+              ],
+              [
+                -80.425037,
+                37.229041
+              ]
+            ]
+          },
+          {
+            "id": "SEG-042",
+            "from": "N-DERRING-EE",
+            "to": "J-DERRING-S",
+            "meters": 98.18198017186333,
+            "indoor": false,
+            "coordinates": [
+              [
+                -80.425037,
+                37.229041
+              ],
+              [
+                -80.4259989649811,
+                37.2286017128896
+              ]
+            ]
+          },
+          {
+            "id": "SEG-041",
+            "from": "J-DERRING-S",
+            "to": "J-WCD-N",
+            "meters": 35.75506216035002,
+            "indoor": false,
+            "coordinates": [
+              [
+                -80.4259989649811,
+                37.2286017128896
+              ],
+              [
+                -80.42627758049753,
+                37.228834484971706
+              ]
+            ]
+          },
+          {
+            "id": "SEG-044",
+            "from": "J-WCD-N",
+            "to": "N-NCB-E1",
+            "meters": 92.27654989752904,
+            "indoor": false,
+            "coordinates": [
+              [
+                -80.42627758049753,
+                37.228834484971706
+              ],
+              [
+                -80.42660535483103,
+                37.22962224221091
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "label": "Davidson → NCB",
+      "indoor": {
+        "found": true,
+        "meters": 354.72894554787985,
+        "seconds": 308.45995265033025,
+        "startEntrance": "VT-DAVIDSON-E1",
+        "endEntrance": "VT-NCB-E1",
+        "legs": [
+          {
+            "id": "SEG-045",
+            "from": "N-DAVIDSON-E1",
+            "to": "J-HAHN-S",
+            "meters": 127.50551903503573,
+            "indoor": false,
+            "coordinates": [
+              [
+                -80.42507924703018,
+                37.22671743538958
+              ],
+              [
+                -80.42544425629129,
+                37.22782667685846
+              ]
+            ]
+          },
+          {
+            "id": "SEG-046",
+            "from": "J-HAHN-S",
+            "to": "J-DERRING-S",
+            "meters": 99.19181445496504,
+            "indoor": false,
+            "coordinates": [
+              [
+                -80.42544425629129,
+                37.22782667685846
+              ],
+              [
+                -80.4259989649811,
+                37.2286017128896
+              ]
+            ]
+          },
+          {
+            "id": "SEG-041",
+            "from": "J-DERRING-S",
+            "to": "J-WCD-N",
+            "meters": 35.75506216035002,
+            "indoor": false,
+            "coordinates": [
+              [
+                -80.4259989649811,
+                37.2286017128896
+              ],
+              [
+                -80.42627758049753,
+                37.228834484971706
+              ]
+            ]
+          },
+          {
+            "id": "SEG-044",
+            "from": "J-WCD-N",
+            "to": "N-NCB-E1",
+            "meters": 92.27654989752904,
+            "indoor": false,
+            "coordinates": [
+              [
+                -80.42627758049753,
+                37.228834484971706
+              ],
+              [
+                -80.42660535483103,
+                37.22962224221091
+              ]
+            ]
+          }
+        ]
+      },
+      "outdoor": {
+        "found": true,
+        "meters": 354.72894554787985,
+        "seconds": 308.45995265033025,
+        "startEntrance": "VT-DAVIDSON-E1",
+        "endEntrance": "VT-NCB-E1",
+        "legs": [
+          {
+            "id": "SEG-045",
+            "from": "N-DAVIDSON-E1",
+            "to": "J-HAHN-S",
+            "meters": 127.50551903503573,
+            "indoor": false,
+            "coordinates": [
+              [
+                -80.42507924703018,
+                37.22671743538958
+              ],
+              [
+                -80.42544425629129,
+                37.22782667685846
+              ]
+            ]
+          },
+          {
+            "id": "SEG-046",
+            "from": "J-HAHN-S",
+            "to": "J-DERRING-S",
+            "meters": 99.19181445496504,
+            "indoor": false,
+            "coordinates": [
+              [
+                -80.42544425629129,
+                37.22782667685846
+              ],
+              [
+                -80.4259989649811,
+                37.2286017128896
+              ]
+            ]
+          },
+          {
+            "id": "SEG-041",
+            "from": "J-DERRING-S",
+            "to": "J-WCD-N",
+            "meters": 35.75506216035002,
+            "indoor": false,
+            "coordinates": [
+              [
+                -80.4259989649811,
+                37.2286017128896
+              ],
+              [
+                -80.42627758049753,
+                37.228834484971706
+              ]
+            ]
+          },
+          {
+            "id": "SEG-044",
+            "from": "J-WCD-N",
+            "to": "N-NCB-E1",
+            "meters": 92.27654989752904,
+            "indoor": false,
+            "coordinates": [
+              [
+                -80.42627758049753,
+                37.228834484971706
+              ],
+              [
+                -80.42660535483103,
+                37.22962224221091
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "label": "Goodwin → DDS",
+      "indoor": {
+        "found": true,
+        "meters": 127.32748892491914,
+        "seconds": 110.71955558688622,
+        "startEntrance": "VT-GOODWIN-E1",
+        "endEntrance": "VT-DDS-E2",
+        "legs": [
+          {
+            "id": "SEG-021",
+            "from": "N-GOODWIN-E1",
+            "to": "J-NAD-1",
+            "meters": 82.38080326264371,
+            "indoor": false,
+            "coordinates": [
+              [
+                -80.425258,
+                37.232015
+              ],
+              [
+                -80.42618,
+                37.232115
+              ]
+            ]
+          },
+          {
+            "id": "SEG-022",
+            "from": "J-NAD-1",
+            "to": "N-DDS-E2",
+            "meters": 44.94668566227543,
+            "indoor": false,
+            "coordinates": [
+              [
+                -80.42618,
+                37.232115
+              ],
+              [
+                -80.426495,
+                37.231798
+              ]
+            ]
+          }
+        ]
+      },
+      "outdoor": {
+        "found": true,
+        "meters": 127.32748892491914,
+        "seconds": 110.71955558688622,
+        "startEntrance": "VT-GOODWIN-E1",
+        "endEntrance": "VT-DDS-E2",
+        "legs": [
+          {
+            "id": "SEG-021",
+            "from": "N-GOODWIN-E1",
+            "to": "J-NAD-1",
+            "meters": 82.38080326264371,
+            "indoor": false,
+            "coordinates": [
+              [
+                -80.425258,
+                37.232015
+              ],
+              [
+                -80.42618,
+                37.232115
+              ]
+            ]
+          },
+          {
+            "id": "SEG-022",
+            "from": "J-NAD-1",
+            "to": "N-DDS-E2",
+            "meters": 44.94668566227543,
+            "indoor": false,
+            "coordinates": [
+              [
+                -80.42618,
+                37.232115
+              ],
+              [
+                -80.426495,
+                37.231798
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "label": "Davidson → DDS",
+      "indoor": {
+        "found": true,
+        "meters": 662.1549459045137,
+        "seconds": 575.7869094821858,
+        "startEntrance": "VT-DAVIDSON-E1",
+        "endEntrance": "VT-DDS-E1",
+        "legs": [
+          {
+            "id": "SEG-045",
+            "from": "N-DAVIDSON-E1",
+            "to": "J-HAHN-S",
+            "meters": 127.50551903503573,
+            "indoor": false,
+            "coordinates": [
+              [
+                -80.42507924703018,
+                37.22671743538958
+              ],
+              [
+                -80.42544425629129,
+                37.22782667685846
+              ]
+            ]
+          },
+          {
+            "id": "SEG-046",
+            "from": "J-HAHN-S",
+            "to": "J-DERRING-S",
+            "meters": 99.19181445496504,
+            "indoor": false,
+            "coordinates": [
+              [
+                -80.42544425629129,
+                37.22782667685846
+              ],
+              [
+                -80.4259989649811,
+                37.2286017128896
+              ]
+            ]
+          },
+          {
+            "id": "SEG-041",
+            "from": "J-DERRING-S",
+            "to": "J-WCD-N",
+            "meters": 35.75506216035002,
+            "indoor": false,
+            "coordinates": [
+              [
+                -80.4259989649811,
+                37.2286017128896
+              ],
+              [
+                -80.42627758049753,
+                37.228834484971706
+              ]
+            ]
+          },
+          {
+            "id": "SEG-031",
+            "from": "J-WCD-N",
+            "to": "N-HITT-E1",
+            "meters": 20.131441499640523,
+            "indoor": false,
+            "coordinates": [
+              [
+                -80.42627758049753,
+                37.228834484971706
+              ],
+              [
+                -80.42630184309635,
+                37.22901449773915
+              ]
+            ]
+          },
+          {
+            "id": "SEG-024",
+            "from": "N-HITT-E1",
+            "to": "J-NAD-2",
+            "meters": 303.1988407615509,
+            "indoor": false,
+            "coordinates": [
+              [
+                -80.42630184309635,
+                37.22901449773915
+              ],
+              [
+                -80.42727,
+                37.23163
+              ]
+            ]
+          },
+          {
+            "id": "SEG-023",
+            "from": "J-NAD-2",
+            "to": "N-DDS-E1",
+            "meters": 76.37226799297147,
+            "indoor": false,
+            "coordinates": [
+              [
+                -80.42727,
+                37.23163
+              ],
+              [
+                -80.426785,
+                37.232198
+              ]
+            ]
+          }
+        ]
+      },
+      "outdoor": {
+        "found": true,
+        "meters": 662.1549459045137,
+        "seconds": 575.7869094821858,
+        "startEntrance": "VT-DAVIDSON-E1",
+        "endEntrance": "VT-DDS-E1",
+        "legs": [
+          {
+            "id": "SEG-045",
+            "from": "N-DAVIDSON-E1",
+            "to": "J-HAHN-S",
+            "meters": 127.50551903503573,
+            "indoor": false,
+            "coordinates": [
+              [
+                -80.42507924703018,
+                37.22671743538958
+              ],
+              [
+                -80.42544425629129,
+                37.22782667685846
+              ]
+            ]
+          },
+          {
+            "id": "SEG-046",
+            "from": "J-HAHN-S",
+            "to": "J-DERRING-S",
+            "meters": 99.19181445496504,
+            "indoor": false,
+            "coordinates": [
+              [
+                -80.42544425629129,
+                37.22782667685846
+              ],
+              [
+                -80.4259989649811,
+                37.2286017128896
+              ]
+            ]
+          },
+          {
+            "id": "SEG-041",
+            "from": "J-DERRING-S",
+            "to": "J-WCD-N",
+            "meters": 35.75506216035002,
+            "indoor": false,
+            "coordinates": [
+              [
+                -80.4259989649811,
+                37.2286017128896
+              ],
+              [
+                -80.42627758049753,
+                37.228834484971706
+              ]
+            ]
+          },
+          {
+            "id": "SEG-031",
+            "from": "J-WCD-N",
+            "to": "N-HITT-E1",
+            "meters": 20.131441499640523,
+            "indoor": false,
+            "coordinates": [
+              [
+                -80.42627758049753,
+                37.228834484971706
+              ],
+              [
+                -80.42630184309635,
+                37.22901449773915
+              ]
+            ]
+          },
+          {
+            "id": "SEG-024",
+            "from": "N-HITT-E1",
+            "to": "J-NAD-2",
+            "meters": 303.1988407615509,
+            "indoor": false,
+            "coordinates": [
+              [
+                -80.42630184309635,
+                37.22901449773915
+              ],
+              [
+                -80.42727,
+                37.23163
+              ]
+            ]
+          },
+          {
+            "id": "SEG-023",
+            "from": "J-NAD-2",
+            "to": "N-DDS-E1",
+            "meters": 76.37226799297147,
+            "indoor": false,
+            "coordinates": [
+              [
+                -80.42727,
+                37.23163
+              ],
+              [
+                -80.426785,
+                37.232198
+              ]
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "ddsPinned": [
+    {
+      "from": "VT-GOODWIN",
+      "entrances": [
+        {
+          "node": "N-DDS-E1",
+          "found": true,
+          "meters": 139.64438064405053,
+          "seconds": 121.42989621221786,
+          "startEntrance": "VT-GOODWIN-E1",
+          "endEntrance": "VT-DDS-E1",
+          "legs": [
+            {
+              "id": "SEG-047",
+              "from": "N-GOODWIN-E1",
+              "to": "N-DDS-E1",
+              "meters": 139.64438064405053,
+              "indoor": false,
+              "coordinates": [
+                [
+                  -80.42554915390006,
+                  37.232080735668674
+                ],
+                [
+                  -80.42706936840904,
+                  37.23174587072038
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "node": "N-DDS-E2",
+          "found": true,
+          "meters": 127.32748892491914,
+          "seconds": 110.71955558688622,
+          "startEntrance": "VT-GOODWIN-E1",
+          "endEntrance": "VT-DDS-E2",
+          "legs": [
+            {
+              "id": "SEG-021",
+              "from": "N-GOODWIN-E1",
+              "to": "J-NAD-1",
+              "meters": 82.38080326264371,
+              "indoor": false,
+              "coordinates": [
+                [
+                  -80.425258,
+                  37.232015
+                ],
+                [
+                  -80.42618,
+                  37.232115
+                ]
+              ]
+            },
+            {
+              "id": "SEG-022",
+              "from": "J-NAD-1",
+              "to": "N-DDS-E2",
+              "meters": 44.94668566227543,
+              "indoor": false,
+              "coordinates": [
+                [
+                  -80.42618,
+                  37.232115
+                ],
+                [
+                  -80.426495,
+                  37.231798
+                ]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "from": "VT-DAVIDSON",
+      "entrances": [
+        {
+          "node": "N-DDS-E1",
+          "found": true,
+          "meters": 662.1549459045137,
+          "seconds": 575.7869094821858,
+          "startEntrance": "VT-DAVIDSON-E1",
+          "endEntrance": "VT-DDS-E1",
+          "legs": [
+            {
+              "id": "SEG-045",
+              "from": "N-DAVIDSON-E1",
+              "to": "J-HAHN-S",
+              "meters": 127.50551903503573,
+              "indoor": false,
+              "coordinates": [
+                [
+                  -80.42507924703018,
+                  37.22671743538958
+                ],
+                [
+                  -80.42544425629129,
+                  37.22782667685846
+                ]
+              ]
+            },
+            {
+              "id": "SEG-046",
+              "from": "J-HAHN-S",
+              "to": "J-DERRING-S",
+              "meters": 99.19181445496504,
+              "indoor": false,
+              "coordinates": [
+                [
+                  -80.42544425629129,
+                  37.22782667685846
+                ],
+                [
+                  -80.4259989649811,
+                  37.2286017128896
+                ]
+              ]
+            },
+            {
+              "id": "SEG-041",
+              "from": "J-DERRING-S",
+              "to": "J-WCD-N",
+              "meters": 35.75506216035002,
+              "indoor": false,
+              "coordinates": [
+                [
+                  -80.4259989649811,
+                  37.2286017128896
+                ],
+                [
+                  -80.42627758049753,
+                  37.228834484971706
+                ]
+              ]
+            },
+            {
+              "id": "SEG-031",
+              "from": "J-WCD-N",
+              "to": "N-HITT-E1",
+              "meters": 20.131441499640523,
+              "indoor": false,
+              "coordinates": [
+                [
+                  -80.42627758049753,
+                  37.228834484971706
+                ],
+                [
+                  -80.42630184309635,
+                  37.22901449773915
+                ]
+              ]
+            },
+            {
+              "id": "SEG-024",
+              "from": "N-HITT-E1",
+              "to": "J-NAD-2",
+              "meters": 303.1988407615509,
+              "indoor": false,
+              "coordinates": [
+                [
+                  -80.42630184309635,
+                  37.22901449773915
+                ],
+                [
+                  -80.42727,
+                  37.23163
+                ]
+              ]
+            },
+            {
+              "id": "SEG-023",
+              "from": "J-NAD-2",
+              "to": "N-DDS-E1",
+              "meters": 76.37226799297147,
+              "indoor": false,
+              "coordinates": [
+                [
+                  -80.42727,
+                  37.23163
+                ],
+                [
+                  -80.426785,
+                  37.232198
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "node": "N-DDS-E2",
+          "found": true,
+          "meters": 713.5112149874133,
+          "seconds": 620.4445347716637,
+          "startEntrance": "VT-DAVIDSON-E1",
+          "endEntrance": "VT-DDS-E2",
+          "legs": [
+            {
+              "id": "SEG-045",
+              "from": "N-DAVIDSON-E1",
+              "to": "J-HAHN-S",
+              "meters": 127.50551903503573,
+              "indoor": false,
+              "coordinates": [
+                [
+                  -80.42507924703018,
+                  37.22671743538958
+                ],
+                [
+                  -80.42544425629129,
+                  37.22782667685846
+                ]
+              ]
+            },
+            {
+              "id": "SEG-046",
+              "from": "J-HAHN-S",
+              "to": "J-DERRING-S",
+              "meters": 99.19181445496504,
+              "indoor": false,
+              "coordinates": [
+                [
+                  -80.42544425629129,
+                  37.22782667685846
+                ],
+                [
+                  -80.4259989649811,
+                  37.2286017128896
+                ]
+              ]
+            },
+            {
+              "id": "SEG-041",
+              "from": "J-DERRING-S",
+              "to": "J-WCD-N",
+              "meters": 35.75506216035002,
+              "indoor": false,
+              "coordinates": [
+                [
+                  -80.4259989649811,
+                  37.2286017128896
+                ],
+                [
+                  -80.42627758049753,
+                  37.228834484971706
+                ]
+              ]
+            },
+            {
+              "id": "SEG-031",
+              "from": "J-WCD-N",
+              "to": "N-HITT-E1",
+              "meters": 20.131441499640523,
+              "indoor": false,
+              "coordinates": [
+                [
+                  -80.42627758049753,
+                  37.228834484971706
+                ],
+                [
+                  -80.42630184309635,
+                  37.22901449773915
+                ]
+              ]
+            },
+            {
+              "id": "SEG-024",
+              "from": "N-HITT-E1",
+              "to": "J-NAD-2",
+              "meters": 303.1988407615509,
+              "indoor": false,
+              "coordinates": [
+                [
+                  -80.42630184309635,
+                  37.22901449773915
+                ],
+                [
+                  -80.42727,
+                  37.23163
+                ]
+              ]
+            },
+            {
+              "id": "SEG-023",
+              "from": "J-NAD-2",
+              "to": "N-DDS-E1",
+              "meters": 76.37226799297147,
+              "indoor": false,
+              "coordinates": [
+                [
+                  -80.42727,
+                  37.23163
+                ],
+                [
+                  -80.426785,
+                  37.232198
+                ]
+              ]
+            },
+            {
+              "id": "SEG-P11",
+              "from": "N-DDS-E1",
+              "to": "N-DDS-E2",
+              "meters": 51.35626908289952,
+              "indoor": false,
+              "coordinates": [
+                [
+                  -80.426785,
+                  37.232198
+                ],
+                [
+                  -80.426495,
+                  37.231798
+                ]
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "ddsEntrances": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.42706936840904,
+          37.23174587072038
+        ]
+      },
+      "properties": {
+        "entrance_id": "VT-DDS-E1",
+        "building_id": "VT-DDS",
+        "node_id": "N-DDS-E1",
+        "entrance_name": "Prices Fork Road side",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "step_count": null,
+        "geometry_precision": "placeholder_offset_from_centroid",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "last_verified": null,
+        "notes": "Rider-supplied route trace marks this as the '1st floor' entrance reached directly from Goodwin Hall via Prices Fork Rd (SEG-047). Floor level not confirmed against building plans."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4269275488489,
+          37.23160242779231
+        ]
+      },
+      "properties": {
+        "entrance_id": "VT-DDS-E2",
+        "building_id": "VT-DDS",
+        "node_id": "N-DDS-E2",
+        "entrance_name": "East side toward Goodwin",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "step_count": null,
+        "geometry_precision": "placeholder_offset_from_centroid",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "last_verified": null,
+        "notes": "Rider-supplied route trace marks this as the '2nd floor' entrance, reached from Goodwin Hall via J-NAD-1 (SEG-021/022) rather than directly - a real second door, plausible on this site's sloped terrain, but its floor level is not confirmed against building plans."
+      }
+    }
+  ],
+  "discontinuities": [
+    {
+      "node": "N-GOODWIN-E1",
+      "maxGapMeters": 26.79291198186089,
+      "pair": [
+        {
+          "edge": "SEG-001",
+          "coord": [
+            -80.425258,
+            37.232015
+          ]
+        },
+        {
+          "edge": "SEG-047",
+          "coord": [
+            -80.42554915390006,
+            37.232080735668674
+          ]
+        }
+      ]
+    },
+    {
+      "node": "N-DDS-E1",
+      "maxGapMeters": 56.225862403879695,
+      "pair": [
+        {
+          "edge": "SEG-023",
+          "coord": [
+            -80.426785,
+            37.232198
+          ]
+        },
+        {
+          "edge": "SEG-047",
+          "coord": [
+            -80.42706936840904,
+            37.23174587072038
+          ]
+        }
+      ]
+    },
+    {
+      "node": "J-WCD-N",
+      "maxGapMeters": 144.7334068388251,
+      "pair": [
+        {
+          "edge": "SEG-031",
+          "coord": [
+            -80.42627758049753,
+            37.228834484971706
+          ]
+        },
+        {
+          "edge": "SEG-032",
+          "coord": [
+            -80.4265,
+            37.230124
+          ]
+        }
+      ]
+    }
+  ],
+  "endpointOffsets": [
+    {
+      "node": "N-GOODWIN-E1",
+      "edge": "SEG-001",
+      "meters": 26.79291198186089
+    },
+    {
+      "node": "N-GOODWIN-E1",
+      "edge": "SEG-021",
+      "meters": 26.79291198186089
+    },
+    {
+      "node": "N-GOODWIN-E1",
+      "edge": "SEG-P01",
+      "meters": 26.79291198186089
+    },
+    {
+      "node": "N-BURRUSS-E2",
+      "edge": "SEG-008",
+      "meters": 3.5743422563280576
+    },
+    {
+      "node": "N-BURRUSS-E2",
+      "edge": "SEG-P08",
+      "meters": 3.5743422563280576
+    },
+    {
+      "node": "N-BURRUSS-E2",
+      "edge": "IND-BURRUSS-1",
+      "meters": 3.5743422563280576
+    },
+    {
+      "node": "N-BURRUSS-E1",
+      "edge": "SEG-009",
+      "meters": 3.073268450242341
+    },
+    {
+      "node": "N-BURRUSS-E1",
+      "edge": "SEG-P08",
+      "meters": 3.073268450242341
+    },
+    {
+      "node": "N-BURRUSS-E1",
+      "edge": "IND-BURRUSS-1",
+      "meters": 3.073268450242341
+    },
+    {
+      "node": "N-DDS-E2",
+      "edge": "SEG-022",
+      "meters": 44.03870423402164
+    },
+    {
+      "node": "N-DDS-E2",
+      "edge": "SEG-P11",
+      "meters": 44.03870423402164
+    },
+    {
+      "node": "N-DDS-E1",
+      "edge": "SEG-023",
+      "meters": 56.225862403879695
+    },
+    {
+      "node": "N-DDS-E1",
+      "edge": "SEG-P11",
+      "meters": 56.225862403879695
+    },
+    {
+      "node": "N-KELLY-E1",
+      "edge": "SEG-026",
+      "meters": 14.674625905785977
+    },
+    {
+      "node": "N-KELLY-E1",
+      "edge": "SEG-P12",
+      "meters": 14.674625905785977
+    },
+    {
+      "node": "N-KELLY-E2",
+      "edge": "SEG-027",
+      "meters": 38.774682806724925
+    },
+    {
+      "node": "N-KELLY-E2",
+      "edge": "SEG-P12",
+      "meters": 38.774682806724925
+    },
+    {
+      "node": "N-CFA-E1",
+      "edge": "SEG-029",
+      "meters": 20.93416496273588
+    },
+    {
+      "node": "N-CFA-E1",
+      "edge": "SEG-P13",
+      "meters": 20.93416496273588
+    },
+    {
+      "node": "N-GOODWIN-E2",
+      "edge": "SEG-P01",
+      "meters": 46.15117884344862
+    },
+    {
+      "node": "N-CFA-E2",
+      "edge": "SEG-P13",
+      "meters": 47.91844658501228
+    },
+    {
+      "node": "J-WCD-N",
+      "edge": "SEG-032",
+      "meters": 144.7334068388251
+    }
+  ],
+  "williams": {
+    "found": false,
+    "legs": []
+  },
+  "footprintCrossings": [
+    {
+      "edge": "SEG-024",
+      "buildingNumber": "0168",
+      "approximateMetersInside": 34.261469006055194
+    },
+    {
+      "edge": "SEG-041",
+      "buildingNumber": "0155",
+      "approximateMetersInside": 34.03881917665368
+    },
+    {
+      "edge": "SEG-044",
+      "buildingNumber": "0168",
+      "approximateMetersInside": 22.238648525304534
+    },
+    {
+      "edge": "SEG-045",
+      "buildingNumber": "0156",
+      "approximateMetersInside": 49.21713034752355
+    },
+    {
+      "edge": "SEG-046",
+      "buildingNumber": "0157",
+      "approximateMetersInside": 29.360777078669653
+    }
+  ]
+}

@@ -15,43 +15,35 @@ upgrades on top of it (see **Optional AI & voice** below).
 python3 -m http.server 5173 --bind 127.0.0.1 --directory dist
 ```
 
-Open http://127.0.0.1:5173. Run routing and data checks with `node --test tests/*.test.mjs`
-(no Node runtime was available in the environment this was built in, so the same
-assertions were instead run live against `dist/router.mjs` in a browser — see
-`tests/router.test.mjs` for the authoritative suite to run before trusting a change).
+Open http://127.0.0.1:5173. Run all checks with `node --test tests/*.test.mjs`.
+Rebuild the screenshot geometry with `node scripts/build_student_routes.mjs`.
 Leaflet 1.9.4 is vendored with its license. OpenStreetMap tiles and Google Fonts
 need internet access; the route network remains usable if basemap tiles fail.
 
-## First demo
+## Current screenshot demo
 
-1. Start with Perry Place → Pamplin Hall: both indoor and outdoor now come out
-   to the same ~189 m, via a real west/south route around Derring anchored to
-   VT's own building footprints and a rider-supplied trace of how people
-   actually walk it (see **Rider-supplied route corrections** below). That
-   equal number is itself the finding: an earlier, geometry-error-driven "68 m
-   saved by cutting through Derring" was never true for this specific pair.
-2. Switch the origin to **Museum of Geosciences** (still inside Derring, at
-   its north entrance) and destination stays **Pamplin Hall**: *this* pair
-   still saves the original ~68 m through `IND-DERRING-1`, because it
-   genuinely starts on the far side of the building the shortcut cuts through.
-   Close the Derring shortcut using the simulation control here and the
-   preview reroutes around the outside.
-3. Turn on **Require verified step-free**. The app correctly returns no route
-   because none of the supplied path accessibility has been verified.
-4. Switch the simulation to **Whittemore Hall · elevator · floors 01-06**
-   (`00134-ELEV-TRC-0001`) and note it's already shown closed — that's VT
-   Facilities' own real, current status, not a demo fabrication (see
-   **Indoor and vertical routing**).
-5. Open **Floorplans** → Torgersen Hall. View floors 1–3 and the penthouse sheet.
-6. Open **Ask AccessPath** and type something like "get from Perry Place to
-   Pamplin Hall avoiding stairs." Without a Gemini key it falls back to
-   keyword matching and says so; with one, Gemini only ever picks places from
-   the pilot's own list and never claims a route is accessible — the app's
-   data decides that, not the model.
-7. Click **Read aloud** on any route's directions. Works with no setup via the
-   browser's built-in voice; add an ElevenLabs key in **AI & voice keys** for
-   higher-quality narration.
-8. Open **About the data** for imported status dates and coverage limitations.
+1. Perry Place → Pamplin uses the red passage through Derring.
+2. Pamplin → New Classroom Building uses the red Derring/Hitt passage.
+3. Davidson → New Classroom Building follows the red Hahn-side corridor.
+4. Goodwin or Davidson → **Data and Decision Sciences — Floor 1** follows
+   the red path. Choose **Floor 2** for the yellow path and its different entrance.
+   The generic DDS building choice defaults to floor 1.
+5. Maroon and Orange Loop sections follow the saved sidewalk polylines.
+6. Closure controls are removed and closures are disabled in the running planner.
+   **Closed** remains in the legend for future use. Imported status records remain
+   in the source data; the reusable router's legacy closure tests still exist.
+7. Verified step-free and exclude-unknown settings still reject these unverified paths.
+8. Floorplans and optional read-aloud remain available.
+
+The seven route variants are in `dist/data/student-routes.json`. They take
+priority over shortest-path search for the screenshot pairs, in both directions.
+Other pairs use the existing campus graph. The three original non-DDS pairs also
+have blue outdoor reference alternatives. These are traced approximations, not a
+live Google Maps integration. Distances are computed from the trace; they are not
+measured walking times or surveyed door coordinates.
+
+See `reports/STUDENT_ROUTE_IMPLEMENTATION.md` for source images, file locations,
+validation, and remaining limitations.
 
 ## Coordinate corrections (2026-09-19)
 
@@ -67,7 +59,10 @@ the per-record notes. The other ten buildings' existing vt.edu-sourced
 coordinates were cross-checked and left alone (within ~15 m, ordinary
 centroid-vs-address-point variance).
 
-## Rider-supplied route corrections (2026-09-19)
+## Earlier graph expansion (before screenshot route overrides)
+
+This section records the earlier implementation. Its 189 m comparisons and
+notes-only DDS floors describe the base graph, not the current screenshot presets.
 
 Even with Hitt Hall's coordinate fixed, the path segments connecting it to
 Derring were still an approximate straight-line guess. A rider then supplied
@@ -142,8 +137,8 @@ entrances to whichever floor its connectors touch that is *lowest* (not
 hardcoded to "1" — real elevator data lists some buildings' ground access as
 floor "0"), and adds the connector as a real edge with a fixed time cost
 (elevator/lift/chairlift 45 s flat, stairs/ramp 25 s per flight, bridge 10 s).
-Closing one — from `status.csv` or the simulation control — now reroutes
-anything that depends on it, the same as closing an outdoor path.
+The reusable router retains closure support for legacy tests, but the running
+planner explicitly disables it and has no simulation control.
 
 That entrance-to-floor link deliberately is **not** a free, zero-cost
 shortcut the way the entrance-to-building-centroid bookkeeping link is. An
@@ -183,9 +178,10 @@ assumed before 2026-09-19. Two services from it were used directly:
   of elevators, floors served, mechanism type, and **current open/closed
   status**. Used for the 29 real connectors above.
 
-Also found but **not yet used**: `facilities/ADA_Routes_Only` (an actual
-ADA-checked path network with slope classification — 428 segments intersect
-this pilot's zone alone), `facilities/Slope` (a raster slope layer), and
+Now used for loop geometry only: `facilities/ADA_Routes_Only` (an actual
+path network with slope classification; 376 features saved for the selected
+bounding box in `source-data/vt-sidewalks-2026-09-19.geojson`). Accessibility
+attributes are not imported. Still unused: `facilities/Slope` (a raster slope layer), and
 `facilities/NorthAcademicDistrictAlternatePathways` (pathways around the
 2022–2024 construction this pilot's own zone sits in). Conflating those onto
 this dataset's 64 path segments is a real spatial-matching task with a real
@@ -288,7 +284,10 @@ none of which this app does or should pretend to.
 The test suite covers real-data route comparison, strict accessibility failure,
 closure rerouting, entrance closures in both directions, status freshness,
 field-specific evidence, unmapped bridges, graph integrity, source immutability,
-and floorplan mapping. Browser checks cover the main controls and floorplan viewer.
+and floorplan mapping. All 30 Node tests pass, including seven new integration
+checks loading the screenshot presets. Local HTTP delivery of the updated route
+JSON was checked. A final interactive browser recheck was blocked by automatic
+approval review's usage limit; earlier browser checks predate these changes.
 
 Optional WebMCP tools expose current route read-back and validated route configuration
 in supported browsers. They use the same state and constraints as the visible controls.

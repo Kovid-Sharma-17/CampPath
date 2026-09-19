@@ -10,7 +10,7 @@ export function haversine(a, b) {
 }
 export function pathLength(coords) { return coords.slice(1).reduce((m, point, i) => m + haversine(coords[i], point), 0); }
 
-export function buildGraph(data, {now = new Date(), closedAssets = []} = {}) {
+export function buildGraph(data, {now = new Date(), closedAssets = [], enableClosures = true} = {}) {
   const graph = {nodes: new Map(), edges: [], adj: new Map(), buildings: new Map(), entrances: new Map(), assets: new Map(), places: [], statusLog: [], metadata: data.metadata};
   for (const f of data.buildings.features) {
     const p = {...f.properties, coordinates: f.geometry.coordinates};
@@ -19,12 +19,12 @@ export function buildGraph(data, {now = new Date(), closedAssets = []} = {}) {
     graph.places.push({id: p.building_id, node: 'B:' + p.building_id, name: p.name, building: p.building_id, type: 'building', coordinates: p.coordinates});
   }
   for (const f of data.entrances.features) {
-    const p = {...f.properties, coordinates: f.geometry.coordinates, operational_confidence: f.properties.operational_confidence || 'inferred'};
+    const p = {...f.properties, coordinates: data.studentRoutes?.entranceCoordinates?.[f.properties.node_id] || f.geometry.coordinates, operational_confidence: f.properties.operational_confidence || 'inferred'};
     graph.nodes.set(p.node_id, {coordinates: p.coordinates, building: p.building_id, name: p.entrance_name});
     graph.entrances.set(p.node_id, p); graph.assets.set(p.entrance_id, p);
   }
   for (const f of data.paths.features) {
-    const p = f.properties, coordinates = f.geometry.coordinates;
+    const p = f.properties, coordinates = data.studentRoutes?.edgeOverrides?.[p.segment_id] || f.geometry.coordinates;
     if (!graph.nodes.has(p.from_node)) graph.nodes.set(p.from_node, {coordinates: coordinates[0], name: 'Campus junction'});
     if (!graph.nodes.has(p.to_node)) graph.nodes.set(p.to_node, {coordinates: coordinates.at(-1), name: 'Campus junction'});
     const e = {...p, id: p.segment_id, kind: p.is_indoor ? 'indoor' : 'footway', coordinates, meters: pathLength(coordinates), operational_confidence: p.operational_confidence || 'inferred', unmapped: UNMAPPED_BRIDGES.has(p.segment_id)};
@@ -52,6 +52,17 @@ export function buildGraph(data, {now = new Date(), closedAssets = []} = {}) {
     graph.statusLog.push({...row, field, result});
   }
   for (const id of closedAssets) { const a = graph.assets.get(id); if (a) { a.operational_status = 'closed'; a.simulated = true; } }
+  if (!enableClosures) for (const a of graph.assets.values()) {
+    if (a.operational_status === 'closed') a.operational_status = 'unknown';
+    delete a.simulated;
+  }
+  // One coordinate per graph node prevents visual jumps between incident paths.
+  if (data.studentRoutes) for (const e of graph.edges) {
+    e.coordinates = e.coordinates.map(p => [...p]);
+    e.coordinates[0] = graph.nodes.get(e.from_node).coordinates;
+    e.coordinates[e.coordinates.length - 1] = graph.nodes.get(e.to_node).coordinates;
+    e.meters = pathLength(e.coordinates);
+  }
   function link(edge) {
     for (const [from, to, reverse] of [[edge.from_node, edge.to_node, false], [edge.to_node, edge.from_node, true]]) {
       if (!graph.adj.has(from)) graph.adj.set(from, []);
@@ -100,6 +111,16 @@ export function buildGraph(data, {now = new Date(), closedAssets = []} = {}) {
     const p = f.properties;
     if (graph.nodes.has(p.node_id)) graph.places.push({id: p.poi_id, node: p.node_id, name: p.name, aliases: p.aliases || [], building: p.building_id, type: p.category, coordinates: graph.nodes.get(p.node_id).coordinates});
   }
+  graph.studentRoutes = data.studentRoutes;
+  if (data.studentRoutes) {
+    const dds=graph.places.find(p=>p.id==='VT-DDS');
+    dds.name='Data and Decision Sciences — Floor 1 (default)';
+    dds.aliases=['Data and Decision Sciences'];
+  }
+  if (data.studentRoutes) for (const floor of ['1','2']) {
+    const id='VT-DDS-F'+floor, coordinates=data.studentRoutes.anchors['dds'+floor];
+    graph.places.push({id,node:'N-DDS-E'+floor,name:'Data and Decision Sciences — Floor '+floor,building:'VT-DDS',type:'floor',floor,coordinates});
+  }
   return graph;
 }
 export function resolvePlace(graph, query) {
@@ -127,7 +148,12 @@ export function findRoute(graph, from, to, preferences = {}) {
   if (prefs.requireStepFree) prefs.avoidStairs = true;
   const start = resolvePlace(graph, from), end = resolvePlace(graph, to);
   if (!start || !end) return {found: false, reason: 'Choose a starting point and destination from the pilot area.', legs: []};
+  if (start.building==='VT-DDS' && end.building==='VT-DDS' && start.id!==end.id && (start.floor || end.floor)) {
+    return {found:false,start,end,legs:[],reason:'Travel between DDS floors is not mapped by the supplied screenshots. Select an origin outside DDS to use a floor-specific arrival path.'};
+  }
   if (start.node === end.node) return {found: true, samePlace: true, legs: [], meters: 0, seconds: 0, unverifiedPercent: 0, start, end, indoorBuildings: []};
+  const reference = findStudentRoute(graph, start, end, prefs);
+  if (reference) return reference;
   const distances = new Map([[start.node, 0]]), previous = new Map(), pending = new Set([start.node]), visited = new Set();
   while (pending.size) {
     const current = [...pending].reduce((a, b) => distances.get(a) <= distances.get(b) ? a : b);
@@ -148,6 +174,22 @@ export function findRoute(graph, from, to, preferences = {}) {
   const legs = allLegs.filter(e => e.kind !== 'virtual').map(e => ({...e, verified: isConfirmed(e.confidence) && e.accessibility_status !== 'unknown', seconds: e.fixedSeconds ?? (e.meters / 1.15 + (e.is_indoor ? 10 : 0))}));
   const meters = legs.reduce((sum, e) => sum + e.meters, 0);
   return {found: true, start, end, legs, meters, seconds: legs.reduce((sum, e) => sum + e.seconds, 0), unverifiedPercent: meters ? Math.round(100 * legs.filter(e => !e.verified).reduce((sum, e) => sum + e.meters, 0) / meters) : 0, indoorBuildings: [...new Set(legs.filter(e => e.is_indoor).flatMap(e => [graph.nodes.get(e.from)?.building, graph.nodes.get(e.to)?.building]).filter(Boolean))], startEntrance: allLegs[0]?.kind === 'virtual' ? graph.entrances.get(allLegs[0].to) : graph.entrances.get(start.node), endEntrance: allLegs.at(-1)?.kind === 'virtual' ? graph.entrances.get(allLegs.at(-1).from) : graph.entrances.get(end.node)};
+}
+function findStudentRoute(graph,start,end,prefs) {
+  const data=graph.studentRoutes;if(!data)return null;
+  const route=data.routes.find(r=>(r.from.includes(start.id)&&r.to.includes(end.id))||(r.from.includes(end.id)&&r.to.includes(start.id)));
+  if(!route)return null;
+  const reverse=route.from.includes(end.id);
+  let sequence=route.legs;
+  if(!prefs.allowIndoor) {
+    if(route.outdoor)sequence=route.outdoor;
+    else if(sequence.some(id=>data.legs[id.replace(/^-/,'')].is_indoor))return {found:false,start,end,legs:[],reason:'No outdoor-only version of this screenshot route is mapped for this DDS floor.'};
+  }
+  if(prefs.requireStepFree||prefs.avoidUnknown)return {found:false,start,end,legs:[],reason:'This student-reported route has not been verified for accessibility. Your access preferences have not been relaxed.'};
+  let legs=sequence.map(key=>{const e=data.legs[key.replace(/^-/,'')];const coordinates=key.startsWith('-')?[...e.coordinates].reverse():e.coordinates;const meters=pathLength(coordinates);return {...e,coordinates,meters,seconds:meters/1.15+(e.is_indoor?10:0),verified:false,accessibility_status:'unknown',operational_status:'unknown',kind:e.is_indoor?'indoor':'footway'};});
+  if(reverse)legs=legs.reverse().map(e=>({...e,coordinates:[...e.coordinates].reverse()}));
+  const endpoint=(place,coordinates)=>({coordinates,entrance_name:place.floor?'Floor '+place.floor+' entrance · Student reported':'Screenshot route entrance · Approximate'});
+  return {found:true,start,end,legs,meters:legs.reduce((a,e)=>a+e.meters,0),seconds:legs.reduce((a,e)=>a+e.seconds,0),unverifiedPercent:100,indoorBuildings:[...new Set(legs.filter(e=>e.is_indoor).map(e=>e.building).filter(Boolean))],studentRoute:true,referenceId:route.id,referenceImage:route.source_image,arrivalFloor:reverse?end.floor:route.floor,color:prefs.allowIndoor?route.color:'blue',startEntrance:endpoint(start,legs[0].coordinates[0]),endEntrance:endpoint(end,legs.at(-1).coordinates.at(-1))};
 }
 export function compareRoutes(graph, from, to, preferences = {}) {
   const indoor = findRoute(graph, from, to, {...preferences, allowIndoor: true}), outdoor = findRoute(graph, from, to, {...preferences, allowIndoor: false});

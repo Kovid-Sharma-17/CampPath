@@ -6,7 +6,20 @@ Project root:
 
 `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2`
 
-The app is a static browser prototype. It contains a local route engine, a Leaflet campus map, a route-closure simulation, and a historical floorplan viewer. The supplied accessibility fields are intentionally shown as unverified until they are checked in the field.
+The app is a static browser prototype. It contains a local route engine, a Leaflet campus map, student screenshot routes, and a historical floorplan viewer. Closure simulation is disabled; Closed remains in the legend. The supplied accessibility fields are intentionally shown as unverified until they are checked in the field.
+
+## Latest screenshot-route files
+
+All paths below are relative to the project root above.
+
+| File | Purpose |
+| --- | --- |
+| `dist/data/student-routes.json` | Seven student-route variants, including separate DDS floors. |
+| `scripts/build_student_routes.mjs` | Source waypoints and reproducible route compiler. |
+| `source-data/vt-sidewalks-2026-09-19.geojson` | Saved VT sidewalk geometry for loop paths. |
+| `tests/student-routes.test.mjs` | Integration tests using the current app data. |
+| `reports/STUDENT_ROUTE_IMPLEMENTATION.md` | Current behavior, source images, validation, and limitations. |
+| `reports/STUDENT_ROUTE_COMPARISON.md` | Before-change audit against the user's screenshots. |
 
 ## Root files
 

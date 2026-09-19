@@ -1,16 +1,17 @@
 import {buildGraph, compareRoutes, resolvePlace, isConfirmed} from './router.mjs';
 const $ = selector => document.querySelector(selector);
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const state = {origin:'POI-PERRY-PLACE',destination:'VT-PAMPLIN',requireStepFree:false,avoidStairs:true,avoidUnknown:false,selected:'indoor',closedAsset:null,view:'routes',planBuilding:'VT-TORGERSEN',planFloor:'01',planZoom:1};
+const state = {origin:'POI-PERRY-PLACE',destination:'VT-PAMPLIN',requireStepFree:false,avoidStairs:true,avoidUnknown:false,selected:'indoor',view:'routes',planBuilding:'VT-TORGERSEN',planFloor:'01',planZoom:1};
 const GEMINI_MODEL = 'gemini-2.5-flash', ELEVEN_VOICE = '21m00Tcm4TlvDq8ikWAM';
 const KEY_STORAGE = {gemini: 'accesspath_key_gemini', elevenlabs: 'accesspath_key_elevenlabs'};
 const getKey = name => { try { return localStorage.getItem(KEY_STORAGE[name]) || ''; } catch { return ''; } };
 const setKey = (name, value) => { try { value ? localStorage.setItem(KEY_STORAGE[name], value) : localStorage.removeItem(KEY_STORAGE[name]); } catch {} };
 let data, graph, comparison, map, baseLayer, routeLayer, selectedLayer, markersLayer, tilesLoaded = 0;
 const latLng = coords => [coords[1], coords[0]];
-const duration = route => { const m = Math.max(1, Math.round(route.seconds / 60)); return route.samePlace ? '0 min' : m + '–' + (m + 2) + ' min'; };
-const distance = route => Math.round(route.meters) + ' m';
+const duration = route => { const m = Math.max(1, Math.round(route.seconds / 60)); return route.sameEntrance ? 'Unmapped' : route.samePlace ? '0 min' : m + '–' + (m + 2) + ' min'; };
+const distance = route => route.sameEntrance?'Shared entrance':Math.round(route.meters) + ' m';
 function edgeName(edge) {
+  if (edge.name) return edge.name;
   if (edge.connector_type) return connectorName(edge);
   const a = graph.nodes.get(edge.from || edge.from_node), b = graph.nodes.get(edge.to || edge.to_node);
   const building = graph.buildings.get(a?.building || b?.building);
@@ -26,13 +27,13 @@ function connectorName(c) {
   return building + ' · ' + kind + ' · floors ' + c.floors_served + (c.unmapped ? ' · not yet routable' : '');
 }
 async function load() {
-  const files = {buildings:'buildings.geojson',entrances:'entrances.geojson',paths:'paths.geojson',connectors:'connectors.geojson',pois:'pois.geojson',metadata:'metadata.json',status:'status-records.json',floorplans:'floorplans.json'};
+  const files = {buildings:'buildings.geojson',entrances:'entrances.geojson',paths:'paths.geojson',connectors:'connectors.geojson',pois:'pois.geojson',metadata:'metadata.json',status:'status-records.json',floorplans:'floorplans.json',studentRoutes:'student-routes.json'};
   data = Object.fromEntries(await Promise.all(Object.entries(files).map(async ([key,file]) => {
     const response = await fetch('data/' + file);
     if (!response.ok) throw new Error('The pilot dataset could not be loaded.');
     return [key, await response.json()];
   })));
-  graph = buildGraph(data);
+  graph = buildGraph(data,{enableClosures:false});
   const options = '<optgroup label="Named places">' + graph.places.filter(p=>p.type!=='building').map(option).join('') + '</optgroup><optgroup label="Campus buildings">' + graph.places.filter(p=>p.type==='building').sort((a,b)=>a.name.localeCompare(b.name)).map(option).join('') + '</optgroup>';
   for (const key of ['origin','destination']) { $('#'+key).innerHTML=options; $('#'+key).value=state[key]; $('#'+key).disabled=false; }
   $('#swap').disabled=false;
@@ -41,8 +42,6 @@ async function load() {
   const planCount=Object.values(data.floorplans).reduce((n,b)=>n+b.plans.length,0);
   $('.nav-count').textContent=planCount;
   $('#pilot-counts').textContent=graph.buildings.size+' buildings · '+graph.places.filter(p=>p.type!=='building').length+' named places';
-  $('#closure-asset').innerHTML='<optgroup label="Walking paths and indoor shortcuts">'+graph.edges.filter(e=>!e.unmapped).sort((a,b)=>Number(b.is_indoor)-Number(a.is_indoor)).map(e=>'<option value="'+esc(e.id)+'">'+esc(edgeName(e))+' · '+esc(e.id)+'</option>').join('')+'</optgroup><optgroup label="Vertical connectors">'+graph.connectors.map(c=>'<option value="'+esc(c.id)+'">'+esc(connectorName(c))+'</option>').join('')+'</optgroup>';
-  $('#closure-asset').value='IND-DERRING-1'; $('#closure-asset').disabled=false; $('#closure-toggle').disabled=false;
   initMap(); wireEvents(); render(true); renderFloor(); registerAgentTools();
 }
 function option(p) { return '<option value="'+esc(p.id)+'">'+esc(p.name)+'</option>'; }
@@ -60,8 +59,6 @@ function wireEvents() {
   $('#swap').addEventListener('click',()=>{[state.origin,state.destination]=[state.destination,state.origin];$('#origin').value=state.origin;$('#destination').value=state.destination;render(true);});
   for(const [id,key] of [['step-free','requireStepFree'],['avoid-stairs','avoidStairs'],['avoid-unknown','avoidUnknown']]) $('#'+id).addEventListener('change',e=>{state[key]=e.target.checked;render();});
   $('#route-options').addEventListener('click',e=>{const card=e.target.closest('[data-route]');if(card&&!card.disabled){state.selected=card.dataset.route;render();}});
-  $('#closure-toggle').addEventListener('click',()=>{state.closedAsset=state.closedAsset?null:$('#closure-asset').value;render();});
-  $('#closure-asset').addEventListener('change',()=>{state.closedAsset=null;render();});
   $('#fit-map').addEventListener('click',fitMap);
   $('#nav-routes').addEventListener('click',()=>switchView('routes'));
   $('#nav-plans').addEventListener('click',()=>switchView('plans'));
@@ -88,10 +85,13 @@ function switchView(view) {
   if(plans)renderFloor();else requestAnimationFrame(()=>{map.invalidateSize();fitMap();});
 }
 function render(fit=false) {
-  graph=buildGraph(data,{closedAssets:state.closedAsset?[state.closedAsset]:[]});
+  graph=buildGraph(data,{enableClosures:false});
   comparison=compareRoutes(graph,state.origin,state.destination,state);
-  const cards=[['indoor','Indoor shortcuts','Explore possible cut-throughs'],['outdoor','Outdoor only','Stay on the outdoor network']];
-  $('#route-options').innerHTML=cards.map(([key,name,subtitle])=>{
+  const sameRoute=comparison.indoor.found&&comparison.outdoor.found&&JSON.stringify(comparison.indoor.legs.map(e=>e.coordinates))===JSON.stringify(comparison.outdoor.legs.map(e=>e.coordinates));
+  if(sameRoute || (!comparison[state.selected].found && comparison.indoor.found))state.selected='indoor';
+  const cards=[['indoor',comparison.indoor.studentRoute?'Student route':'Campus route','Follow the mapped path'],['outdoor','Outdoor only','Stay on the outdoor network']];
+  $('#route-options').classList.toggle('single-route',sameRoute);
+  $('#route-options').innerHTML=cards.filter(([key])=>key!=='outdoor'||!sameRoute).map(([key,name,subtitle])=>{
     const r=comparison[key];
     return '<button class="route-card '+(state.selected===key?'selected':'')+'" data-route="'+key+'" aria-pressed="'+(state.selected===key)+'" '+(!r.found?'disabled':'')+'><span class="route-card-top"><strong>'+name+'</strong><span class="card-radio" aria-hidden="true"></span></span><span class="card-time">'+(r.found?duration(r):'No route')+'</span><span class="card-subtitle">'+(r.found?distance(r)+' · '+(r.indoorBuildings.length?'via '+esc(graph.buildings.get(r.indoorBuildings[0])?.name):subtitle):'Not enough verified access')+'</span></button>';
   }).join('');
@@ -103,31 +103,27 @@ function render(fit=false) {
   }else if(route.sameEntrance){
     $('#route-summary').innerHTML='<div class="no-route"><h3>Indoor travel is not mapped yet.</h3><p>These places share a mapped entrance, but the supplied dataset does not describe the indoor path between them.</p></div>';$('#directions').innerHTML='';
   }else{
+    const routeNote=route.studentRoute?'<div class="route-source"><strong>'+(route.arrivalFloor?'DDS arrival: Floor '+esc(route.arrivalFloor):'Student screenshot route')+'</strong>'+ (route.color==='yellow'?'Yellow path':route.color==='blue'?'Blue outdoor path':'Red path')+' · Approximate trace. '+(route.legs.some(e=>e.is_indoor)?'Includes building passages. ':'')+'Closure handling is off.</div>':'';
     const savings=state.selected==='indoor'&&comparison.savedMeters>1?'<div class="savings"><span aria-hidden="true">↗</span> About '+Math.round(comparison.savedMeters)+' m shorter than outdoors</div>':'';
-    $('#route-summary').innerHTML=savings+'<div class="trust-card"><div class="trust-top"><strong>Accessibility unverified</strong><span>'+route.unverifiedPercent+'%</span></div><div class="trust-track"><i style="width:'+route.unverifiedPercent+'%"></i></div><p>This is a route preview. Entrance positions and path access still need checking.'+(route.indoorBuildings.length?' Building hours and entry rules are also unknown.':'')+'</p></div>';
+    $('#route-summary').innerHTML=routeNote+savings+'<div class="trust-card"><div class="trust-top"><strong>Accessibility unverified</strong><span>'+route.unverifiedPercent+'%</span></div><div class="trust-track"><i style="width:'+route.unverifiedPercent+'%"></i></div><p>This is a route preview. Entrance positions and path access still need checking.'+(route.indoorBuildings.length?' Building hours and entry rules are also unknown.':'')+'</p></div>';
     const startEntrance=route.startEntrance?.entrance_name||'Mapped entrance',endEntrance=route.endEntrance?.entrance_name||'Mapped entrance';
-    $('#directions').innerHTML='<div class="directions-title"><h3>Route details</h3><button id="read-aloud" class="text-button" type="button">▶ Read aloud</button><span>'+route.legs.length+' segments</span></div><ol class="directions"><li class="endpoint"><span class="step-icon">A</span><div><strong>'+esc(route.start.name)+'</strong><small>'+esc(startEntrance)+' · Approximate</small></div></li>'+route.legs.map((e,i)=>'<li><span class="step-icon">'+(e.connector_type?'⇧':e.is_indoor?'⌂':'↗')+'</span><div><strong>'+esc(edgeName(e))+'</strong><small>'+(e.fixedSeconds?'~'+Math.round(e.seconds)+' s':Math.round(e.meters)+' m')+' · '+(e.is_indoor?'Indoor · ':'')+(e.verified?'Access verified':'Access unknown')+'</small>'+(e.is_indoor?'<button class="text-button" data-floor-building="'+esc(graph.nodes.get(e.from)?.building||'')+'">View floorplan ↗</button>':'')+'</div></li>').join('')+'<li class="endpoint"><span class="step-icon destination">B</span><div><strong>'+esc(route.end.name)+'</strong><small>'+esc(endEntrance)+' · Approximate</small></div></li></ol>';
+    $('#directions').innerHTML='<div class="directions-title"><h3>Route details</h3><button id="read-aloud" class="text-button" type="button">▶ Read aloud</button><span>'+route.legs.length+' segments</span></div><ol class="directions"><li class="endpoint"><span class="step-icon">A</span><div><strong>'+esc(route.start.name)+'</strong><small>'+esc(startEntrance)+' · Approximate</small></div></li>'+route.legs.map((e,i)=>'<li><span class="step-icon">'+(e.connector_type?'⇧':e.is_indoor?'⌂':'↗')+'</span><div><strong>'+esc(edgeName(e))+'</strong><small>'+(e.fixedSeconds?'~'+Math.round(e.seconds)+' s':Math.round(e.meters)+' m')+' · '+(e.is_indoor?'Indoor · ':'')+(e.verified?'Access verified':'Access unknown')+'</small>'+(e.is_indoor && data.floorplans[e.building||graph.nodes.get(e.from)?.building]?.plans?.length?'<button class="text-button" data-floor-building="'+esc(e.building||graph.nodes.get(e.from)?.building||'')+'">View floorplan ↗</button>':'')+'</div></li>').join('')+'<li class="endpoint"><span class="step-icon destination">B</span><div><strong>'+esc(route.end.name)+'</strong><small>'+esc(endEntrance)+' · Approximate</small></div></li></ol>';
     $('#directions').querySelectorAll('[data-floor-building]').forEach(button=>button.addEventListener('click',()=>{state.planBuilding=button.dataset.floorBuilding;state.planFloor='01';$('#plan-building').value=state.planBuilding;switchView('plans');}));
     $('#read-aloud')?.addEventListener('click',()=>readAloud(route));
   }
-  const asset=graph.assets.get($('#closure-asset').value), isConnector=graph.connectors.some(c=>c.id===asset?.id);
-  $('#closure-toggle').textContent=state.closedAsset?'Restore':isConnector?'Close connector':'Close path';
-  $('#closure-toggle').setAttribute('aria-pressed',String(!!state.closedAsset));
-  $('#closure-toggle').classList.toggle('is-closed',!!state.closedAsset);
-  $('#scenario-note').textContent=isConnector&&asset.unmapped?'This connector’s mechanism is unconfirmed, so it is not yet part of the route graph.':state.closedAsset?'Simulated closure applied. Route previews have been recalculated.':isConnector?'This connector is wired into the route graph. Closing it can reroute indoor paths that depend on it.':'Changes affect this preview only. Imported data stays unchanged.';
   $('#avoid-stairs').disabled=state.requireStepFree;$('#avoid-stairs').checked=state.requireStepFree||state.avoidStairs;
   renderMap(); if(fit)fitMap();
 }
 function renderMap() {
   baseLayer.clearLayers();routeLayer.clearLayers();selectedLayer.clearLayers();markersLayer.clearLayers();
   for(const e of graph.edges) {
-    const closed=e.operational_status==='closed';
-    L.polyline(e.coordinates.map(latLng),{color:closed?'#bc5848':e.unmapped?'#b2a8c2':'#78998a',weight:closed?4:2,opacity:closed?.9:.42,dashArray:e.unmapped?'3 8':closed?'5 5':'3 5'}).bindTooltip(esc(edgeName(e))+'<br>'+esc(closed?(e.simulated?'Simulated closure':'Closed in supplied records'):e.unmapped?'Unmapped floor connection':'Accessibility unknown')).addTo(baseLayer);
+        L.polyline(e.coordinates.map(latLng),{color:e.unmapped?'#b2a8c2':'#78998a',weight:2,opacity:.42,dashArray:e.unmapped?'3 8':'3 5'}).bindTooltip(esc(edgeName(e))+'<br>'+esc(e.unmapped?'Unmapped floor connection':'Accessibility unknown')).addTo(baseLayer);
   }
   const alternate=comparison[state.selected==='indoor'?'outdoor':'indoor'];
-  if(alternate.found)for(const e of alternate.legs)L.polyline(e.coordinates.map(latLng),{color:'#859bb5',weight:7,opacity:.8}).addTo(routeLayer);
+  const active=comparison[state.selected];
+  if(alternate.found && JSON.stringify(alternate.legs.map(e=>e.coordinates))!==JSON.stringify(active.legs.map(e=>e.coordinates)))for(const e of alternate.legs)L.polyline(e.coordinates.map(latLng),{color:alternate.color==='yellow'?'#d2a600':alternate.color==='red'?'#df4939':'#2869dc',weight:4,opacity:.8,dashArray:alternate.color==='red'||alternate.color==='yellow'?null:'2 8'}).addTo(routeLayer);
   const route=comparison[state.selected];
-  if(route.found)for(const e of route.legs){L.polyline(e.coordinates.map(latLng),{color:'#fff',weight:9,opacity:.95}).addTo(selectedLayer);L.polyline(e.coordinates.map(latLng),{color:e.is_indoor?'#8358a3':'#14705b',weight:5,opacity:1,dashArray:e.verified?null:'8 5'}).bindTooltip(esc(edgeName(e))+' · Access unknown').addTo(selectedLayer);}
+  if(route.found)for(const e of route.legs){L.polyline(e.coordinates.map(latLng),{color:'#fff',weight:9,opacity:.95}).addTo(selectedLayer);L.polyline(e.coordinates.map(latLng),{color:route.studentRoute?(route.color==='yellow'?'#d2a600':route.color==='blue'?'#2869dc':'#df4939'):(e.is_indoor?'#8358a3':'#14705b'),weight:5,opacity:1,dashArray:route.studentRoute?(route.color==='blue'?'2 8':null):(e.verified?null:'8 5')}).bindTooltip(esc(edgeName(e))+' · Access unknown').addTo(selectedLayer);}
   for(const building of graph.buildings.values()){
     const marker=L.circleMarker(latLng(building.coordinates),{radius:4,color:'#fff',weight:2,fillColor:'#284e46',fillOpacity:1});
     marker.bindTooltip(esc(building.name),{direction:'top',className:'building-tooltip',permanent:false});
@@ -143,7 +139,7 @@ function renderMap() {
 function fitMap(){
   const route=comparison?.[state.selected]; const coords=route?.found?route.legs.flatMap(e=>e.coordinates):[];
   const other=comparison?.[state.selected==='indoor'?'outdoor':'indoor'];if(other?.found)coords.push(...other.legs.flatMap(e=>e.coordinates));
-  if(coords.length)map.fitBounds(L.latLngBounds(coords.map(latLng)),{paddingTopLeft:[60,90],paddingBottomRight:[60,210],maxZoom:17});
+  if(coords.length)map.fitBounds(L.latLngBounds(coords.map(latLng)),{paddingTopLeft:[60,90],paddingBottomRight:[45,70],maxZoom:17});
   else map.fitBounds(L.latLngBounds([...graph.buildings.values()].map(b=>latLng(b.coordinates))),{padding:[35,70],maxZoom:16});
 }
 function renderFloor(){
