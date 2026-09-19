@@ -1,0 +1,211 @@
+{
+ "type": "FeatureCollection",
+ "name": "pois",
+ "crs": {
+  "type": "name",
+  "properties": {
+   "name": "urn:ogc:def:crs:OGC:1.3/CRS84"
+  }
+ },
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.427678,
+     37.231046
+    ]
+   },
+   "properties": {
+    "poi_id": "POI-PERRY-PLACE",
+    "name": "Perry Place",
+    "aliases": [
+     "Perry Place Dining",
+     "Hitt dining",
+     "Perry Pl"
+    ],
+    "building_id": "VT-HITT",
+    "node_id": "N-HITT-E1",
+    "floor": "01-02",
+    "category": "dining",
+    "confidence": "inferred",
+    "display_tier": "UNKNOWN",
+    "notes": "600-seat dining facility with nine venues, inside Hitt Hall. Entrance node is a PLACEHOLDER - no interior survey."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.427678,
+     37.231046
+    ]
+   },
+   "properties": {
+    "poi_id": "POI-PROCON",
+    "name": "Procon Innovation Center",
+    "aliases": [
+     "Innovation Lab",
+     "Procon"
+    ],
+    "building_id": "VT-HITT",
+    "node_id": "N-HITT-E1",
+    "floor": "01-02",
+    "category": "academic",
+    "confidence": "inferred",
+    "display_tier": "UNKNOWN",
+    "notes": "Two-storey innovation centre inside Hitt Hall."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.424458,
+     37.229115
+    ]
+   },
+   "properties": {
+    "poi_id": "POI-PAMPLIN-DEAN",
+    "name": "Pamplin College of Business - Dean's Office",
+    "aliases": [
+     "Pamplin dean",
+     "business school office"
+    ],
+    "building_id": "VT-PAMPLIN",
+    "node_id": "N-PAMPLIN-EN",
+    "floor": null,
+    "category": "office",
+    "confidence": "inferred",
+    "display_tier": "UNKNOWN",
+    "notes": "Room number unknown. Mapped to the building's north entrance."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.425774,
+     37.22946
+    ]
+   },
+   "properties": {
+    "poi_id": "POI-MUSEUM-GEO",
+    "name": "Museum of Geosciences",
+    "aliases": [
+     "Geosciences Museum",
+     "Derring museum"
+    ],
+    "building_id": "VT-DERRING",
+    "node_id": "N-DERRING-EN",
+    "floor": null,
+    "category": "attraction",
+    "confidence": "inferred",
+    "display_tier": "UNKNOWN",
+    "notes": "Inside Derring Hall. Floor and room unknown."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.419169,
+     37.229079
+    ]
+   },
+   "properties": {
+    "poi_id": "POI-NEWMAN-CAFE",
+    "name": "Newman Library cafe",
+    "aliases": [
+     "library coffee",
+     "Au Bon Pain"
+    ],
+    "building_id": "VT-NEWMAN-LIB",
+    "node_id": "N-NEWMAN-LIB-E2",
+    "floor": "01",
+    "category": "dining",
+    "confidence": "inferred",
+    "display_tier": "UNKNOWN",
+    "notes": "Lobby cafe added in the 2009 renovation."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.423198,
+     37.228928
+    ]
+   },
+   "properties": {
+    "poi_id": "POI-BURRUSS-AUD",
+    "name": "Burruss Auditorium",
+    "aliases": [
+     "Burruss Hall Auditorium"
+    ],
+    "building_id": "VT-BURRUSS",
+    "node_id": "N-BURRUSS-E1",
+    "floor": "01-02",
+    "category": "venue",
+    "confidence": "inferred",
+    "display_tier": "UNKNOWN",
+    "notes": "3,003-seat auditorium. WARNING: its mapped entrance is the stepped Drillfield front."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.41848,
+     37.22962
+    ]
+   },
+   "properties": {
+    "poi_id": "POI-SQUIRES-FOOD",
+    "name": "Squires Food Court",
+    "aliases": [
+     "Squires dining"
+    ],
+    "building_id": "VT-SQUIRES",
+    "node_id": "N-SQUIRES-E1",
+    "floor": "01",
+    "category": "dining",
+    "confidence": "inferred",
+    "display_tier": "UNKNOWN",
+    "notes": "Listed as D4 on the 2025 campus map."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.417812,
+     37.231985
+    ]
+   },
+   "properties": {
+    "poi_id": "POI-CUBE",
+    "name": "The Cube",
+    "aliases": [
+     "Moss Cube",
+     "CFA Cube"
+    ],
+    "building_id": "VT-CFA",
+    "node_id": "N-CFA-E1",
+    "floor": null,
+    "category": "venue",
+    "confidence": "inferred",
+    "display_tier": "UNKNOWN",
+    "notes": "Four-storey experimental theatre inside the Center for the Arts."
+   }
+  }
+ ]
+}

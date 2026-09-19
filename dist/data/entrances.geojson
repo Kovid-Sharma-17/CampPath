@@ -1,0 +1,780 @@
+{
+ "type": "FeatureCollection",
+ "name": "entrances",
+ "crs": {
+  "type": "name",
+  "properties": {
+   "name": "urn:ogc:def:crs:OGC:1.3/CRS84"
+  }
+ },
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.425258,
+     37.232015
+    ]
+   },
+   "properties": {
+    "entrance_id": "VT-GOODWIN-E1",
+    "building_id": "VT-GOODWIN",
+    "node_id": "N-GOODWIN-E1",
+    "entrance_name": "Perry Street side",
+    "accessibility_status": "unknown",
+    "operational_status": "unknown",
+    "step_count": null,
+    "geometry_precision": "placeholder_offset_from_centroid",
+    "confidence": "inferred",
+    "display_tier": "UNKNOWN",
+    "last_verified": null,
+    "notes": "Not surveyed."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.424912,
+     37.23237
+    ]
+   },
+   "properties": {
+    "entrance_id": "VT-GOODWIN-E2",
+    "building_id": "VT-GOODWIN",
+    "node_id": "N-GOODWIN-E2",
+    "entrance_name": "East side / plaza",
+    "accessibility_status": "unknown",
+    "operational_status": "unknown",
+    "step_count": null,
+    "geometry_precision": "placeholder_offset_from_centroid",
+    "confidence": "inferred",
+    "display_tier": "UNKNOWN",
+    "last_verified": null,
+    "notes": "Not surveyed."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.424202,
+     37.231629
+    ]
+   },
+   "properties": {
+    "entrance_id": "VT-DURHAM-E1",
+    "building_id": "VT-DURHAM",
+    "node_id": "N-DURHAM-E1",
+    "entrance_name": "Perry Street side",
+    "accessibility_status": "unknown",
+    "operational_status": "unknown",
+    "step_count": null,
+    "geometry_precision": "placeholder_offset_from_centroid",
+    "confidence": "inferred",
+    "display_tier": "UNKNOWN",
+    "last_verified": null,
+    "notes": "Not surveyed."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.42382,
+     37.231416
+    ]
+   },
+   "properties": {
+    "entrance_id": "VT-DURHAM-E2",
+    "building_id": "VT-DURHAM",
+    "node_id": "N-DURHAM-E2",
+    "entrance_name": "South side toward Stanger",
+    "accessibility_status": "unknown",
+    "operational_status": "unknown",
+    "step_count": null,
+    "geometry_precision": "placeholder_offset_from_centroid",
+    "confidence": "inferred",
+    "display_tier": "UNKNOWN",
+    "last_verified": null,
+    "notes": "Not surveyed."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.424311,
+     37.231374
+    ]
+   },
+   "properties": {
+    "entrance_id": "VT-WHITTEMORE-E1",
+    "building_id": "VT-WHITTEMORE",
+    "node_id": "N-WHITTEMORE-E1",
+    "entrance_name": "North side / Perry Street",
+    "accessibility_status": "unknown",
+    "operational_status": "unknown",
+    "step_count": null,
+    "geometry_precision": "placeholder_offset_from_centroid",
+    "confidence": "inferred",
+    "display_tier": "UNKNOWN",
+    "last_verified": null,
+    "notes": "Not surveyed."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.424415,
+     37.230747
+    ]
+   },
+   "properties": {
+    "entrance_id": "VT-WHITTEMORE-E2",
+    "building_id": "VT-WHITTEMORE",
+    "node_id": "N-WHITTEMORE-E2",
+    "entrance_name": "South side toward Hancock",
+    "accessibility_status": "unknown",
+    "operational_status": "unknown",
+    "step_count": null,
+    "geometry_precision": "placeholder_offset_from_centroid",
+    "confidence": "inferred",
+    "display_tier": "UNKNOWN",
+    "last_verified": null,
+    "notes": "Not surveyed."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.42178,
+     37.23098
+    ]
+   },
+   "properties": {
+    "entrance_id": "VT-MCBRYDE-EN",
+    "building_id": "VT-MCBRYDE",
+    "node_id": "N-MCBRYDE-EN",
+    "entrance_name": "North entrance",
+    "accessibility_status": "unknown",
+    "operational_status": "unknown",
+    "step_count": null,
+    "geometry_precision": "placeholder_offset_from_centroid",
+    "confidence": "inferred",
+    "display_tier": "UNKNOWN",
+    "last_verified": null,
+    "notes": "VT states McBryde's entrances face due N/S/E/W."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.42178,
+     37.23026
+    ]
+   },
+   "properties": {
+    "entrance_id": "VT-MCBRYDE-ES",
+    "building_id": "VT-MCBRYDE",
+    "node_id": "N-MCBRYDE-ES",
+    "entrance_name": "South entrance",
+    "accessibility_status": "unknown",
+    "operational_status": "unknown",
+    "step_count": null,
+    "geometry_precision": "placeholder_offset_from_centroid",
+    "confidence": "inferred",
+    "display_tier": "UNKNOWN",
+    "last_verified": null,
+    "notes": "VT states McBryde's entrances face due N/S/E/W."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.422232,
+     37.23062
+    ]
+   },
+   "properties": {
+    "entrance_id": "VT-MCBRYDE-EW",
+    "building_id": "VT-MCBRYDE",
+    "node_id": "N-MCBRYDE-EW",
+    "entrance_name": "West entrance",
+    "accessibility_status": "unknown",
+    "operational_status": "unknown",
+    "step_count": null,
+    "geometry_precision": "placeholder_offset_from_centroid",
+    "confidence": "inferred",
+    "display_tier": "UNKNOWN",
+    "last_verified": null,
+    "notes": "VT states McBryde's entrances face due N/S/E/W."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.42463,
+     37.230135
+    ]
+   },
+   "properties": {
+    "entrance_id": "VT-HANCOCK-E1",
+    "building_id": "VT-HANCOCK",
+    "node_id": "N-HANCOCK-E1",
+    "entrance_name": "Old Turner Street side",
+    "accessibility_status": "unknown",
+    "operational_status": "unknown",
+    "step_count": null,
+    "geometry_precision": "placeholder_offset_from_centroid",
+    "confidence": "inferred",
+    "display_tier": "UNKNOWN",
+    "last_verified": null,
+    "notes": "Not surveyed."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.42391,
+     37.230185
+    ]
+   },
+   "properties": {
+    "entrance_id": "VT-HANCOCK-E2",
+    "building_id": "VT-HANCOCK",
+    "node_id": "N-HANCOCK-E2",
+    "entrance_name": "East side toward Drillfield",
+    "accessibility_status": "unknown",
+    "operational_status": "unknown",
+    "step_count": null,
+    "geometry_precision": "placeholder_offset_from_centroid",
+    "confidence": "inferred",
+    "display_tier": "UNKNOWN",
+    "last_verified": null,
+    "notes": "Not surveyed."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.41997,
+     37.229456
+    ]
+   },
+   "properties": {
+    "entrance_id": "VT-TORGERSEN-E1",
+    "building_id": "VT-TORGERSEN",
+    "node_id": "N-TORGERSEN-E1",
+    "entrance_name": "Alumni Mall / south side",
+    "accessibility_status": "unknown",
+    "operational_status": "unknown",
+    "step_count": null,
+    "geometry_precision": "placeholder_offset_from_centroid",
+    "confidence": "inferred",
+    "display_tier": "UNKNOWN",
+    "last_verified": null,
+    "notes": "Not surveyed."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.41997,
+     37.230104
+    ]
+   },
+   "properties": {
+    "entrance_id": "VT-TORGERSEN-E2",
+    "building_id": "VT-TORGERSEN",
+    "node_id": "N-TORGERSEN-E2",
+    "entrance_name": "North side",
+    "accessibility_status": "unknown",
+    "operational_status": "unknown",
+    "step_count": null,
+    "geometry_precision": "placeholder_offset_from_centroid",
+    "confidence": "inferred",
+    "display_tier": "UNKNOWN",
+    "last_verified": null,
+    "notes": "Not surveyed."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.423198,
+     37.228928
+    ]
+   },
+   "properties": {
+    "entrance_id": "VT-BURRUSS-E1",
+    "building_id": "VT-BURRUSS",
+    "node_id": "N-BURRUSS-E1",
+    "entrance_name": "Drillfield (east) front",
+    "accessibility_status": "stairs",
+    "operational_status": "unknown",
+    "step_count": null,
+    "geometry_precision": "placeholder_offset_from_centroid",
+    "confidence": "inferred",
+    "display_tier": "UNKNOWN",
+    "last_verified": null,
+    "notes": "Drillfield front is approached by a broad flight of steps. Step count NOT counted. An accessible alternative is believed to exist but is NOT located. Never route a step-free trip on this row."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.423632,
+     37.229354
+    ]
+   },
+   "properties": {
+    "entrance_id": "VT-BURRUSS-E2",
+    "building_id": "VT-BURRUSS",
+    "node_id": "N-BURRUSS-E2",
+    "entrance_name": "North side",
+    "accessibility_status": "unknown",
+    "operational_status": "unknown",
+    "step_count": null,
+    "geometry_precision": "placeholder_offset_from_centroid",
+    "confidence": "inferred",
+    "display_tier": "UNKNOWN",
+    "last_verified": null,
+    "notes": "Candidate step-free entrance - UNVERIFIED. Survey this one first."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.41964,
+     37.228704
+    ]
+   },
+   "properties": {
+    "entrance_id": "VT-NEWMAN-LIB-E1",
+    "building_id": "VT-NEWMAN-LIB",
+    "node_id": "N-NEWMAN-LIB-E1",
+    "entrance_name": "Drillfield (west) side",
+    "accessibility_status": "unknown",
+    "operational_status": "unknown",
+    "step_count": null,
+    "geometry_precision": "placeholder_offset_from_centroid",
+    "confidence": "inferred",
+    "display_tier": "UNKNOWN",
+    "last_verified": null,
+    "notes": "Not surveyed."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.419169,
+     37.229079
+    ]
+   },
+   "properties": {
+    "entrance_id": "VT-NEWMAN-LIB-E2",
+    "building_id": "VT-NEWMAN-LIB",
+    "node_id": "N-NEWMAN-LIB-E2",
+    "entrance_name": "Alumni Mall / north side",
+    "accessibility_status": "unknown",
+    "operational_status": "unknown",
+    "step_count": null,
+    "geometry_precision": "placeholder_offset_from_centroid",
+    "confidence": "inferred",
+    "display_tier": "UNKNOWN",
+    "last_verified": null,
+    "notes": "Not surveyed."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.41848,
+     37.22962
+    ]
+   },
+   "properties": {
+    "entrance_id": "VT-SQUIRES-E1",
+    "building_id": "VT-SQUIRES",
+    "node_id": "N-SQUIRES-E1",
+    "entrance_name": "Alumni Mall / west side",
+    "accessibility_status": "unknown",
+    "operational_status": "unknown",
+    "step_count": null,
+    "geometry_precision": "placeholder_offset_from_centroid",
+    "confidence": "inferred",
+    "display_tier": "UNKNOWN",
+    "last_verified": null,
+    "notes": "Not surveyed."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.41796,
+     37.22998
+    ]
+   },
+   "properties": {
+    "entrance_id": "VT-SQUIRES-E2",
+    "building_id": "VT-SQUIRES",
+    "node_id": "N-SQUIRES-E2",
+    "entrance_name": "College Avenue side",
+    "accessibility_status": "unknown",
+    "operational_status": "unknown",
+    "step_count": null,
+    "geometry_precision": "placeholder_offset_from_centroid",
+    "confidence": "inferred",
+    "display_tier": "UNKNOWN",
+    "last_verified": null,
+    "notes": "Not surveyed."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.426785,
+     37.232198
+    ]
+   },
+   "properties": {
+    "entrance_id": "VT-DDS-E1",
+    "building_id": "VT-DDS",
+    "node_id": "N-DDS-E1",
+    "entrance_name": "Prices Fork Road side",
+    "accessibility_status": "unknown",
+    "operational_status": "unknown",
+    "step_count": null,
+    "geometry_precision": "placeholder_offset_from_centroid",
+    "confidence": "inferred",
+    "display_tier": "UNKNOWN",
+    "last_verified": null,
+    "notes": "2023 build. VT states new construction is ADA-compliant, but WHICH door is step-free is not stated."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.426495,
+     37.231798
+    ]
+   },
+   "properties": {
+    "entrance_id": "VT-DDS-E2",
+    "building_id": "VT-DDS",
+    "node_id": "N-DDS-E2",
+    "entrance_name": "East side toward Goodwin",
+    "accessibility_status": "unknown",
+    "operational_status": "unknown",
+    "step_count": null,
+    "geometry_precision": "placeholder_offset_from_centroid",
+    "confidence": "inferred",
+    "display_tier": "UNKNOWN",
+    "last_verified": null,
+    "notes": "Not surveyed."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.422127,
+     37.230936
+    ]
+   },
+   "properties": {
+    "entrance_id": "VT-KELLY-E1",
+    "building_id": "VT-KELLY",
+    "node_id": "N-KELLY-E1",
+    "entrance_name": "Stanger Street side",
+    "accessibility_status": "unknown",
+    "operational_status": "unknown",
+    "step_count": null,
+    "geometry_precision": "placeholder_offset_from_centroid",
+    "confidence": "inferred",
+    "display_tier": "UNKNOWN",
+    "last_verified": null,
+    "notes": "Not surveyed."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.422796,
+     37.23103
+    ]
+   },
+   "properties": {
+    "entrance_id": "VT-KELLY-E2",
+    "building_id": "VT-KELLY",
+    "node_id": "N-KELLY-E2",
+    "entrance_name": "West side",
+    "accessibility_status": "unknown",
+    "operational_status": "unknown",
+    "step_count": null,
+    "geometry_precision": "placeholder_offset_from_centroid",
+    "confidence": "inferred",
+    "display_tier": "UNKNOWN",
+    "last_verified": null,
+    "notes": "Not surveyed."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.417812,
+     37.231985
+    ]
+   },
+   "properties": {
+    "entrance_id": "VT-CFA-E1",
+    "building_id": "VT-CFA",
+    "node_id": "N-CFA-E1",
+    "entrance_name": "Alumni Mall side",
+    "accessibility_status": "unknown",
+    "operational_status": "unknown",
+    "step_count": null,
+    "geometry_precision": "placeholder_offset_from_centroid",
+    "confidence": "inferred",
+    "display_tier": "UNKNOWN",
+    "last_verified": null,
+    "notes": "Not surveyed."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.417176,
+     37.23234
+    ]
+   },
+   "properties": {
+    "entrance_id": "VT-CFA-E2",
+    "building_id": "VT-CFA",
+    "node_id": "N-CFA-E2",
+    "entrance_name": "Main Street side",
+    "accessibility_status": "unknown",
+    "operational_status": "unknown",
+    "step_count": null,
+    "geometry_precision": "placeholder_offset_from_centroid",
+    "confidence": "inferred",
+    "display_tier": "UNKNOWN",
+    "last_verified": null,
+    "notes": "Not surveyed."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.427678,
+     37.231046
+    ]
+   },
+   "properties": {
+    "entrance_id": "VT-HITT-E1",
+    "building_id": "VT-HITT",
+    "node_id": "N-HITT-E1",
+    "entrance_name": "Innovation Plaza / West Campus Drive",
+    "accessibility_status": "unknown",
+    "operational_status": "unknown",
+    "step_count": null,
+    "geometry_precision": "placeholder_offset_from_centroid",
+    "confidence": "inferred",
+    "display_tier": "UNKNOWN",
+    "last_verified": null,
+    "notes": "2024 build. VT Facilities states Hitt's classrooms, collaboration spaces and restrooms are ADA-compliant. That is a design statement, NOT a surveyed entrance."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.427155,
+     37.231462
+    ]
+   },
+   "properties": {
+    "entrance_id": "VT-HITT-E2",
+    "building_id": "VT-HITT",
+    "node_id": "N-HITT-E2",
+    "entrance_name": "Perry Street side",
+    "accessibility_status": "unknown",
+    "operational_status": "unknown",
+    "step_count": null,
+    "geometry_precision": "placeholder_offset_from_centroid",
+    "confidence": "inferred",
+    "display_tier": "UNKNOWN",
+    "last_verified": null,
+    "notes": "Not surveyed."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.423009,
+     37.23092
+    ]
+   },
+   "properties": {
+    "entrance_id": "VT-MITCHELL-E1",
+    "building_id": "VT-MITCHELL",
+    "node_id": "N-MITCHELL-E1",
+    "entrance_name": "Stanger Street side (planned)",
+    "accessibility_status": "unknown",
+    "operational_status": "unknown",
+    "step_count": null,
+    "geometry_precision": "placeholder_offset_from_centroid",
+    "confidence": "inferred",
+    "display_tier": "UNKNOWN",
+    "last_verified": null,
+    "notes": "BUILDING DOES NOT EXIST YET. Placeholder only - see Status Updates."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.425774,
+     37.22946
+    ]
+   },
+   "properties": {
+    "entrance_id": "VT-DERRING-EN",
+    "building_id": "VT-DERRING",
+    "node_id": "N-DERRING-EN",
+    "entrance_name": "North side / West Campus Drive",
+    "accessibility_status": "unknown",
+    "operational_status": "unknown",
+    "step_count": null,
+    "geometry_precision": "placeholder_offset_from_centroid",
+    "confidence": "inferred",
+    "display_tier": "UNKNOWN",
+    "last_verified": null,
+    "notes": "Demo route enters here. NOT surveyed."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.425037,
+     37.229041
+    ]
+   },
+   "properties": {
+    "entrance_id": "VT-DERRING-EE",
+    "building_id": "VT-DERRING",
+    "node_id": "N-DERRING-EE",
+    "entrance_name": "East side toward Pamplin",
+    "accessibility_status": "unknown",
+    "operational_status": "unknown",
+    "step_count": null,
+    "geometry_precision": "placeholder_offset_from_centroid",
+    "confidence": "inferred",
+    "display_tier": "UNKNOWN",
+    "last_verified": null,
+    "notes": "Demo route exits here. NOT surveyed."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.425093,
+     37.228727
+    ]
+   },
+   "properties": {
+    "entrance_id": "VT-PAMPLIN-EW",
+    "building_id": "VT-PAMPLIN",
+    "node_id": "N-PAMPLIN-EW",
+    "entrance_name": "West side toward Derring",
+    "accessibility_status": "unknown",
+    "operational_status": "unknown",
+    "step_count": null,
+    "geometry_precision": "placeholder_offset_from_centroid",
+    "confidence": "inferred",
+    "display_tier": "UNKNOWN",
+    "last_verified": null,
+    "notes": "Not surveyed."
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -80.424458,
+     37.229115
+    ]
+   },
+   "properties": {
+    "entrance_id": "VT-PAMPLIN-EN",
+    "building_id": "VT-PAMPLIN",
+    "node_id": "N-PAMPLIN-EN",
+    "entrance_name": "North side / atrium",
+    "accessibility_status": "unknown",
+    "operational_status": "unknown",
+    "step_count": null,
+    "geometry_precision": "placeholder_offset_from_centroid",
+    "confidence": "inferred",
+    "display_tier": "UNKNOWN",
+    "last_verified": null,
+    "notes": "1988 atrium links the old and new wings. NOT surveyed."
+   }
+  }
+ ]
+}

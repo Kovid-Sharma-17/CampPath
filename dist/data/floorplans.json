@@ -1,0 +1,295 @@
+{
+  "VT-GOODWIN": {
+    "name": "Goodwin Hall",
+    "archive_date": "2006-09-07",
+    "plans": []
+  },
+  "VT-DURHAM": {
+    "name": "Durham Hall",
+    "archive_date": "2006-09-07",
+    "plans": [
+      {
+        "code": "01",
+        "label": "Floor 1",
+        "file": "floorplans/0126sa01.gif"
+      },
+      {
+        "code": "02",
+        "label": "Floor 2",
+        "file": "floorplans/0126sa02.gif"
+      },
+      {
+        "code": "03",
+        "label": "Floor 3",
+        "file": "floorplans/0126sa03.gif"
+      },
+      {
+        "code": "04",
+        "label": "Floor 4",
+        "file": "floorplans/0126sa04.gif"
+      }
+    ]
+  },
+  "VT-WHITTEMORE": {
+    "name": "Whittemore Hall",
+    "archive_date": "2006-09-07",
+    "plans": [
+      {
+        "code": "01",
+        "label": "Floor 1",
+        "file": "floorplans/0134sa01.gif"
+      },
+      {
+        "code": "02",
+        "label": "Floor 2",
+        "file": "floorplans/0134sa02.gif"
+      },
+      {
+        "code": "03",
+        "label": "Floor 3",
+        "file": "floorplans/0134sa03.gif"
+      },
+      {
+        "code": "04",
+        "label": "Floor 4",
+        "file": "floorplans/0134sa04.gif"
+      },
+      {
+        "code": "05",
+        "label": "Floor 5",
+        "file": "floorplans/0134sa05.gif"
+      },
+      {
+        "code": "06",
+        "label": "Floor 6",
+        "file": "floorplans/0134sa06.gif"
+      },
+      {
+        "code": "14",
+        "label": "Archive sheet 14",
+        "file": "floorplans/0134sa14.gif"
+      }
+    ]
+  },
+  "VT-MCBRYDE": {
+    "name": "McBryde Hall",
+    "archive_date": "2006-09-07",
+    "plans": [
+      {
+        "code": "01",
+        "label": "Floor 1",
+        "file": "floorplans/0151sa01.gif"
+      },
+      {
+        "code": "02",
+        "label": "Floor 2",
+        "file": "floorplans/0151sa02.gif"
+      },
+      {
+        "code": "03",
+        "label": "Floor 3",
+        "file": "floorplans/0151sa03.gif"
+      },
+      {
+        "code": "04",
+        "label": "Floor 4",
+        "file": "floorplans/0151sa04.gif"
+      },
+      {
+        "code": "05",
+        "label": "Floor 5",
+        "file": "floorplans/0151sa05.gif"
+      },
+      {
+        "code": "06",
+        "label": "Floor 6",
+        "file": "floorplans/0151sa06.gif"
+      },
+      {
+        "code": "14",
+        "label": "Archive sheet 14",
+        "file": "floorplans/0151sa14.gif"
+      }
+    ]
+  },
+  "VT-HANCOCK": {
+    "name": "John W. Hancock Jr. Hall",
+    "archive_date": "2006-09-07",
+    "plans": [
+      {
+        "code": "00",
+        "label": "Basement",
+        "file": "floorplans/133csa00.gif"
+      },
+      {
+        "code": "01",
+        "label": "Floor 1",
+        "file": "floorplans/133csa01.gif"
+      },
+      {
+        "code": "02",
+        "label": "Floor 2",
+        "file": "floorplans/133csa02.gif"
+      }
+    ]
+  },
+  "VT-TORGERSEN": {
+    "name": "Torgersen Hall",
+    "archive_date": "2006-09-07",
+    "plans": [
+      {
+        "code": "01",
+        "label": "Floor 1",
+        "file": "floorplans/0174sa01.gif"
+      },
+      {
+        "code": "02",
+        "label": "Floor 2",
+        "file": "floorplans/0174sa02.gif"
+      },
+      {
+        "code": "03",
+        "label": "Floor 3",
+        "file": "floorplans/0174sa03.gif"
+      },
+      {
+        "code": "17",
+        "label": "Penthouse",
+        "file": "floorplans/0174sa17.gif"
+      }
+    ]
+  },
+  "VT-SQUIRES": {
+    "name": "Squires Student Center",
+    "archive_date": "2006-09-07",
+    "plans": [
+      {
+        "code": "00",
+        "label": "Basement",
+        "file": "floorplans/0180sa00.gif"
+      },
+      {
+        "code": "01",
+        "label": "Floor 1",
+        "file": "floorplans/0180sa01.gif"
+      },
+      {
+        "code": "02",
+        "label": "Floor 2",
+        "file": "floorplans/0180sa02.gif"
+      },
+      {
+        "code": "03",
+        "label": "Floor 3",
+        "file": "floorplans/0180sa03.gif"
+      },
+      {
+        "code": "04",
+        "label": "Floor 4",
+        "file": "floorplans/0180sa04.gif"
+      }
+    ]
+  },
+  "VT-BURRUSS": {
+    "name": "Burruss Hall",
+    "archive_date": "2006-09-07",
+    "plans": [
+      {
+        "code": "01",
+        "label": "Floor 1",
+        "file": "floorplans/0176sa01.gif"
+      },
+      {
+        "code": "02",
+        "label": "Floor 2",
+        "file": "floorplans/0176sa02.gif"
+      },
+      {
+        "code": "03",
+        "label": "Floor 3",
+        "file": "floorplans/0176sa03.gif"
+      },
+      {
+        "code": "04",
+        "label": "Floor 4",
+        "file": "floorplans/0176sa04.gif"
+      },
+      {
+        "code": "05",
+        "label": "Floor 5",
+        "file": "floorplans/0176sa05.gif"
+      },
+      {
+        "code": "06",
+        "label": "Floor 6",
+        "file": "floorplans/0176sa06.gif"
+      }
+    ]
+  },
+  "VT-NEWMAN-LIB": {
+    "name": "Carol M. Newman Library",
+    "archive_date": "2006-09-07",
+    "plans": []
+  },
+  "VT-DDS": {
+    "name": "Data and Decision Sciences Building",
+    "archive_date": "2006-09-07",
+    "plans": []
+  },
+  "VT-KELLY": {
+    "name": "Kelly Hall",
+    "archive_date": "2006-09-07",
+    "plans": []
+  },
+  "VT-CFA": {
+    "name": "Center for the Arts (formerly Moss Arts Center)",
+    "archive_date": "2006-09-07",
+    "plans": []
+  },
+  "VT-HITT": {
+    "name": "Hitt Hall",
+    "archive_date": "2006-09-07",
+    "plans": []
+  },
+  "VT-MITCHELL": {
+    "name": "Mitchell Hall (under construction, 2028)",
+    "archive_date": "2006-09-07",
+    "plans": []
+  },
+  "VT-DERRING": {
+    "name": "Derring Hall",
+    "archive_date": "2006-09-07",
+    "plans": []
+  },
+  "VT-PAMPLIN": {
+    "name": "Pamplin Hall",
+    "archive_date": "2006-09-07",
+    "plans": [
+      {
+        "code": "00",
+        "label": "Basement",
+        "file": "floorplans/0153sa00.gif"
+      },
+      {
+        "code": "01",
+        "label": "Floor 1",
+        "file": "floorplans/0153sa01.gif"
+      },
+      {
+        "code": "02",
+        "label": "Floor 2",
+        "file": "floorplans/0153sa02.gif"
+      },
+      {
+        "code": "03",
+        "label": "Floor 3",
+        "file": "floorplans/0153sa03.gif"
+      },
+      {
+        "code": "16",
+        "label": "Archive sheet 16",
+        "file": "floorplans/0153sa16.gif"
+      }
+    ]
+  }
+}

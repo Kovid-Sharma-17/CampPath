@@ -1,0 +1,19 @@
+{
+  "dataset": "AccessPath VT pilot",
+  "version": "0.3.0-scaffold",
+  "generated": "2026-09-19T07:34:53+00:00",
+  "coordinate_reference_system": "EPSG:4326 (WGS 84), lon/lat order",
+  "linear_units": "metres",
+  "vertical_datum": null,
+  "last_field_verified": null,
+  "license": "Mixed / unresolved \u2014 see docs/DATA_SOURCES.md",
+  "warning": "NO ACCESSIBILITY VALUE IN THIS DATASET HAS BEEN VERIFIED BY A HUMAN. Building coordinates are official VT figures. Entrance positions are placeholders offset from building centroids and may be 30-50 m out. Treat confidence='inferred' as no data.",
+  "confirmed_confidence_values": [
+    "field_verified",
+    "official"
+  ],
+  "counts": {
+    "buildings": 16,
+    "nodes": 48
+  }
+}

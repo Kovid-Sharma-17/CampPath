@@ -1,0 +1,7 @@
+asset_id,status,reason,reported_at,expected_end,source,confidence
+VT-BURRUSS-ELEV-1,closed,Maintenance,2026-09-19T14:00:00-04:00,2026-09-19T18:00:00-04:00,Facilities,official
+VT-SQUIRES-ELEV-1,available,Routine check passed,2026-09-19T08:15:00-04:00,,Facilities,official
+SEG-014,closed,Alumni Mall resurfacing,2026-09-15T07:00:00-04:00,2026-09-26T17:00:00-04:00,Facilities,official
+SEG-028,closed,Mitchell Hall construction site,2026-08-01T00:00:00-04:00,2028-08-01T00:00:00-04:00,Facilities,official
+VT-BURRUSS-E2,step_free,Reported usable by a wheelchair user,2026-09-17T11:40:00-04:00,,AccessPath user report,community_report
+VT-TORG-ELEV-B3,unknown,No recent signal,2026-09-19T00:00:00-04:00,,AccessPath staleness job,inferred
