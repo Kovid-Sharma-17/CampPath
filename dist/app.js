@@ -40,6 +40,7 @@ async function load() {
   $('#plan-building').value=state.planBuilding;
   const planCount=Object.values(data.floorplans).reduce((n,b)=>n+b.plans.length,0);
   $('.nav-count').textContent=planCount;
+  $('#pilot-counts').textContent=graph.buildings.size+' buildings · '+graph.places.filter(p=>p.type!=='building').length+' named places';
   $('#closure-asset').innerHTML='<optgroup label="Walking paths and indoor shortcuts">'+graph.edges.filter(e=>!e.unmapped).sort((a,b)=>Number(b.is_indoor)-Number(a.is_indoor)).map(e=>'<option value="'+esc(e.id)+'">'+esc(edgeName(e))+' · '+esc(e.id)+'</option>').join('')+'</optgroup><optgroup label="Vertical connectors">'+graph.connectors.map(c=>'<option value="'+esc(c.id)+'">'+esc(connectorName(c))+'</option>').join('')+'</optgroup>';
   $('#closure-asset').value='IND-DERRING-1'; $('#closure-asset').disabled=false; $('#closure-toggle').disabled=false;
   initMap(); wireEvents(); render(true); renderFloor(); registerAgentTools();

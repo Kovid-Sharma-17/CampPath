@@ -1,8 +1,10 @@
 # AccessPath — first campus pilot
 
-A browser application using the supplied Virginia Tech pilot data: 16 buildings,
-32 entrances, 64 path segments, 8 named places, and 41 archived floorplan images
-across 8 buildings. Routing runs locally in the browser. No account, API key,
+A browser application using the supplied Virginia Tech pilot data, plus a
+2026-09-19 expansion (3 buildings, corrected coordinates and path geometry -
+see below): 19 buildings, 35 entrances, 70 path segments, 8 named places, and
+41 archived floorplan images across 8 buildings. Routing runs locally in the
+browser. No account, API key,
 location permission, or backend database is needed for the core planner —
 voice narration and the natural-language assistant are optional, bring-your-own-key
 upgrades on top of it (see **Optional AI & voice** below).
@@ -22,15 +24,18 @@ need internet access; the route network remains usable if basemap tiles fail.
 
 ## First demo
 
-1. Start with Perry Place → Pamplin Hall: approximately 338 m through Derring,
-   compared with 406 m outdoors — both on the supplied approximate geometry,
-   corrected 2026-09-19 (see **Coordinate corrections** below; the ~68 m
-   saving is essentially unchanged, since it was Hitt Hall that moved, not
-   Derring or Pamplin).
-2. Close the Derring shortcut using the simulation control. The preview
-   reroutes — now through a second, still-unverified indoor path (Derring's
-   real elevator lobby), not straight to the outdoor detour, since Derring's
-   elevators are wired into the graph too.
+1. Start with Perry Place → Pamplin Hall: both indoor and outdoor now come out
+   to the same ~189 m, via a real west/south route around Derring anchored to
+   VT's own building footprints and a rider-supplied trace of how people
+   actually walk it (see **Rider-supplied route corrections** below). That
+   equal number is itself the finding: an earlier, geometry-error-driven "68 m
+   saved by cutting through Derring" was never true for this specific pair.
+2. Switch the origin to **Museum of Geosciences** (still inside Derring, at
+   its north entrance) and destination stays **Pamplin Hall**: *this* pair
+   still saves the original ~68 m through `IND-DERRING-1`, because it
+   genuinely starts on the far side of the building the shortcut cuts through.
+   Close the Derring shortcut using the simulation control here and the
+   preview reroutes around the outside.
 3. Turn on **Require verified step-free**. The app correctly returns no route
    because none of the supplied path accessibility has been verified.
 4. Switch the simulation to **Whittemore Hall · elevator · floors 01-06**
@@ -61,6 +66,51 @@ for how, and `buildings.geojson` / `entrances.geojson` / `paths.geojson` for
 the per-record notes. The other ten buildings' existing vt.edu-sourced
 coordinates were cross-checked and left alone (within ~15 m, ordinary
 centroid-vs-address-point variance).
+
+## Rider-supplied route corrections (2026-09-19)
+
+Even with Hitt Hall's coordinate fixed, the path segments connecting it to
+Derring were still an approximate straight-line guess. A rider then supplied
+eight annotated screenshots of real walking directions across this zone —
+blue dotted for the stock map-app suggestion, red/yellow hand-drawn for the
+route actually used (which, for Goodwin ↔ D&DS specifically, marks two real
+doors: red the 1st-floor entrance, yellow the 2nd). `scripts/add_nad_expansion.py`
++ `scripts/nad_gis_data_20260919.py` applies what that traced:
+
+- **Three buildings added**: New Classroom Building (NCB), Davidson Hall,
+  Williams Hall — all real origins/destinations in the traced routes, not
+  previously in the pilot. Coordinates and footprints from VT Enterprise GIS,
+  `confidence: official`, same as the corrections above. Their entrance
+  placeholders sit on the real footprint edge nearest where the traced routes
+  actually arrive - still placeholders, not surveyed doors.
+- **Hitt/Derring/Pamplin/NCB redrawn** around Derring's real west and south
+  footprint edges (`SEG-041`, `SEG-042`, `SEG-044`, and a re-anchored
+  `SEG-031`), matching the traced route instead of the earlier guess. The old
+  north/NE-corner route (`SEG-032`/`033`/`034`) was **not deleted** - it's
+  still there, just no longer the shortest option.
+- **The one significant, honest consequence**: this corrected route is short
+  enough on its own that it no longer benefits from cutting through
+  `IND-DERRING-1`. Perry Place → Pamplin now shows *no* indoor-shortcut
+  advantage - indoor and outdoor converge on the same ~189 m. The original
+  ~68 m saving is real, just for a different pair: Museum of Geosciences
+  (Derring's north entrance) → Pamplin, which does still need to get around
+  the building. Both are asserted by the test suite so this can't silently
+  regress in either direction.
+- **Davidson Hall connects in** via a shortcut behind Hahn Hall South/VTSports
+  Lot 13A (`SEG-045`, `SEG-046`) rather than the official W Campus Dr loop.
+- **Goodwin ↔ D&DS gets a direct Prices Fork Rd segment** (`SEG-047`)
+  alongside the existing shorter one via D&DS's east entrance. The rider's
+  1st-floor/2nd-floor distinction is recorded in both entrances' `notes` -
+  **not** promoted to `accessibility_status` or `confidence`, since a route
+  trace confirms a door exists, not what floor it opens onto or whether that
+  matters for a wheelchair. That still needs a survey.
+
+None of this is a substitute for `SURVEY_PROTOCOL.md`. It's a real
+improvement in geometry and connectivity - useless without a real building
+to route to, wrong when the shape doesn't match how people actually walk -
+over what a straight line between two guessed points can offer, and it's
+sourced and testable rather than invented. Door-level accessibility facts on
+every segment and entrance touched here are still `unknown`.
 
 ## Data and limitations
 

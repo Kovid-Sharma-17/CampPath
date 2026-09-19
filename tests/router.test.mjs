@@ -8,21 +8,34 @@ const source=Object.fromEntries(Object.entries(names).map(([key,file])=>[key,JSO
 const now=new Date('2026-09-19T16:00:00Z');
 const graph=()=>buildGraph(source,{now});
 const pair=['POI-PERRY-PLACE','VT-PAMPLIN'];
+const geoPair=['POI-MUSEUM-GEO','VT-PAMPLIN'];
 const statusData=rows=>({...source,status:rows});
 
-test('imports the complete supplied pilot and resolves stable place IDs',()=>{
-  const g=graph();assert.equal(g.buildings.size,16);assert.equal(g.entrances.size,32);assert.equal(g.edges.length,64);assert.equal(g.connectors.length,48);assert.equal(g.places.length,24);
+test('imports the complete supplied pilot plus the 2026-09-19 North Academic District expansion and resolves stable place IDs',()=>{
+  const g=graph();assert.equal(g.buildings.size,19);assert.equal(g.entrances.size,35);assert.equal(g.edges.length,70);assert.equal(g.connectors.length,48);assert.equal(g.places.length,27);
   assert.equal(resolvePlace(g,'Perry Place').node,'N-HITT-E1');
   assert.equal(resolvePlace(g,'VT-NEWMAN-LIB').type,'building');
   assert.equal(resolvePlace(g,'Newman'),null);
+  for(const id of ['VT-NCB','VT-DAVIDSON','VT-WILLIAMS'])assert.ok(resolvePlace(g,id),id+' should resolve');
 });
-test('Perry Place to Pamplin comparison uses Derring and saves approximately 68 m',()=>{
-  // Distances as of the 2026-09-19 Hitt Hall coordinate correction (was ~255 m off;
-  // see buildings.geojson notes and source-data/DATA_SOURCES.md). The Derring
-  // shortcut's saving is coincidentally almost unchanged because Derring and
-  // Pamplin's own coordinates were not touched by that correction.
+test('Perry Place to Pamplin: the real west/south route (rider-supplied trace + VT footprints) is now short enough that indoor and outdoor converge - no more shortcut advantage here',()=>{
+  // This is a genuine, honest change, not a regression: earlier "68 m saved via Derring"
+  // numbers for this specific pair were built on an approximate straight-line guess for
+  // the Hitt-area geometry. The corrected route (SEG-031/041/042/035, hugging Derring's
+  // real west and south footprint edges) is short enough on its own that detouring through
+  // IND-DERRING-1 no longer saves anything for someone starting at Hitt/Perry Place. See
+  // the 'Museum of Geosciences' test below for a pair where the indoor shortcut still helps -
+  // someone starting at Derring's own north entrance still benefits from cutting through.
   const r=compareRoutes(graph(),...pair);assert.ok(r.indoor.found&&r.outdoor.found);
-  assert.ok(Math.abs(r.indoor.meters-337.95)<.1);assert.ok(Math.abs(r.outdoor.meters-405.87)<.1);
+  assert.ok(Math.abs(r.indoor.meters-r.outdoor.meters)<.1);
+  assert.ok(Math.abs(r.indoor.meters-189.33)<.1);
+  assert.equal(r.savedMeters,0);
+  assert.ok(!r.indoor.legs.some(l=>l.id==='IND-DERRING-1'));
+  assert.equal(r.indoor.unverifiedPercent,100);
+});
+test('Museum of Geosciences (inside Derring’s north entrance) to Pamplin still saves ~68 m via the indoor shortcut',()=>{
+  const r=compareRoutes(graph(),...geoPair);assert.ok(r.indoor.found&&r.outdoor.found);
+  assert.ok(Math.abs(r.indoor.meters-115.44)<.1);assert.ok(Math.abs(r.outdoor.meters-183.37)<.1);
   assert.ok(Math.abs(r.savedMeters-67.92)<.1);assert.ok(r.indoor.legs.some(l=>l.id==='IND-DERRING-1'));
   assert.equal(r.indoor.unverifiedPercent,100);assert.ok(r.outdoor.legs.every(l=>!l.is_indoor));
 });
@@ -30,16 +43,35 @@ test('verified step-free and unknown-exclusion requests fail without relaxing pr
   assert.equal(findRoute(graph(),...pair,{requireStepFree:true}).found,false);
   assert.equal(findRoute(graph(),...pair,{avoidUnknown:true}).found,false);
 });
-test('closing Derring shortcut reroutes (now via the honestly-costed floor-hub, not IND-DERRING-1 itself) and restoring rebuilds the baseline',()=>{
+test('closing Derring shortcut reroutes the Museum-of-Geosciences pair (which actually depends on it) and restoring rebuilds the baseline',()=>{
   const closed=buildGraph(source,{now,closedAssets:['IND-DERRING-1']});
-  const r=findRoute(closed,...pair);assert.ok(r.found);assert.ok(!r.legs.some(l=>l.id==='IND-DERRING-1'));
-  // Since Derring now has a real, official-confidence elevator, the reroute can legitimately
-  // use its entrance<->floor legs as an alternate (still unverified, still costed, still visible)
-  // indoor path instead of walking all the way around outside - it is no longer forced onto
-  // SEG-033/034. That reroute must still be longer than the open baseline and still 100% unverified.
-  assert.ok(r.meters>findRoute(graph(),...pair).meters);
-  assert.equal(r.unverifiedPercent,100);
-  assert.ok(findRoute(graph(),...pair).meters<350);
+  const r=findRoute(closed,...geoPair);assert.ok(r.found);assert.ok(!r.legs.some(l=>l.id==='IND-DERRING-1'));
+  assert.ok(r.meters>findRoute(graph(),...geoPair).meters);
+  assert.ok(findRoute(graph(),...geoPair).meters<130);
+});
+test('the old north/NE-corner route to Derring’s north entrance (SEG-032/033/034) still exists - not deleted, just no longer the shortest option',()=>{
+  const g=graph();
+  assert.ok((g.adj.get('J-WCD-N')||[]).some(e=>e.to==='N-DERRING-EN'));
+  for(const id of ['SEG-032','SEG-033','SEG-034'])assert.ok(g.edges.some(e=>e.id===id));
+});
+test('New Classroom Building, Davidson Hall, and Williams Hall connect into the cluster via rider-supplied route shapes',()=>{
+  const g=graph();
+  const hittToNcb=findRoute(g,'POI-PERRY-PLACE','VT-NCB');
+  assert.ok(hittToNcb.found);assert.ok(hittToNcb.meters<250);
+  const pamplinToNcb=findRoute(g,'VT-PAMPLIN','VT-NCB');
+  assert.ok(pamplinToNcb.found);
+  assert.ok(['SEG-041','SEG-042','SEG-044'].every(id=>pamplinToNcb.legs.some(l=>l.id===id)));
+  const davidsonToNcb=findRoute(g,'VT-DAVIDSON','VT-NCB');
+  assert.ok(davidsonToNcb.found);
+  assert.ok(['SEG-045','SEG-046'].every(id=>davidsonToNcb.legs.some(l=>l.id===id)));
+});
+test('Goodwin to D&DS has a direct Prices Fork Rd option (rider-marked ‘1st floor’) alongside the existing shorter one via Goodwin’s east entrance (rider-marked ‘2nd floor’); neither floor is asserted as confirmed',()=>{
+  const g=graph();
+  const direct=(g.adj.get('N-GOODWIN-E1')||[]).find(e=>e.to==='N-DDS-E1');
+  assert.ok(direct,'direct Prices Fork Rd segment should exist in the graph even though it is not the Dijkstra-shortest pick');
+  const e1=g.entrances.get('N-DDS-E1'),e2=g.entrances.get('N-DDS-E2');
+  assert.ok(e1.notes.includes('1st floor'));assert.ok(e2.notes.includes('2nd floor'));
+  assert.equal(e1.confidence,'inferred');assert.equal(e2.confidence,'inferred');
 });
 test('entrance closure affects physical paths, virtual endpoint links, and both directions',()=>{
   const g=buildGraph(source,{now,closedAssets:['VT-PAMPLIN-EW']});
@@ -52,7 +84,7 @@ test('entrance closure affects physical paths, virtual endpoint links, and both 
 });
 test('future reports do not prematurely close a path',()=>{
   const g=buildGraph(statusData([{asset_id:'IND-DERRING-1',status:'closed',reported_at:'2026-09-20T00:00:00Z',source:'demo'}]),{now});
-  assert.equal(g.statusLog[0].result,'scheduled');assert.ok(findRoute(g,...pair).legs.some(l=>l.id==='IND-DERRING-1'));
+  assert.equal(g.statusLog[0].result,'scheduled');assert.ok(findRoute(g,...geoPair).legs.some(l=>l.id==='IND-DERRING-1'));
 });
 test('expired closures become unknown rather than verified open',()=>{
   const g=buildGraph(statusData([{asset_id:'IND-DERRING-1',status:'closed',reported_at:'2026-09-18T00:00:00Z',expected_end:'2026-09-19T12:00:00Z',confidence:'official'}]),{now});
@@ -128,7 +160,7 @@ test('same mapped entrance and unknown inputs return clear results',()=>{
 });
 test('restricted indoor passages are excluded',()=>{
   const copied=structuredClone(source);copied.paths.features.find(f=>f.properties.segment_id==='IND-DERRING-1').properties.access_control='swipe_required';
-  assert.ok(!findRoute(buildGraph(copied,{now}),...pair).legs.some(l=>l.id==='IND-DERRING-1'));
+  assert.ok(!findRoute(buildGraph(copied,{now}),...geoPair).legs.some(l=>l.id==='IND-DERRING-1'));
 });
 test('status application and simulations leave imported data immutable',()=>{
   const before=JSON.stringify(source);buildGraph(source,{now,closedAssets:['SEG-001','VT-PAMPLIN-EW']});assert.equal(JSON.stringify(source),before);

@@ -391,6 +391,78 @@
         "floorplan_in_archive": "yes",
         "notes": null
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.42696174,
+          37.22936464
+        ]
+      },
+      "properties": {
+        "building_id": "VT-NCB",
+        "name": "Classroom Building (NCB)",
+        "building_number": "159",
+        "abbreviation": null,
+        "address": "1455 Perry St.",
+        "year_built": "2016",
+        "new_since_2006": "yes",
+        "coord_source": "arcgis-central.gis.vt.edu/arcgis/rest/services/vtcampusmap/Buildings/FeatureServer/0, fetched 2026-09-19",
+        "confidence": "official",
+        "display_tier": "CONFIRMED",
+        "floorplan_in_archive": "NO",
+        "notes": "Added 2026-09-19 because rider-supplied route traces named it as a real origin/destination in this pilot zone."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.42519679,
+          37.22705711
+        ]
+      },
+      "properties": {
+        "building_id": "VT-DAVIDSON",
+        "name": "Davidson Hall",
+        "building_number": "156",
+        "abbreviation": null,
+        "address": "1040 Drillfield Dr.",
+        "year_built": "2014",
+        "new_since_2006": "yes",
+        "coord_source": "arcgis-central.gis.vt.edu/arcgis/rest/services/vtcampusmap/Buildings/FeatureServer/0, fetched 2026-09-19",
+        "confidence": "official",
+        "display_tier": "CONFIRMED",
+        "floorplan_in_archive": "NO",
+        "notes": "Added 2026-09-19 because rider-supplied route traces named it as a real origin/destination in this pilot zone."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.42433375,
+          37.22787268
+        ]
+      },
+      "properties": {
+        "building_id": "VT-WILLIAMS",
+        "name": "Williams Hall",
+        "building_number": "152",
+        "abbreviation": null,
+        "address": "890 Drillfield Dr.",
+        "year_built": "1953",
+        "new_since_2006": "no",
+        "coord_source": "arcgis-central.gis.vt.edu/arcgis/rest/services/vtcampusmap/Buildings/FeatureServer/0, fetched 2026-09-19",
+        "confidence": "official",
+        "display_tier": "CONFIRMED",
+        "floorplan_in_archive": "NO",
+        "notes": "Added 2026-09-19 because rider-supplied route traces named it as a real origin/destination in this pilot zone."
+      }
     }
   ]
 }

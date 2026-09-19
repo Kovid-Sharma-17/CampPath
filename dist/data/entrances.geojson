@@ -485,7 +485,7 @@
         "confidence": "inferred",
         "display_tier": "UNKNOWN",
         "last_verified": null,
-        "notes": "Repositioned 2026-09-19 onto the real building footprint (VT Enterprise GIS) after the building centroid was corrected; still a placeholder point on the outline nearest the original guess, not a surveyed door position."
+        "notes": "Rider-supplied route trace marks this as the '1st floor' entrance reached directly from Goodwin Hall via Prices Fork Rd (SEG-047). Floor level not confirmed against building plans."
       }
     },
     {
@@ -509,7 +509,7 @@
         "confidence": "inferred",
         "display_tier": "UNKNOWN",
         "last_verified": null,
-        "notes": "Repositioned 2026-09-19 onto the real building footprint (VT Enterprise GIS) after the building centroid was corrected; still a placeholder point on the outline nearest the original guess, not a surveyed door position."
+        "notes": "Rider-supplied route trace marks this as the '2nd floor' entrance, reached from Goodwin Hall via J-NAD-1 (SEG-021/022) rather than directly - a real second door, plausible on this site's sloped terrain, but its floor level is not confirmed against building plans."
       }
     },
     {
@@ -774,6 +774,78 @@
         "display_tier": "UNKNOWN",
         "last_verified": null,
         "notes": "1988 atrium links the old and new wings. NOT surveyed."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.42660535483103,
+          37.22962224221091
+        ]
+      },
+      "properties": {
+        "entrance_id": "VT-NCB-E1",
+        "building_id": "VT-NCB",
+        "node_id": "N-NCB-E1",
+        "entrance_name": "East side toward Derring",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "step_count": null,
+        "geometry_precision": "placeholder_on_real_footprint",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "last_verified": null,
+        "notes": "Positioned on the real building footprint, east side (faces the Derring/Hitt cluster, matching every rider-supplied route). Rider-supplied Apple Maps route screenshots (2026-09-19), annotated to mark the preferred walking route vs. the app's stock suggestion. Shape approximated against real VT GIS building footprints, not itself a survey."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.42507924703018,
+          37.22671743538958
+        ]
+      },
+      "properties": {
+        "entrance_id": "VT-DAVIDSON-E1",
+        "building_id": "VT-DAVIDSON",
+        "node_id": "N-DAVIDSON-E1",
+        "entrance_name": "South side toward Lot 13",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "step_count": null,
+        "geometry_precision": "placeholder_on_real_footprint",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "last_verified": null,
+        "notes": "Positioned on the real building footprint, south side, matching where rider-supplied routes reach this building near Lot 13. Rider-supplied Apple Maps route screenshots (2026-09-19), annotated to mark the preferred walking route vs. the app's stock suggestion. Shape approximated against real VT GIS building footprints, not itself a survey."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.42471469726253,
+          37.227711851083235
+        ]
+      },
+      "properties": {
+        "entrance_id": "VT-WILLIAMS-E1",
+        "building_id": "VT-WILLIAMS",
+        "node_id": "N-WILLIAMS-E1",
+        "entrance_name": "West side toward Davidson/Derring",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "step_count": null,
+        "geometry_precision": "placeholder_on_real_footprint",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "last_verified": null,
+        "notes": "Positioned on the real building footprint, west side. Williams Hall is a waypoint in the rider-supplied spine route (Perry St Lot / Hitt / Derring / Williams / Davidson to D&DS), not itself a traced origin or destination - treat this entrance as lower-confidence placement than the others added in this pass."
       }
     }
   ]

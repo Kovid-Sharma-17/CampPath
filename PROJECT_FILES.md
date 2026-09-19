@@ -40,9 +40,9 @@ All imported runtime data is under:
 
 | File | Location | Contents |
 | --- | --- | --- |
-| `buildings.geojson` | `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2/dist/data/buildings.geojson` | 16 pilot buildings, names, coordinates, addresses, and evidence fields. |
-| `entrances.geojson` | `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2/dist/data/entrances.geojson` | 32 building entrances and their graph node IDs. |
-| `paths.geojson` | `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2/dist/data/paths.geojson` | 64 walking and indoor path segments. |
+| `buildings.geojson` | `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2/dist/data/buildings.geojson` | 19 pilot buildings (16 supplied + New Classroom Building, Davidson Hall, Williams Hall added 2026-09-19), names, coordinates, addresses, and evidence fields. |
+| `entrances.geojson` | `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2/dist/data/entrances.geojson` | 35 building entrances and their graph node IDs. |
+| `paths.geojson` | `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2/dist/data/paths.geojson` | 70 walking and indoor path segments. |
 | `connectors.geojson` | `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2/dist/data/connectors.geojson` | 48 recorded vertical or indoor connectors (19 from the original 2006-floorplan-derived import, 29 real ones added 2026-09-19 from VT Facilities' elevator asset system), including elevators, chairlifts, stairs, and bridges. |
 | `pois.geojson` | `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2/dist/data/pois.geojson` | 8 named pilot destinations such as Perry Place, the Cube, and the Newman Library cafe. |
 | `metadata.json` | `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2/dist/data/metadata.json` | Dataset metadata, provenance, and coverage notes. |
@@ -94,6 +94,8 @@ All Leaflet assets are under:
 | `import_pilot.py` | `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2/scripts/import_pilot.py` | Reproducibly imports the supplied ZIP and floorplan directory into `dist/data` and `dist/floorplans`. It uses explicit file handling and does not execute source code from the archive. |
 | `merge_vt_gis.py` | `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2/scripts/merge_vt_gis.py` | One-time, safely-rerunnable correction pass (applied 2026-09-19) that applies the 6 building coordinate fixes and adds the 29 real elevator/chairlift connectors documented in the README, sourced from VT's public Enterprise GIS. Kept for provenance, the same way `import_pilot.py` documents the original import. |
 | `vt_gis_snapshot_20260919.py` | `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2/scripts/vt_gis_snapshot_20260919.py` | The raw VT Enterprise GIS data `merge_vt_gis.py` merges in, hand-transcribed from a live fetch on 2026-09-19 (see its own docstring for the exact source query). |
+| `add_nad_expansion.py` | `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2/scripts/add_nad_expansion.py` | One-time, safely-rerunnable pass (applied 2026-09-19) that adds 3 buildings and redraws the Hitt/Derring/Pamplin/NCB/Davidson local path network against real VT footprints and a rider-supplied trace of the routes actually used. See the README's **Rider-supplied route corrections**. |
+| `nad_gis_data_20260919.py` | `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2/scripts/nad_gis_data_20260919.py` | The raw VT Enterprise GIS building points/footprints `add_nad_expansion.py` merges in. |
 | `router.test.mjs` | `/Users/kovidsharma/Documents/ChatGPT/VTHack26 2/tests/router.test.mjs` | Routing and data-integrity tests covering real-data comparisons, strict preferences, closures, status freshness, connector wiring (mapped vs. unmapped, real VT Facilities elevators, the entrance-to-floor link that must not become a free accessibility-check-free shortcut, Hitt Hall's elevator/stairs, the Whittemore bridge that stays unreachable even with a confirmed elevator), restricted passages, immutability, and floorplan references. |
 
 Run the checks from the project root:

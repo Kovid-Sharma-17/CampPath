@@ -1426,8 +1426,8 @@
             37.22901449773915
           ],
           [
-            -80.4265,
-            37.230124
+            -80.42627758049753,
+            37.228834484971706
           ]
         ]
       },
@@ -1445,7 +1445,7 @@
         "access_control": "outdoor",
         "confidence": "inferred",
         "display_tier": "UNKNOWN",
-        "notes": "Redrawn 2026-09-19 after the Hitt Hall coordinate correction moved E1 ~255 m; distance to J-WCD-N actually shortened (146 m to 125 m), consistent with VT News placing Hitt Hall near Derring/West Campus Drive. West Campus Drive footway. Still NOT surveyed."
+        "notes": "Redrawn 2026-09-19: re-anchored to Derring Hall's real west footprint edge (near Derring Lot), replacing an earlier straight-line guess. Rider-supplied Apple Maps route screenshots (2026-09-19), annotated to mark the preferred walking route vs. the app's stock suggestion. Shape approximated against real VT GIS building footprints, not itself a survey."
       }
     },
     {
@@ -2054,6 +2054,198 @@
         "confidence": "inferred",
         "display_tier": "UNKNOWN",
         "notes": "Whittemore to Durham via the 3rd-floor bridge. Needs a working lift in both buildings."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.42627758049753,
+            37.228834484971706
+          ],
+          [
+            -80.4259989649811,
+            37.2286017128896
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-041",
+        "from_node": "J-WCD-N",
+        "to_node": "J-DERRING-S",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "NEW 2026-09-19: west side of Derring Hall, real footprint edge. Part of the shorter west/south route around Derring that rider-supplied traces mark as the one actually used, replacing the longer north/east-corner walk (SEG-032/033/034) as the router's preferred pick without removing that route. Rider-supplied Apple Maps route screenshots (2026-09-19), annotated to mark the preferred walking route vs. the app's stock suggestion. Shape approximated against real VT GIS building footprints, not itself a survey."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.4259989649811,
+            37.2286017128896
+          ],
+          [
+            -80.425037,
+            37.229041
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-042",
+        "from_node": "J-DERRING-S",
+        "to_node": "N-DERRING-EE",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "NEW 2026-09-19: south side of Derring Hall to its east entrance, completing the west/south wrap-around. Rider-supplied Apple Maps route screenshots (2026-09-19), annotated to mark the preferred walking route vs. the app's stock suggestion. Shape approximated against real VT GIS building footprints, not itself a survey."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.42627758049753,
+            37.228834484971706
+          ],
+          [
+            -80.42660535483103,
+            37.22962224221091
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-044",
+        "from_node": "J-WCD-N",
+        "to_node": "N-NCB-E1",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "NEW 2026-09-19: Derring Lot west side continuing to Classroom Building (NCB)'s east entrance - the Pamplin<->NCB and Hitt<->NCB rider-supplied routes both use this same stretch. Rider-supplied Apple Maps route screenshots (2026-09-19), annotated to mark the preferred walking route vs. the app's stock suggestion. Shape approximated against real VT GIS building footprints, not itself a survey."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.42507924703018,
+            37.22671743538958
+          ],
+          [
+            -80.42544425629129,
+            37.22782667685846
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-045",
+        "from_node": "N-DAVIDSON-E1",
+        "to_node": "J-HAHN-S",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "NEW 2026-09-19: Davidson Hall north past Hahn Hall South / VTSports Lot 13A, per the rider-supplied Davidson<->NCB shortcut (the alternative to the official W Campus Dr route). Rider-supplied Apple Maps route screenshots (2026-09-19), annotated to mark the preferred walking route vs. the app's stock suggestion. Shape approximated against real VT GIS building footprints, not itself a survey."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.42544425629129,
+            37.22782667685846
+          ],
+          [
+            -80.4259989649811,
+            37.2286017128896
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-046",
+        "from_node": "J-HAHN-S",
+        "to_node": "J-DERRING-S",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "NEW 2026-09-19: connects the Hahn Hall South shortcut into the Derring south-side route, giving Davidson Hall a path to the Derring/Pamplin/NCB cluster and (via the existing J-NAD-2 connection) toward D&DS. Rider-supplied Apple Maps route screenshots (2026-09-19), annotated to mark the preferred walking route vs. the app's stock suggestion. Shape approximated against real VT GIS building footprints, not itself a survey."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.42554915390006,
+            37.232080735668674
+          ],
+          [
+            -80.42706936840904,
+            37.23174587072038
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-047",
+        "from_node": "N-GOODWIN-E1",
+        "to_node": "N-DDS-E1",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "confidence": "inferred",
+        "display_tier": "UNKNOWN",
+        "notes": "NEW 2026-09-19: direct Prices Fork Rd connection, matching the rider-supplied 'red' trace to D&DS's Prices Fork Road entrance. The rider's route notes this as the 1st-floor entrance - NOT confirmed against building plans, carried over as-is from the trace. Rider-supplied Apple Maps route screenshots (2026-09-19), annotated to mark the preferred walking route vs. the app's stock suggestion. Shape approximated against real VT GIS building footprints, not itself a survey."
       }
     }
   ]
