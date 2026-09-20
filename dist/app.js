@@ -165,9 +165,6 @@ function render(fit=false) {
 }
 function renderMap() {
   baseLayer.clearLayers();routeLayer.clearLayers();selectedLayer.clearLayers();markersLayer.clearLayers();locationLayer.clearLayers();
-  for(const e of graph.edges) {
-    L.polyline(e.coordinates.map(latLng),{color:'#78998a',weight:2,opacity:.42,dashArray:'3 5'}).bindTooltip(esc(edgeName(e))).addTo(baseLayer);
-  }
   if(route.found)for(const e of route.legs){L.polyline(e.coordinates.map(latLng),{color:'#fff',weight:9,opacity:.95}).addTo(selectedLayer);L.polyline(e.coordinates.map(latLng),{color:e.is_indoor?'#8358a3':'#14705b',weight:5,opacity:1}).bindTooltip(esc(edgeName(e))).addTo(selectedLayer);}
   for(const building of graph.buildings.values()){
     const marker=L.circleMarker(latLng(building.coordinates),{radius:4,color:'#fff',weight:2,fillColor:'#284e46',fillOpacity:1});
