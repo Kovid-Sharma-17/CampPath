@@ -33,7 +33,6 @@ const source = {
   buildings: read('buildings.geojson'),
   entrances: read('entrances.geojson'),
   paths: read('paths.geojson'),
-  connectors: read('connectors.geojson'),
   pois: read('pois.geojson'),
   metadata: read('metadata.json'),
   status: read('status-records.json'),

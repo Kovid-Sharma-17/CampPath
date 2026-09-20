@@ -1,31 +1,25 @@
-import {buildGraph, compareRoutes, resolvePlace, isConfirmed, findRoute} from './router.mjs';
+import {buildGraph, resolvePlace, findRoute} from './router.mjs';
 import {loadDataset,applyEdits,readEdits,STORAGE_KEY} from './editor-model.mjs';
 const $ = selector => document.querySelector(selector);
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const state = {origin:'POI-PERRY-PLACE',destination:'VT-PAMPLIN',requireStepFree:false,avoidStairs:true,avoidUnknown:false,selected:'indoor',view:'routes',planBuilding:'VT-TORGERSEN',planFloor:'01',planZoom:1};
+const state = {origin:'POI-PERRY-PLACE',destination:'VT-PAMPLIN',view:'routes',planBuilding:'VT-TORGERSEN',planFloor:'01',planZoom:1};
 const GEMINI_MODEL = 'gemini-2.5-flash', ELEVEN_VOICE = '21m00Tcm4TlvDq8ikWAM';
 const KEY_STORAGE = {gemini: 'accesspath_key_gemini', elevenlabs: 'accesspath_key_elevenlabs'};
 const getKey = name => { try { return localStorage.getItem(KEY_STORAGE[name]) || ''; } catch { return ''; } };
 const setKey = (name, value) => { try { value ? localStorage.setItem(KEY_STORAGE[name], value) : localStorage.removeItem(KEY_STORAGE[name]); } catch {} };
-let data, graph, comparison, map, baseLayer, routeLayer, selectedLayer, markersLayer, tilesLoaded = 0;
+let data, graph, route, map, baseLayer, routeLayer, selectedLayer, markersLayer, tilesLoaded = 0;
 const latLng = coords => [coords[1], coords[0]];
-const duration = route => { const m = Math.max(1, Math.round(route.seconds / 60)); return route.sameEntrance ? 'Unmapped' : route.samePlace ? '0 min' : m + '–' + (m + 2) + ' min'; };
-const distance = route => route.sameEntrance?'Shared entrance':Math.round(route.meters) + ' m';
+const duration = r => { const m = Math.max(1, Math.round(r.seconds / 60)); return r.sameEntrance ? 'Unmapped' : r.samePlace ? '0 min' : m + '–' + (m + 2) + ' min'; };
+const distance = r => r.sameEntrance?'Shared entrance':Math.round(r.meters) + ' m';
 function edgeName(edge) {
   if (edge.name) return edge.name;
-  if (edge.connector_type) return connectorName(edge);
   const a = graph.nodes.get(edge.from || edge.from_node), b = graph.nodes.get(edge.to || edge.to_node);
   const building = graph.buildings.get(a?.building || b?.building);
-  if (edge.kind === 'indoor') return 'Through ' + (building?.name || 'building');
+  if (edge.is_indoor) return 'Through ' + (building?.name || 'building');
   if (edge.id?.startsWith('SEG-P')) return (building?.name || 'Building') + ' perimeter';
   if (b?.building) return 'Approach ' + graph.buildings.get(b.building).name;
   if (a?.building) return 'From ' + graph.buildings.get(a.building).name;
   return 'Campus walkway';
-}
-function connectorName(c) {
-  const building = graph.buildings.get(c.building_id)?.name || c.building_id;
-  const kind = {elevator: 'elevator', lift: 'elevator', stairs: 'stairs', ramp: 'ramp', bridge: 'bridge'}[c.connector_type] || 'connector';
-  return building + ' · ' + kind + ' · floors ' + c.floors_served + (c.unmapped ? ' · not yet routable' : '');
 }
 async function load() {
   data = applyEdits(await loadDataset(),readEdits());
@@ -53,8 +47,6 @@ function initMap() {
 function wireEvents() {
   for(const key of ['origin','destination']) $('#'+key).addEventListener('change',e=>{state[key]=e.target.value;render(true);});
   $('#swap').addEventListener('click',()=>{[state.origin,state.destination]=[state.destination,state.origin];$('#origin').value=state.origin;$('#destination').value=state.destination;render(true);});
-  for(const [id,key] of [['step-free','requireStepFree'],['avoid-stairs','avoidStairs'],['avoid-unknown','avoidUnknown']]) $('#'+id).addEventListener('change',e=>{state[key]=e.target.checked;render();});
-  $('#route-options').addEventListener('click',e=>{const card=e.target.closest('[data-route]');if(card&&!card.disabled){state.selected=card.dataset.route;render();}});
   $('#fit-map').addEventListener('click',fitMap);
   $('#nav-routes').addEventListener('click',()=>switchView('routes'));
   $('#nav-plans').addEventListener('click',()=>switchView('plans'));
@@ -82,52 +74,36 @@ function switchView(view) {
 }
 function render(fit=false) {
   graph=buildGraph(data,{enableClosures:false});
-  comparison=compareRoutes(graph,state.origin,state.destination,state);
+  route=findRoute(graph,state.origin,state.destination);
   const from=resolvePlace(graph,state.origin),to=resolvePlace(graph,state.destination);
   const url=new URL('https://www.google.com/maps/dir/');url.searchParams.set('api','1');url.searchParams.set('travelmode','walking');
   if(from?.coordinates&&to?.coordinates){url.searchParams.set('origin',from.coordinates[1]+','+from.coordinates[0]);url.searchParams.set('destination',to.coordinates[1]+','+to.coordinates[0]);$('#google-compare').href=url.href;}
   if(state.origin&&state.destination&&state.origin!==state.destination){
-    const exists=findRoute(graph,state.origin,state.destination,{}).found;
+    const exists=route.found;
     const link=$('#edit-route');link.hidden=false;link.textContent=exists?'Edit this route ↗':'This route isn’t mapped yet — create it ↗';
     link.href='route-editor.html?from='+encodeURIComponent(state.origin)+'&to='+encodeURIComponent(state.destination);
   }else{$('#edit-route').hidden=true;}
-  const sameRoute=comparison.indoor.found&&comparison.outdoor.found&&JSON.stringify(comparison.indoor.legs.map(e=>e.coordinates))===JSON.stringify(comparison.outdoor.legs.map(e=>e.coordinates));
-  if(sameRoute || (!comparison[state.selected].found && comparison.indoor.found))state.selected='indoor';
-  const cards=[['indoor',comparison.indoor.studentRoute?'Student route':'Campus route','Follow the mapped path'],['outdoor','Outdoor only','Stay on the outdoor network']];
-  $('#route-options').classList.toggle('single-route',sameRoute);
-  $('#route-options').innerHTML=cards.filter(([key])=>key!=='outdoor'||!sameRoute).map(([key,name,subtitle])=>{
-    const r=comparison[key];
-    return '<button class="route-card '+(state.selected===key?'selected':'')+'" data-route="'+key+'" aria-pressed="'+(state.selected===key)+'" '+(!r.found?'disabled':'')+'><span class="route-card-top"><strong>'+name+'</strong><span class="card-radio" aria-hidden="true"></span></span><span class="card-time">'+(r.found?duration(r):'No route')+'</span><span class="card-subtitle">'+(r.found?distance(r)+' · '+(r.indoorBuildings.length?'via '+esc(graph.buildings.get(r.indoorBuildings[0])?.name):subtitle):'Not enough verified access')+'</span></button>';
-  }).join('');
-  const route=comparison[state.selected];
   if(!route.found){
-    $('#route-summary').innerHTML='<div class="no-route"><span aria-hidden="true">⌁</span><h3>No route meets these settings.</h3><p>'+esc(route.reason)+'</p><small>Your access preferences have not been relaxed.</small></div>';$('#directions').innerHTML='';
+    $('#route-summary').innerHTML='<div class="no-route"><span aria-hidden="true">⌁</span><h3>No route is mapped.</h3><p>'+esc(route.reason)+'</p></div>';$('#directions').innerHTML='';
   }else if(route.samePlace){
     $('#route-summary').innerHTML='<div class="no-route"><h3>You’re already there.</h3><p>These places use the same mapped entrance. No walk is needed in the current dataset.</p></div>';$('#directions').innerHTML='';
   }else if(route.sameEntrance){
     $('#route-summary').innerHTML='<div class="no-route"><h3>Indoor travel is not mapped yet.</h3><p>These places share a mapped entrance, but the supplied dataset does not describe the indoor path between them.</p></div>';$('#directions').innerHTML='';
   }else{
-    const routeNote=route.studentRoute?'<div class="route-source"><strong>'+(route.arrivalFloor?'DDS arrival: Floor '+esc(route.arrivalFloor):'Student screenshot route')+'</strong>'+ (route.color==='yellow'?'Yellow path':route.color==='blue'?'Blue outdoor path':'Red path')+' · Approximate trace. '+(route.legs.some(e=>e.is_indoor)?'Includes building passages. ':'')+'Closure handling is off.</div>':'';
-    const savings=state.selected==='indoor'&&comparison.savedMeters>1?'<div class="savings"><span aria-hidden="true">↗</span> About '+Math.round(comparison.savedMeters)+' m shorter than outdoors</div>':'';
-    $('#route-summary').innerHTML=routeNote+savings+'<div class="trust-card"><div class="trust-top"><strong>Accessibility unverified</strong><span>'+route.unverifiedPercent+'%</span></div><div class="trust-track"><i style="width:'+route.unverifiedPercent+'%"></i></div><p>This is a route preview. Entrance positions and path access still need checking.'+(route.indoorBuildings.length?' Building hours and entry rules are also unknown.':'')+'</p></div>';
+    $('#route-summary').innerHTML='<div class="route-card selected"><span class="route-card-top"><strong>Campus route</strong></span><span class="card-time">'+duration(route)+'</span><span class="card-subtitle">'+distance(route)+'</span></div>';
     const startEntrance=route.startEntrance?.entrance_name||'Mapped entrance',endEntrance=route.endEntrance?.entrance_name||'Mapped entrance';
-    $('#directions').innerHTML='<div class="directions-title"><h3>Route details</h3><button id="read-aloud" class="text-button" type="button">▶ Read aloud</button><span>'+route.legs.length+' segments</span></div><ol class="directions"><li class="endpoint"><span class="step-icon">A</span><div><strong>'+esc(route.start.name)+'</strong><small>'+esc(startEntrance)+' · Approximate</small></div></li>'+route.legs.map((e,i)=>'<li><span class="step-icon">'+(e.connector_type?'⇧':e.is_indoor?'⌂':'↗')+'</span><div><strong>'+esc(edgeName(e))+'</strong><small>'+(e.fixedSeconds?'~'+Math.round(e.seconds)+' s':Math.round(e.meters)+' m')+' · '+(e.is_indoor?'Indoor · ':'')+(e.verified?'Access verified':'Access unknown')+'</small>'+(e.is_indoor && data.floorplans[e.building||graph.nodes.get(e.from)?.building]?.plans?.length?'<button class="text-button" data-floor-building="'+esc(e.building||graph.nodes.get(e.from)?.building||'')+'">View floorplan ↗</button>':'')+'</div></li>').join('')+'<li class="endpoint"><span class="step-icon destination">B</span><div><strong>'+esc(route.end.name)+'</strong><small>'+esc(endEntrance)+' · Approximate</small></div></li></ol>';
+    $('#directions').innerHTML='<div class="directions-title"><h3>Route details</h3><button id="read-aloud" class="text-button" type="button">▶ Read aloud</button><span>'+route.legs.length+' segments</span></div><ol class="directions"><li class="endpoint"><span class="step-icon">A</span><div><strong>'+esc(route.start.name)+'</strong><small>'+esc(startEntrance)+' · Approximate</small></div></li>'+route.legs.map(e=>'<li><span class="step-icon">'+(e.is_indoor?'⌂':'↗')+'</span><div><strong>'+esc(edgeName(e))+'</strong><small>'+Math.round(e.meters)+' m'+(e.is_indoor?' · Indoor':'')+'</small>'+(e.is_indoor && data.floorplans[e.building||graph.nodes.get(e.from)?.building]?.plans?.length?'<button class="text-button" data-floor-building="'+esc(e.building||graph.nodes.get(e.from)?.building||'')+'">View floorplan ↗</button>':'')+'</div></li>').join('')+'<li class="endpoint"><span class="step-icon destination">B</span><div><strong>'+esc(route.end.name)+'</strong><small>'+esc(endEntrance)+' · Approximate</small></div></li></ol>';
     $('#directions').querySelectorAll('[data-floor-building]').forEach(button=>button.addEventListener('click',()=>{state.planBuilding=button.dataset.floorBuilding;state.planFloor='01';$('#plan-building').value=state.planBuilding;switchView('plans');}));
     $('#read-aloud')?.addEventListener('click',()=>readAloud(route));
   }
-  $('#avoid-stairs').disabled=state.requireStepFree;$('#avoid-stairs').checked=state.requireStepFree||state.avoidStairs;
   renderMap(); if(fit)fitMap();
 }
 function renderMap() {
   baseLayer.clearLayers();routeLayer.clearLayers();selectedLayer.clearLayers();markersLayer.clearLayers();
   for(const e of graph.edges) {
-        L.polyline(e.coordinates.map(latLng),{color:e.unmapped?'#b2a8c2':'#78998a',weight:2,opacity:.42,dashArray:e.unmapped?'3 8':'3 5'}).bindTooltip(esc(edgeName(e))+'<br>'+esc(e.unmapped?'Unmapped floor connection':'Accessibility unknown')).addTo(baseLayer);
+    L.polyline(e.coordinates.map(latLng),{color:'#78998a',weight:2,opacity:.42,dashArray:'3 5'}).bindTooltip(esc(edgeName(e))).addTo(baseLayer);
   }
-  const alternate=comparison[state.selected==='indoor'?'outdoor':'indoor'];
-  const active=comparison[state.selected];
-  if(alternate.found && JSON.stringify(alternate.legs.map(e=>e.coordinates))!==JSON.stringify(active.legs.map(e=>e.coordinates)))for(const e of alternate.legs)L.polyline(e.coordinates.map(latLng),{color:alternate.color==='yellow'?'#d2a600':alternate.color==='red'?'#df4939':'#2869dc',weight:4,opacity:.8,dashArray:alternate.color==='red'||alternate.color==='yellow'?null:'2 8'}).addTo(routeLayer);
-  const route=comparison[state.selected];
-  if(route.found)for(const e of route.legs){L.polyline(e.coordinates.map(latLng),{color:'#fff',weight:9,opacity:.95}).addTo(selectedLayer);L.polyline(e.coordinates.map(latLng),{color:route.studentRoute?(route.color==='yellow'?'#d2a600':route.color==='blue'?'#2869dc':'#df4939'):(e.is_indoor?'#8358a3':'#14705b'),weight:5,opacity:1,dashArray:route.studentRoute?(route.color==='blue'?'2 8':null):(e.verified?null:'8 5')}).bindTooltip(esc(edgeName(e))+' · Access unknown').addTo(selectedLayer);}
+  if(route.found)for(const e of route.legs){L.polyline(e.coordinates.map(latLng),{color:'#fff',weight:9,opacity:.95}).addTo(selectedLayer);L.polyline(e.coordinates.map(latLng),{color:e.is_indoor?'#8358a3':'#14705b',weight:5,opacity:1}).bindTooltip(esc(edgeName(e))).addTo(selectedLayer);}
   for(const building of graph.buildings.values()){
     const marker=L.circleMarker(latLng(building.coordinates),{radius:4,color:'#fff',weight:2,fillColor:'#284e46',fillOpacity:1});
     marker.bindTooltip(esc(building.name),{direction:'top',className:'building-tooltip',permanent:false});
@@ -141,8 +117,7 @@ function renderMap() {
   }
 }
 function fitMap(){
-  const route=comparison?.[state.selected]; const coords=route?.found?route.legs.flatMap(e=>e.coordinates):[];
-  const other=comparison?.[state.selected==='indoor'?'outdoor':'indoor'];if(other?.found)coords.push(...other.legs.flatMap(e=>e.coordinates));
+  const coords=route?.found?route.legs.flatMap(e=>e.coordinates):[];
   if(coords.length)map.fitBounds(L.latLngBounds(coords.map(latLng)),{paddingTopLeft:[60,90],paddingBottomRight:[45,70],maxZoom:17});
   else map.fitBounds(L.latLngBounds([...graph.buildings.values()].map(b=>latLng(b.coordinates))),{padding:[35,70],maxZoom:16});
 }
@@ -159,33 +134,29 @@ function renderFloor(){
   if(plan){$('#floor-image').src=plan.file;$('#floor-image').alt=info.name+', '+plan.label+', historical floorplan dated September 2006';}
   else{$('#floor-image').removeAttribute('src');$('#floor-empty').innerHTML='<span aria-hidden="true">▤</span><h3>No floorplan in this archive.</h3><p>'+esc(info.name)+' has no matching plan in the supplied collection. The campus location is still available in the route planner.</p>';}
   for(const id of ['plan-zoom-out','plan-zoom-in','plan-fit'])$('#'+id).disabled=!plan;
-  const connectors=graph.connectors.filter(c=>c.building_id===state.planBuilding);
-  $('#building-detail').innerHTML='<h3>Building information</h3><dl><dt>Address</dt><dd>'+esc(building?.address||'Not supplied')+'</dd><dt>Plans available</dt><dd>'+info.plans.length+'</dd><dt>Entrance verification</dt><dd>Not yet surveyed</dd></dl>'+(connectors.length?'<h3>Recorded connectors</h3><ul class="connector-list">'+connectors.map(c=>'<li><strong>'+esc(c.kind==='unknown'?'Unclassified connector':c.kind[0].toUpperCase()+c.kind.slice(1))+'</strong><span>Levels '+esc(c.floors_served)+' · '+(c.unmapped?'Not routable · mechanism unconfirmed':'Routable · accessibility '+esc(c.accessibility_status))+'</span></li>').join('')+'</ul>':'');
+  $('#building-detail').innerHTML='<h3>Building information</h3><dl><dt>Address</dt><dd>'+esc(building?.address||'Not supplied')+'</dd><dt>Plans available</dt><dd>'+info.plans.length+'</dd></dl>';
   applyPlanZoom();
 }
 function applyPlanZoom(){ $('#floor-image').style.width=(state.planZoom*100)+'%';$('#floor-image').style.maxWidth='none';$('#plan-fit').textContent=state.planZoom===1?'Fit':Math.round(state.planZoom*100)+'%';$('#floor-canvas').scrollTo({top:0,left:0,behavior:'instant'}); }
 function renderData(){
   const count=Object.values(data.floorplans).reduce((n,b)=>n+b.plans.length,0);
-  const verifiedPaths=graph.edges.filter(e=>isConfirmed(e.confidence)).length;
-  const officialConnectors=graph.connectors.filter(c=>isConfirmed(c.confidence)).length;
-  $('#data-stats').innerHTML=[[String(graph.buildings.size),'buildings'],[String(graph.edges.length),'path segments'],[String(count),'archival plans'],[String(verifiedPaths),'verified access paths'],[String(officialConnectors),'official-confidence connectors']].map(([n,label])=>'<div><strong>'+n+'</strong><span>'+label+'</span></div>').join('');
+  $('#data-stats').innerHTML=[[String(graph.buildings.size),'buildings'],[String(graph.edges.length),'path segments'],[String(count),'archival plans']].map(([n,label])=>'<div><strong>'+n+'</strong><span>'+label+'</span></div>').join('');
   $('#status-list').innerHTML=graph.statusLog.map(r=>'<div class="status-record"><div><strong>'+esc(r.asset_id)+'</strong><span>'+esc(r.status)+' · '+esc(r.result)+'</span></div><p>'+esc(r.reason)+'</p><small>Supplied source: '+esc(r.source)+' · '+esc(r.reported_at)+'</small></div>').join('');
 }
 function applyRouteConfig(input){
-  if(!input||typeof input!=='object'||!Object.hasOwn(input,'origin')||!Object.hasOwn(input,'destination')||Object.keys(input).some(k=>!['origin','destination','requireStepFree','avoidUnknown'].includes(k)))throw new Error('Invalid route configuration');
+  if(!input||typeof input!=='object'||!Object.hasOwn(input,'origin')||!Object.hasOwn(input,'destination')||Object.keys(input).some(k=>!['origin','destination'].includes(k)))throw new Error('Invalid route configuration');
   for(const key of ['origin','destination'])if(typeof input[key]!=='string'||!graph.places.some(p=>p.id===input[key]))throw new Error('Choose a valid place ID');
-  for(const key of ['requireStepFree','avoidUnknown'])if(key in input&&typeof input[key]!=='boolean')throw new Error('Preferences must be boolean');
-  Object.assign(state,input);$('#origin').value=state.origin;$('#destination').value=state.destination;$('#step-free').checked=state.requireStepFree;$('#avoid-unknown').checked=state.avoidUnknown;switchView('routes');render(true);
-  return {found:comparison[state.selected].found,meters:comparison[state.selected].meters??null,reason:comparison[state.selected].reason??'Unverified route preview'};
+  Object.assign(state,input);$('#origin').value=state.origin;$('#destination').value=state.destination;switchView('routes');render(true);
+  return {found:route.found,meters:route.meters??null,reason:route.reason??'Route preview'};
 }
-function narrationScript(route){
-  const lines=['Route preview from '+route.start.name+' to '+route.end.name+'. This is not a verified accessible route. '+route.unverifiedPercent+' percent of it is unverified.'];
-  route.legs.forEach((e,i)=>lines.push('Step '+(i+1)+': '+edgeName(e)+', about '+(e.fixedSeconds?Math.round(e.seconds)+' seconds':Math.round(e.meters)+' meters')+', '+(e.verified?'access verified':'access unknown')+'.'));
-  lines.push('You should arrive near '+(route.endEntrance?.entrance_name||'the mapped entrance')+'. This position is approximate.');
+function narrationScript(r){
+  const lines=['Route preview from '+r.start.name+' to '+r.end.name+'.'];
+  r.legs.forEach((e,i)=>lines.push('Step '+(i+1)+': '+edgeName(e)+', about '+Math.round(e.meters)+' meters.'));
+  lines.push('You should arrive near '+(r.endEntrance?.entrance_name||'the mapped entrance')+'. This position is approximate.');
   return lines.join(' ');
 }
-async function readAloud(route){
-  const button=$('#read-aloud'),text=narrationScript(route);
+async function readAloud(r){
+  const button=$('#read-aloud'),text=narrationScript(r);
   if(button){button.disabled=true;button.textContent='Reading…';}
   try{
     const key=getKey('elevenlabs');
@@ -212,17 +183,17 @@ function localIntent(text){
   const lower=text.toLowerCase();
   const matches=graph.places.filter(p=>lower.includes(p.name.toLowerCase())||(p.aliases||[]).some(a=>lower.includes(a.toLowerCase())));
   if(matches.length<2)return{action:'clarify',message:'I can only match places from the pilot list. Try naming two of them directly, like "Perry Place to Pamplin Hall" — add a Gemini key in AI & voice keys for more flexible phrasing.'};
-  const [origin,destination]=matches,requireStepFree=/\b(step[- ]free|wheelchair|verified accessible)\b/.test(lower),avoidUnknown=/\b(only confirmed|verified only|no unknowns?)\b/.test(lower);
-  return{action:'route',origin:origin.id,destination:destination.id,requireStepFree,avoidUnknown,message:'Set the route from '+origin.name+' to '+destination.name+(requireStepFree?', requiring verified step-free access':'')+'. No Gemini key configured, so this used simple keyword matching, not AI.'};
+  const [origin,destination]=matches;
+  return{action:'route',origin:origin.id,destination:destination.id,message:'Set the route from '+origin.name+' to '+destination.name+'. No Gemini key configured, so this used simple keyword matching, not AI.'};
 }
 async function askGemini(text,key){
   const placeList=graph.places.map(p=>p.id+' = "'+p.name+'"'+(p.aliases?.length?' (aka '+p.aliases.join(', ')+')':'')).join('\n');
-  const system='You configure a campus route PREVIEW for AccessPath, a Virginia Tech accessibility pilot. '
+  const system='You configure a campus route PREVIEW for AccessPath, a Virginia Tech campus pilot. '
     +'Pick origin and destination ONLY from this exact list of place IDs (never invent a place, never return a name in place of its id):\n'+placeList
-    +'\n\nRules: this app has NOT verified any accessibility claim in the field. Never state or imply that a route is confirmed accessible, safe, or step-free — that is for the app’s own data to show, not you. '
-    +'If the request names two places from the list, respond with action "route" and both IDs. Set requireStepFree true only if the user explicitly asked for confirmed or verified step-free or wheelchair access. Set avoidUnknown true only if they asked to exclude unverified conditions. '
+    +'\n\nRules: this app has NOT verified route conditions in the field. Never state or imply a route is confirmed safe or current — that is for the app’s own data to show, not you. '
+    +'If the request names two places from the list, respond with action "route" and both IDs. '
     +'If you cannot confidently match two places from the list, respond with action "clarify" and a short question naming a few real places from the list. Keep "message" to one short, plain sentence.';
-  const schema={type:'OBJECT',properties:{action:{type:'STRING',enum:['route','clarify']},origin:{type:'STRING'},destination:{type:'STRING'},requireStepFree:{type:'BOOLEAN'},avoidUnknown:{type:'BOOLEAN'},message:{type:'STRING'}},required:['action','message']};
+  const schema={type:'OBJECT',properties:{action:{type:'STRING',enum:['route','clarify']},origin:{type:'STRING'},destination:{type:'STRING'},message:{type:'STRING'}},required:['action','message']};
   const res=await fetch('https://generativelanguage.googleapis.com/v1beta/models/'+GEMINI_MODEL+':generateContent?key='+encodeURIComponent(key),{
     method:'POST',headers:{'Content-Type':'application/json'},
     body:JSON.stringify({systemInstruction:{parts:[{text:system}]},contents:[{role:'user',parts:[{text}]}],generationConfig:{responseMimeType:'application/json',responseSchema:schema}})
@@ -240,7 +211,7 @@ async function askAssistant(text){
   try{
     const key=getKey('gemini'),result=key?await askGemini(text,key):localIntent(text);
     thinking.remove();
-    if(result.action==='route'){applyRouteConfig({origin:result.origin,destination:result.destination,requireStepFree:!!result.requireStepFree,avoidUnknown:!!result.avoidUnknown});}
+    if(result.action==='route'){applyRouteConfig({origin:result.origin,destination:result.destination});}
     addAssistantMessage('assistant',result.message||'Updated the route preview.');
   }catch(err){thinking.remove();addAssistantMessage('assistant','That didn’t work: '+err.message);}
 }
@@ -248,8 +219,8 @@ function registerAgentTools(){
   const context=document.modelContext;if(!context?.registerTool)return;
   const lifecycle=new AbortController();
   const register=tool=>{try{Promise.resolve(context.registerTool(tool,{signal:lifecycle.signal})).catch(()=>{});}catch{}};
-  register({name:'get_accesspath_route',description:'Read the current exploratory route, preferences, and data limitations.',inputSchema:{type:'object',properties:{},additionalProperties:false},annotations:{readOnlyHint:true,untrustedContentHint:true},execute:()=>({preferences:{...state},route:comparison[state.selected],warning:'Supplied pilot data; accessibility is unverified.'})});
-  register({name:'configure_accesspath_route',description:'Change the visible campus route preview using listed place IDs. This does not start real navigation.',inputSchema:{type:'object',properties:{origin:{type:'string'},destination:{type:'string'},requireStepFree:{type:'boolean'},avoidUnknown:{type:'boolean'}},required:['origin','destination'],additionalProperties:false},annotations:{readOnlyHint:false,untrustedContentHint:true},execute:input=>applyRouteConfig(input)});
+  register({name:'get_accesspath_route',description:'Read the current exploratory route and data limitations.',inputSchema:{type:'object',properties:{},additionalProperties:false},annotations:{readOnlyHint:true,untrustedContentHint:true},execute:()=>({route,warning:'Supplied pilot data; route conditions are unverified.'})});
+  register({name:'configure_accesspath_route',description:'Change the visible campus route preview using listed place IDs. This does not start real navigation.',inputSchema:{type:'object',properties:{origin:{type:'string'},destination:{type:'string'}},required:['origin','destination'],additionalProperties:false},annotations:{readOnlyHint:false,untrustedContentHint:true},execute:input=>applyRouteConfig(input)});
   window.addEventListener('pagehide',()=>lifecycle.abort(),{once:true});
 }
 load().catch(error=>{$('#route-summary').innerHTML='<div class="no-route"><h3>We couldn’t load the planner.</h3><p>'+esc(error.message)+'</p><button class="primary-button" onclick="location.reload()">Try again</button></div>';console.error(error);});

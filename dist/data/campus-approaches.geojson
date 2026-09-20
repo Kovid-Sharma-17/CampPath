@@ -14,12 +14,10 @@
         "entrance_id": "APPROACH-VT-PEARSON-HALL-WEST",
         "node_id": "N-APPROACH-VT-PEARSON-HALL-WEST",
         "building_id": "VT-PEARSON-HALL-WEST",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 22.7
       }
@@ -37,12 +35,10 @@
         "entrance_id": "APPROACH-VT-SMITH-CAREER-CENTER",
         "node_id": "N-APPROACH-VT-SMITH-CAREER-CENTER",
         "building_id": "VT-SMITH-CAREER-CENTER",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 5.8
       }
@@ -60,12 +56,10 @@
         "entrance_id": "APPROACH-VT-LITTON-REAVES-HALL",
         "node_id": "N-APPROACH-VT-LITTON-REAVES-HALL",
         "building_id": "VT-LITTON-REAVES-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 14.3
       }
@@ -83,14 +77,12 @@
         "entrance_id": "APPROACH-VT-NEW-HALL-WEST",
         "node_id": "N-APPROACH-VT-NEW-HALL-WEST",
         "building_id": "VT-NEW-HALL-WEST",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
-        "building_offset_m": 2.0
+        "building_offset_m": 2
       }
     },
     {
@@ -106,12 +98,10 @@
         "entrance_id": "APPROACH-VT-EGGLESTON-HALL-MAIN-WING",
         "node_id": "N-APPROACH-VT-EGGLESTON-HALL-MAIN-WING",
         "building_id": "VT-EGGLESTON-HALL-MAIN-WING",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 15.7
       }
@@ -129,12 +119,10 @@
         "entrance_id": "APPROACH-VT-NEW-RESIDENCE-HALL-EAST",
         "node_id": "N-APPROACH-VT-NEW-RESIDENCE-HALL-EAST",
         "building_id": "VT-NEW-RESIDENCE-HALL-EAST",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 1.4
       }
@@ -152,12 +140,10 @@
         "entrance_id": "APPROACH-VT-HARPER-HALL",
         "node_id": "N-APPROACH-VT-HARPER-HALL",
         "building_id": "VT-HARPER-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 2.1
       }
@@ -175,12 +161,10 @@
         "entrance_id": "APPROACH-VT-CASSELL-COLISEUM",
         "node_id": "N-APPROACH-VT-CASSELL-COLISEUM",
         "building_id": "VT-CASSELL-COLISEUM",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 46.8
       }
@@ -198,12 +182,10 @@
         "entrance_id": "APPROACH-VT-WALLACE-HALL",
         "node_id": "N-APPROACH-VT-WALLACE-HALL",
         "building_id": "VT-WALLACE-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 22.1
       }
@@ -221,12 +203,10 @@
         "entrance_id": "APPROACH-VT-COCHRANE-HALL",
         "node_id": "N-APPROACH-VT-COCHRANE-HALL",
         "building_id": "VT-COCHRANE-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 8.9
       }
@@ -244,12 +224,10 @@
         "entrance_id": "APPROACH-VT-HAHN-HURST-BASKETBALL-PRACTICE-FACILITY",
         "node_id": "N-APPROACH-VT-HAHN-HURST-BASKETBALL-PRACTICE-FACILITY",
         "building_id": "VT-HAHN-HURST-BASKETBALL-PRACTICE-FACILITY",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 26.5
       }
@@ -267,12 +245,10 @@
         "entrance_id": "APPROACH-VT-HILLCREST-HALL",
         "node_id": "N-APPROACH-VT-HILLCREST-HALL",
         "building_id": "VT-HILLCREST-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 21.6
       }
@@ -290,12 +266,10 @@
         "entrance_id": "APPROACH-VT-CHEATHAM-HALL",
         "node_id": "N-APPROACH-VT-CHEATHAM-HALL",
         "building_id": "VT-CHEATHAM-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 22.9
       }
@@ -313,12 +287,10 @@
         "entrance_id": "APPROACH-VT-AMBLER-JOHNSTON-HALL-WEST-WING",
         "node_id": "N-APPROACH-VT-AMBLER-JOHNSTON-HALL-WEST-WING",
         "building_id": "VT-AMBLER-JOHNSTON-HALL-WEST-WING",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 6.5
       }
@@ -336,12 +308,10 @@
         "entrance_id": "APPROACH-VT-AMBLER-JOHNSTON-HALL-EAST-WING",
         "node_id": "N-APPROACH-VT-AMBLER-JOHNSTON-HALL-EAST-WING",
         "building_id": "VT-AMBLER-JOHNSTON-HALL-EAST-WING",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 10.6
       }
@@ -359,12 +329,10 @@
         "entrance_id": "APPROACH-VT-ENGEL-HALL",
         "node_id": "N-APPROACH-VT-ENGEL-HALL",
         "building_id": "VT-ENGEL-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 24.4
       }
@@ -382,12 +350,10 @@
         "entrance_id": "APPROACH-VT-PRICE-HALL",
         "node_id": "N-APPROACH-VT-PRICE-HALL",
         "building_id": "VT-PRICE-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 17.4
       }
@@ -405,14 +371,12 @@
         "entrance_id": "APPROACH-VT-PRITCHARD-HALL",
         "node_id": "N-APPROACH-VT-PRITCHARD-HALL",
         "building_id": "VT-PRITCHARD-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
-        "building_offset_m": 30.0
+        "building_offset_m": 30
       }
     },
     {
@@ -428,14 +392,12 @@
         "entrance_id": "APPROACH-VT-HOGE-HALL",
         "node_id": "N-APPROACH-VT-HOGE-HALL",
         "building_id": "VT-HOGE-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
-        "building_offset_m": 32.0
+        "building_offset_m": 32
       }
     },
     {
@@ -451,12 +413,10 @@
         "entrance_id": "APPROACH-VT-LATHAM-HALL",
         "node_id": "N-APPROACH-VT-LATHAM-HALL",
         "building_id": "VT-LATHAM-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 22.9
       }
@@ -474,12 +434,10 @@
         "entrance_id": "APPROACH-VT-AGNEW-HALL",
         "node_id": "N-APPROACH-VT-AGNEW-HALL",
         "building_id": "VT-AGNEW-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 9.8
       }
@@ -497,12 +455,10 @@
         "entrance_id": "APPROACH-VT-DIETRICK-HALL",
         "node_id": "N-APPROACH-VT-DIETRICK-HALL",
         "building_id": "VT-DIETRICK-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 28.2
       }
@@ -520,12 +476,10 @@
         "entrance_id": "APPROACH-VT-SEITZ-HALL",
         "node_id": "N-APPROACH-VT-SEITZ-HALL",
         "building_id": "VT-SEITZ-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 27.5
       }
@@ -543,12 +497,10 @@
         "entrance_id": "APPROACH-VT-SAUNDERS-HALL",
         "node_id": "N-APPROACH-VT-SAUNDERS-HALL",
         "building_id": "VT-SAUNDERS-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 20.4
       }
@@ -566,12 +518,10 @@
         "entrance_id": "APPROACH-VT-PEDDREW-YATES-HALL",
         "node_id": "N-APPROACH-VT-PEDDREW-YATES-HALL",
         "building_id": "VT-PEDDREW-YATES-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 4.2
       }
@@ -589,12 +539,10 @@
         "entrance_id": "APPROACH-VT-SMYTH-HALL",
         "node_id": "N-APPROACH-VT-SMYTH-HALL",
         "building_id": "VT-SMYTH-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 8.8
       }
@@ -612,12 +560,10 @@
         "entrance_id": "APPROACH-VT-CAMPBELL-HALL-EAST-WING",
         "node_id": "N-APPROACH-VT-CAMPBELL-HALL-EAST-WING",
         "building_id": "VT-CAMPBELL-HALL-EAST-WING",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 22.1
       }
@@ -635,14 +581,12 @@
         "entrance_id": "APPROACH-VT-SLUSHER-HALL",
         "node_id": "N-APPROACH-VT-SLUSHER-HALL",
         "building_id": "VT-SLUSHER-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
-        "building_offset_m": 19.0
+        "building_offset_m": 19
       }
     },
     {
@@ -658,12 +602,10 @@
         "entrance_id": "APPROACH-VT-JOHNSON-HALL",
         "node_id": "N-APPROACH-VT-JOHNSON-HALL",
         "building_id": "VT-JOHNSON-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 8.9
       }
@@ -681,12 +623,10 @@
         "entrance_id": "APPROACH-VT-MILES-HALL",
         "node_id": "N-APPROACH-VT-MILES-HALL",
         "building_id": "VT-MILES-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 10.4
       }
@@ -704,12 +644,10 @@
         "entrance_id": "APPROACH-VT-SANDY-HALL",
         "node_id": "N-APPROACH-VT-SANDY-HALL",
         "building_id": "VT-SANDY-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 3.3
       }
@@ -727,12 +665,10 @@
         "entrance_id": "APPROACH-VT-PAYNE-HALL",
         "node_id": "N-APPROACH-VT-PAYNE-HALL",
         "building_id": "VT-PAYNE-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 0.2
       }
@@ -750,12 +686,10 @@
         "entrance_id": "APPROACH-VT-CAMPBELL-HALL-MAIN-WING",
         "node_id": "N-APPROACH-VT-CAMPBELL-HALL-MAIN-WING",
         "building_id": "VT-CAMPBELL-HALL-MAIN-WING",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 22.1
       }
@@ -773,12 +707,10 @@
         "entrance_id": "APPROACH-VT-SOLITUDE",
         "node_id": "N-APPROACH-VT-SOLITUDE",
         "building_id": "VT-SOLITUDE",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 28.8
       }
@@ -796,12 +728,10 @@
         "entrance_id": "APPROACH-VT-O-SHAUGHNESSY-HALL",
         "node_id": "N-APPROACH-VT-O-SHAUGHNESSY-HALL",
         "building_id": "VT-O-SHAUGHNESSY-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 11.5
       }
@@ -819,12 +749,10 @@
         "entrance_id": "APPROACH-VT-WHITEHURST-HALL",
         "node_id": "N-APPROACH-VT-WHITEHURST-HALL",
         "building_id": "VT-WHITEHURST-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 26.6
       }
@@ -842,12 +770,10 @@
         "entrance_id": "APPROACH-VT-VAWTER-HALL",
         "node_id": "N-APPROACH-VT-VAWTER-HALL",
         "building_id": "VT-VAWTER-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 2.5
       }
@@ -865,12 +791,10 @@
         "entrance_id": "APPROACH-VT-NEWMAN-HALL",
         "node_id": "N-APPROACH-VT-NEWMAN-HALL",
         "building_id": "VT-NEWMAN-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 25.6
       }
@@ -888,12 +812,10 @@
         "entrance_id": "APPROACH-VT-EGGLESTON-HALL-WEST-WING",
         "node_id": "N-APPROACH-VT-EGGLESTON-HALL-WEST-WING",
         "building_id": "VT-EGGLESTON-HALL-WEST-WING",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 10.2
       }
@@ -911,12 +833,10 @@
         "entrance_id": "APPROACH-VT-WAR-MEMORIAL-GYMNASIUM",
         "node_id": "N-APPROACH-VT-WAR-MEMORIAL-GYMNASIUM",
         "building_id": "VT-WAR-MEMORIAL-GYMNASIUM",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 44.4
       }
@@ -934,12 +854,10 @@
         "entrance_id": "APPROACH-VT-WRIGHT-HOUSE",
         "node_id": "N-APPROACH-VT-WRIGHT-HOUSE",
         "building_id": "VT-WRIGHT-HOUSE",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 7.1
       }
@@ -957,12 +875,10 @@
         "entrance_id": "APPROACH-VT-OWENS-HALL",
         "node_id": "N-APPROACH-VT-OWENS-HALL",
         "building_id": "VT-OWENS-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 20.7
       }
@@ -980,12 +896,10 @@
         "entrance_id": "APPROACH-VT-HAHN-HALL-SOUTH-WING",
         "node_id": "N-APPROACH-VT-HAHN-HALL-SOUTH-WING",
         "building_id": "VT-HAHN-HALL-SOUTH-WING",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 18.8
       }
@@ -1003,12 +917,10 @@
         "entrance_id": "APPROACH-VT-EGGLESTON-HALL-EAST-WING",
         "node_id": "N-APPROACH-VT-EGGLESTON-HALL-EAST-WING",
         "building_id": "VT-EGGLESTON-HALL-EAST-WING",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 6.3
       }
@@ -1026,12 +938,10 @@
         "entrance_id": "APPROACH-VT-UNIVERSITY-BOOKSTORE",
         "node_id": "N-APPROACH-VT-UNIVERSITY-BOOKSTORE",
         "building_id": "VT-UNIVERSITY-BOOKSTORE",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 15.7
       }
@@ -1049,14 +959,12 @@
         "entrance_id": "APPROACH-VT-ROBESON-HALL",
         "node_id": "N-APPROACH-VT-ROBESON-HALL",
         "building_id": "VT-ROBESON-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
-        "building_offset_m": 20.0
+        "building_offset_m": 20
       }
     },
     {
@@ -1072,12 +980,10 @@
         "entrance_id": "APPROACH-VT-ARCHITECTURE-ANNEX",
         "node_id": "N-APPROACH-VT-ARCHITECTURE-ANNEX",
         "building_id": "VT-ARCHITECTURE-ANNEX",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 12.8
       }
@@ -1095,12 +1001,10 @@
         "entrance_id": "APPROACH-VT-GRADUATE-LIFE-CENTER-AT-DONALDSON-BROWN",
         "node_id": "N-APPROACH-VT-GRADUATE-LIFE-CENTER-AT-DONALDSON-BROWN",
         "building_id": "VT-GRADUATE-LIFE-CENTER-AT-DONALDSON-BROWN",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 21.1
       }
@@ -1118,12 +1022,10 @@
         "entrance_id": "APPROACH-VT-HAHN-HALL-NORTH-WING",
         "node_id": "N-APPROACH-VT-HAHN-HALL-NORTH-WING",
         "building_id": "VT-HAHN-HALL-NORTH-WING",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 11.3
       }
@@ -1141,12 +1043,10 @@
         "entrance_id": "APPROACH-VT-MEDIA-BUILDING",
         "node_id": "N-APPROACH-VT-MEDIA-BUILDING",
         "building_id": "VT-MEDIA-BUILDING",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 10.9
       }
@@ -1164,12 +1064,10 @@
         "entrance_id": "APPROACH-VT-WAR-MEMORIAL-CHAPEL",
         "node_id": "N-APPROACH-VT-WAR-MEMORIAL-CHAPEL",
         "building_id": "VT-WAR-MEMORIAL-CHAPEL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 12.9
       }
@@ -1187,12 +1085,10 @@
         "entrance_id": "APPROACH-VT-NEWMAN-LIBRARY",
         "node_id": "N-APPROACH-VT-NEWMAN-LIBRARY",
         "building_id": "VT-NEWMAN-LIBRARY",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 40.4
       }
@@ -1210,12 +1106,10 @@
         "entrance_id": "APPROACH-VT-PATTON-HALL",
         "node_id": "N-APPROACH-VT-PATTON-HALL",
         "building_id": "VT-PATTON-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 8.4
       }
@@ -1233,12 +1127,10 @@
         "entrance_id": "APPROACH-VT-BURCHARD-HALL",
         "node_id": "N-APPROACH-VT-BURCHARD-HALL",
         "building_id": "VT-BURCHARD-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 0.3
       }
@@ -1256,14 +1148,12 @@
         "entrance_id": "APPROACH-VT-HUTCHESON-HALL",
         "node_id": "N-APPROACH-VT-HUTCHESON-HALL",
         "building_id": "VT-HUTCHESON-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
-        "building_offset_m": 4.0
+        "building_offset_m": 4
       }
     },
     {
@@ -1279,12 +1169,10 @@
         "entrance_id": "APPROACH-VT-NORRIS-HALL",
         "node_id": "N-APPROACH-VT-NORRIS-HALL",
         "building_id": "VT-NORRIS-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 26.9
       }
@@ -1302,12 +1190,10 @@
         "entrance_id": "APPROACH-VT-COWGILL-HALL",
         "node_id": "N-APPROACH-VT-COWGILL-HALL",
         "building_id": "VT-COWGILL-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 14.8
       }
@@ -1325,12 +1211,10 @@
         "entrance_id": "APPROACH-VT-THEATER-101",
         "node_id": "N-APPROACH-VT-THEATER-101",
         "building_id": "VT-THEATER-101",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 8.7
       }
@@ -1348,12 +1232,10 @@
         "entrance_id": "APPROACH-VT-HENDERSON-HALL",
         "node_id": "N-APPROACH-VT-HENDERSON-HALL",
         "building_id": "VT-HENDERSON-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 1.2
       }
@@ -1371,14 +1253,12 @@
         "entrance_id": "APPROACH-VT-COLLEGE-OF-LIBERAL-ARTS-AND-HUMAN-SCIENC",
         "node_id": "N-APPROACH-VT-COLLEGE-OF-LIBERAL-ARTS-AND-HUMAN-SCIENC",
         "building_id": "VT-COLLEGE-OF-LIBERAL-ARTS-AND-HUMAN-SCIENC",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
-        "building_offset_m": 11.0
+        "building_offset_m": 11
       }
     },
     {
@@ -1394,12 +1274,10 @@
         "entrance_id": "APPROACH-VT-HANCOCK-HALL",
         "node_id": "N-APPROACH-VT-HANCOCK-HALL",
         "building_id": "VT-HANCOCK-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 20.6
       }
@@ -1417,12 +1295,10 @@
         "entrance_id": "APPROACH-VT-LANE-HALL",
         "node_id": "N-APPROACH-VT-LANE-HALL",
         "building_id": "VT-LANE-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 15.9
       }
@@ -1440,12 +1316,10 @@
         "entrance_id": "APPROACH-VT-VISITORS-UNDERGRADUATE-ADMISSIONS-CENTER",
         "node_id": "N-APPROACH-VT-VISITORS-UNDERGRADUATE-ADMISSIONS-CENTER",
         "building_id": "VT-VISITORS-UNDERGRADUATE-ADMISSIONS-CENTER",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 3.9
       }
@@ -1463,12 +1337,10 @@
         "entrance_id": "APPROACH-VT-MAJOR-WILLIAMS-HALL",
         "node_id": "N-APPROACH-VT-MAJOR-WILLIAMS-HALL",
         "building_id": "VT-MAJOR-WILLIAMS-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 8.5
       }
@@ -1486,12 +1358,10 @@
         "entrance_id": "APPROACH-VT-SURGE-SPACE-BUILDING",
         "node_id": "N-APPROACH-VT-SURGE-SPACE-BUILDING",
         "building_id": "VT-SURGE-SPACE-BUILDING",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 19.7
       }
@@ -1509,12 +1379,10 @@
         "entrance_id": "APPROACH-VT-LAVERY-HALL",
         "node_id": "N-APPROACH-VT-LAVERY-HALL",
         "building_id": "VT-LAVERY-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 16.4
       }
@@ -1532,12 +1400,10 @@
         "entrance_id": "APPROACH-VT-OLD-SECURITY-BUILDING",
         "node_id": "N-APPROACH-VT-OLD-SECURITY-BUILDING",
         "building_id": "VT-OLD-SECURITY-BUILDING",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 8.2
       }
@@ -1555,12 +1421,10 @@
         "entrance_id": "APPROACH-VT-SHANKS-HALL",
         "node_id": "N-APPROACH-VT-SHANKS-HALL",
         "building_id": "VT-SHANKS-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 5.4
       }
@@ -1578,12 +1442,10 @@
         "entrance_id": "APPROACH-VT-PARKING-STRUCTURE-PERRY-STREET-LOT",
         "node_id": "N-APPROACH-VT-PARKING-STRUCTURE-PERRY-STREET-LOT",
         "building_id": "VT-PARKING-STRUCTURE-PERRY-STREET-LOT",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 52.7
       }
@@ -1601,12 +1463,10 @@
         "entrance_id": "APPROACH-VT-MILITARY-BUILDING-LAUNDRY",
         "node_id": "N-APPROACH-VT-MILITARY-BUILDING-LAUNDRY",
         "building_id": "VT-MILITARY-BUILDING-LAUNDRY",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 29.6
       }
@@ -1624,12 +1484,10 @@
         "entrance_id": "APPROACH-VT-SOUTHGATE-CENTER",
         "node_id": "N-APPROACH-VT-SOUTHGATE-CENTER",
         "building_id": "VT-SOUTHGATE-CENTER",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 33.3
       }
@@ -1647,12 +1505,10 @@
         "entrance_id": "APPROACH-VT-HAHN-GARDEN-PAVILION",
         "node_id": "N-APPROACH-VT-HAHN-GARDEN-PAVILION",
         "building_id": "VT-HAHN-GARDEN-PAVILION",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 7.1
       }
@@ -1670,12 +1526,10 @@
         "entrance_id": "APPROACH-VT-PUBLIC-SAFETY-BUILDING",
         "node_id": "N-APPROACH-VT-PUBLIC-SAFETY-BUILDING",
         "building_id": "VT-PUBLIC-SAFETY-BUILDING",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 15.1
       }
@@ -1693,12 +1547,10 @@
         "entrance_id": "APPROACH-VT-MCCOMAS-HALL",
         "node_id": "N-APPROACH-VT-MCCOMAS-HALL",
         "building_id": "VT-MCCOMAS-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 11.2
       }
@@ -1716,12 +1568,10 @@
         "entrance_id": "APPROACH-VT-PEARSON-HALL-EAST",
         "node_id": "N-APPROACH-VT-PEARSON-HALL-EAST",
         "building_id": "VT-PEARSON-HALL-EAST",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 25.5
       }
@@ -1739,12 +1589,10 @@
         "entrance_id": "APPROACH-VT-STEGER-HALL-SOUTH-WING",
         "node_id": "N-APPROACH-VT-STEGER-HALL-SOUTH-WING",
         "building_id": "VT-STEGER-HALL-SOUTH-WING",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 21.6
       }
@@ -1762,12 +1610,10 @@
         "entrance_id": "APPROACH-VT-STEGER-HALL-NORTH-WING",
         "node_id": "N-APPROACH-VT-STEGER-HALL-NORTH-WING",
         "building_id": "VT-STEGER-HALL-NORTH-WING",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 24.8
       }
@@ -1785,12 +1631,10 @@
         "entrance_id": "APPROACH-VT-201-WEST-ROANOKE-STREET",
         "node_id": "N-APPROACH-VT-201-WEST-ROANOKE-STREET",
         "building_id": "VT-201-WEST-ROANOKE-STREET",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 13.4
       }
@@ -1808,12 +1652,10 @@
         "entrance_id": "APPROACH-VT-STUDENT-SERVICES-BUILDING",
         "node_id": "N-APPROACH-VT-STUDENT-SERVICES-BUILDING",
         "building_id": "VT-STUDENT-SERVICES-BUILDING",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 12.6
       }
@@ -1831,12 +1673,10 @@
         "entrance_id": "APPROACH-VT-LANE-STADIUM-EAST-STANDS",
         "node_id": "N-APPROACH-VT-LANE-STADIUM-EAST-STANDS",
         "building_id": "VT-LANE-STADIUM-EAST-STANDS",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 10.1
       }
@@ -1854,12 +1694,10 @@
         "entrance_id": "APPROACH-VT-LANE-STADIUM-WEST-STANDS",
         "node_id": "N-APPROACH-VT-LANE-STADIUM-WEST-STANDS",
         "building_id": "VT-LANE-STADIUM-WEST-STANDS",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 1.5
       }
@@ -1877,12 +1715,10 @@
         "entrance_id": "APPROACH-VT-LANE-STADIUM-SOUTH-END-ZONE",
         "node_id": "N-APPROACH-VT-LANE-STADIUM-SOUTH-END-ZONE",
         "building_id": "VT-LANE-STADIUM-SOUTH-END-ZONE",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 12.8
       }
@@ -1900,12 +1736,10 @@
         "entrance_id": "APPROACH-VT-LANE-STADIUM-NORTH-END-ZONE",
         "node_id": "N-APPROACH-VT-LANE-STADIUM-NORTH-END-ZONE",
         "building_id": "VT-LANE-STADIUM-NORTH-END-ZONE",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 11.3
       }
@@ -1923,12 +1757,10 @@
         "entrance_id": "APPROACH-VT-BISHOP-FAVRAO-HALL",
         "node_id": "N-APPROACH-VT-BISHOP-FAVRAO-HALL",
         "building_id": "VT-BISHOP-FAVRAO-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 10.1
       }
@@ -1946,12 +1778,10 @@
         "entrance_id": "APPROACH-VT-TRANSIT-CENTER",
         "node_id": "N-APPROACH-VT-TRANSIT-CENTER",
         "building_id": "VT-TRANSIT-CENTER",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 24.8
       }
@@ -1969,12 +1799,10 @@
         "entrance_id": "APPROACH-VT-CREATIVITY-AND-INNOVATION-DISTRICT-LIVIN",
         "node_id": "N-APPROACH-VT-CREATIVITY-AND-INNOVATION-DISTRICT-LIVIN",
         "building_id": "VT-CREATIVITY-AND-INNOVATION-DISTRICT-LIVIN",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 43.2
       }
@@ -1992,12 +1820,10 @@
         "entrance_id": "APPROACH-VT-CORPS-LEADERSHIP-AND-MILITARY-SCIENCE-BU",
         "node_id": "N-APPROACH-VT-CORPS-LEADERSHIP-AND-MILITARY-SCIENCE-BU",
         "building_id": "VT-CORPS-LEADERSHIP-AND-MILITARY-SCIENCE-BU",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 15.5
       }
@@ -2015,12 +1841,10 @@
         "entrance_id": "APPROACH-VT-JOHNSTON-STUDENT-CENTER-ELEVATOR-TOWER",
         "node_id": "N-APPROACH-VT-JOHNSTON-STUDENT-CENTER-ELEVATOR-TOWER",
         "building_id": "VT-JOHNSTON-STUDENT-CENTER-ELEVATOR-TOWER",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 4.4
       }
@@ -2038,12 +1862,10 @@
         "entrance_id": "APPROACH-VT-UNDERGRADUATE-SCIENCE-LABORATORY-BUILDIN",
         "node_id": "N-APPROACH-VT-UNDERGRADUATE-SCIENCE-LABORATORY-BUILDIN",
         "building_id": "VT-UNDERGRADUATE-SCIENCE-LABORATORY-BUILDIN",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 7.5
       }
@@ -2061,12 +1883,10 @@
         "entrance_id": "APPROACH-VT-HOLDEN-HALL",
         "node_id": "N-APPROACH-VT-HOLDEN-HALL",
         "building_id": "VT-HOLDEN-HALL",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 5.6
       }
@@ -2084,12 +1904,10 @@
         "entrance_id": "APPROACH-VT-UPPER-QUAD-HALL-NORTH",
         "node_id": "N-APPROACH-VT-UPPER-QUAD-HALL-NORTH",
         "building_id": "VT-UPPER-QUAD-HALL-NORTH",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 0.5
       }
@@ -2107,12 +1925,10 @@
         "entrance_id": "APPROACH-VT-MERRYMAN-ATHLETIC-FACILITY",
         "node_id": "N-APPROACH-VT-MERRYMAN-ATHLETIC-FACILITY",
         "building_id": "VT-MERRYMAN-ATHLETIC-FACILITY",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 22.3
       }
@@ -2130,12 +1946,10 @@
         "entrance_id": "APPROACH-VT-JOHNSTON-STUDENT-CENTER",
         "node_id": "N-APPROACH-VT-JOHNSTON-STUDENT-CENTER",
         "building_id": "VT-JOHNSTON-STUDENT-CENTER",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 7.7
       }
@@ -2153,12 +1967,10 @@
         "entrance_id": "APPROACH-VT-HAHN-GARDEN-MARQUEE",
         "node_id": "N-APPROACH-VT-HAHN-GARDEN-MARQUEE",
         "building_id": "VT-HAHN-GARDEN-MARQUEE",
-        "entrance_name": "Nearby sidewalk \u2014 door not mapped",
+        "entrance_name": "Nearby sidewalk — door not mapped",
         "node_role": "approach",
         "geometry_precision": "nearest_mapped_sidewalk",
-        "accessibility_status": "unknown",
         "operational_status": "unknown",
-        "confidence": "inferred",
         "source": "VT sidewalk geometry; nearest approach, not a surveyed entrance",
         "building_offset_m": 7.3
       }

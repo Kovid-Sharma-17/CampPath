@@ -1,9 +1,9 @@
 import {buildGraph,findRoute,resolvePlace,haversine,pathLength} from './router.mjs';
-import {clone,emptyEdits,readEdits,saveEdits,validateEdits,applyEdits,makePath,nextId,projectPoint,splitPath,markStairSpan,loadDataset,moveNode} from './editor-model.mjs';
+import {clone,emptyEdits,readEdits,saveEdits,validateEdits,applyEdits,makePath,nextId,projectPoint,splitPath,loadDataset,moveNode} from './editor-model.mjs';
 const $=s=>document.querySelector(s),esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const label=p=>p.route_name||p.name||p.segment_id;
 const ll=p=>[p[1],p[0]],point=e=>[e.latlng.lng,e.latlng.lat];
-let source,data,graph,edits,map,baseLayer,edgeLayer,draftLayer,alternateLayer,queryLayer,draft=null,mode='select',selectedPoint=null,stairFirst=null,stairs=null,door=null,routeMode=null;
+let source,data,graph,edits,map,baseLayer,edgeLayer,draftLayer,queryLayer,draft=null,mode='select',selectedPoint=null,door=null,routeMode=null;
 const history=[];
 function status(message){$('#editor-status').textContent=message;}
 function attempt(fn){try{fn();}catch(e){status(e.message);}}
@@ -14,7 +14,7 @@ function currentFeature(id){return data.paths.features.find(f=>f.properties.segm
 function physicalFeature(f){const out=clone(f),edge=graph.edges.find(e=>e.id===f.properties.segment_id);if(edge)out.geometry.coordinates=clone(edge.coordinates);return out;}
 function hideMesh(){if(map.hasLayer(edgeLayer))map.removeLayer(edgeLayer);}
 function showMesh(){if(!map.hasLayer(edgeLayer))map.addLayer(edgeLayer);}
-function resetDraft(){draft=null;door=null;mode='select';selectedPoint=null;stairFirst=null;draftLayer.clearLayers();alternateLayer.clearLayers();$('#path-panel').hidden=true;$('#entrance-panel').hidden=true;$('#finish-draw').hidden=true;}
+function resetDraft(){draft=null;door=null;mode='select';selectedPoint=null;draftLayer.clearLayers();$('#path-panel').hidden=true;$('#entrance-panel').hidden=true;$('#finish-draw').hidden=true;}
 function reset(){routeMode=null;queryLayer.clearLayers();showMesh();$('#route-mode-panel').hidden=true;resetDraft();status('Click a path to edit it, or choose New path.');}
 function populate(){
  const query=$('#path-search').value.toLowerCase();
@@ -58,16 +58,10 @@ function exportEdits(){
 }
 function renderNetwork(){
   baseLayer.clearLayers();edgeLayer.clearLayers();
-  for(const f of data.barriers?.features||[]){
-   const p=f.properties,isLine=f.geometry.type==='LineString',centerCoord=isLine?f.geometry.coordinates[Math.floor(f.geometry.coordinates.length/2)]:f.geometry.coordinates;
-   const layer=isLine?L.polyline(f.geometry.coordinates.map(ll),{color:'#c54231',weight:5,opacity:.9,bubblingMouseEvents:false}):L.circleMarker(ll(f.geometry.coordinates),{radius:10,color:'#fff',weight:2,fillColor:'#c54231',fillOpacity:1});
-   layer.addTo(baseLayer).bindTooltip(esc(p.name)+' · not yet split into a routable stair segment');
-   layer.on('click',e=>{L.DomEvent.stopPropagation(e);map.setView(ll(centerCoord),19);status(p.notes);});
-  }
  for(const e of graph.edges){
-  const stairs=e.has_recorded_stairs||['stairs','not_step_free'].includes(e.accessibility_status),student=!/^(VT-WALK-|OSM-)/.test(e.id);
-  const line=L.polyline(e.coordinates.map(ll),{color:stairs?'#c54231':student?'#b77624':'#5d8171',weight:student?3:2,opacity:.78,bubblingMouseEvents:false});
-  line.bindTooltip(esc(label(e))+' · '+esc(e.accessibility_status||'unknown'));
+  const closed=e.operational_status==='closed',student=!/^(VT-WALK-|OSM-)/.test(e.id);
+  const line=L.polyline(e.coordinates.map(ll),{color:closed?'#c54231':student?'#b77624':'#5d8171',weight:student?3:2,opacity:.78,bubblingMouseEvents:false});
+  line.bindTooltip(esc(label(e))+(closed?' · closed':''));
   line.on('click',ev=>{L.DomEvent.stopPropagation(ev);if(mode==='draw'){addDrawPoint(point(ev));return;}if(mode==='entrance'){placeDoor(point(ev));return;}const f=currentFeature(e.id);if(f)selectPath(f);});line.addTo(edgeLayer);
  }
  for(const f of data.entrances.features){
@@ -80,54 +74,53 @@ function renderNetwork(){
 function selectPath(feature){
  reset();draft=physicalFeature(feature);mode='edit';$('#path-panel').hidden=false;$('#delete-path').hidden=false;$('#path-heading').textContent='Edit '+label(feature.properties);$('#path-list').value=feature.properties.segment_id;
  fillFields();renderDraft();status('Drag a point, click the line to insert one, or select a point to remove it.');
- if(draft.properties.accessibility_status==='stairs'){stairs={from:draft.properties.from_node,to:draft.properties.to_node,coordinates:[draft.geometry.coordinates[0],draft.geometry.coordinates.at(-1)],id:draft.properties.segment_id};$('#stair-actions').hidden=false;}
 }
-function fillFields(){const p=draft.properties;$('#path-name').value=p.name||p.route_name||p.segment_id;$('#path-access').value=p.accessibility_status||'unknown';$('#path-confidence').value=p.confidence||'inferred';$('#path-indoor').checked=!!p.is_indoor;$('#path-notes').value=p.notes||'';$('#path-source').textContent=p.source||'Existing campus dataset';$('#stair-actions').hidden=true;$('#alternate-status').textContent='';}
-function captureFields(){const p=draft.properties;p.name=$('#path-name').value.trim()||'Campus path';p.accessibility_status=$('#path-access').value;p.confidence=$('#path-confidence').value;p.is_indoor=$('#path-indoor').checked;p.access_control=p.is_indoor?'indoor':'outdoor';p.notes=$('#path-notes').value.trim();}
+function fillFields(){const p=draft.properties;$('#path-name').value=p.name||p.route_name||p.segment_id;$('#path-notes').value=p.notes||'';$('#path-source').textContent=p.source||'Existing campus dataset';}
+function captureFields(){const p=draft.properties;p.name=$('#path-name').value.trim()||'Campus path';p.notes=$('#path-notes').value.trim();}
 function renderDraft(){
  draftLayer.clearLayers();if(!draft)return;const c=draft.geometry.coordinates;
- if(c.length>1){const line=L.polyline(c.map(ll),{color:'#cf4837',weight:6,bubblingMouseEvents:false}).addTo(draftLayer);line.on('click',e=>{L.DomEvent.stopPropagation(e);if(mode==='draw'){addDrawPoint(point(e));return;}if(mode==='stairs')return;const near=projectPoint(point(e),c);c.splice(near.index+1,0,near.coordinates);selectedPoint=near.index+1;renderDraft();});}
+ if(c.length>1){const line=L.polyline(c.map(ll),{color:'#cf4837',weight:6,bubblingMouseEvents:false}).addTo(draftLayer);line.on('click',e=>{L.DomEvent.stopPropagation(e);if(mode==='draw'){addDrawPoint(point(e));return;}const near=projectPoint(point(e),c);c.splice(near.index+1,0,near.coordinates);selectedPoint=near.index+1;renderDraft();});}
  c.forEach((p,i)=>{
-  const marker=L.marker(ll(p),{draggable:mode!=='stairs',icon:L.divIcon({className:'vertex-dot'+(i===selectedPoint?' selected':''),iconSize:[15,15],iconAnchor:[7,7]}),bubblingMouseEvents:false}).addTo(draftLayer);
+  const marker=L.marker(ll(p),{draggable:true,icon:L.divIcon({className:'vertex-dot'+(i===selectedPoint?' selected':''),iconSize:[15,15],iconAnchor:[7,7]}),bubblingMouseEvents:false}).addTo(draftLayer);
   marker.bindTooltip('Point '+(i+1)+(i===0?' · start':i===c.length-1?' · end':''));
   marker.on('dragend',e=>{c[i]=[e.target.getLatLng().lng,e.target.getLatLng().lat];selectedPoint=i;renderDraft();});
-  marker.on('click',e=>{L.DomEvent.stopPropagation(e);if(mode==='stairs'){chooseStairPoint(i);return;}selectedPoint=i;renderDraft();});
+  marker.on('click',e=>{L.DomEvent.stopPropagation(e);selectedPoint=i;renderDraft();});
  });
  $('#path-length').textContent=Math.round(pathLength(c))+' m';$('#remove-point').disabled=selectedPoint===null||selectedPoint===0||selectedPoint===c.length-1;$('#save-path').disabled=c.length<2||mode==='draw';
 }
-function newPath(alternate=null,seed=null){
+function newPath(seed=null){
  reset();const id=nextId('EDIT-',ids());
- const initial=alternate?alternate.coordinates:seed?seed.coordinates:[[-80.42,37.23],[-80.4201,37.23]];
- draft=makePath(id,'pending-a','pending-b',initial,{name:alternate?'Alternative around stairs':(seed?.name||'New campus path')});
- draft.geometry.coordinates=alternate?clone(alternate.coordinates):seed?clone(seed.coordinates):[];draft.alternate=alternate;mode='draw';$('#path-panel').hidden=false;
- $('#path-heading').textContent=alternate?'Draw stair alternative':(seed?'Draw a path connecting '+seed.label:'Draw a new path');
+ const initial=seed?seed.coordinates:[[-80.42,37.23],[-80.4201,37.23]];
+ draft=makePath(id,'pending-a','pending-b',initial,{name:seed?.name||'New campus path'});
+ draft.geometry.coordinates=seed?clone(seed.coordinates):[];mode='draw';$('#path-panel').hidden=false;
+ $('#path-heading').textContent=seed?'Draw a path connecting '+seed.label:'Draw a new path';
  $('#delete-path').hidden=true;$('#finish-draw').hidden=false;fillFields();renderDraft();
- status(alternate?'Click along the alternative between the two stair endpoints, then Finish drawing.':seed?'Start and end are placed near '+seed.label+'. Click the map to add turns, or Finish drawing to keep it straight.':'Click the start, each turn, and the end. Finish drawing when ready.');
+ status(seed?'Start and end are placed near '+seed.label+'. Click the map to add turns, or Finish drawing to keep it straight.':'Click the start, each turn, and the end. Finish drawing when ready.');
 }
 function openFromQuery(){
  const params=new URLSearchParams(location.search),fromId=params.get('from'),toId=params.get('to');
  if(!fromId||!toId)return;
  const a=resolvePlace(graph,fromId),b=resolvePlace(graph,toId);
  if(!a||!b){status('Could not find one of the linked places in this dataset.');return;}
- const r=findRoute(graph,fromId,toId,{});
+ const r=findRoute(graph,fromId,toId);
  if(r.found&&r.legs.length)enterRouteMode(fromId,toId);
  else{
   reset();hideMesh();
   map.fitBounds(L.latLngBounds([ll(a.coordinates),ll(b.coordinates)]),{padding:[80,80],maxZoom:18});
-  newPath(null,{coordinates:[clone(a.coordinates),clone(b.coordinates)],name:a.name+' – '+b.name,label:a.name+' and '+b.name});
+  newPath({coordinates:[clone(a.coordinates),clone(b.coordinates)],name:a.name+' – '+b.name,label:a.name+' and '+b.name});
   status('No route connects '+a.name+' and '+b.name+' yet. The rest of the network is hidden so you can focus on this. Start and end are placed near them — trace the real path, then Save.');
  }
 }
 function enterRouteMode(fromId,toId){
  reset();
- const a=resolvePlace(graph,fromId),b=resolvePlace(graph,toId),r=findRoute(graph,fromId,toId,{});
+ const a=resolvePlace(graph,fromId),b=resolvePlace(graph,toId),r=findRoute(graph,fromId,toId);
  if(!a||!b||!r.found||!r.legs.length){status('That route is no longer available.');return;}
  const legs=r.legs.map(e=>{const f=currentFeature(e.id)||currentFeature('TRACE-'+e.id);if(!f)return{coordinates:clone(e.coordinates)};const feature=physicalFeature(f);return{feature,original:clone(feature.geometry.coordinates)};});
  routeMode={legs,fromId,toId,fromLabel:a.name,toLabel:b.name,fromBuildingId:a.building,toBuildingId:b.building,selected:null};
  hideMesh();$('#route-mode-panel').hidden=false;$('#route-mode-heading').textContent=a.name+' → '+b.name;
  const editableCount=legs.filter(l=>l.feature).length;
  $('#route-mode-readonly').hidden=editableCount===legs.length;
- $('#route-mode-readonly').textContent=(legs.length-editableCount)+' of '+legs.length+' segment(s) run through connectors and can\'t be dragged here — shown dimmed for context.';
+ $('#route-mode-readonly').textContent=(legs.length-editableCount)+' of '+legs.length+' segment(s) aren\'t editable here — shown dimmed for context.';
  renderRouteMode();renderRouteEntrances();populate();
  map.fitBounds(L.latLngBounds(legs.flatMap(l=>(l.feature?l.feature.geometry.coordinates:l.coordinates).map(ll))),{padding:[60,60],maxZoom:19});
  status('Editing the route from '+a.name+' to '+b.name+'. The rest of the network is hidden. Drag any point on any highlighted segment, then Save route.');
@@ -135,7 +128,7 @@ function enterRouteMode(fromId,toId){
 function renderRouteMode(){
  queryLayer.clearLayers();if(!routeMode)return;
  routeMode.legs.forEach((leg,li)=>{
-  if(!leg.feature){L.polyline(leg.coordinates.map(ll),{color:'#9aa6b2',weight:4,opacity:.55,dashArray:'2 6',bubblingMouseEvents:false}).addTo(queryLayer).bindTooltip('Runs through a connector — not editable here');return;}
+  if(!leg.feature){L.polyline(leg.coordinates.map(ll),{color:'#9aa6b2',weight:4,opacity:.55,dashArray:'2 6',bubblingMouseEvents:false}).addTo(queryLayer).bindTooltip('Not editable here');return;}
   const c=leg.feature.geometry.coordinates;
   const line=L.polyline(c.map(ll),{color:'#1d6fd6',weight:6,opacity:.85,bubblingMouseEvents:false}).addTo(queryLayer);
   line.bindTooltip(esc(label(leg.feature.properties)));
@@ -168,7 +161,7 @@ function removeRoutePoint(){
  if(sel.i>0&&sel.i<c.length-1){c.splice(sel.i,1);routeMode.selected=null;renderRouteMode();status('Point removed — save the route to keep it.');return;}
  const atStart=sel.i===0,neighborIdx=atStart?sel.li-1:sel.li+1,neighbor=routeMode.legs[neighborIdx];
  if(!neighbor)throw Error('This is the very start or end of the route — it can\'t be removed here.');
- if(!neighbor.feature)throw Error('The segment on the other side of this point isn\'t editable here (it runs through a connector), so they can\'t be merged.');
+ if(!neighbor.feature)throw Error('The segment on the other side of this point isn\'t editable here, so they can\'t be merged.');
  const nodeId=atStart?leg.feature.properties.from_node:leg.feature.properties.to_node;
  const merged=mergeAtNode(leg.feature,neighbor.feature,nodeId);
  leg.feature.geometry.coordinates=merged.coordinates;leg.feature.properties.from_node=merged.from_node;leg.feature.properties.to_node=merged.to_node;leg.original=null;
@@ -220,7 +213,7 @@ function saveRoute(){
  enterRouteMode(fromId,toId);
 }
 function exitRouteMode(){reset();status('Showing the full network again. Click a path to edit it, or choose New path.');}
-function addDrawPoint(p){if(!draft)return;const c=draft.geometry.coordinates;if(draft.alternate)c.splice(c.length-1,0,p);else c.push(p);renderDraft();}
+function addDrawPoint(p){if(!draft)return;draft.geometry.coordinates.push(p);renderDraft();}
 function snapEndpoint(p,next,excludeNode=null){
  let nearNode;
  for(const [id,n] of graph.nodes){if(id===excludeNode||id.startsWith('B:')||/-L\d+$/.test(id))continue;const coordinates=next.nodes[id]||n.coordinates,meters=haversine(p,coordinates);if(meters<=4&&(!nearNode||meters<nearNode.meters))nearNode={id,coordinates,meters};}
@@ -234,25 +227,12 @@ function snapEndpoint(p,next,excludeNode=null){
  next.nodes[id]=clone(p);return {node:id,point:p};
 }
 function savePath(){
- captureFields();const c=draft.geometry.coordinates;if(c.length<2)throw Error('Draw at least two points.');if(draft.alternate&&c.length<3)throw Error('Trace the alternative before saving it.');
- const next=clone(edits),f=clone(draft);delete f.alternate;
+ captureFields();const c=draft.geometry.coordinates;if(c.length<2)throw Error('Draw at least two points.');
+ const next=clone(edits),f=clone(draft);
  if(draft.properties.from_node==='pending-a'){
-  if(draft.alternate){f.properties.from_node=draft.alternate.from;f.properties.to_node=draft.alternate.to;f.properties.alternative_for=draft.alternate.id;}
-  else{const a=snapEndpoint(c[0],next),b=snapEndpoint(c.at(-1),next);f.properties.from_node=a.node;f.properties.to_node=b.node;f.geometry.coordinates[0]=clone(a.point);f.geometry.coordinates[f.geometry.coordinates.length-1]=clone(b.point);}
+  const a=snapEndpoint(c[0],next),b=snapEndpoint(c.at(-1),next);f.properties.from_node=a.node;f.properties.to_node=b.node;f.geometry.coordinates[0]=clone(a.point);f.geometry.coordinates[f.geometry.coordinates.length-1]=clone(b.point);
  }else{for(const [id,p] of [[f.properties.from_node,c[0]],[f.properties.to_node,c.at(-1)]])if(haversine(graph.nodes.get(id).coordinates,p)>.01)moveNode(next,id,p);}
  next.paths[f.properties.segment_id]=f;commit(next,'Path saved. The route planner now uses this edit.');draft=clone(f);mode='edit';$('#delete-path').hidden=false;$('#finish-draw').hidden=true;renderDraft();
-}
-function chooseStairPoint(i){
- if(stairFirst===null){stairFirst=i;selectedPoint=i;renderDraft();status('Now click the last point of the stair section.');return;}
- attempt(()=>{const result=markStairSpan(draft,stairFirst,i,nextId('STAIR-',new Set(data.paths.features.map(f=>f.properties.segment_id.replace(/-(before|stairs|after)$/,'')))));const next=clone(edits);next.paths[draft.properties.segment_id]=null;for(const f of result.features)next.paths[f.properties.segment_id]=f;
- commit(next,'Stair section saved. Find or draw an alternative for this section.');const stair=result.features.find(f=>f.properties.accessibility_status==='stairs');selectPath(currentFeature(stair.properties.segment_id));$('#stair-actions').hidden=false;mode='edit';stairFirst=null;});
-}
-function findAlternate(){
- if(!stairs)return;const g=buildGraph(data,{enableClosures:false});g.places.push({id:'STAIR-START',node:stairs.from,name:'Stair start'},{id:'STAIR-END',node:stairs.to,name:'Stair end'});
- const r=findRoute(g,'STAIR-START','STAIR-END',{avoidStairs:true});alternateLayer.clearLayers();
- if(!r.found){$('#alternate-status').textContent='No connected alternative is mapped. Draw the ramp or elevator route if you know it.';return;}
- for(const e of r.legs)L.polyline(e.coordinates.map(ll),{color:'#6454bb',weight:6,dashArray:'6 6'}).addTo(alternateLayer);
- $('#alternate-status').textContent='Mapped stairs-avoiding alternative: '+Math.round(r.meters)+' m. Accessibility remains unverified.';
 }
 function startEntrance(){
  resetDraft();mode='entrance';door={coordinates:null,existing:null};$('#entrance-panel').hidden=false;$('#entrance-name').value='Entrance / exit';$('#entrance-floor').value='';$('#entrance-direction').value='both';
@@ -269,7 +249,7 @@ function placeDoor(p){door.coordinates=p;draftLayer.clearLayers();const marker=L
 function saveDoor(){
  if(!door?.coordinates)throw Error('Click a door position on the map first.');const next=clone(edits),bid=$('#entrance-building').value;
  const id=door.existing?.properties.entrance_id||nextId('DOOR-'+bid+'-',new Set(data.entrances.features.map(f=>f.properties.entrance_id))),node=door.existing?.properties.node_id||'N-'+id;
- const f={type:'Feature',geometry:{type:'Point',coordinates:door.coordinates},properties:{...door.existing?.properties,entrance_id:id,node_id:node,building_id:bid,entrance_name:$('#entrance-name').value.trim()||'Entrance / exit',entry_floor:$('#entrance-floor').value.trim()||null,door_use:$('#entrance-direction').value,node_role:'entrance',accessibility_status:'unknown',operational_status:'unknown',confidence:'community_report',geometry_precision:'user_marked',source:'User-marked entrance in route editor'}};
+ const f={type:'Feature',geometry:{type:'Point',coordinates:door.coordinates},properties:{...door.existing?.properties,entrance_id:id,node_id:node,building_id:bid,entrance_name:$('#entrance-name').value.trim()||'Entrance / exit',entry_floor:$('#entrance-floor').value.trim()||null,door_use:$('#entrance-direction').value,node_role:'entrance',operational_status:'unknown',geometry_precision:'user_marked',source:'User-marked entrance in route editor'}};
  next.entrances[id]=f;moveNode(next,node,door.coordinates);let message='Door saved. Draw a path to connect it to the sidewalk.';
  if(!door.existing){const target=snapEndpoint(door.coordinates,next,node);if(haversine(door.coordinates,target.point)<=5&&target.node!==node){const link=makePath(nextId('DOOR-LINK-',new Set([...ids(),...Object.keys(next.paths)])),node,target.node,[door.coordinates,target.point],{name:'Door approach'});next.paths[link.properties.segment_id]=link;message='Door saved and connected to the nearby path.';}}
  const resume=routeMode?{fromId:routeMode.fromId,toId:routeMode.toId}:null;
@@ -286,8 +266,6 @@ function wire(){
  $('#finish-draw').onclick=()=>{if(draft.geometry.coordinates.length<2){status('Choose at least a start and end.');return;}mode='edit';$('#finish-draw').hidden=true;renderDraft();status('Adjust the points or details, then Save path.');};
  $('#save-path').onclick=()=>attempt(savePath);$('#cancel-edit').onclick=reset;$('#cancel-entrance').onclick=cancelEntrance;$('#save-entrance').onclick=()=>attempt(saveDoor);
  $('#delete-path').onclick=()=>attempt(()=>{const next=clone(edits);next.paths[draft.properties.segment_id]=null;commit(next,'Path deleted. Undo save restores it.');reset();status('Path deleted. Undo save restores it.');});
- $('#mark-stairs').onclick=()=>{if(mode==='draw'||!currentFeature(draft?.properties.segment_id)){status('Save the path before marking a stair section.');return;}mode='stairs';stairFirst=null;status('Click the first point of the stairs. Add points to the line first if needed.');renderDraft();};
- $('#find-alternate').onclick=()=>attempt(findAlternate);$('#draw-alternate').onclick=()=>newPath(stairs);
  $('#undo-edit').onclick=()=>attempt(()=>{const previous=history.at(-1);if(!previous)return;saveEdits(previous);history.pop();edits=previous;reset();rebuild();$('#undo-edit').disabled=!history.length;status('Last save undone.');});
  $('#export-pending').onclick=exportEdits;
  $('#import-edits').onclick=()=>$('#import-file').click();$('#import-file').onchange=async e=>{try{const file=e.target.files[0];if(!file)return;const incoming=validateEdits(JSON.parse(await file.text()));applyEdits(source,incoming);commit(incoming,'Edits imported. Undo save restores your previous edits.');reset();status('Edits imported and applied to the planner.');}catch(err){status('Import failed: '+err.message);}e.target.value='';};
@@ -298,7 +276,7 @@ async function load(){
  source=await loadDataset();try{edits=readEdits();}catch(e){edits=emptyEdits();status('Saved edits could not be read: '+e.message);}
  map=L.map('campus-map',{preferCanvas:true}).setView([37.2295,-80.423],16);
  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> · Paths: Virginia Tech GIS'}).addTo(map);
- baseLayer=L.layerGroup().addTo(map);edgeLayer=L.layerGroup().addTo(map);draftLayer=L.layerGroup().addTo(map);alternateLayer=L.layerGroup().addTo(map);queryLayer=L.layerGroup().addTo(map);
+ baseLayer=L.layerGroup().addTo(map);edgeLayer=L.layerGroup().addTo(map);draftLayer=L.layerGroup().addTo(map);queryLayer=L.layerGroup().addTo(map);
  map.on('click',e=>{if(mode==='draw')addDrawPoint(point(e));else if(mode==='entrance')placeDoor(point(e));});wire();rebuild();status('Click a preloaded path to edit it. Saved changes also appear in the planner.');
  openFromQuery();
 }

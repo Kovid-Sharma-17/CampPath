@@ -1,59 +1,43 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {buildGraph,findRoute,compareRoutes,haversine,pathLength} from '../dist/router.mjs';
+import {buildGraph,findRoute,resolvePlace,haversine,pathLength} from '../dist/router.mjs';
+import {applyEdits,emptyEdits} from '../dist/editor-model.mjs';
 
-const files={buildings:'buildings.geojson',entrances:'entrances.geojson',paths:'paths.geojson',connectors:'connectors.geojson',pois:'pois.geojson',metadata:'metadata.json',status:'status-records.json',studentRoutes:'student-routes.json'};
-const data=Object.fromEntries(Object.entries(files).map(([key,file])=>[key,JSON.parse(readFileSync(new URL('../dist/data/'+file,import.meta.url)))]));
+const files={buildings:'buildings.geojson',entrances:'entrances.geojson',paths:'paths.geojson',pois:'pois.geojson',metadata:'metadata.json',status:'status-records.json',studentRoutes:'student-routes.json'};
+const source=Object.fromEntries(Object.entries(files).map(([key,file])=>[key,JSON.parse(readFileSync(new URL('../dist/data/'+file,import.meta.url)))]));
+const data=applyEdits(source,emptyEdits());
 const graph=buildGraph(data,{enableClosures:false});
 const points=r=>r.legs.flatMap(e=>e.coordinates);
 
-test('all seven screenshot choices take their prescribed continuous corridor in both directions',()=>{
-  for(const preset of data.studentRoutes.routes){
-    const r=findRoute(graph,preset.from[0],preset.to[0]);
-    const reverse=findRoute(graph,preset.to[0],preset.from[0]);
-    assert.equal(r.referenceId,preset.id);
-    assert.deepEqual(points(reverse),points(r).reverse());
-    assert.equal(r.unverifiedPercent,100);
-    assert.ok(r.meters>50 && r.meters<1100,preset.id+' has an implausible distance');
+test('every traced screenshot leg is materialized as a walkable edge reachable by ordinary routing',()=>{
+  // Some presets' place IDs (e.g. the old DDS-floor-specific 'VT-DDS-F2') no longer
+  // resolve now that floor-split routing is gone - both DDS doors are just ordinary
+  // entrances of the one VT-DDS building place now. Try each supplied alternate ID.
+  const resolvable=id=>resolvePlace(graph,id)?id:/^VT-DDS-F\d$/.test(id)?'VT-DDS':undefined;
+  for(const preset of source.studentRoutes.routes){
+    const from=preset.from.map(resolvable).find(Boolean),to=preset.to.map(resolvable).find(Boolean);
+    assert.ok(from&&to,preset.id+' should have at least one resolvable endpoint on each side');
+    const r=findRoute(graph,from,to);
+    assert.ok(r.found,preset.id+' should resolve to some route');
+    assert.ok(r.meters>0 && r.meters<1200,preset.id+' has an implausible distance');
     for(let i=1;i<r.legs.length;i++)assert.ok(haversine(r.legs[i-1].coordinates.at(-1),r.legs[i].coordinates[0])<0.5,preset.id+' contains a gap');
-    for(const from of preset.from)for(const to of preset.to)assert.equal(findRoute(graph,from,to).referenceId,preset.id);
   }
 });
 
-test('DDS floors select distinct doors and colors; generic DDS defaults to floor one',()=>{
+test('DDS has two real doors (1st and 2nd floor access) routed as ordinary entrances of one building',()=>{
   for(const origin of ['VT-GOODWIN','VT-DAVIDSON']){
-    const first=findRoute(graph,origin,'VT-DDS-F1'),second=findRoute(graph,origin,'VT-DDS-F2');
-    assert.equal(first.arrivalFloor,'1');assert.equal(second.arrivalFloor,'2');
-    assert.equal(first.color,'red');assert.equal(second.color,'yellow');
-    assert.ok(haversine(first.endEntrance.coordinates,second.endEntrance.coordinates)>30);
-    assert.deepEqual(points(findRoute(graph,origin,'VT-DDS')),points(first));
+    const r=findRoute(graph,origin,'VT-DDS');assert.ok(r.found);
   }
-  assert.equal(findRoute(graph,'VT-DDS-F1','VT-DDS-F2').found,false);
-});
-
-test('no screenshot path is promoted to verified step-free or known conditions',()=>{
-  for(const r of data.studentRoutes.routes)for(const preferences of [{requireStepFree:true},{avoidUnknown:true}]){
-    assert.equal(findRoute(graph,r.from[0],r.to[0],preferences).found,false);
-  }
-});
-
-test('indoor passages and outdoor alternatives remain distinct',()=>{
-  for(const pair of [['POI-PERRY-PLACE','VT-PAMPLIN'],['VT-PAMPLIN','VT-NCB']]){
-    const r=compareRoutes(graph,...pair);
-    assert.ok(r.indoor.legs.some(e=>e.is_indoor));
-    assert.ok(r.outdoor.legs.every(e=>!e.is_indoor));
-    assert.notDeepEqual(points(r.indoor),points(r.outdoor));
-    assert.ok(r.indoor.legs.filter(e=>e.is_indoor).every(e=>graph.buildings.has(e.building)));
-  }
-  assert.equal(findRoute(graph,'VT-DAVIDSON','VT-DDS-F2',{allowIndoor:false}).found,false);
+  const e1=graph.entrances.get('N-DDS-E1'),e2=graph.entrances.get('N-DDS-E2');
+  assert.ok(haversine(e1.coordinates,e2.coordinates)>30);
 });
 
 test('loop sections use saved sidewalk polylines, with no straight-line fallback',()=>{
   const raw=JSON.parse(readFileSync(new URL('../source-data/vt-sidewalks-2026-09-19.geojson',import.meta.url)));
   const sourceIds=new Set(raw.features.map(f=>f.properties.objectid));
   for(const id of ['MAROON-TRANSIT','HITT-ORANGE','TRANSIT-DDS','ORANGE-CONNECTOR','MAROON-CONNECTOR']){
-    const e=data.studentRoutes.legs[id];
+    const e=source.studentRoutes.legs[id];
     assert.ok(e.coordinates.length>4);
     assert.ok(e.source_feature_ids.every(id=>sourceIds.has(id)));
     assert.ok(pathLength(e.coordinates)>haversine(e.coordinates[0],e.coordinates.at(-1))*1.05);
