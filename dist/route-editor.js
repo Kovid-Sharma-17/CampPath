@@ -7,7 +7,7 @@ let source,data,graph,edits,map,baseLayer,edgeLayer,draftLayer,alternateLayer,qu
 const history=[];
 function status(message){$('#editor-status').textContent=message;}
 function attempt(fn){try{fn();}catch(e){status(e.message);}}
-function rebuild(){data=applyEdits(source,edits);graph=buildGraph(data,{enableClosures:false});renderNetwork();populate();}
+function rebuild(){data=applyEdits(source,edits);graph=buildGraph(data,{enableClosures:false});renderNetwork();populate();renderPending();}
 function commit(next,message){validateEdits(next);saveEdits(next);history.push(clone(edits));edits=next;$('#undo-edit').disabled=false;rebuild();status(message);}
 function ids(){return new Set(data.paths.features.map(f=>f.properties.segment_id));}
 function currentFeature(id){return data.paths.features.find(f=>f.properties.segment_id===id);}
@@ -34,6 +34,24 @@ function populate(){
  $('#building-jump').innerHTML='<option value="">Zoom to a building…</option>'+buildings.filter(b=>b.name.toLowerCase().includes(query)).map(b=>'<option value="'+esc(b.building_id)+'">'+esc(b.name)+'</option>').join('');
  $('#network-count').textContent=data.paths.features.length.toLocaleString()+' mapped segments · '+graph.buildings.size+' buildings';
 }
+function pendingRows(){
+ const rows=[];
+ for(const [id,f] of Object.entries(edits.paths))rows.push({section:'paths',id,label:f?label(f.properties):id,deleted:!f});
+ for(const [id,f] of Object.entries(edits.entrances))rows.push({section:'entrances',id,label:f?(f.properties.entrance_name+' · '+(graph.buildings.get(f.properties.building_id)?.name||f.properties.building_id)):id,deleted:!f});
+ for(const [id,leg] of Object.entries(edits.studentLegs))rows.push({section:'studentLegs',id,label:leg?(leg.name||id):id,deleted:!leg});
+ for(const id of Object.keys(edits.nodes))rows.push({section:'nodes',id,label:'Moved junction '+id,deleted:false});
+ return rows;
+}
+function renderPending(){
+ const rows=pendingRows();
+ $('#pending-count').textContent=rows.length?rows.length+(rows.length===1?' change':' changes')+' saved':'';
+ $('#pending-empty').hidden=rows.length>0;
+ $('#export-pending').disabled=rows.length===0;
+ $('#pending-list').innerHTML=rows.map(r=>'<li class="pending-item"><span>'+esc(r.label)+(r.deleted?' (deleted)':'')+'</span><button type="button" data-section="'+r.section+'" data-id="'+esc(r.id)+'" aria-label="Discard this change" title="Discard this change">×</button></li>').join('');
+ for(const btn of $('#pending-list').querySelectorAll('button[data-section]'))btn.addEventListener('click',()=>discardChange(btn.dataset.section,btn.dataset.id));
+}
+function discardChange(section,id){const next=clone(edits);delete next[section][id];commit(next,'Discarded that change.');}
+function exportEdits(){const blob=new Blob([JSON.stringify(edits,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='accesspath-network-edits.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);status('Exported '+pendingRows().length+' change(s). Send the file to whoever is merging.');}
 function renderNetwork(){
   baseLayer.clearLayers();edgeLayer.clearLayers();
   for(const f of data.barriers?.features||[]){
@@ -209,7 +227,7 @@ function wire(){
  $('#mark-stairs').onclick=()=>{if(mode==='draw'||!currentFeature(draft?.properties.segment_id)){status('Save the path before marking a stair section.');return;}mode='stairs';stairFirst=null;status('Click the first point of the stairs. Add points to the line first if needed.');renderDraft();};
  $('#find-alternate').onclick=()=>attempt(findAlternate);$('#draw-alternate').onclick=()=>newPath(stairs);
  $('#undo-edit').onclick=()=>attempt(()=>{const previous=history.at(-1);if(!previous)return;saveEdits(previous);history.pop();edits=previous;reset();rebuild();$('#undo-edit').disabled=!history.length;status('Last save undone.');});
- $('#export-edits').onclick=()=>{const blob=new Blob([JSON.stringify(edits,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='accesspath-network-edits.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);status('Editor backup exported.');};
+ $('#export-edits').onclick=exportEdits;$('#export-pending').onclick=exportEdits;
  $('#import-edits').onclick=()=>$('#import-file').click();$('#import-file').onchange=async e=>{try{const file=e.target.files[0];if(!file)return;const incoming=validateEdits(JSON.parse(await file.text()));applyEdits(source,incoming);commit(incoming,'Edits imported. Undo save restores your previous edits.');reset();status('Edits imported and applied to the planner.');}catch(err){status('Import failed: '+err.message);}e.target.value='';};
  $('#save-route').onclick=()=>attempt(saveRoute);$('#exit-route-mode').onclick=exitRouteMode;
 }
