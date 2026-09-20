@@ -118,13 +118,13 @@ function enterRouteMode(fromId,toId){
  reset();
  const a=resolvePlace(graph,fromId),b=resolvePlace(graph,toId),r=findRoute(graph,fromId,toId,{});
  if(!a||!b||!r.found||!r.legs.length){status('That route is no longer available.');return;}
- const legs=r.legs.map(e=>{const f=currentFeature(e.id)||currentFeature('TRACE-'+e.id);return f?{feature:physicalFeature(f)}:{coordinates:clone(e.coordinates)};});
+ const legs=r.legs.map(e=>{const f=currentFeature(e.id)||currentFeature('TRACE-'+e.id);if(!f)return{coordinates:clone(e.coordinates)};const feature=physicalFeature(f);return{feature,original:clone(feature.geometry.coordinates)};});
  routeMode={legs,fromId,toId,fromLabel:a.name,toLabel:b.name,fromBuildingId:a.building,toBuildingId:b.building,selected:null};
  hideMesh();$('#route-mode-panel').hidden=false;$('#route-mode-heading').textContent=a.name+' → '+b.name;
  const editableCount=legs.filter(l=>l.feature).length;
  $('#route-mode-readonly').hidden=editableCount===legs.length;
  $('#route-mode-readonly').textContent=(legs.length-editableCount)+' of '+legs.length+' segment(s) run through connectors and can\'t be dragged here — shown dimmed for context.';
- renderRouteMode();populate();
+ renderRouteMode();renderRouteEntrances();populate();
  map.fitBounds(L.latLngBounds(legs.flatMap(l=>(l.feature?l.feature.geometry.coordinates:l.coordinates).map(ll))),{padding:[60,60],maxZoom:19});
  status('Editing the route from '+a.name+' to '+b.name+'. The rest of the network is hidden. Drag any point on any highlighted segment, then Save route.');
 }
@@ -146,15 +146,47 @@ function renderRouteMode(){
  });
  const totalLength=routeMode.legs.reduce((m,l)=>m+pathLength(l.feature?l.feature.geometry.coordinates:l.coordinates),0);
  $('#route-mode-length').textContent=Math.round(totalLength)+' m total';
+ const sel=routeMode.selected,leg=sel&&routeMode.legs[sel.li];
+ $('#remove-route-point').disabled=!leg||!leg.feature||sel.i===0||sel.i===leg.feature.geometry.coordinates.length-1;
+}
+function removeRoutePoint(){
+ const sel=routeMode?.selected;if(!sel)return;
+ const leg=routeMode.legs[sel.li];if(!leg?.feature)return;
+ const c=leg.feature.geometry.coordinates;
+ if(sel.i<=0||sel.i>=c.length-1)throw Error('The start and end of a segment can\'t be removed — drag them instead, or edit the connecting segment.');
+ c.splice(sel.i,1);routeMode.selected=null;renderRouteMode();
+}
+function renderRouteEntrances(){
+ if(!routeMode)return;
+ const build=(buildingId,nameSel,listSel)=>{
+  const b=graph.buildings.get(buildingId);
+  $(nameSel).textContent=b?b.name:'Unknown building';
+  const entrances=buildingId?[...graph.entrances.values()].filter(e=>e.building_id===buildingId):[];
+  $(listSel).innerHTML=entrances.length?entrances.map(e=>'<li><span>'+esc(e.entrance_name)+(e.node_role==='approach'?' <small>(approach only)</small>':'')+'</span><button type="button" data-entrance="'+esc(e.entrance_id)+'" aria-label="Remove this door" title="Remove this door">×</button></li>').join(''):'<li class="entrance-mini-empty">No doors marked yet.</li>';
+ };
+ build(routeMode.fromBuildingId,'#route-from-name','#route-from-entrances');
+ build(routeMode.toBuildingId,'#route-to-name','#route-to-entrances');
+ for(const btn of $('#route-mode-entrances').querySelectorAll('button[data-entrance]'))btn.addEventListener('click',()=>attempt(()=>deleteEntrance(btn.dataset.entrance)));
+}
+function deleteEntrance(entranceId){
+ const next=clone(edits);next.entrances[entranceId]=null;
+ const resume=routeMode?{fromId:routeMode.fromId,toId:routeMode.toId}:null;
+ commit(next,'Entrance removed.');
+ if(resume)enterRouteMode(resume.fromId,resume.toId);
+}
+function addEntranceFor(buildingId){
+ if(!buildingId)return;
+ startEntrance();$('#entrance-building').value=buildingId;populate();
+ status('Choose the door position on the map for '+(graph.buildings.get(buildingId)?.name||buildingId)+'. Your route stays saved in the background.');
 }
 function saveRoute(){
  if(!routeMode)return;
- const editable=routeMode.legs.filter(l=>l.feature);
- if(!editable.length)throw Error('None of this route\'s segments are editable here.');
- for(const leg of editable)if(leg.feature.geometry.coordinates.length<2)throw Error('Every segment needs at least two points.');
- const next=clone(edits);for(const leg of editable)next.paths[leg.feature.properties.segment_id]=leg.feature;
+ const changed=routeMode.legs.filter(l=>l.feature&&JSON.stringify(l.feature.geometry.coordinates)!==JSON.stringify(l.original));
+ if(!changed.length)throw Error('Nothing has changed on this route yet — drag a point first.');
+ for(const leg of changed)if(leg.feature.geometry.coordinates.length<2)throw Error('Every segment needs at least two points.');
+ const next=clone(edits);for(const leg of changed)next.paths[leg.feature.properties.segment_id]=leg.feature;
  const {fromId,toId}=routeMode;
- commit(next,'Route saved — '+editable.length+' segment(s) updated. The planner now uses this edit.');
+ commit(next,'Route saved — '+changed.length+' segment(s) updated. The planner now uses this edit.');
  enterRouteMode(fromId,toId);
 }
 function exitRouteMode(){reset();status('Showing the full network again. Click a path to edit it, or choose New path.');}
@@ -229,7 +261,8 @@ function wire(){
  $('#undo-edit').onclick=()=>attempt(()=>{const previous=history.at(-1);if(!previous)return;saveEdits(previous);history.pop();edits=previous;reset();rebuild();$('#undo-edit').disabled=!history.length;status('Last save undone.');});
  $('#export-edits').onclick=exportEdits;$('#export-pending').onclick=exportEdits;
  $('#import-edits').onclick=()=>$('#import-file').click();$('#import-file').onchange=async e=>{try{const file=e.target.files[0];if(!file)return;const incoming=validateEdits(JSON.parse(await file.text()));applyEdits(source,incoming);commit(incoming,'Edits imported. Undo save restores your previous edits.');reset();status('Edits imported and applied to the planner.');}catch(err){status('Import failed: '+err.message);}e.target.value='';};
- $('#save-route').onclick=()=>attempt(saveRoute);$('#exit-route-mode').onclick=exitRouteMode;
+ $('#save-route').onclick=()=>attempt(saveRoute);$('#exit-route-mode').onclick=exitRouteMode;$('#remove-route-point').onclick=()=>attempt(removeRoutePoint);
+ $('#add-entrance-from').onclick=()=>addEntranceFor(routeMode?.fromBuildingId);$('#add-entrance-to').onclick=()=>addEntranceFor(routeMode?.toBuildingId);
 }
 async function load(){
  source=await loadDataset();try{edits=readEdits();}catch(e){edits=emptyEdits();status('Saved edits could not be read: '+e.message);}

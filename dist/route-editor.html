@@ -15,9 +15,16 @@
 <section class="editor-start"><div class="editor-actions"><button id="new-path" class="primary-button">＋ New path</button><button id="new-entrance" class="quiet-button">＋ Entrance / exit</button></div><p id="editor-status" class="editor-status" role="status" aria-live="polite">Click a path to edit it.</p><label class="input-label" for="path-search">Find a path or building</label><input id="path-search" class="text-input" placeholder="Derring, Cochrane, VT-WALK…"><select id="path-list" class="standalone-select" aria-label="Select a mapped path"><option value="">Choose a path…</option></select><select id="building-jump" class="standalone-select" aria-label="Zoom to a building"><option value="">Zoom to a building…</option></select></section>
 <section id="route-mode-panel" hidden>
 <div class="panel-heading"><h2 id="route-mode-heading">Editing a route</h2><span id="route-mode-length"></span></div>
-<p class="field-hint">The rest of the network is hidden so you can see this route clearly. Drag any point on any highlighted segment — every one of them is editable here, not just the first.</p>
+<p class="field-hint">The rest of the network is hidden so you can focus. Drag any point to move it, click a highlighted line to add a point there, or click a point then remove it below.</p>
 <p id="route-mode-readonly" class="field-hint" hidden></p>
+<div class="editor-actions"><button id="remove-route-point" class="quiet-button" disabled>Remove selected point</button></div>
 <div class="editor-actions"><button id="save-route" class="primary-button">Save route</button><button id="exit-route-mode" class="quiet-button">Show full network</button></div>
+<div id="route-mode-entrances">
+<h3>Entrances for this route</h3>
+<p class="field-hint">Add or remove a door for either building without losing your place in the route.</p>
+<div class="route-building-block"><div class="route-building-head"><strong id="route-from-name"></strong><button type="button" id="add-entrance-from" class="text-button">＋ Add entrance</button></div><ul id="route-from-entrances" class="entrance-mini-list"></ul></div>
+<div class="route-building-block"><div class="route-building-head"><strong id="route-to-name"></strong><button type="button" id="add-entrance-to" class="text-button">＋ Add entrance</button></div><ul id="route-to-entrances" class="entrance-mini-list"></ul></div>
+</div>
 </section>
 <section id="path-panel" hidden>
 <div class="panel-heading"><h2 id="path-heading">Edit path</h2><span id="path-length"></span></div>
