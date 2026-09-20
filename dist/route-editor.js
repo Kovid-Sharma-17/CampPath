@@ -51,7 +51,11 @@ function renderPending(){
  for(const btn of $('#pending-list').querySelectorAll('button[data-section]'))btn.addEventListener('click',()=>discardChange(btn.dataset.section,btn.dataset.id));
 }
 function discardChange(section,id){const next=clone(edits);delete next[section][id];commit(next,'Discarded that change.');}
-function exportEdits(){const blob=new Blob([JSON.stringify(edits,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='accesspath-network-edits.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);status('Exported '+pendingRows().length+' change(s). Send the file to whoever is merging.');}
+function exportEdits(){
+ const box=$('#queue-text');box.value=JSON.stringify(edits,null,2);box.hidden=false;$('#queue-text-hint').hidden=false;
+ box.focus();box.select();
+ status('Queued '+pendingRows().length+' change(s) below — already selected, just copy it (Ctrl/Cmd+C) and send it along.');
+}
 function renderNetwork(){
   baseLayer.clearLayers();edgeLayer.clearLayers();
   for(const f of data.barriers?.features||[]){
@@ -147,14 +151,37 @@ function renderRouteMode(){
  const totalLength=routeMode.legs.reduce((m,l)=>m+pathLength(l.feature?l.feature.geometry.coordinates:l.coordinates),0);
  $('#route-mode-length').textContent=Math.round(totalLength)+' m total';
  const sel=routeMode.selected,leg=sel&&routeMode.legs[sel.li];
- $('#remove-route-point').disabled=!leg||!leg.feature||sel.i===0||sel.i===leg.feature.geometry.coordinates.length-1;
+ $('#remove-route-point').disabled=!leg||!leg.feature;
+ $('#delete-route-segment').disabled=!leg||!leg.feature;
+}
+function mergeAtNode(a,b,nodeId){
+ const ap=a.properties,bp=b.properties;
+ let ac=clone(a.geometry.coordinates),bc=clone(b.geometry.coordinates),newFrom,newTo;
+ if(ap.to_node===nodeId)newFrom=ap.from_node;else{ac=ac.reverse();newFrom=ap.to_node;}
+ if(bp.from_node===nodeId)newTo=bp.to_node;else{bc=bc.reverse();newTo=bp.from_node;}
+ return{coordinates:[...ac,...bc.slice(1)],from_node:newFrom,to_node:newTo};
 }
 function removeRoutePoint(){
  const sel=routeMode?.selected;if(!sel)return;
  const leg=routeMode.legs[sel.li];if(!leg?.feature)return;
  const c=leg.feature.geometry.coordinates;
- if(sel.i<=0||sel.i>=c.length-1)throw Error('The start and end of a segment can\'t be removed — drag them instead, or edit the connecting segment.');
- c.splice(sel.i,1);routeMode.selected=null;renderRouteMode();
+ if(sel.i>0&&sel.i<c.length-1){c.splice(sel.i,1);routeMode.selected=null;renderRouteMode();status('Point removed — save the route to keep it.');return;}
+ const atStart=sel.i===0,neighborIdx=atStart?sel.li-1:sel.li+1,neighbor=routeMode.legs[neighborIdx];
+ if(!neighbor)throw Error('This is the very start or end of the route — it can\'t be removed here.');
+ if(!neighbor.feature)throw Error('The segment on the other side of this point isn\'t editable here (it runs through a connector), so they can\'t be merged.');
+ const nodeId=atStart?leg.feature.properties.from_node:leg.feature.properties.to_node;
+ const merged=mergeAtNode(leg.feature,neighbor.feature,nodeId);
+ leg.feature.geometry.coordinates=merged.coordinates;leg.feature.properties.from_node=merged.from_node;leg.feature.properties.to_node=merged.to_node;leg.original=null;
+ routeMode.removedSegmentIds=routeMode.removedSegmentIds||[];routeMode.removedSegmentIds.push(neighbor.feature.properties.segment_id);
+ routeMode.legs.splice(neighborIdx,1);routeMode.selected=null;renderRouteMode();
+ status('Merged the two segments at that point into one — save the route to make it permanent.');
+}
+function deleteRouteSegment(){
+ const sel=routeMode?.selected;if(!sel)throw Error('Click a point on the segment you want to delete first.');
+ const leg=routeMode.legs[sel.li];if(!leg?.feature)throw Error('This segment isn\'t editable here.');
+ routeMode.removedSegmentIds=routeMode.removedSegmentIds||[];routeMode.removedSegmentIds.push(leg.feature.properties.segment_id);
+ routeMode.legs.splice(sel.li,1);routeMode.selected=null;renderRouteMode();
+ status('Segment deleted from the route. This leaves a gap unless another mapped path already connects those points — draw a new path to fill it if needed, then Save route.');
 }
 function renderRouteEntrances(){
  if(!routeMode)return;
@@ -181,12 +208,15 @@ function addEntranceFor(buildingId){
 }
 function saveRoute(){
  if(!routeMode)return;
- const changed=routeMode.legs.filter(l=>l.feature&&JSON.stringify(l.feature.geometry.coordinates)!==JSON.stringify(l.original));
- if(!changed.length)throw Error('Nothing has changed on this route yet — drag a point first.');
+ const changed=routeMode.legs.filter(l=>l.feature&&(l.original===null||JSON.stringify(l.feature.geometry.coordinates)!==JSON.stringify(l.original)));
+ const removed=routeMode.removedSegmentIds||[];
+ if(!changed.length&&!removed.length)throw Error('Nothing has changed on this route yet.');
  for(const leg of changed)if(leg.feature.geometry.coordinates.length<2)throw Error('Every segment needs at least two points.');
- const next=clone(edits);for(const leg of changed)next.paths[leg.feature.properties.segment_id]=leg.feature;
+ const next=clone(edits);
+ for(const leg of changed)next.paths[leg.feature.properties.segment_id]=leg.feature;
+ for(const id of removed)next.paths[id]=null;
  const {fromId,toId}=routeMode;
- commit(next,'Route saved — '+changed.length+' segment(s) updated. The planner now uses this edit.');
+ commit(next,'Route saved — '+changed.length+' segment(s) updated'+(removed.length?', '+removed.length+' removed':'')+'. The planner now uses this edit.');
  enterRouteMode(fromId,toId);
 }
 function exitRouteMode(){reset();status('Showing the full network again. Click a path to edit it, or choose New path.');}
@@ -259,9 +289,9 @@ function wire(){
  $('#mark-stairs').onclick=()=>{if(mode==='draw'||!currentFeature(draft?.properties.segment_id)){status('Save the path before marking a stair section.');return;}mode='stairs';stairFirst=null;status('Click the first point of the stairs. Add points to the line first if needed.');renderDraft();};
  $('#find-alternate').onclick=()=>attempt(findAlternate);$('#draw-alternate').onclick=()=>newPath(stairs);
  $('#undo-edit').onclick=()=>attempt(()=>{const previous=history.at(-1);if(!previous)return;saveEdits(previous);history.pop();edits=previous;reset();rebuild();$('#undo-edit').disabled=!history.length;status('Last save undone.');});
- $('#export-edits').onclick=exportEdits;$('#export-pending').onclick=exportEdits;
+ $('#export-pending').onclick=exportEdits;
  $('#import-edits').onclick=()=>$('#import-file').click();$('#import-file').onchange=async e=>{try{const file=e.target.files[0];if(!file)return;const incoming=validateEdits(JSON.parse(await file.text()));applyEdits(source,incoming);commit(incoming,'Edits imported. Undo save restores your previous edits.');reset();status('Edits imported and applied to the planner.');}catch(err){status('Import failed: '+err.message);}e.target.value='';};
- $('#save-route').onclick=()=>attempt(saveRoute);$('#exit-route-mode').onclick=exitRouteMode;$('#remove-route-point').onclick=()=>attempt(removeRoutePoint);
+ $('#save-route').onclick=()=>attempt(saveRoute);$('#exit-route-mode').onclick=exitRouteMode;$('#remove-route-point').onclick=()=>attempt(removeRoutePoint);$('#delete-route-segment').onclick=()=>attempt(deleteRouteSegment);
  $('#add-entrance-from').onclick=()=>addEntranceFor(routeMode?.fromBuildingId);$('#add-entrance-to').onclick=()=>addEntranceFor(routeMode?.toBuildingId);
 }
 async function load(){

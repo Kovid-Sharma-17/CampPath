@@ -7,7 +7,7 @@
 <script defer src="vendor/leaflet/leaflet.js"></script><script type="module" src="route-editor.js"></script>
 </head>
 <body class="editor-page">
-<header class="header"><a class="brand" href="./">AccessPath<span>.</span></a><nav aria-label="App views"><a href="./" class="nav-button">Route planner</a><span class="nav-button active">Route editor</span></nav><div class="header-actions"><button id="undo-edit" class="quiet-button" disabled>Undo save</button><button id="export-edits" class="quiet-button">Export edits</button><button id="import-edits" class="quiet-button">Import edits</button><input id="import-file" type="file" accept=".json,application/json" hidden></div></header>
+<header class="header"><a class="brand" href="./">AccessPath<span>.</span></a><nav aria-label="App views"><a href="./" class="nav-button">Route planner</a><span class="nav-button active">Route editor</span></nav><div class="header-actions"><button id="undo-edit" class="quiet-button" disabled>Undo save</button><button id="import-edits" class="quiet-button">Import edits</button><input id="import-file" type="file" accept=".json,application/json" hidden></div></header>
 <main>
 <div class="editor-intro"><div><span class="eyebrow">CAMPUS NETWORK</span><h1>Shape the way there<span>.</span></h1></div><p id="network-count">Loading mapped paths…</p></div>
 <div class="workspace editor-workspace">
@@ -15,9 +15,9 @@
 <section class="editor-start"><div class="editor-actions"><button id="new-path" class="primary-button">＋ New path</button><button id="new-entrance" class="quiet-button">＋ Entrance / exit</button></div><p id="editor-status" class="editor-status" role="status" aria-live="polite">Click a path to edit it.</p><label class="input-label" for="path-search">Find a path or building</label><input id="path-search" class="text-input" placeholder="Derring, Cochrane, VT-WALK…"><select id="path-list" class="standalone-select" aria-label="Select a mapped path"><option value="">Choose a path…</option></select><select id="building-jump" class="standalone-select" aria-label="Zoom to a building"><option value="">Zoom to a building…</option></select></section>
 <section id="route-mode-panel" hidden>
 <div class="panel-heading"><h2 id="route-mode-heading">Editing a route</h2><span id="route-mode-length"></span></div>
-<p class="field-hint">The rest of the network is hidden so you can focus. Drag any point to move it, click a highlighted line to add a point there, or click a point then remove it below.</p>
+<p class="field-hint">The rest of the network is hidden so you can focus. Drag any point to move it, click a highlighted line to add a point there, or click a point then use the buttons below. Removing a point where two segments join merges them into one; removing a point at the very start or end of the route isn't allowed.</p>
 <p id="route-mode-readonly" class="field-hint" hidden></p>
-<div class="editor-actions"><button id="remove-route-point" class="quiet-button" disabled>Remove selected point</button></div>
+<div class="editor-actions"><button id="remove-route-point" class="quiet-button" disabled>Remove selected point</button><button id="delete-route-segment" class="quiet-button danger-button" disabled>Delete this segment</button></div>
 <div class="editor-actions"><button id="save-route" class="primary-button">Save route</button><button id="exit-route-mode" class="quiet-button">Show full network</button></div>
 <div id="route-mode-entrances">
 <h3>Entrances for this route</h3>
@@ -45,7 +45,9 @@
 <p class="field-hint">Saved in this browser only. Queue up as many as you like, then export and send the file to whoever's merging.</p>
 <p id="pending-empty" class="muted">No changes yet — edit a path, add a door, or draw a route.</p>
 <ul id="pending-list" class="pending-list"></ul>
-<div class="editor-actions"><button id="export-pending" class="primary-button" disabled>Export changes</button></div>
+<div class="editor-actions"><button id="export-pending" class="primary-button" disabled>Add to queue</button></div>
+<textarea id="queue-text" class="text-input mono-text" rows="7" readonly hidden></textarea>
+<p id="queue-text-hint" class="field-hint" hidden>Selected and ready — copy it (Ctrl/Cmd+C) and send it to whoever's merging.</p>
 </section>
 <section class="editor-help"><p><strong>Saved in this browser.</strong> The planner uses your saved edits immediately. Export a backup to share or move them to another browser.</p><p>Sidewalk approaches are not confirmed doors. Marked stairs and student paths do not establish a verified step-free route.</p></section>
 </aside>
