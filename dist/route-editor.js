@@ -1,6 +1,7 @@
 import {buildGraph,findRoute,haversine,pathLength} from './router.mjs';
 import {clone,emptyEdits,readEdits,saveEdits,validateEdits,applyEdits,makePath,nextId,projectPoint,splitPath,markStairSpan,loadDataset,moveNode} from './editor-model.mjs';
 const $=s=>document.querySelector(s),esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const label=p=>p.route_name||p.name||p.segment_id;
 const ll=p=>[p[1],p[0]],point=e=>[e.latlng.lng,e.latlng.lat];
 let source,data,graph,edits,map,baseLayer,draftLayer,alternateLayer,draft=null,mode='select',selectedPoint=null,stairFirst=null,stairs=null,door=null;
 const history=[];
@@ -14,8 +15,8 @@ function physicalFeature(f){const out=clone(f),edge=graph.edges.find(e=>e.id===f
 function reset(){draft=null;door=null;mode='select';selectedPoint=null;stairFirst=null;draftLayer.clearLayers();alternateLayer.clearLayers();$('#path-panel').hidden=true;$('#entrance-panel').hidden=true;$('#finish-draw').hidden=true;status('Click a path to edit it, or choose New path.');}
 function populate(){
  const query=$('#path-search').value.toLowerCase();
- const paths=data.paths.features.filter(f=>[f.properties.name,f.properties.segment_id,f.properties.from_node,f.properties.to_node].join(' ').toLowerCase().includes(query));
- $('#path-list').innerHTML='<option value="">Choose a path…</option>'+paths.slice(0,500).map(f=>'<option value="'+esc(f.properties.segment_id)+'">'+esc(f.properties.name||f.properties.segment_id)+' · '+esc(f.properties.segment_id)+'</option>').join('');
+ const paths=data.paths.features.filter(f=>[f.properties.route_name,f.properties.name,f.properties.segment_id,f.properties.from_node,f.properties.to_node].join(' ').toLowerCase().includes(query));
+ $('#path-list').innerHTML='<option value="">Choose a path…</option>'+paths.slice(0,500).map(f=>'<option value="'+esc(f.properties.segment_id)+'" title="'+esc(f.properties.segment_id)+'">'+esc(label(f.properties))+'</option>').join('');
  const buildings=[...graph.buildings.values()].sort((a,b)=>a.name.localeCompare(b.name));
  const options=buildings.map(b=>'<option value="'+esc(b.building_id)+'">'+esc(b.name)+'</option>').join('');
  const selected=$('#entrance-building').value;$('#entrance-building').innerHTML=options;if(selected)$('#entrance-building').value=selected;
@@ -33,7 +34,7 @@ function renderNetwork(){
  for(const e of graph.edges){
   const stairs=e.has_recorded_stairs||['stairs','not_step_free'].includes(e.accessibility_status),student=!/^(VT-WALK-|OSM-)/.test(e.id);
   const line=L.polyline(e.coordinates.map(ll),{color:stairs?'#c54231':student?'#b77624':'#5d8171',weight:student?3:2,opacity:.78,bubblingMouseEvents:false});
-  line.bindTooltip(esc(e.name||e.id)+' · '+esc(e.accessibility_status||'unknown'));
+  line.bindTooltip(esc(label(e))+' · '+esc(e.accessibility_status||'unknown'));
   line.on('click',ev=>{L.DomEvent.stopPropagation(ev);if(mode==='draw'){addDrawPoint(point(ev));return;}if(mode==='entrance'){placeDoor(point(ev));return;}const f=currentFeature(e.id);if(f)selectPath(f);});line.addTo(baseLayer);
  }
  for(const f of data.entrances.features){
@@ -44,11 +45,11 @@ function renderNetwork(){
  }
 }
 function selectPath(feature){
- reset();draft=physicalFeature(feature);mode='edit';$('#path-panel').hidden=false;$('#delete-path').hidden=false;$('#path-heading').textContent='Edit '+feature.properties.segment_id;$('#path-list').value=feature.properties.segment_id;
+ reset();draft=physicalFeature(feature);mode='edit';$('#path-panel').hidden=false;$('#delete-path').hidden=false;$('#path-heading').textContent='Edit '+label(feature.properties);$('#path-list').value=feature.properties.segment_id;
  fillFields();renderDraft();status('Drag a point, click the line to insert one, or select a point to remove it.');
  if(draft.properties.accessibility_status==='stairs'){stairs={from:draft.properties.from_node,to:draft.properties.to_node,coordinates:[draft.geometry.coordinates[0],draft.geometry.coordinates.at(-1)],id:draft.properties.segment_id};$('#stair-actions').hidden=false;}
 }
-function fillFields(){const p=draft.properties;$('#path-name').value=p.name||p.segment_id;$('#path-access').value=p.accessibility_status||'unknown';$('#path-confidence').value=p.confidence||'inferred';$('#path-indoor').checked=!!p.is_indoor;$('#path-notes').value=p.notes||'';$('#path-source').textContent=p.source||'Existing campus dataset';$('#stair-actions').hidden=true;$('#alternate-status').textContent='';}
+function fillFields(){const p=draft.properties;$('#path-name').value=p.name||p.route_name||p.segment_id;$('#path-access').value=p.accessibility_status||'unknown';$('#path-confidence').value=p.confidence||'inferred';$('#path-indoor').checked=!!p.is_indoor;$('#path-notes').value=p.notes||'';$('#path-source').textContent=p.source||'Existing campus dataset';$('#stair-actions').hidden=true;$('#alternate-status').textContent='';}
 function captureFields(){const p=draft.properties;p.name=$('#path-name').value.trim()||'Campus path';p.accessibility_status=$('#path-access').value;p.confidence=$('#path-confidence').value;p.is_indoor=$('#path-indoor').checked;p.access_control=p.is_indoor?'indoor':'outdoor';p.notes=$('#path-notes').value.trim();}
 function renderDraft(){
  draftLayer.clearLayers();if(!draft)return;const c=draft.geometry.coordinates;
