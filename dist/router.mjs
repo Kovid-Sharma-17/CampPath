@@ -1,106 +1,78 @@
-/** Routes over supplied GeoJSON. Closures (available/closed/unknown) are the only live status tracked. */
-export function haversine(a, b) {
-  const rad = Math.PI / 180;
-  const x = Math.sin((b[1] - a[1]) * rad / 2) ** 2 + Math.cos(a[1] * rad) * Math.cos(b[1] * rad) * Math.sin((b[0] - a[0]) * rad / 2) ** 2;
-  return 6371000 * 2 * Math.asin(Math.sqrt(Math.min(1, x)));
+/** OSM pedestrian routing. Geometry is never invented between nearby nodes. */
+export function haversine(a,b){const r=Math.PI/180,x=Math.sin((b[1]-a[1])*r/2)**2+Math.cos(a[1]*r)*Math.cos(b[1]*r)*Math.sin((b[0]-a[0])*r/2)**2;return 6371000*2*Math.asin(Math.sqrt(Math.min(1,x)));}
+export const pathLength=c=>c.slice(1).reduce((s,p,i)=>s+haversine(c[i],p),0);
+export function projectPoint(point,line){let best=null,along=0;for(let i=0;i<line.length-1;i++){const a=line[i],b=line[i+1],sx=Math.cos(point[1]*Math.PI/180),dx=(b[0]-a[0])*sx,dy=b[1]-a[1],t=Math.max(0,Math.min(1,((point[0]-a[0])*sx*dx+(point[1]-a[1])*dy)/(dx*dx+dy*dy||1))),coordinates=[a[0]+t*(b[0]-a[0]),a[1]+t*(b[1]-a[1])],meters=haversine(point,coordinates),part=haversine(a,b);if(!best||meters<best.meters)best={coordinates,meters,index:i,t,along:along+t*part};along+=part;}return best;}
+const nodeId=n=>'N-OSM-'+n;
+export function buildGraph(data){
+ const g={nodes:new Map(),edges:[],adj:new Map(),buildings:new Map(),entrances:new Map(),places:[],metadata:data.metadata||{},closures:data.closures?.features||[]};
+ function add(e,reverse=false){const from=reverse?e.to_node:e.from_node,to=reverse?e.from_node:e.to_node;if(!g.adj.has(from))g.adj.set(from,[]);g.adj.get(from).push({...e,from,to,coordinates:reverse?[...e.coordinates].reverse():e.coordinates});}
+ for(const f of data.paths.features){const p=f.properties,c=f.geometry.coordinates,e={...p,id:p.segment_id,coordinates:c,meters:pathLength(c)};g.nodes.set(p.from_node,{coordinates:c[0]});g.nodes.set(p.to_node,{coordinates:c.at(-1)});g.edges.push(e);if(p.oneway!=='-1')add(e);if(p.oneway!=='yes'&&p.oneway!=='1')add(e,true);}
+ for(const f of data.entrances.features){const p={...f.properties,coordinates:f.geometry.coordinates};g.entrances.set(p.entrance_id,p);}
+ for(const f of data.buildings.features){const b={...f.properties,coordinates:f.geometry.coordinates};g.buildings.set(b.building_id,b);const entries=[...g.entrances.values()].filter(e=>e.building_id===b.building_id&&g.nodes.has(e.node_id));g.places.push({...b,id:b.building_id,building:b.building_id,type:'building',entries});}
+ for(const f of data.pois.features){const p=f.properties,b=g.places.find(b=>b.id===p.building_id);if(b)g.places.push({...b,...p,id:p.poi_id,coordinates:b.coordinates,entries:b.entries,type:p.category});}
+ return g;
 }
-export function pathLength(coords) { return coords.slice(1).reduce((m, point, i) => m + haversine(coords[i], point), 0); }
-
-export function buildGraph(data, {now = new Date(), closedAssets = [], enableClosures = true} = {}) {
-  const graph = {nodes: new Map(), edges: [], adj: new Map(), buildings: new Map(), entrances: new Map(), assets: new Map(), places: [], statusLog: [], metadata: data.metadata};
-  for (const f of data.buildings.features) {
-    const p = {...f.properties, coordinates: f.geometry.coordinates};
-    graph.buildings.set(p.building_id, p);
-    graph.nodes.set('B:' + p.building_id, {coordinates: p.coordinates, building: p.building_id, name: p.name});
-    graph.places.push({id: p.building_id, node: 'B:' + p.building_id, name: p.name, building: p.building_id, type: 'building', coordinates: p.coordinates});
-  }
-  for (const f of data.entrances.features) {
-    const p = {...f.properties, coordinates: f.geometry.coordinates};
-    graph.nodes.set(p.node_id, {coordinates: p.coordinates, building: p.building_id, name: p.entrance_name});
-    graph.entrances.set(p.node_id, p); graph.assets.set(p.entrance_id, p);
-  }
-  for (const f of data.paths.features) {
-    const p = f.properties, coordinates = f.geometry.coordinates;
-    if (!graph.nodes.has(p.from_node)) graph.nodes.set(p.from_node, {coordinates: coordinates[0], name: 'Campus junction'});
-    if (!graph.nodes.has(p.to_node)) graph.nodes.set(p.to_node, {coordinates: coordinates.at(-1), name: 'Campus junction'});
-    const e = {...p, id: p.segment_id, coordinates, meters: pathLength(coordinates)};
-    graph.edges.push(e); graph.assets.set(e.id, e);
-  }
-  const records = [...(data.status || [])].sort((a, b) => Date.parse(a.reported_at) - Date.parse(b.reported_at));
-  for (const row of records) {
-    const target = graph.assets.get(row.asset_id), at = Date.parse(row.reported_at), until = row.expected_end ? Date.parse(row.expected_end) : null;
-    let result = 'applied';
-    if (!target) result = 'unknown asset';
-    else if (!Number.isFinite(at) || (row.expected_end && !Number.isFinite(until))) result = 'invalid date';
-    else if (at > +now) result = 'scheduled';
-    else if (until !== null && until <= +now) result = 'expired';
-    else if (!['available', 'closed', 'unknown'].includes(row.status)) result = 'invalid status';
-    if (target && result === 'expired') target.operational_status = 'unknown';
-    if (result === 'applied') { target.operational_status = row.status; target.status_source = row.source; target.reported_at = row.reported_at; }
-    graph.statusLog.push({...row, result});
-  }
-  for (const id of closedAssets) { const a = graph.assets.get(id); if (a) { a.operational_status = 'closed'; a.simulated = true; } }
-  if (!enableClosures) for (const a of graph.assets.values()) {
-    if (a.operational_status === 'closed') a.operational_status = 'unknown';
-    delete a.simulated;
-  }
-  function link(edge) {
-    for (const [from, to, reverse] of [[edge.from_node, edge.to_node, false], [edge.to_node, edge.from_node, true]]) {
-      if (!graph.adj.has(from)) graph.adj.set(from, []);
-      graph.adj.get(from).push({...edge, from, to, coordinates: reverse ? [...edge.coordinates].reverse() : edge.coordinates});
-    }
-  }
-  graph.edges.forEach(link);
-  for (const [node, entrance] of graph.entrances) {
-    const centroid = 'B:' + entrance.building_id;
-    if (graph.nodes.has(centroid)) link({id: 'VIRT-' + entrance.entrance_id, kind: 'virtual', from_node: centroid, to_node: node, meters: 0, coordinates: [graph.nodes.get(centroid).coordinates, entrance.coordinates]});
-  }
-  for (const f of data.pois.features) {
-    const p = f.properties;
-    if (graph.nodes.has(p.node_id)) graph.places.push({id: p.poi_id, node: p.node_id, name: p.name, aliases: p.aliases || [], building: p.building_id, type: p.category, coordinates: graph.nodes.get(p.node_id).coordinates});
-  }
-  return graph;
+export function resolvePlace(g,query){const q=String(query||'').trim().toLowerCase();return g.places.find(p=>[p.id,p.name].some(v=>String(v).toLowerCase()===q))||g.places.find(p=>(p.aliases||[]).some(v=>String(v).toLowerCase()===q))||null;}
+function eligible(e,{avoidStairs=true,closedAssets=[]}={}){return !e.closed&&!closedAssets.includes(e.id)&&!(avoidStairs&&(e.steps||e.highway==='steps'));}
+class Heap{constructor(){this.q=[];}push(x){let i=this.q.length;this.q.push(x);while(i){const p=(i-1)>>1;if(this.q[p][0]<=x[0])break;this.q[i]=this.q[p];i=p;}this.q[i]=x;}pop(){const top=this.q[0],last=this.q.pop();if(this.q.length){let i=0;while(i*2+1<this.q.length){let j=i*2+1;if(j+1<this.q.length&&this.q[j+1][0]<this.q[j][0])j++;if(last[0]<=this.q[j][0])break;this.q[i]=this.q[j];i=j;}this.q[i]=last;}return top;}get length(){return this.q.length;}}
+function search(g,starts,ends,options){
+ const target=new Set(ends),dist=new Map(),prev=new Map(),heap=new Heap(),visited=new Set();
+ for(const s of starts){if(!g.nodes.has(s.node))continue;dist.set(s.node,s.cost||0);heap.push([s.cost||0,s.node]);}
+ let end;
+ while(heap.length){const [d,n]=heap.pop();if(visited.has(n))continue;visited.add(n);if(target.has(n)){end=n;break;}for(const e of g.adj.get(n)||[]){if(!eligible(e,options)||visited.has(e.to))continue;const nd=d+e.meters;if(nd<(dist.get(e.to)??Infinity)){dist.set(e.to,nd);prev.set(e.to,e);heap.push([nd,e.to]);}}}
+ if(end===undefined)return null;
+ const legs=[];let n=end;while(prev.has(n)){const e=prev.get(n);legs.unshift(e);n=e.from;}return {legs,startNode:n,endNode:end};
 }
-export function resolvePlace(graph, query) {
-  const q = String(query || '').trim().toLowerCase();
-  return graph.places.find(p => [p.id, p.name, ...(p.aliases || [])].some(v => v.toLowerCase() === q)) || null;
+function scopedJourney(g,from,to){for(const j of g.metadata.journeys||[]){if(j.from.includes(from)&&j.to.includes(to))return j;if(j.to.includes(from)&&j.from.includes(to))return {...j,start_node:j.end_node,end_node:j.start_node,via:[...j.via].reverse()};}return null;}
+function bearing(a,b){const r=Math.PI/180,x=(b[0]-a[0])*r;return (Math.atan2(Math.sin(x)*Math.cos(b[1]*r),Math.cos(a[1]*r)*Math.sin(b[1]*r)-Math.sin(a[1]*r)*Math.cos(b[1]*r)*Math.cos(x))*180/Math.PI+360)%360;}
+export function makeSteps(legs){
+ const steps=[];let cumulative=0;
+ for(let i=0;i<legs.length;i++){
+  const e=legs[i],prior=legs[i-1];const name=e.name|| (e.highway==='steps'?'the stairs':e.is_indoor?'the mapped passage':e.highway==='service'?'the access road':'the campus path');
+  const a=prior?bearing(prior.coordinates.at(-2),prior.coordinates.at(-1)):null,b=bearing(e.coordinates[0],e.coordinates[1]),delta=a===null?0:((b-a+540)%360)-180;
+  const turn=Math.abs(delta)>38 && (prior?.meters>4||e.meters>4);
+  const change=prior&&((e.name||'')!==(prior.name||'')||e.steps!==prior.steps||e.is_indoor!==prior.is_indoor);
+  if(!steps.length||turn||change){let text,icon='arrow-up';if(!steps.length)text='Head along '+name;else if(e.is_indoor&&!prior.is_indoor){text='Enter '+name;icon='navigate';}else if(turn){text=(delta>0?'Turn right onto ':'Turn left onto ')+name;icon=delta>0?'right':'left';}else text='Continue on '+name;
+   steps.push({text,icon,name,meters:0,at:cumulative,end:cumulative,coordinates:e.coordinates[0]});}
+  const s=steps.at(-1);s.meters+=e.meters;cumulative+=e.meters;s.end=cumulative;
+ }
+ return steps;
 }
-function unavailable(asset) {
-  if (asset.operational_status === 'closed') return 'closed';
-  return null;
+export function findRoute(g,from,to,options={}){
+ const start=from==='GPS'?{id:'GPS',name:'Your location',coordinates:options.gps,entries:[]}:resolvePlace(g,from),end=resolvePlace(g,to);
+ const fail=reason=>({found:false,reason,legs:[],start,end});
+ if(!start||!end)return fail('Choose a starting point and destination from the campus list.');
+ if(end.under_construction)return fail(`${end.name} is under construction. Choose an open campus destination.`);
+ if(start.id===end.id||start.building&&start.building===end.building)return {found:true,samePlace:true,legs:[],steps:[],meters:0,seconds:0,start,end};
+ let result,journey=from==='GPS'?null:scopedJourney(g,start.id,end.id),snap=null;
+ if(journey){const points=[journey.start_node,...journey.via,journey.end_node].map(nodeId);let legs=[];for(let i=0;i<points.length-1;i++){const part=search(g,[{node:points[i]}],[points[i+1]],options);if(!part)return fail('The requested campus passage is unavailable with these route settings. Try another destination or allow mapped stairs.');legs.push(...part.legs);}result={legs,startNode:points[0],endNode:points.at(-1)};}
+ else{
+  let starts=start.entries.map(e=>({node:e.node_id}));
+  if(from==='GPS'){
+   if(!options.gps||!options.gps.every(Number.isFinite))return fail('Waiting for a usable GPS location.');
+   for(const e of g.edges){if(!eligible(e,options))continue;const p=projectPoint(options.gps,e.coordinates);if(!snap||p.meters<snap.meters)snap={...p,edge:e};}
+   if(!snap||snap.meters>50)return fail('You’re more than 50 m from a mapped campus path. Move closer or choose a building as your starting point.');
+   starts=[];if(snap.edge.oneway!=='yes'&&snap.edge.oneway!=='1')starts.push({node:snap.edge.from_node,cost:haversine(snap.coordinates,snap.edge.coordinates[0])});if(snap.edge.oneway!=='-1')starts.push({node:snap.edge.to_node,cost:haversine(snap.coordinates,snap.edge.coordinates.at(-1))});
+  }
+  result=search(g,starts,end.entries.map(e=>e.node_id),options);
+  if(!result)return fail(options.avoidStairs===false?'No connected walking route is mapped. Construction or restricted paths may block the way.':'No route avoiding mapped stairs is connected here. You can turn off “Avoid stairs” to check other mapped paths.');
+  if(snap){const c=g.nodes.get(result.startNode).coordinates,m=haversine(snap.coordinates,c);if(m>.05)result.legs.unshift({...snap.edge,id:'GPS-PROJECTION',from:'GPS',to:result.startNode,coordinates:[snap.coordinates,c],meters:m});}
+ }
+ if(journey?.required_ways?.some(id=>!result.legs.some(e=>e.source_way_id===id||e.source_way_ids?.includes(id))))return fail('The requested campus passage is unavailable with these route settings.');
+ const legs=result.legs.map(e=>({...e,seconds:e.meters/1.25})),meters=legs.reduce((s,e)=>s+e.meters,0);
+ const entrance=(place,n)=>place.entries?.find(e=>e.node_id===n)||{coordinates:g.nodes.get(n)?.coordinates,kind:'entrance'};
+ return {found:true,start,end,legs,meters,seconds:meters/1.25,steps:makeSteps(legs),startEntrance:entrance(start,result.startNode),endEntrance:entrance(end,result.endNode),label:journey?.label||null,journeyId:journey?.id,gpsSnap:snap?{meters:snap.meters,coordinates:snap.coordinates}:null,indoor:legs.some(e=>e.is_indoor)};
 }
-function blockingReason(graph, edge) {
-  for (const n of [edge.from, edge.to]) { const ent = graph.entrances.get(n); if (ent) { const why = unavailable(ent); if (why) return why; } }
-  if (edge.kind === 'virtual') {
-    if (edge.from.startsWith('B:') && graph.entrances.get(edge.to)?.door_use === 'entry') return 'entrance only';
-    if (edge.to.startsWith('B:') && graph.entrances.get(edge.from)?.door_use === 'exit') return 'exit only';
-    return null;
-  }
-  if (['restricted', 'swipe_required'].includes(edge.access_control)) return 'restricted access';
-  return unavailable(edge);
+export function routeProgress(route,point){
+ if(!route?.found||!route.legs.length)return null;
+ let best=null,offset=0;
+ for(const e of route.legs){const p=projectPoint(point,e.coordinates);if(!best||p.meters<best.offRoute)best={offRoute:p.meters,along:offset+p.along,coordinates:p.coordinates};offset+=e.meters;}
+ const stepIndex=route.steps.findIndex(s=>s.end>best.along+5);
+ return {...best,remaining:Math.max(0,route.meters-best.along),stepIndex:stepIndex<0?route.steps.length-1:stepIndex,arrivalDistance:haversine(point,route.legs.at(-1).coordinates.at(-1))};
 }
-export function findRoute(graph, from, to) {
-  const start = resolvePlace(graph, from), end = resolvePlace(graph, to);
-  if (!start || !end) return {found: false, reason: 'Choose a starting point and destination from the pilot area.', legs: []};
-  if (start.node === end.node) return {found: true, samePlace: true, legs: [], meters: 0, seconds: 0, start, end};
-  const distances = new Map([[start.node, 0]]), previous = new Map(), pending = new Set([start.node]), visited = new Set();
-  while (pending.size) {
-    const current = [...pending].reduce((a, b) => distances.get(a) <= distances.get(b) ? a : b);
-    pending.delete(current); if (current === end.node) break; visited.add(current);
-    for (const e of graph.adj.get(current) || []) {
-      if (visited.has(e.to) || (e.to.startsWith('B:') && e.to !== end.node) || blockingReason(graph, e)) continue;
-      const candidate = distances.get(current) + e.meters;
-      if (candidate < (distances.get(e.to) ?? Infinity)) { distances.set(e.to, candidate); previous.set(e.to, e); pending.add(e.to); }
-    }
-  }
-  if (!distances.has(end.node)) return {found: false, start, end, legs: [], reason: 'No connected route is mapped between these places. A closure or restricted entrance may block the way.'};
-  const allLegs = []; let current = end.node;
-  while (current !== start.node) { const edge = previous.get(current); allLegs.unshift(edge); current = edge.from; }
-  const sameEntrance = allLegs.length > 0 && allLegs.every(e => e.kind === 'virtual');
-  if (sameEntrance) {
-    return {found: true, sameEntrance: true, legs: [], meters: null, seconds: null, start, end, startEntrance: graph.entrances.get(allLegs[0].to), endEntrance: graph.entrances.get(allLegs.at(-1).from)};
-  }
-  const legs = allLegs.filter(e => e.kind !== 'virtual').map(e => ({...e, seconds: e.meters / 1.15}));
-  const meters = legs.reduce((sum, e) => sum + e.meters, 0);
-  return {found: true, start, end, legs, meters, seconds: legs.reduce((sum, e) => sum + e.seconds, 0), startEntrance: allLegs[0]?.kind === 'virtual' ? graph.entrances.get(allLegs[0].to) : graph.entrances.get(start.node), endEntrance: allLegs.at(-1)?.kind === 'virtual' ? graph.entrances.get(allLegs.at(-1).from) : graph.entrances.get(end.node)};
+export function navigationDecision(progress,accuracy,offRouteSamples=0){
+ if(!progress||!Number.isFinite(accuracy)||accuracy>45)return {action:'wait',offRouteSamples:0};
+ if(progress.remaining<22&&progress.arrivalDistance<Math.max(12,Math.min(20,accuracy)))return {action:'arrive',offRouteSamples:0};
+ const off=progress.offRoute>Math.max(25,accuracy*1.5);const samples=off?offRouteSamples+1:0;
+ return {action:samples>=3?'reroute':'follow',offRouteSamples:samples};
 }

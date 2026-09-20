@@ -1,300 +1,132 @@
-import {buildGraph, resolvePlace, findRoute, haversine} from './router.mjs';
-import {loadDataset,applyEdits,readEdits,STORAGE_KEY} from './editor-model.mjs';
-const $ = selector => document.querySelector(selector);
-const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const state = {origin:'POI-PERRY-PLACE',destination:'VT-PAMPLIN',view:'routes',planBuilding:'VT-TORGERSEN',planFloor:'01',planZoom:1,gps:null,gpsAccuracy:null};
-const GPS_SNAP_METERS = 150;
-const GEMINI_MODEL = 'gemini-2.5-flash', ELEVEN_VOICE = '21m00Tcm4TlvDq8ikWAM';
-const KEY_STORAGE = {gemini: 'accesspath_key_gemini', elevenlabs: 'accesspath_key_elevenlabs'};
-const getKey = name => { try { return localStorage.getItem(KEY_STORAGE[name]) || ''; } catch { return ''; } };
-const setKey = (name, value) => { try { value ? localStorage.setItem(KEY_STORAGE[name], value) : localStorage.removeItem(KEY_STORAGE[name]); } catch {} };
-let data, graph, route, map, baseLayer, routeLayer, selectedLayer, markersLayer, locationLayer, tilesLoaded = 0;
-const latLng = coords => [coords[1], coords[0]];
-const duration = r => { const m = Math.max(1, Math.round(r.seconds / 60)); return r.sameEntrance ? 'Unmapped' : r.samePlace ? '0 min' : m + '–' + (m + 2) + ' min'; };
-const distance = r => r.sameEntrance?'Shared entrance':Math.round(r.meters) + ' m';
-function edgeName(edge) {
-  if (edge.name) return edge.name;
-  const a = graph.nodes.get(edge.from || edge.from_node), b = graph.nodes.get(edge.to || edge.to_node);
-  const building = graph.buildings.get(a?.building || b?.building);
-  if (edge.is_indoor) return 'Through ' + (building?.name || 'building');
-  if (edge.id?.startsWith('SEG-P')) return (building?.name || 'Building') + ' perimeter';
-  if (b?.building) return 'Approach ' + graph.buildings.get(b.building).name;
-  if (a?.building) return 'From ' + graph.buildings.get(a.building).name;
-  return 'Campus walkway';
+import {buildGraph, findRoute, haversine, routeProgress, navigationDecision} from './router.mjs';
+import {createLocationTracker, usablePosition} from './location.mjs';
+import {aiIntent} from './assistant.mjs';
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const paths={sparkles:'M12 3l2.4 6.6L21 12l-6.6 2.4L12 21l-2.4-6.6L3 12l6.6-2.4z M20 2v4 M18 4h4',settings:'M12 8a4 4 0 100 8 4 4 0 000-8 M9 3h6l1 3 3 1 2 5-2 5-3 1-1 3H9l-1-3-3-1-2-5 2-5 3-1z',expand:'M8 3H3v5 M16 3h5v5 M3 16v5h5 M21 16v5h-5',locate:'M12 2v3 M12 19v3 M2 12h3 M19 12h3 M19 12a7 7 0 11-14 0 7 7 0 0114 0 M14 12a2 2 0 11-4 0 2 2 0 014 0',swap:'M7 3v17 M3 7l4-4 4 4 M17 21V4 M13 17l4 4 4-4',walk:'M13 4a1.5 1.5 0 110-.1 M7 12l3-4 4 1 3 4h3 M10 8l-1 7-4 5 M10 14l5 3v4',info:'M12 11v6 M12 7v.1 M22 12a10 10 0 11-20 0 10 10 0 0120 0',map:'M3 5l6-2 6 2 6-2v16l-6 2-6-2-6 2z M9 3v16 M15 5v16',close:'M6 6l12 12 M18 6L6 18','arrow-up':'M12 20V4 M5 11l7-7 7 7',arrow:'M4 12h16 M14 6l6 6-6 6',navigate:'M4 11l16-7-7 16-2-7z',volume:'M3 9h4l5-4v14l-5-4H3z M16 8a6 6 0 010 8 M19 5a10 10 0 010 14',flag:'M5 22V3 M5 3h14l-3 4 3 4H5',chevron:'M8 5l7 7-7 7',left:'M19 20v-8a5 5 0 00-5-5H4 M9 2L4 7l5 5',right:'M5 20v-8a5 5 0 015-5h10 M15 2l5 5-5 5',stop:'M6 6h12v12H6z'};
+const icon=n=>`<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="${paths[n]||paths.arrow}"/></svg>`;
+function icons(root=document){root.querySelectorAll('[data-icon]').forEach(e=>e.innerHTML=icon(e.dataset.icon));}
+icons();
+let data,graph,route,map,routeLayer,buildingLayer,markerLayer,closureLayer,gpsLayer;
+const state={origin:'VT-GOODWIN',destination:'VT-DDS',avoidStairs:true,gps:null,watch:null,navigating:false,voice:true,lastSpoken:-1,reroutedAt:0,progress:0,follow:true};
+const demos=[{from:'VT-GOODWIN',to:'VT-DDS',label:'Goodwin → Data & Decision Sciences'},{from:'POI-PERRY-PLACE',to:'VT-PAMPLIN',label:'Perry Place → Pamplin'},{from:'VT-DAVIDSON',to:'VT-NCB',label:'Davidson → Classroom Building'},{from:'POI-TURNER-PLACE',to:'VT-NEWMAN-LIB',label:'Turner Place → Newman Library'}];
+const latlng=c=>[c[1],c[0]];
+const getPlace=id=>graph.places.find(p=>p.id===id);
+function toast(t){$('#toast').textContent=t;$('#toast').hidden=false;clearTimeout(toast.timer);toast.timer=setTimeout(()=>$('#toast').hidden=true,4500);}
+async function load(){
+ const names={buildings:'buildings.geojson',entrances:'entrances.geojson',paths:'paths.geojson',pois:'pois.geojson'};
+ data=Object.fromEntries(await Promise.all(Object.entries(names).map(async([k,f])=>{const r=await fetch('data/'+f,{cache:'no-store'});if(!r.ok)throw Error('Campus data could not load. Refresh to try again.');return[k,await r.json()];})));
+ const meta=await fetch('data/camp-path-manifest.json',{cache:'no-store'});data.metadata=meta.ok?await meta.json():{};
+ const closures=await fetch('data/closures.geojson',{cache:'no-store'});data.closures=closures.ok?await closures.json():{features:[]};
+ graph=buildGraph(data);initMap();wire();syncInputs();render();
 }
-async function load() {
-  data = applyEdits(await loadDataset(),readEdits());
-  graph = buildGraph(data,{enableClosures:false});
-  const options = '<optgroup label="Named places">' + graph.places.filter(p=>p.type!=='building').map(option).join('') + '</optgroup><optgroup label="Campus buildings">' + graph.places.filter(p=>p.type==='building').sort((a,b)=>a.name.localeCompare(b.name)).map(option).join('') + '</optgroup>';
-  for (const key of ['origin','destination']) { $('#'+key).innerHTML=options; $('#'+key).value=state[key]; $('#'+key).disabled=false; }
-  $('#swap').disabled=false;
-  $('#use-location').disabled=!('geolocation' in navigator);
-  if(!('geolocation' in navigator))setLocationStatus('Location is not supported in this browser.');
-  $('#plan-building').innerHTML=[...graph.buildings.values()].sort((a,b)=>a.name.localeCompare(b.name)).map(b=>'<option value="'+esc(b.building_id)+'">'+esc(b.name)+'</option>').join('');
-  $('#plan-building').value=state.planBuilding;
-  const planCount=Object.values(data.floorplans).reduce((n,b)=>n+b.plans.length,0);
-  $('.nav-count').textContent=planCount;
-  $('#pilot-counts').textContent=graph.buildings.size+' buildings · '+graph.edges.length.toLocaleString()+' path segments';
-  initMap(); wireEvents(); render(true); renderFloor(); registerAgentTools();
-  // The map container's layout can still be settling (fonts, reflow) right
-  // after this synchronous fit, which leaves the map showing a stale, too-far-
-  // zoomed-out view until the next manual interaction. A one-time correction
-  // once layout has definitely settled fixes that without fighting the
-  // user's own zoom/pan afterward.
-  setTimeout(()=>{map.invalidateSize();if(state.view==='routes')fitMap();},250);
+function initMap(){
+ map=L.map('campus-map',{zoomControl:false,preferCanvas:true}).setView([37.229,-80.4233],16);
+ L.control.zoom({position:'topright'}).addTo(map);map.on('dragstart',()=>{state.follow=false;});
+ let loaded=false;L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors'}).on('tileload',()=>{loaded=true;$('#map-offline').hidden=true;}).on('tileerror',()=>{if(!loaded)$('#map-offline').hidden=false;}).addTo(map);
+ routeLayer=L.layerGroup().addTo(map);buildingLayer=L.layerGroup().addTo(map);markerLayer=L.layerGroup().addTo(map);gpsLayer=L.layerGroup().addTo(map);closureLayer=L.geoJSON(data.closures,{style:{color:'#dc742e',weight:2,dashArray:'5 4',fillColor:'#ef975a',fillOpacity:.3}}).bindTooltip('Closed for construction').addTo(map);
+ for(const p of graph.places.filter(p=>p.type==='building'))L.circleMarker(latlng(p.coordinates),{radius:4,color:'#97607d',weight:1.5,fillColor:'white',fillOpacity:1}).bindTooltip(p.name).on('click',()=>{state.destination=p.id;stopNavigation();syncInputs();render();}).addTo(buildingLayer);
 }
-function option(p) { return '<option value="'+esc(p.id)+'">'+esc(p.name)+'</option>'; }
-function initMap() {
-  if (!window.L) throw new Error('The local map library could not be loaded.');
-  map=L.map('campus-map',{zoomControl:false,scrollWheelZoom:true,preferCanvas:true}).setView([37.2303,-80.4238],16);
-  L.control.zoom({position:'topright'}).addTo(map);
-  const tiles=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'});
-  tiles.on('tileload',()=>{tilesLoaded++;$('#map-offline').hidden=true;});
-  tiles.on('tileerror',()=>{if(!tilesLoaded)$('#map-offline').hidden=false;});
-  tiles.addTo(map); baseLayer=L.layerGroup().addTo(map); routeLayer=L.layerGroup().addTo(map); selectedLayer=L.layerGroup().addTo(map); markersLayer=L.layerGroup().addTo(map); locationLayer=L.layerGroup().addTo(map);
+function syncInputs(){for(const k of ['origin','destination'])$('#'+k).value=k==='origin'&&state.origin==='GPS'?'Your location':getPlace(state[k])?.name||'';}
+function wire(){
+ for(const key of ['origin','destination'])setupSearch(key);
+ $('#route-form').onsubmit=e=>{e.preventDefault();render();};
+ $('#swap').onclick=()=>{if(state.origin==='GPS'){toast('Choose a building to swap your route.');return;}stopNavigation();[state.origin,state.destination]=[state.destination,state.origin];syncInputs();render();};
+ $('#avoid-stairs').onchange=e=>{state.avoidStairs=e.target.checked;state.lastSpoken=-1;render();};
+ $('#fit-map').onclick=fitRoute;$('#locate-map').onclick=()=>useLocation(false);
+ for(const id of ['assistant','settings','data'])$('#'+(id==='data'?'data-open':id+'-open')).onclick=()=>{if(id==='data')renderData();if(id==='settings')loadSettings();if(id==='assistant')updateAIStatus();$('#'+id+'-dialog').showModal();};
+ document.querySelectorAll('.close-dialog').forEach(b=>b.onclick=()=>b.closest('dialog').close());
+ document.querySelectorAll('dialog').forEach(d=>d.addEventListener('click',e=>{if(e.target===d){const r=d.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)d.close();}}));
+ $('#demo-list').innerHTML=demos.map((d,i)=>`<button class="demo-route" data-demo="${i}"><span>${icon(i===3?'map':'walk')}</span><span>${esc(d.label)}</span><span class="route-arrow">${icon('chevron')}</span></button>`).join('');
+ $('#demo-list').onclick=e=>{const b=e.target.closest('[data-demo]');if(!b)return;stopNavigation();const d=demos[+b.dataset.demo];state.origin=d.from;state.destination=d.to;syncInputs();render();};
+ $('#settings-form').onsubmit=e=>{e.preventDefault();sessionStorage.setItem('camp-path-gemini-key',$('#gemini-key').value.trim());localStorage.setItem('camp-path-model',$('#gemini-model').value.trim()||'gemini-2.5-flash');state.voice=$('#voice-enabled').checked;localStorage.setItem('camp-path-voice',$('#voice-select').value);$('#settings-dialog').close();toast('Settings saved.');};
+ $('#clear-key').onclick=()=>{sessionStorage.removeItem('camp-path-gemini-key');$('#gemini-key').value='';$('#settings-status').textContent='API key cleared.';};
+ $('#assistant-form').onsubmit=e=>{e.preventDefault();askAssistant($('#assistant-input').value);};
+ document.querySelectorAll('[data-prompt]').forEach(b=>b.onclick=()=>askAssistant(b.dataset.prompt));
 }
-function wireEvents() {
-  for(const key of ['origin','destination']) $('#'+key).addEventListener('change',e=>{
-    state[key]=e.target.value;
-    if(key==='origin'&&e.target.value!=='GPS-CURRENT'){state.gps=null;state.gpsAccuracy=null;$('#use-location').classList.remove('active');setLocationStatus('');const opt=$('#origin').querySelector('option[value="GPS-CURRENT"]');if(opt)opt.remove();}
-    render(true);
-  });
-  $('#use-location').addEventListener('click',useMyLocation);
-  $('#swap').addEventListener('click',()=>{
-    if(state.origin==='GPS-CURRENT'){setLocationStatus('Choose a starting point from the list before swapping.');return;}
-    [state.origin,state.destination]=[state.destination,state.origin];$('#origin').value=state.origin;$('#destination').value=state.destination;render(true);
-  });
-  $('#fit-map').addEventListener('click',fitMap);
-  $('#nav-routes').addEventListener('click',()=>switchView('routes'));
-  $('#nav-plans').addEventListener('click',()=>switchView('plans'));
-  for(const id of ['about-open','sources-open']) $('#'+id).addEventListener('click',()=>{renderData();$('#about-dialog').showModal();});
-  $('#about-close').addEventListener('click',()=>$('#about-dialog').close());
-  for(const id of ['about-dialog','settings-dialog','assistant-dialog']) $('#'+id).addEventListener('click',e=>{if(e.target===e.currentTarget){const r=e.target.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)e.target.close();}});
-  $('#settings-open').addEventListener('click',()=>{$('#key-gemini').value=getKey('gemini');$('#key-elevenlabs').value=getKey('elevenlabs');$('#settings-dialog').showModal();});
-  $('#settings-close').addEventListener('click',()=>$('#settings-dialog').close());
-  $('#settings-form').addEventListener('submit',e=>{e.preventDefault();setKey('gemini',$('#key-gemini').value.trim());setKey('elevenlabs',$('#key-elevenlabs').value.trim());$('#settings-dialog').close();});
-  $('#settings-clear').addEventListener('click',()=>{setKey('gemini','');setKey('elevenlabs','');$('#key-gemini').value='';$('#key-elevenlabs').value='';});
-  $('#assistant-open').addEventListener('click',()=>{$('#assistant-dialog').showModal();$('#assistant-input').focus();});
-  $('#assistant-close').addEventListener('click',()=>$('#assistant-dialog').close());
-  $('#assistant-form').addEventListener('submit',e=>{e.preventDefault();const input=$('#assistant-input'),text=input.value.trim();if(!text)return;input.value='';askAssistant(text);});
-  $('#plan-building').addEventListener('change',e=>{state.planBuilding=e.target.value;state.planFloor='01';state.planZoom=1;renderFloor();});
-  $('#plan-floor').addEventListener('change',e=>{state.planFloor=e.target.value;state.planZoom=1;renderFloor();});
-  $('#plan-zoom-in').addEventListener('click',()=>{state.planZoom=Math.min(4,state.planZoom+.5);applyPlanZoom();});
-  $('#plan-zoom-out').addEventListener('click',()=>{state.planZoom=Math.max(.5,state.planZoom-.5);applyPlanZoom();});
-  $('#plan-fit').addEventListener('click',()=>{state.planZoom=1;applyPlanZoom();});
+function setupSearch(key){
+ const input=$('#'+key),list=$('#'+key+'-options');let selected=-1,matches=[];
+ const close=()=>{list.hidden=true;input.setAttribute('aria-expanded','false');input.removeAttribute('aria-activedescendant');};
+ const pick=i=>{const p=matches[i];if(!p)return;if(p.id==='GPS'){useLocation(false);close();return;}stopNavigation();state[key]=p.id;syncInputs();close();render();};
+ const show=()=>{const q=input.value.toLowerCase().trim();matches=graph.places.filter(p=>!q||[p.name,...(p.aliases||[])].some(n=>n.toLowerCase().includes(q))).sort((a,b)=>a.name.localeCompare(b.name)).slice(0,30);if(key==='origin'&&(!q||/^(here|gps|my loc|current loc|your loc|use my)/.test(q)))matches.unshift({id:'GPS',name:'Use my current location',type:'gps'});selected=-1;list.innerHTML=matches.length?matches.map((p,i)=>`<button type="button" id="${key}-option-${i}" role="option" aria-selected="false" data-index="${i}">${esc(p.name)}${p.type==='gps'?'<small>Start from where you are</small>':''}</button>`).join(''):'<div class="help-text" style="padding:10px">No campus places found.</div>';list.hidden=false;input.setAttribute('aria-expanded','true');};
+ input.addEventListener('focus',()=>{input.select();show();});input.addEventListener('input',show);
+ input.addEventListener('keydown',e=>{if(['ArrowDown','ArrowUp'].includes(e.key)){e.preventDefault();if(list.hidden)show();selected=Math.max(0,Math.min(matches.length-1,selected+(e.key==='ArrowDown'?1:-1)));list.querySelectorAll('[role=option]').forEach((b,i)=>b.setAttribute('aria-selected',String(i===selected)));const active=list.children[selected];if(active){input.setAttribute('aria-activedescendant',active.id);active.scrollIntoView({block:'nearest'});}}else if(e.key==='Enter'&&!list.hidden){e.preventDefault();pick(selected<0?0:selected);}else if(e.key==='Escape'){close();syncInputs();}});
+ list.addEventListener('mousedown',e=>e.preventDefault());list.onclick=e=>{const b=e.target.closest('[data-index]');if(b)pick(+b.dataset.index);};
+ input.addEventListener('blur',()=>setTimeout(()=>{close();syncInputs();},120));
 }
-function switchView(view) {
-  state.view=view; const plans=view==='plans';
-  $('#route-controls').hidden=plans; $('#floor-controls').hidden=!plans; $('#map-view').hidden=plans; $('#floor-view').hidden=!plans;
-  for(const [id,active] of [['nav-routes',!plans],['nav-plans',plans]]){$('#'+id).classList.toggle('active',active);$('#'+id).setAttribute('aria-pressed',String(active));}
-  if(plans)renderFloor();else requestAnimationFrame(()=>{map.invalidateSize();fitMap();});
+function render(fit=true){
+ route=findRoute(graph,state.origin,state.destination,{avoidStairs:state.avoidStairs,gps:state.gps});
+ routeLayer.clearLayers();markerLayer.clearLayers();
+ document.querySelectorAll('[data-demo]').forEach(b=>{const d=demos[+b.dataset.demo];b.classList.toggle('active',d.from===state.origin&&d.to===state.destination);});
+ if(!route.found){$('#route-result').innerHTML=`<div class="error-state"><h3>No route available</h3><p>${esc(route.reason)}</p></div>`;return;}
+ if(route.samePlace){$('#route-result').innerHTML='<div class="error-state"><h3>You’re already there.</h3><p>Choose another destination to start a walk.</p></div>';return;}
+ const coords=route.legs.flatMap(e=>e.coordinates);
+ if(coords.length){L.polyline(coords.map(latlng),{color:'white',weight:10,opacity:.95}).addTo(routeLayer);L.polyline(coords.map(latlng),{color:'#750539',weight:5,opacity:1,lineCap:'round',lineJoin:'round'}).addTo(routeLayer);}
+ const a=coords[0]||route.start.coordinates,b=coords.at(-1)||route.end.coordinates;
+ for(const [p,text,origin] of [[a,'A',true],[b,'B',false]])L.marker(latlng(p),{icon:L.divIcon({className:'',html:`<div class="place-marker ${origin?'origin':''}">${text}</div>`,iconSize:[31,31],iconAnchor:[15,15]})}).addTo(markerLayer);
+ const minutes=Math.max(1,Math.round(route.seconds/60));
+ $('#route-result').innerHTML=`<div class="route-topline"><div><div class="route-time">${minutes}<small>min</small></div><div class="route-distance">${route.meters>=1000?(route.meters/1000).toFixed(1)+' km':Math.round(route.meters)+' m'} · Walking</div></div><span class="route-badge">${state.avoidStairs?'Avoids mapped stairs':'Walking route'}</span></div><p class="route-via">${route.label?esc(route.label[0].toUpperCase()+route.label.slice(1)):'To <b>'+esc(route.end.name)+'</b>'}</p><div class="route-actions"><button id="start-navigation" class="primary-button">${icon(state.navigating?'stop':'navigate')}${state.navigating?'Stop navigation':'Start walking'}</button><button id="read-route" class="icon-button" aria-label="Read route directions aloud" title="Read directions">${icon('volume')}</button></div><p class="route-note">${route.endEntrance?.kind==='nearby_path'?'Arrives at a nearby mapped path; the entrance is unmapped.':route.journeyId==='turner-newman'?'Arrives inside Newman Library at the bridge elevator.':route.indoor?'Includes building passages. Doors must be open.':'Construction areas excluded.'} ${state.avoidStairs?'Stair avoidance is based on OSM tags.':''}</p><details class="steps-details"><summary>Walking directions ${icon('chevron')}</summary><ol class="steps-list">${(route.steps||route.legs.filter(l=>l.meters>5).slice(0,12).map(l=>({text:l.name?'Continue on '+l.name:'Continue along the campus path',meters:l.meters,icon:'arrow'}))).map(s=>`<li><span class="step-icon">${icon(s.icon||'arrow')}</span><span>${esc(s.text)}<small>${Math.round(s.meters)} m</small></span></li>`).join('')}<li><span class="step-icon">${icon('flag')}</span><span>Arrive at ${esc(route.end.name)}</span></li></ol></details>`;
+ $('#read-route').onclick=()=>speak((route.steps||[]).map(s=>s.text).join('. ')||`Walk ${Math.round(route.meters)} meters to ${route.end.name}.`);
+ $('#start-navigation').onclick=()=>state.navigating?stopNavigation():useLocation(true);
+ if(fit)fitRoute();
 }
-function setLocationStatus(text){ $('#location-status').textContent=text; }
-function useMyLocation(){
-  if(!('geolocation' in navigator)){setLocationStatus('Location is not supported in this browser.');return;}
-  $('#use-location').disabled=true;
-  setLocationStatus('Finding your location…');
-  navigator.geolocation.getCurrentPosition(
-    pos=>{
-      state.gps=[pos.coords.longitude,pos.coords.latitude];
-      state.gpsAccuracy=pos.coords.accuracy;
-      if(!$('#origin').querySelector('option[value="GPS-CURRENT"]')){
-        const opt=document.createElement('option');opt.value='GPS-CURRENT';opt.textContent='📍 Your location';
-        $('#origin').prepend(opt);
-      }
-      state.origin='GPS-CURRENT';$('#origin').value='GPS-CURRENT';
-      $('#use-location').disabled=false;$('#use-location').classList.add('active');
-      render(true);
-    },
-    err=>{
-      $('#use-location').disabled=false;
-      const messages={1:'Location permission was denied.',2:'Your location is unavailable right now.',3:'Finding your location timed out.'};
-      setLocationStatus(messages[err.code]||'Could not get your location.');
-    },
-    {enableHighAccuracy:true,timeout:12000,maximumAge:30000}
-  );
+function fitRoute(){const pts=route?.legs.flatMap(e=>e.coordinates)||[];if(pts.length){const mobile=innerWidth<=640;map.fitBounds(pts.map(latlng),{paddingTopLeft:mobile?[40,60]:[420,85],paddingBottomRight:mobile?[40,50]:[90,80],maxZoom:18});}}
+function speak(text){if(!('speechSynthesis'in window)){toast('Spoken directions aren’t supported in this browser.');return;}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);const v=speechSynthesis.getVoices().find(v=>v.voiceURI===localStorage.getItem('camp-path-voice'));if(v)u.voice=v;u.rate=.98;speechSynthesis.speak(u);}
+function loadSettings(){$('#gemini-key').value=sessionStorage.getItem('camp-path-gemini-key')||'';$('#gemini-model').value=localStorage.getItem('camp-path-model')||'gemini-2.5-flash';$('#voice-enabled').checked=state.voice;$('#settings-status').textContent='';const voices=window.speechSynthesis?.getVoices()||[];$('#voice-select').innerHTML='<option value="">Device default</option>'+voices.filter(v=>v.lang.startsWith('en')).map(v=>`<option value="${esc(v.voiceURI)}">${esc(v.name)}</option>`).join('');$('#voice-select').value=localStorage.getItem('camp-path-voice')||'';}
+function updateAIStatus(){$('#ai-status').textContent=sessionStorage.getItem('camp-path-gemini-key')?'Gemini connected · Routes are calculated from the campus map.':'Add a Gemini key in settings to enable AI. Basic place matching works without one.';}
+function renderData(){$('#data-details').innerHTML=`<p><b>${graph.buildings.size} campus buildings.</b> ${Number(data.metadata.segments||0).toLocaleString()} walking segments from OpenStreetMap, with your campus corrections.</p><p>Construction areas are excluded. “Avoid stairs” skips mapped stairways; it is not a wheelchair-accessibility guarantee.</p><p>Indoor passages may require open doors. Routes end at a mapped entrance or a nearby mapped path. ${[...graph.buildings.values()].filter(b=>b.arrival_kind==='nearby_path').length} buildings use nearby-path arrival points.</p><p><small>OSM snapshot: ${esc((data.metadata.snapshot_timestamp||'').slice(0,10))}. Data is bundled for this local demo, not a live closure feed.</small></p><p><a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors · ODbL</a></p><small>Local hackathon demonstration. Live location stays on your device.</small>`;}
+let locating=false,firstFix=false,offRouteSamples=0,lastFixTime=0;
+const tracker=createLocationTracker(navigator.geolocation,{onPosition:receivePosition,onError:locationError});
+function locationMessage(text){$('#location-status').textContent=text;$('#location-status').hidden=!text;}
+function useLocation(navigate=false){
+ if(!window.isSecureContext){locationMessage('Live GPS requires localhost or HTTPS. Open this demo on localhost.');return;}
+ if(!navigator.geolocation){locationMessage('This browser does not support live location. Choose a building instead.');return;}
+ if(navigate&&!route?.found){toast('Choose a connected route first.');return;}
+ state.navigating=navigate;state.follow=true;locating=!navigate;firstFix=true;offRouteSamples=0;state.lastSpoken=-1;
+ locationMessage('Finding your live location…');tracker.start();
+ if(navigate){$('#navigation-banner').hidden=false;$('#navigation-banner').innerHTML=icon('locate')+'<div><strong>Finding your location</strong><small>Allow location access to start walking.</small></div><button id="stop-live" class="icon-button" aria-label="Stop navigation">'+icon('close')+'</button>';$('#stop-live').onclick=()=>stopNavigation();if($('#start-navigation'))$('#start-navigation').innerHTML=icon('stop')+'Stop navigation';}
 }
-function injectGpsPlace(){
-  if(state.origin!=='GPS-CURRENT'||!state.gps)return;
-  let nearest=null;
-  for(const [id,n] of graph.nodes){
-    if(id.startsWith('B:')||!n.coordinates)continue;
-    const d=haversine(state.gps,n.coordinates);
-    if(!nearest||d<nearest.d)nearest={id,d,coordinates:n.coordinates};
-  }
-  if(nearest&&nearest.d<=GPS_SNAP_METERS){
-    graph.nodes.set('N-GPS-CURRENT',{coordinates:state.gps});
-    if(!graph.adj.has('N-GPS-CURRENT'))graph.adj.set('N-GPS-CURRENT',[]);
-    if(!graph.adj.has(nearest.id))graph.adj.set(nearest.id,[]);
-    graph.adj.get('N-GPS-CURRENT').push({id:'VIRT-GPS',kind:'virtual',from:'N-GPS-CURRENT',to:nearest.id,meters:nearest.d,coordinates:[state.gps,nearest.coordinates]});
-    graph.adj.get(nearest.id).push({id:'VIRT-GPS',kind:'virtual',from:nearest.id,to:'N-GPS-CURRENT',meters:nearest.d,coordinates:[nearest.coordinates,state.gps]});
-    graph.places.push({id:'GPS-CURRENT',node:'N-GPS-CURRENT',name:'Your location',coordinates:state.gps,type:'gps'});
-    setLocationStatus('Located within '+Math.round(state.gpsAccuracy)+' m'+(nearest.d>5?' · nearest mapped path is '+Math.round(nearest.d)+' m away':'')+'.');
-  }else{
-    let nearestBuilding=null;
-    for(const b of graph.buildings.values()){
-      const d=haversine(state.gps,b.coordinates);
-      if(!nearestBuilding||d<nearestBuilding.d)nearestBuilding={id:b.building_id,name:b.name,d};
-    }
-    if(nearestBuilding){
-      graph.places.push({id:'GPS-CURRENT',node:'B:'+nearestBuilding.id,name:'Your location',coordinates:state.gps,type:'gps'});
-      setLocationStatus('No mapped path within '+GPS_SNAP_METERS+' m, so routing from '+nearestBuilding.name+' (~'+Math.round(nearestBuilding.d)+' m away) instead.');
-    }
-  }
+function receivePosition(position){
+ if(!usablePosition(position)){locationMessage('Waiting for a fresh GPS reading…');return;}
+ const c=position.coords;state.gps=[c.longitude,c.latitude];lastFixTime=Date.now();gpsLayer.clearLayers();
+ L.circle(latlng(state.gps),{radius:Math.min(c.accuracy,250),weight:1,color:'#387bf0',fillColor:'#387bf0',fillOpacity:.07,interactive:false}).addTo(gpsLayer);
+ L.marker(latlng(state.gps),{icon:L.divIcon({className:'',html:'<div class="gps-marker"></div>',iconSize:[18,18],iconAnchor:[9,9]})}).addTo(gpsLayer);
+ if(c.accuracy>45){locationMessage('GPS accuracy is ±'+Math.round(c.accuracy)+' m. Waiting for a clearer signal before giving turns.');return;}
+ locationMessage('Live GPS · accuracy ±'+Math.round(c.accuracy)+' m');
+ if(locating){state.origin='GPS';syncInputs();render();tracker.stop();locating=false;locationMessage('Location set · accuracy ±'+Math.round(c.accuracy)+' m. Start walking for live updates.');return;}
+ if(!state.navigating)return;
+ let progress=routeProgress(route,state.gps);
+ if(firstFix){firstFix=false;if(!progress||progress.offRoute>35){state.origin='GPS';syncInputs();render();progress=routeProgress(route,state.gps);}}
+ if(!route?.found&&Date.now()-state.reroutedAt>4000){state.reroutedAt=Date.now();state.origin='GPS';syncInputs();render(false);progress=routeProgress(route,state.gps);}
+ if(!route?.found||!progress){$('#navigation-banner').innerHTML=icon('info')+'<div><strong>Move closer to campus paths</strong><small>'+esc(route?.reason||'No route at this location.')+'</small></div><button id="stop-live" class="icon-button" aria-label="Stop navigation">'+icon('close')+'</button>';$('#stop-live').onclick=()=>stopNavigation();return;}
+ const decision=navigationDecision(progress,c.accuracy,offRouteSamples);offRouteSamples=decision.offRouteSamples;
+ if(decision.action==='arrive'){
+  const destination=route.end.name;stopNavigation(false);locationMessage('You’ve arrived at '+destination+'.');$('#navigation-banner').hidden=false;$('#navigation-banner').innerHTML=icon('flag')+'<div><strong>You’ve arrived</strong><small>'+esc(destination)+'</small></div><button id="stop-live" class="icon-button" aria-label="Dismiss arrival">'+icon('close')+'</button>';$('#stop-live').onclick=()=>stopNavigation();if(state.voice)speak('You have arrived at '+destination);return;
+ }
+ if(decision.action==='reroute'&&Date.now()-state.reroutedAt>10000){state.reroutedAt=Date.now();offRouteSamples=0;state.origin='GPS';syncInputs();render(false);state.lastSpoken=-1;progress=routeProgress(route,state.gps);if(!route.found||!progress){locationMessage('Couldn’t reconnect to a mapped path. Follow your surroundings and return to a campus path.');$('#navigation-banner').hidden=true;return;}if(state.voice)speak('Updating your walking route.');}
+ if(state.follow){if(map.getZoom()<17)map.setZoom(17);map.panTo(latlng(state.gps),{animate:true});}
+ const step=route.steps[progress.stepIndex];if(!step)return;
+ const left=Math.max(0,step.end-progress.along),next=route.steps[progress.stepIndex+1];
+ const title=left<25&&next?next.text:step.text;
+ $('#navigation-banner').hidden=false;$('#navigation-banner').innerHTML=icon(left<25&&next?next.icon:step.icon)+'<div><strong>'+esc(title)+'</strong><small>'+Math.round(left)+' m · '+Math.max(1,Math.round(progress.remaining/75))+' min remaining</small></div><button id="stop-live" class="icon-button" aria-label="Stop navigation">'+icon('close')+'</button>';$('#stop-live').onclick=()=>stopNavigation();
+ if(state.voice&&state.lastSpoken!==progress.stepIndex){state.lastSpoken=progress.stepIndex;speak(step.text+(next?'. In '+Math.round(left)+' meters, '+next.text.toLowerCase():'. Your destination is ahead.'));}
+ state.progress=progress.along;
 }
-function render(fit=false) {
-  graph=buildGraph(data,{enableClosures:false});
-  injectGpsPlace();
-  route=findRoute(graph,state.origin,state.destination);
-  const from=resolvePlace(graph,state.origin),to=resolvePlace(graph,state.destination);
-  const url=new URL('https://www.google.com/maps/dir/');url.searchParams.set('api','1');url.searchParams.set('travelmode','walking');
-  if(from?.coordinates&&to?.coordinates){url.searchParams.set('origin',from.coordinates[1]+','+from.coordinates[0]);url.searchParams.set('destination',to.coordinates[1]+','+to.coordinates[0]);$('#google-compare').href=url.href;}
-  if(state.origin&&state.destination&&state.origin!==state.destination){
-    const exists=route.found;
-    const link=$('#edit-route');link.hidden=false;link.textContent=exists?'Edit this route ↗':'This route isn’t mapped yet — create it ↗';
-    link.href='route-editor.html?from='+encodeURIComponent(state.origin)+'&to='+encodeURIComponent(state.destination);
-  }else{$('#edit-route').hidden=true;}
-  if(!route.found){
-    $('#route-summary').innerHTML='<div class="no-route"><span aria-hidden="true">⌁</span><h3>No route is mapped.</h3><p>'+esc(route.reason)+'</p></div>';$('#directions').innerHTML='';
-  }else if(route.samePlace){
-    $('#route-summary').innerHTML='<div class="no-route"><h3>You’re already there.</h3><p>These places use the same mapped entrance. No walk is needed in the current dataset.</p></div>';$('#directions').innerHTML='';
-  }else if(route.sameEntrance){
-    $('#route-summary').innerHTML='<div class="no-route"><h3>Indoor travel is not mapped yet.</h3><p>These places share a mapped entrance, but the supplied dataset does not describe the indoor path between them.</p></div>';$('#directions').innerHTML='';
-  }else{
-    $('#route-summary').innerHTML='<div class="route-card selected"><span class="route-card-top"><strong>Campus route</strong></span><span class="card-time">'+duration(route)+'</span><span class="card-subtitle">'+distance(route)+'</span></div>';
-    const startEntrance=route.startEntrance?.entrance_name||'Mapped entrance',endEntrance=route.endEntrance?.entrance_name||'Mapped entrance';
-    $('#directions').innerHTML='<div class="directions-title"><h3>Route details</h3><button id="read-aloud" class="text-button" type="button">▶ Read aloud</button><span>'+route.legs.length+' segments</span></div><ol class="directions"><li class="endpoint"><span class="step-icon">A</span><div><strong>'+esc(route.start.name)+'</strong><small>'+esc(startEntrance)+' · Approximate</small></div></li>'+route.legs.map(e=>'<li><span class="step-icon">'+(e.is_indoor?'⌂':'↗')+'</span><div><strong>'+esc(edgeName(e))+'</strong><small>'+Math.round(e.meters)+' m'+(e.is_indoor?' · Indoor':'')+'</small>'+(e.is_indoor && data.floorplans[e.building||graph.nodes.get(e.from)?.building]?.plans?.length?'<button class="text-button" data-floor-building="'+esc(e.building||graph.nodes.get(e.from)?.building||'')+'">View floorplan ↗</button>':'')+'</div></li>').join('')+'<li class="endpoint"><span class="step-icon destination">B</span><div><strong>'+esc(route.end.name)+'</strong><small>'+esc(endEntrance)+' · Approximate</small></div></li></ol>';
-    $('#directions').querySelectorAll('[data-floor-building]').forEach(button=>button.addEventListener('click',()=>{state.planBuilding=button.dataset.floorBuilding;state.planFloor='01';$('#plan-building').value=state.planBuilding;switchView('plans');}));
-    $('#read-aloud')?.addEventListener('click',()=>readAloud(route));
-  }
-  renderMap(); if(fit)fitMap();
+function locationError(error){
+ const messages={0:'This browser does not support live GPS.',1:'Location permission was denied. Enable location access in your browser, or choose a building.',2:'GPS is unavailable. Try again outdoors.',3:'GPS is taking longer than expected. Waiting for a signal…'};
+ locationMessage(messages[error.code]||'Couldn’t get your location.');
+ if(error.code===1||error.code===0){stopNavigation(false);}else if(state.navigating){$('#navigation-banner').innerHTML=icon('locate')+'<div><strong>Waiting for GPS</strong><small>'+esc(messages[error.code]||'Try again outdoors.')+'</small></div><button id="stop-live" class="icon-button" aria-label="Stop navigation">'+icon('close')+'</button>';$('#stop-live').onclick=()=>stopNavigation();}
 }
-function renderMap() {
-  baseLayer.clearLayers();routeLayer.clearLayers();selectedLayer.clearLayers();markersLayer.clearLayers();locationLayer.clearLayers();
-  if(route.found)for(const e of route.legs){L.polyline(e.coordinates.map(latLng),{color:'#fff',weight:9,opacity:.95}).addTo(selectedLayer);L.polyline(e.coordinates.map(latLng),{color:e.is_indoor?'#8358a3':'#14705b',weight:5,opacity:1}).bindTooltip(esc(edgeName(e))).addTo(selectedLayer);}
-  for(const building of graph.buildings.values()){
-    const marker=L.circleMarker(latLng(building.coordinates),{radius:4,color:'#fff',weight:2,fillColor:'#284e46',fillOpacity:1});
-    marker.bindTooltip(esc(building.name),{direction:'top',className:'building-tooltip',permanent:false});
-    marker.on('click',()=>{state.destination=building.building_id;$('#destination').value=state.destination;render(true);});
-    marker.addTo(markersLayer);
-  }
-  for(const [key,letter] of [['origin','A'],['destination','B']]){
-    if(key==='origin'&&state.origin==='GPS-CURRENT')continue;
-    const p=resolvePlace(graph,state[key]);if(!p)continue;
-    const ent=route.found?(key==='origin'?route.startEntrance:route.endEntrance):null;
-    L.marker(latLng(ent?.coordinates||p.coordinates),{icon:L.divIcon({className:'route-marker',html:'<span class="'+(letter==='B'?'end':'')+'">'+letter+'</span>',iconSize:[34,34],iconAnchor:[17,17]}),title:p.name,keyboard:true}).bindTooltip(esc(p.name),{direction:'top',offset:[0,-18],permanent:true,className:'endpoint-tooltip'}).addTo(markersLayer);
-  }
-  if(state.origin==='GPS-CURRENT'&&state.gps){
-    if(state.gpsAccuracy)L.circle(latLng(state.gps),{radius:state.gpsAccuracy,color:'#2869dc',weight:1,fillColor:'#2869dc',fillOpacity:.12}).addTo(locationLayer);
-    L.marker(latLng(state.gps),{icon:L.divIcon({className:'gps-marker',html:'<span></span>',iconSize:[18,18],iconAnchor:[9,9]}),keyboard:true}).bindTooltip('Your location',{direction:'top',offset:[0,-12],permanent:true,className:'endpoint-tooltip'}).addTo(locationLayer);
-  }
-}
-function fitMap(){
-  const coords=route?.found?route.legs.flatMap(e=>e.coordinates):[];
-  if(coords.length)map.fitBounds(L.latLngBounds(coords.map(latLng)),{paddingTopLeft:[60,90],paddingBottomRight:[45,70],maxZoom:17});
-  else map.fitBounds(L.latLngBounds([...graph.buildings.values()].map(b=>latLng(b.coordinates))),{padding:[35,70],maxZoom:16});
-}
-function renderFloor(){
-  if(!data)return; const info=data.floorplans[state.planBuilding],building=graph.buildings.get(state.planBuilding);
-  if(!info)return;
-  $('#plan-building').value=state.planBuilding;
-  $('#plan-floor').innerHTML=info.plans.length?info.plans.map(p=>'<option value="'+esc(p.code)+'">'+esc(p.label)+'</option>').join(''):'<option>No floorplans supplied</option>';
-  $('#plan-floor').disabled=!info.plans.length;
-  const plan=info.plans.find(p=>p.code===state.planFloor)||info.plans[0];
-  state.planFloor=plan?.code||'';$('#plan-floor').value=state.planFloor;
-  $('#floor-title').textContent=info.name+(plan?' · '+plan.label:'');
-  $('#floor-image').hidden=!plan;$('#floor-empty').hidden=!!plan;
-  if(plan){$('#floor-image').src=plan.file;$('#floor-image').alt=info.name+', '+plan.label+', historical floorplan dated September 2006';}
-  else{$('#floor-image').removeAttribute('src');$('#floor-empty').innerHTML='<span aria-hidden="true">▤</span><h3>No floorplan in this archive.</h3><p>'+esc(info.name)+' has no matching plan in the supplied collection. The campus location is still available in the route planner.</p>';}
-  for(const id of ['plan-zoom-out','plan-zoom-in','plan-fit'])$('#'+id).disabled=!plan;
-  $('#building-detail').innerHTML='<h3>Building information</h3><dl><dt>Address</dt><dd>'+esc(building?.address||'Not supplied')+'</dd><dt>Plans available</dt><dd>'+info.plans.length+'</dd></dl>';
-  applyPlanZoom();
-}
-function applyPlanZoom(){ $('#floor-image').style.width=(state.planZoom*100)+'%';$('#floor-image').style.maxWidth='none';$('#plan-fit').textContent=state.planZoom===1?'Fit':Math.round(state.planZoom*100)+'%';$('#floor-canvas').scrollTo({top:0,left:0,behavior:'instant'}); }
-function renderData(){
-  const count=Object.values(data.floorplans).reduce((n,b)=>n+b.plans.length,0);
-  $('#data-stats').innerHTML=[[String(graph.buildings.size),'buildings'],[String(graph.edges.length),'path segments'],[String(count),'archival plans']].map(([n,label])=>'<div><strong>'+n+'</strong><span>'+label+'</span></div>').join('');
-  $('#status-list').innerHTML=graph.statusLog.map(r=>'<div class="status-record"><div><strong>'+esc(r.asset_id)+'</strong><span>'+esc(r.status)+' · '+esc(r.result)+'</span></div><p>'+esc(r.reason)+'</p><small>Supplied source: '+esc(r.source)+' · '+esc(r.reported_at)+'</small></div>').join('');
-}
-function applyRouteConfig(input){
-  if(!input||typeof input!=='object'||!Object.hasOwn(input,'origin')||!Object.hasOwn(input,'destination')||Object.keys(input).some(k=>!['origin','destination'].includes(k)))throw new Error('Invalid route configuration');
-  for(const key of ['origin','destination'])if(typeof input[key]!=='string'||!graph.places.some(p=>p.id===input[key]))throw new Error('Choose a valid place ID');
-  Object.assign(state,input);$('#origin').value=state.origin;$('#destination').value=state.destination;switchView('routes');render(true);
-  return {found:route.found,meters:route.meters??null,reason:route.reason??'Route preview'};
-}
-function narrationScript(r){
-  const lines=['Route preview from '+r.start.name+' to '+r.end.name+'.'];
-  r.legs.forEach((e,i)=>lines.push('Step '+(i+1)+': '+edgeName(e)+', about '+Math.round(e.meters)+' meters.'));
-  lines.push('You should arrive near '+(r.endEntrance?.entrance_name||'the mapped entrance')+'. This position is approximate.');
-  return lines.join(' ');
-}
-async function readAloud(r){
-  const button=$('#read-aloud'),text=narrationScript(r);
-  if(button){button.disabled=true;button.textContent='Reading…';}
-  try{
-    const key=getKey('elevenlabs');
-    if(key){
-      const res=await fetch('https://api.elevenlabs.io/v1/text-to-speech/'+ELEVEN_VOICE,{method:'POST',headers:{'Content-Type':'application/json','xi-api-key':key},body:JSON.stringify({text,model_id:'eleven_multilingual_v2'})});
-      if(!res.ok)throw new Error('ElevenLabs request failed ('+res.status+')');
-      const audio=new Audio(URL.createObjectURL(await res.blob()));
-      await new Promise((resolve,reject)=>{audio.onended=resolve;audio.onerror=reject;audio.play().catch(reject);});
-    }else if('speechSynthesis' in window){
-      window.speechSynthesis.cancel();
-      const spoken=new Promise(resolve=>{const u=new SpeechSynthesisUtterance(text);u.onend=resolve;u.onerror=resolve;window.speechSynthesis.speak(u);});
-      const safetyTimeout=new Promise(resolve=>setTimeout(resolve,Math.min(60000,Math.max(8000,text.length*90))));
-      await Promise.race([spoken,safetyTimeout]);
-    }else throw new Error('Voice playback is not supported in this browser.');
-  }catch(err){console.error(err);}
-  finally{if(button){button.disabled=false;button.textContent='▶ Read aloud';}}
-}
-function addAssistantMessage(role,text){
-  const div=document.createElement('div');div.className='assistant-msg '+role;div.textContent=text;
-  $('#assistant-log').appendChild(div);$('#assistant-log').scrollTop=$('#assistant-log').scrollHeight;
-  return div;
-}
-function localIntent(text){
-  const lower=text.toLowerCase();
-  const matches=graph.places.filter(p=>lower.includes(p.name.toLowerCase())||(p.aliases||[]).some(a=>lower.includes(a.toLowerCase())));
-  if(matches.length<2)return{action:'clarify',message:'I can only match places from the pilot list. Try naming two of them directly, like "Perry Place to Pamplin Hall" — add a Gemini key in AI & voice keys for more flexible phrasing.'};
-  const [origin,destination]=matches;
-  return{action:'route',origin:origin.id,destination:destination.id,message:'Set the route from '+origin.name+' to '+destination.name+'. No Gemini key configured, so this used simple keyword matching, not AI.'};
-}
-async function askGemini(text,key){
-  const placeList=graph.places.map(p=>p.id+' = "'+p.name+'"'+(p.aliases?.length?' (aka '+p.aliases.join(', ')+')':'')).join('\n');
-  const system='You configure a campus route PREVIEW for AccessPath, a Virginia Tech campus pilot. '
-    +'Pick origin and destination ONLY from this exact list of place IDs (never invent a place, never return a name in place of its id):\n'+placeList
-    +'\n\nRules: this app has NOT verified route conditions in the field. Never state or imply a route is confirmed safe or current — that is for the app’s own data to show, not you. '
-    +'If the request names two places from the list, respond with action "route" and both IDs. '
-    +'If you cannot confidently match two places from the list, respond with action "clarify" and a short question naming a few real places from the list. Keep "message" to one short, plain sentence.';
-  const schema={type:'OBJECT',properties:{action:{type:'STRING',enum:['route','clarify']},origin:{type:'STRING'},destination:{type:'STRING'},message:{type:'STRING'}},required:['action','message']};
-  const res=await fetch('https://generativelanguage.googleapis.com/v1beta/models/'+GEMINI_MODEL+':generateContent?key='+encodeURIComponent(key),{
-    method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({systemInstruction:{parts:[{text:system}]},contents:[{role:'user',parts:[{text}]}],generationConfig:{responseMimeType:'application/json',responseSchema:schema}})
-  });
-  if(!res.ok)throw new Error('Gemini request failed ('+res.status+')');
-  const body=await res.json(),raw=body?.candidates?.[0]?.content?.parts?.[0]?.text;
-  if(!raw)throw new Error('Gemini returned no usable response');
-  let parsed;try{parsed=JSON.parse(raw);}catch{throw new Error('Gemini response was not valid JSON');}
-  if(parsed.action==='route'&&(!graph.places.some(p=>p.id===parsed.origin)||!graph.places.some(p=>p.id===parsed.destination)))return{action:'clarify',message:'That didn’t match two places in the pilot area. Try naming them directly.'};
-  return parsed;
-}
+function stopNavigation(clearMessage=true){tracker.stop();state.navigating=false;locating=false;firstFix=false;offRouteSamples=0;state.lastSpoken=-1;$('#navigation-banner').hidden=true;window.speechSynthesis?.cancel();if(clearMessage)locationMessage('');if($('#start-navigation'))$('#start-navigation').innerHTML=icon('navigate')+'Start walking';}
+window.addEventListener('pagehide',()=>tracker.stop());
+setInterval(()=>{if(state.navigating&&lastFixTime&&Date.now()-lastFixTime>20000){locationMessage('GPS signal is stale. Waiting for a new location before giving turns.');$('#navigation-banner').hidden=true;}},5000);
+function chatMessage(text,who='assistant'){const d=document.createElement('div');d.className='chat-message '+who;d.textContent=text;$('#assistant-log').append(d);$('#assistant-log').scrollTop=$('#assistant-log').scrollHeight;return d;}
+function routeExplanation(){if(!route?.found)return route?.reason||'Choose a route first.';if(route.samePlace)return 'Your starting point and destination are the same building.';return 'About '+Math.max(1,Math.round(route.seconds/60))+' minutes ('+Math.round(route.meters)+' m) from '+route.start.name+' to '+route.end.name+(route.label?', '+route.label:'.')+'. '+(state.avoidStairs?'Mapped stairs are excluded. ':'')+'Your construction areas are excluded.'+(route.indoor?' The route includes building passages, so doors need to be open.':'')+(route.endEntrance?.kind==='nearby_path'?' Arrival is at a nearby mapped path because OSM has no connected entrance.':'');}
 async function askAssistant(text){
-  addAssistantMessage('user',text);
-  const thinking=addAssistantMessage('assistant','Thinking…');
-  try{
-    const key=getKey('gemini'),result=key?await askGemini(text,key):localIntent(text);
-    thinking.remove();
-    if(result.action==='route'){applyRouteConfig({origin:result.origin,destination:result.destination});}
-    addAssistantMessage('assistant',result.message||'Updated the route preview.');
-  }catch(err){thinking.remove();addAssistantMessage('assistant','That didn’t work: '+err.message);}
+ text=text.trim();if(!text||$('#assistant-send').disabled)return;$('#assistant-input').value='';chatMessage(text,'user');const pending=chatMessage('Finding your way…');$('#assistant-send').disabled=true;
+ try{const intent=await aiIntent(text,graph.places,{origin:state.origin,destination:state.destination,avoidStairs:state.avoidStairs},{key:sessionStorage.getItem('camp-path-gemini-key'),model:localStorage.getItem('camp-path-model')||'gemini-2.5-flash',signal:AbortSignal.timeout(25000)});
+  if(intent.action==='route'){stopNavigation();state.origin=intent.from;state.destination=intent.to;state.avoidStairs=intent.avoidStairs;$('#avoid-stairs').checked=state.avoidStairs;syncInputs();if(state.origin==='GPS'&&!state.gps){useLocation(false);pending.textContent='Allow location access and I’ll route you to '+getPlace(state.destination).name+'.';}else{render();pending.textContent=routeExplanation();}}
+  else pending.textContent=intent.action==='explain'?routeExplanation():intent.message;
+ }catch(e){pending.textContent=e.message;}finally{$('#assistant-send').disabled=false;updateAIStatus();$('#assistant-log').scrollTop=$('#assistant-log').scrollHeight;}
 }
-function registerAgentTools(){
-  const context=document.modelContext;if(!context?.registerTool)return;
-  const lifecycle=new AbortController();
-  const register=tool=>{try{Promise.resolve(context.registerTool(tool,{signal:lifecycle.signal})).catch(()=>{});}catch{}};
-  register({name:'get_accesspath_route',description:'Read the current exploratory route and data limitations.',inputSchema:{type:'object',properties:{},additionalProperties:false},annotations:{readOnlyHint:true,untrustedContentHint:true},execute:()=>({route,warning:'Supplied pilot data; route conditions are unverified.'})});
-  register({name:'configure_accesspath_route',description:'Change the visible campus route preview using listed place IDs. This does not start real navigation.',inputSchema:{type:'object',properties:{origin:{type:'string'},destination:{type:'string'}},required:['origin','destination'],additionalProperties:false},annotations:{readOnlyHint:false,untrustedContentHint:true},execute:input=>applyRouteConfig(input)});
-  window.addEventListener('pagehide',()=>lifecycle.abort(),{once:true});
-}
-load().catch(error=>{$('#route-summary').innerHTML='<div class="no-route"><h3>We couldn’t load the planner.</h3><p>'+esc(error.message)+'</p><button class="primary-button" onclick="location.reload()">Try again</button></div>';console.error(error);});
-window.addEventListener('storage',event=>{if(event.key===STORAGE_KEY)location.reload();});
+load().catch(e=>{$('#route-result').innerHTML=`<div class="error-state"><h3>Couldn’t load campus</h3><p>${esc(e.message)}</p><button class="button" onclick="location.reload()">Try again</button></div>`;console.error(e);});

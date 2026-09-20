@@ -1,0 +1,1341 @@
+{
+  "coverage": [
+    {
+      "id": "VT-201-WEST-ROANOKE-STREET",
+      "name": "201 West Roanoke Street",
+      "arrival_kind": "nearby_path",
+      "entrances": [
+        919282028
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-AGNEW-HALL",
+      "name": "Agnew Hall",
+      "arrival_kind": "nearby_path",
+      "entrances": [
+        7333072796
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-AMBLER-JOHNSTON-HALL-EAST-WING",
+      "name": "Ambler Johnston Hall - East Wing",
+      "arrival_kind": "entrance",
+      "entrances": [
+        1921064966,
+        698842098,
+        10928008315
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-AMBLER-JOHNSTON-HALL-WEST-WING",
+      "name": "Ambler Johnston Hall - West Wing",
+      "arrival_kind": "entrance",
+      "entrances": [
+        702995778,
+        698842087
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-ARCHITECTURE-ANNEX",
+      "name": "Architecture Annex",
+      "arrival_kind": "entrance",
+      "entrances": [
+        1256928255,
+        878195506
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-BEAMER-LAWSON-INDOOR-PRACTICE-FACILITY",
+      "name": "Beamer-Lawson Indoor Practice Facility",
+      "arrival_kind": "nearby_path",
+      "entrances": [
+        825977953
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-BISHOP-FAVRAO-HALL",
+      "name": "Bishop-Favrao Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        1580187941
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-BURCHARD-HALL",
+      "name": "Burchard Hall",
+      "arrival_kind": "nearby_path",
+      "entrances": [
+        13723721670
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-BURRUSS",
+      "name": "Burruss Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        688009408,
+        13674220852,
+        688009410,
+        3769458272,
+        691140664
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-CAMPBELL-HALL-EAST-WING",
+      "name": "Campbell Hall - East Wing",
+      "arrival_kind": "entrance",
+      "entrances": [
+        700429547,
+        691030674,
+        700429548,
+        700429537
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-CAMPBELL-HALL-MAIN-WING",
+      "name": "Campbell Hall - Main Wing",
+      "arrival_kind": "entrance",
+      "entrances": [
+        700429537,
+        700429548,
+        700429547,
+        691030674
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-NEWMAN-LIB",
+      "name": "Carol M. Newman Library",
+      "arrival_kind": "entrance",
+      "entrances": [
+        370914336,
+        1257000936,
+        368084461,
+        701304194
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-CASSELL-COLISEUM",
+      "name": "Cassell Coliseum",
+      "arrival_kind": "entrance",
+      "entrances": [
+        911521354,
+        13668525244
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-CFA",
+      "name": "Center for the Arts (formerly Moss Arts Center)",
+      "arrival_kind": "entrance",
+      "entrances": [
+        4216921889,
+        6300301481
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-CHEATHAM-HALL",
+      "name": "Cheatham Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        698842089,
+        894679941,
+        688009391
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-NCB",
+      "name": "Classroom Building (NCB)",
+      "arrival_kind": "entrance",
+      "entrances": [
+        5883236545,
+        5883236551,
+        5879879968
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-COCHRANE-HALL",
+      "name": "Cochrane Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        1214335689
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-COLLEGE-OF-LIBERAL-ARTS-AND-HUMAN-SCIENC",
+      "name": "College of Liberal Arts and Human Sciences Building",
+      "arrival_kind": "nearby_path",
+      "entrances": [
+        1246628710,
+        11189769739
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-CORPS-LEADERSHIP-AND-MILITARY-SCIENCE-BU",
+      "name": "Corps Leadership and Military Science Building",
+      "arrival_kind": "entrance",
+      "entrances": [
+        12941775051
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-COWGILL-HALL",
+      "name": "Cowgill Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        1580187929
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-CREATIVITY-AND-INNOVATION-DISTRICT-LIVIN",
+      "name": "Creativity and Innovation District - Living Learning Community",
+      "arrival_kind": "entrance",
+      "entrances": [
+        12947656281,
+        12947656278,
+        12947659903,
+        12947659908,
+        12947656280,
+        12947659901
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-DDS",
+      "name": "Data and Decision Sciences Building",
+      "arrival_kind": "entrance",
+      "entrances": [
+        12206940090,
+        13976342682,
+        12206975934,
+        13984435337,
+        12206975912,
+        12206940081,
+        12206940083,
+        13984435339,
+        12206975911
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-DAVIDSON",
+      "name": "Davidson Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        11638044097,
+        11638044094,
+        9289260477,
+        10927059396,
+        9996073260,
+        688009395
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-DERRING",
+      "name": "Derring Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        690803291,
+        691034622,
+        697589842
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-DIETRICK-HALL",
+      "name": "Dietrick Hall",
+      "arrival_kind": "nearby_path",
+      "entrances": [
+        14134152861
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-DURHAM",
+      "name": "Durham Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        689800127,
+        689800146
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-EGGLESTON-HALL-EAST-WING",
+      "name": "Eggleston Hall - East Wing",
+      "arrival_kind": "entrance",
+      "entrances": [
+        697179421,
+        3743607647
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-EGGLESTON-HALL-MAIN-WING",
+      "name": "Eggleston Hall - Main Wing",
+      "arrival_kind": "entrance",
+      "entrances": [
+        692180143,
+        692180118,
+        690890959,
+        692180109
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-EGGLESTON-HALL-WEST-WING",
+      "name": "Eggleston Hall - West Wing",
+      "arrival_kind": "entrance",
+      "entrances": [
+        692180085,
+        692180090,
+        3743607637
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-ENGEL-HALL",
+      "name": "Engel Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        747619390,
+        698842028,
+        688010094
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-GOODWIN",
+      "name": "Goodwin Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        5879623021,
+        5879642862,
+        5879642857,
+        5879623013
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-GRADUATE-LIFE-CENTER-AT-DONALDSON-BROWN",
+      "name": "Graduate Life Center at Donaldson Brown",
+      "arrival_kind": "entrance",
+      "entrances": [
+        725471599,
+        690890963,
+        5883767790
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-HAHN-GARDEN-MARQUEE",
+      "name": "Hahn Garden Marquee",
+      "arrival_kind": "nearby_path",
+      "entrances": [
+        1651149594
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-HAHN-GARDEN-PAVILION",
+      "name": "Hahn Garden Pavilion",
+      "arrival_kind": "nearby_path",
+      "entrances": [
+        4244721809
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-HAHN-HALL-NORTH-WING",
+      "name": "Hahn Hall - North Wing",
+      "arrival_kind": "entrance",
+      "entrances": [
+        876650471,
+        690880137,
+        10009654415,
+        691030682,
+        9175566698
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-HAHN-HALL-SOUTH-WING",
+      "name": "Hahn Hall - South Wing",
+      "arrival_kind": "entrance",
+      "entrances": [
+        691034619,
+        701298381,
+        701298388
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-HAHN-HURST-BASKETBALL-PRACTICE-FACILITY",
+      "name": "Hahn-Hurst Basketball Practice Facility",
+      "arrival_kind": "nearby_path",
+      "entrances": [
+        10032579316
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-HARPER-HALL",
+      "name": "Harper Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        698842020
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-HENDERSON-HALL",
+      "name": "Henderson Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        5883767826,
+        3627449943
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-HILLCREST-HALL",
+      "name": "Hillcrest Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        701323455,
+        701323451,
+        701323458,
+        701323447,
+        690803284,
+        697186298
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-HITT",
+      "name": "Hitt Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        12668644356,
+        12668644365,
+        12668644364,
+        12668644363,
+        12668616599,
+        12668644357,
+        12668616600
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-HOGE-HALL",
+      "name": "Hoge Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        687914998,
+        687914995,
+        687914997,
+        688009423
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-HOLDEN-HALL",
+      "name": "Holden Hall",
+      "arrival_kind": "nearby_path",
+      "entrances": [
+        1250593568,
+        10018248711
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-HUTCHESON-HALL",
+      "name": "Hutcheson Hall",
+      "arrival_kind": "nearby_path",
+      "entrances": [
+        4164174340,
+        559204923
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-HANCOCK",
+      "name": "John W. Hancock Jr. Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        889808981,
+        3788509650
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-JOHNSON-HALL",
+      "name": "Johnson Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        698866733,
+        698866731,
+        698866725
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-JOHNSTON-STUDENT-CENTER",
+      "name": "Johnston Student Center",
+      "arrival_kind": "entrance",
+      "entrances": [
+        3769435785,
+        3769435783,
+        3769435784,
+        688009406
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-JOHNSTON-STUDENT-CENTER-ELEVATOR-TOWER",
+      "name": "Johnston Student Center Elevator Tower",
+      "arrival_kind": "entrance",
+      "entrances": [
+        3769435784,
+        3769435783,
+        3769435785,
+        688009406
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-KELLY",
+      "name": "Kelly Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        623769339
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-LANE-HALL",
+      "name": "Lane Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        728008499
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-LANE-STADIUM-EAST-STANDS",
+      "name": "Lane Stadium (east stands)",
+      "arrival_kind": "entrance",
+      "entrances": [
+        12086603598,
+        12918974065
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-LANE-STADIUM-NORTH-END-ZONE",
+      "name": "Lane Stadium (north end zone)",
+      "arrival_kind": "entrance",
+      "entrances": [
+        12086603598,
+        12918974065
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-LANE-STADIUM-SOUTH-END-ZONE",
+      "name": "Lane Stadium (south end zone)",
+      "arrival_kind": "entrance",
+      "entrances": [
+        12918974065,
+        12086603598
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-LANE-STADIUM-WEST-STANDS",
+      "name": "Lane Stadium (west stands)",
+      "arrival_kind": "entrance",
+      "entrances": [
+        12918974065,
+        12086603598
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-LATHAM-HALL",
+      "name": "Latham Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        698842134,
+        688009393
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-LAVERY-HALL",
+      "name": "Lavery Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        3769532297,
+        5879657586,
+        3769532298,
+        5879657174
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-LEWAS-LAB",
+      "name": "LEWAS Lab",
+      "arrival_kind": "entrance",
+      "entrances": [
+        9175566698,
+        876650471,
+        690880137,
+        691030682,
+        10009654415
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-LITTON-REAVES-HALL",
+      "name": "Litton-Reaves Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        691034616,
+        688009379
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-MAJOR-WILLIAMS-HALL",
+      "name": "Major Williams Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        1916344731,
+        1456436644,
+        1916344783,
+        1916344756,
+        1246628694,
+        747618861
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-MCBRYDE",
+      "name": "McBryde Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        5933129083,
+        5933131789,
+        5933131786,
+        5933131788,
+        5933129084,
+        1250593576
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-MCCOMAS-HALL",
+      "name": "McComas Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        12918974045
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-MEDIA-BUILDING",
+      "name": "Media Building",
+      "arrival_kind": "entrance",
+      "entrances": [
+        1929391262
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-MERRYMAN-ATHLETIC-FACILITY",
+      "name": "Merryman Athletic Facility",
+      "arrival_kind": "entrance",
+      "entrances": [
+        859036974,
+        691030692
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-MILES-HALL",
+      "name": "Miles Hall",
+      "arrival_kind": "nearby_path",
+      "entrances": [
+        698866729,
+        698866774,
+        698866771
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-MILITARY-BUILDING-LAUNDRY",
+      "name": "Military Building / Laundry",
+      "arrival_kind": "nearby_path",
+      "entrances": [
+        10562164577
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-MITCHELL",
+      "name": "Mitchell Hall (under construction, 2028)",
+      "arrival_kind": "nearby_path",
+      "entrances": [
+        559204945
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-NEW-HALL-WEST",
+      "name": "New Hall West",
+      "arrival_kind": "entrance",
+      "entrances": [
+        698842077
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-NEW-RESIDENCE-HALL-EAST",
+      "name": "New Residence Hall East",
+      "arrival_kind": "entrance",
+      "entrances": [
+        3793681159
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-NEWMAN-HALL",
+      "name": "Newman Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        721594796,
+        721594791,
+        690890956,
+        698866746,
+        3743599400
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-NORRIS-HALL",
+      "name": "Norris Hall",
+      "arrival_kind": "nearby_path",
+      "entrances": [
+        5933147949,
+        624641779
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-O-SHAUGHNESSY-HALL",
+      "name": "O'Shaughnessy Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        688009430,
+        698866708,
+        698866720
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-OLD-SECURITY-BUILDING",
+      "name": "Old Security Building",
+      "arrival_kind": "nearby_path",
+      "entrances": [
+        12924954156
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-OWENS-HALL",
+      "name": "Owens Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        4164181329,
+        688009431,
+        725438393,
+        725438407,
+        725438415
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-PAMPLIN",
+      "name": "Pamplin Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        747624978,
+        702995777,
+        691034623,
+        3769469265
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-PARKING-STRUCTURE-PERRY-STREET-LOT",
+      "name": "Parking Structure - Perry Street Lot",
+      "arrival_kind": "entrance",
+      "entrances": [
+        11624933058,
+        1421421965,
+        11624933059,
+        1421421986,
+        1929367416,
+        10910655507,
+        12437350434
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-PATTON-HALL",
+      "name": "Patton Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        688009416,
+        688009415,
+        5933147933,
+        5933147938
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-PAYNE-HALL",
+      "name": "Payne Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        7977698775,
+        7977692402
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-PEARSON-HALL-EAST",
+      "name": "Pearson Hall East",
+      "arrival_kind": "entrance",
+      "entrances": [
+        12941775038,
+        697179430,
+        1916344719,
+        1916344704
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-PEARSON-HALL-WEST",
+      "name": "Pearson Hall West",
+      "arrival_kind": "entrance",
+      "entrances": [
+        1916344637,
+        697179427,
+        1916344668
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-PEDDREW-YATES-HALL",
+      "name": "Peddrew-Yates Hall",
+      "arrival_kind": "nearby_path",
+      "entrances": [
+        559227762
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-PRICE-HALL",
+      "name": "Price Hall",
+      "arrival_kind": "nearby_path",
+      "entrances": [
+        436714709
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-PRITCHARD-HALL",
+      "name": "Pritchard Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        697186308,
+        688010769,
+        698842123,
+        688011246,
+        688011249,
+        894679846
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-PUBLIC-SAFETY-BUILDING",
+      "name": "Public Safety Building",
+      "arrival_kind": "entrance",
+      "entrances": [
+        12092567622,
+        12089900446
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-ROBESON-HALL",
+      "name": "Robeson Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        581232415,
+        688009399,
+        3769469265
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-SANDY-HALL",
+      "name": "Sandy Hall",
+      "arrival_kind": "nearby_path",
+      "entrances": [
+        436714719
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-SAUNDERS-HALL",
+      "name": "Saunders Hall",
+      "arrival_kind": "nearby_path",
+      "entrances": [
+        700419424
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-SEITZ-HALL",
+      "name": "Seitz Hall",
+      "arrival_kind": "nearby_path",
+      "entrances": [
+        700429476
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-SHANKS-HALL",
+      "name": "Shanks Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        6300302185,
+        6300301482
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-SLUSHER-HALL",
+      "name": "Slusher Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        925958134,
+        925958215,
+        690890953,
+        1086805374,
+        691030663
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-SMITH-CAREER-CENTER",
+      "name": "Smith Career Center",
+      "arrival_kind": "entrance",
+      "entrances": [
+        9967862684,
+        860709954,
+        698842010
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-SMYTH-HALL",
+      "name": "Smyth Hall",
+      "arrival_kind": "nearby_path",
+      "entrances": [
+        700429502
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-SOLITUDE",
+      "name": "Solitude",
+      "arrival_kind": "nearby_path",
+      "entrances": [
+        12032699286,
+        12032699280,
+        2015867166
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-SOUTHGATE-CENTER",
+      "name": "Southgate Center",
+      "arrival_kind": "entrance",
+      "entrances": [
+        12092567622,
+        12089900446
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-SQUIRES",
+      "name": "Squires Student Center",
+      "arrival_kind": "entrance",
+      "entrances": [
+        5883767825,
+        1256928294,
+        5883767824,
+        725497740,
+        3788512654,
+        688009432
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-STEGER-HALL-NORTH-WING",
+      "name": "Steger Hall - North Wing",
+      "arrival_kind": "nearby_path",
+      "entrances": [
+        626143340
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-STEGER-HALL-SOUTH-WING",
+      "name": "Steger Hall - South Wing",
+      "arrival_kind": "nearby_path",
+      "entrances": [
+        626143330
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-STUDENT-SERVICES-BUILDING",
+      "name": "Student Services Building",
+      "arrival_kind": "nearby_path",
+      "entrances": [
+        860709989
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-SURGE-SPACE-BUILDING",
+      "name": "Surge Space Building",
+      "arrival_kind": "entrance",
+      "entrances": [
+        1456436772,
+        1456436820,
+        1456436804,
+        691034629,
+        1456436815
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-THEATER-101",
+      "name": "Theater 101",
+      "arrival_kind": "nearby_path",
+      "entrances": [
+        11955146821
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-TORGERSEN",
+      "name": "Torgersen Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        370914375,
+        370914433,
+        687914988,
+        687914990
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-TRANSIT-CENTER",
+      "name": "Transit Center",
+      "arrival_kind": "entrance",
+      "entrances": [
+        12720855533,
+        12720855512,
+        12720855515,
+        12720855510
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-UNDERGRADUATE-SCIENCE-LABORATORY-BUILDIN",
+      "name": "Undergraduate Science Laboratory Building",
+      "arrival_kind": "entrance",
+      "entrances": [
+        12720817416,
+        12246259649,
+        12668644329,
+        12720817414
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-UNIVERSITY-BOOKSTORE",
+      "name": "University Bookstore",
+      "arrival_kind": "entrance",
+      "entrances": [
+        3743611236,
+        3743611229
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-UPPER-QUAD-HALL-NORTH",
+      "name": "Upper Quad Hall North",
+      "arrival_kind": "entrance",
+      "entrances": [
+        6401716971
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-VAWTER-HALL",
+      "name": "Vawter Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        698866764,
+        690880164,
+        698866767
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-VISITORS-UNDERGRADUATE-ADMISSIONS-CENTER",
+      "name": "Visitors & Undergraduate Admissions Center",
+      "arrival_kind": "nearby_path",
+      "entrances": [
+        10605340163
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-WALLACE-HALL",
+      "name": "Wallace Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        688009383
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-WAR-MEMORIAL-CHAPEL",
+      "name": "War Memorial Chapel",
+      "arrival_kind": "nearby_path",
+      "entrances": [
+        12960766734,
+        660508616
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-WAR-MEMORIAL-GYMNASIUM",
+      "name": "War Memorial Gymnasium",
+      "arrival_kind": "entrance",
+      "entrances": [
+        14025262303,
+        692180079,
+        3793680913,
+        692180053,
+        903615865,
+        700431615
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-WHITEHURST-HALL",
+      "name": "Whitehurst Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        698866782,
+        698866751
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-WHITTEMORE",
+      "name": "Whittemore Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        12952065032,
+        3788509652
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-WILLIAMS",
+      "name": "Williams Hall",
+      "arrival_kind": "entrance",
+      "entrances": [
+        688009403,
+        688009402,
+        697575209,
+        697575092
+      ],
+      "connected_without_stairs": true
+    },
+    {
+      "id": "VT-WRIGHT-HOUSE",
+      "name": "Wright House",
+      "arrival_kind": "nearby_path",
+      "entrances": [
+        635414548
+      ],
+      "connected_without_stairs": true
+    }
+  ],
+  "main_component_nodes": 12264,
+  "manifest": {
+    "title": "Camp Path",
+    "source_url": "https://api.openstreetmap.org/api/0.6/map?bbox=-80.4385,37.2155,-80.4105,37.2365",
+    "attribution": "\u00a9 OpenStreetMap contributors",
+    "license": "ODbL",
+    "snapshot_timestamp": "2026-09-20T10:42:44.706437+00:00",
+    "built_at": "2026-09-20T10:42:44.706675+00:00",
+    "buildings": 113,
+    "segments": 15340,
+    "closed_segments": 45,
+    "stair_segments": 285,
+    "construction_areas": 3,
+    "node_mapping": {
+      "-9": 14200809372,
+      "-12": 14200809373,
+      "-15": 14200809374,
+      "-16": 14200809375,
+      "-17": 14200809376,
+      "-25": 14200809377,
+      "-26": 14200809378,
+      "-28": 14200809379,
+      "-30": 14200809380,
+      "-34": 14200809381,
+      "-43": 14200809382,
+      "-45": 14200809383,
+      "-47": 14200809384
+    },
+    "way_mapping": {
+      "-1": 1560765611,
+      "-2": 1560765612,
+      "-3": 1560765613,
+      "-4": 1560765614,
+      "-5": 1560765615,
+      "-6": 1560765616,
+      "-7": 1560765617,
+      "-8": 1560765618,
+      "-9": 1560765619,
+      "-11": 1560765620
+    },
+    "journeys": [
+      {
+        "id": "goodwin-dds",
+        "required_ways": [
+          50032697
+        ],
+        "from": [
+          "VT-GOODWIN"
+        ],
+        "to": [
+          "VT-DDS"
+        ],
+        "start_node": 5879642862,
+        "end_node": 12206940090,
+        "via": [
+          5879642846
+        ],
+        "label": "via the north path \u00b7 DDS side entrance"
+      },
+      {
+        "id": "perry-pamplin",
+        "required_ways": [
+          1560765611
+        ],
+        "from": [
+          "POI-PERRY-PLACE",
+          "VT-HITT"
+        ],
+        "to": [
+          "VT-PAMPLIN"
+        ],
+        "start_node": 12668644363,
+        "end_node": 702995777,
+        "via": [
+          691034622
+        ],
+        "label": "via Derring Hall"
+      },
+      {
+        "id": "davidson-ncb",
+        "required_ways": [
+          1560765613
+        ],
+        "from": [
+          "VT-DAVIDSON"
+        ],
+        "to": [
+          "VT-NCB"
+        ],
+        "start_node": 11638044097,
+        "end_node": 5883236545,
+        "via": [
+          690880137,
+          10003148272
+        ],
+        "label": "via Hahn Hall North"
+      },
+      {
+        "id": "turner-newman",
+        "required_ways": [
+          1199644146,
+          1560765614
+        ],
+        "from": [
+          "POI-TURNER-PLACE",
+          "VT-LAVERY-HALL"
+        ],
+        "to": [
+          "VT-NEWMAN-LIB"
+        ],
+        "start_node": 3769532297,
+        "end_node": 14200809376,
+        "via": [
+          11126429086,
+          370914375
+        ],
+        "label": "via Upper Quad & Torgersen Bridge"
+      }
+    ],
+    "excluded": {
+      "restricted_ways": 135,
+      "restricted_segments": 5
+    },
+    "routing": "OSM node identity; no proximity-created path edges; supplied OSC replaces screenshot routes"
+  }
+}
