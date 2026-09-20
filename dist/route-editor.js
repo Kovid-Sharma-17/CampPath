@@ -1,9 +1,9 @@
-import {buildGraph,findRoute,haversine,pathLength} from './router.mjs';
+import {buildGraph,findRoute,resolvePlace,haversine,pathLength} from './router.mjs';
 import {clone,emptyEdits,readEdits,saveEdits,validateEdits,applyEdits,makePath,nextId,projectPoint,splitPath,markStairSpan,loadDataset,moveNode} from './editor-model.mjs';
 const $=s=>document.querySelector(s),esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const label=p=>p.route_name||p.name||p.segment_id;
 const ll=p=>[p[1],p[0]],point=e=>[e.latlng.lng,e.latlng.lat];
-let source,data,graph,edits,map,baseLayer,draftLayer,alternateLayer,draft=null,mode='select',selectedPoint=null,stairFirst=null,stairs=null,door=null;
+let source,data,graph,edits,map,baseLayer,draftLayer,alternateLayer,queryLayer,draft=null,mode='select',selectedPoint=null,stairFirst=null,stairs=null,door=null;
 const history=[];
 function status(message){$('#editor-status').textContent=message;}
 function attempt(fn){try{fn();}catch(e){status(e.message);}}
@@ -62,9 +62,33 @@ function renderDraft(){
  });
  $('#path-length').textContent=Math.round(pathLength(c))+' m';$('#remove-point').disabled=selectedPoint===null||selectedPoint===0||selectedPoint===c.length-1;$('#save-path').disabled=c.length<2||mode==='draw';
 }
-function newPath(alternate=null){
- reset();const id=nextId('EDIT-',ids());draft=makePath(id,'pending-a','pending-b',alternate?alternate.coordinates:[[-80.42,37.23],[-80.4201,37.23]],{name:alternate?'Alternative around stairs':'New campus path'});
- draft.geometry.coordinates=alternate?clone(alternate.coordinates):[];draft.alternate=alternate;mode='draw';$('#path-panel').hidden=false;$('#path-heading').textContent=alternate?'Draw stair alternative':'Draw a new path';$('#delete-path').hidden=true;$('#finish-draw').hidden=false;fillFields();renderDraft();status(alternate?'Click along the alternative between the two stair endpoints, then Finish drawing.':'Click the start, each turn, and the end. Finish drawing when ready.');
+function newPath(alternate=null,seed=null){
+ reset();const id=nextId('EDIT-',ids());
+ const initial=alternate?alternate.coordinates:seed?seed.coordinates:[[-80.42,37.23],[-80.4201,37.23]];
+ draft=makePath(id,'pending-a','pending-b',initial,{name:alternate?'Alternative around stairs':(seed?.name||'New campus path')});
+ draft.geometry.coordinates=alternate?clone(alternate.coordinates):seed?clone(seed.coordinates):[];draft.alternate=alternate;mode='draw';$('#path-panel').hidden=false;
+ $('#path-heading').textContent=alternate?'Draw stair alternative':(seed?'Draw a path connecting '+seed.label:'Draw a new path');
+ $('#delete-path').hidden=true;$('#finish-draw').hidden=false;fillFields();renderDraft();
+ status(alternate?'Click along the alternative between the two stair endpoints, then Finish drawing.':seed?'Start and end are placed near '+seed.label+'. Click the map to add turns, or Finish drawing to keep it straight.':'Click the start, each turn, and the end. Finish drawing when ready.');
+}
+function openFromQuery(){
+ const params=new URLSearchParams(location.search),fromId=params.get('from'),toId=params.get('to');
+ if(!fromId||!toId)return;
+ const a=resolvePlace(graph,fromId),b=resolvePlace(graph,toId);
+ if(!a||!b){status('Could not find one of the linked places in this dataset.');return;}
+ const r=findRoute(graph,fromId,toId,{});
+ queryLayer.clearLayers();
+ if(r.found&&r.legs.length){
+  for(const e of r.legs)L.polyline(e.coordinates.map(ll),{color:'#1d6fd6',weight:7,opacity:.5,bubblingMouseEvents:false}).addTo(queryLayer);
+  map.fitBounds(L.latLngBounds(r.legs.flatMap(e=>e.coordinates.map(ll))),{padding:[60,60],maxZoom:19});
+  const editable=r.legs.map(e=>currentFeature(e.id)||currentFeature('TRACE-'+e.id)).find(Boolean);
+  if(editable)selectPath(editable);
+  status('Route from '+a.name+' to '+b.name+': '+r.legs.length+' segment(s), highlighted in blue.'+(editable?' Showing the first editable one — click any highlighted segment to edit it instead.':' None of its segments are directly editable here (it runs through connectors).'));
+ }else{
+  map.fitBounds(L.latLngBounds([ll(a.coordinates),ll(b.coordinates)]),{padding:[80,80],maxZoom:18});
+  newPath(null,{coordinates:[clone(a.coordinates),clone(b.coordinates)],name:a.name+' – '+b.name,label:a.name+' and '+b.name});
+  status('No route connects '+a.name+' and '+b.name+' yet. Start and end are placed near them — trace the real path, then Save.');
+ }
 }
 function addDrawPoint(p){if(!draft)return;const c=draft.geometry.coordinates;if(draft.alternate)c.splice(c.length-1,0,p);else c.push(p);renderDraft();}
 function snapEndpoint(p,next,excludeNode=null){
@@ -129,7 +153,8 @@ async function load(){
  source=await loadDataset();try{edits=readEdits();}catch(e){edits=emptyEdits();status('Saved edits could not be read: '+e.message);}
  map=L.map('campus-map',{preferCanvas:true}).setView([37.2295,-80.423],16);
  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> · Paths: Virginia Tech GIS'}).addTo(map);
- baseLayer=L.layerGroup().addTo(map);draftLayer=L.layerGroup().addTo(map);alternateLayer=L.layerGroup().addTo(map);
+ baseLayer=L.layerGroup().addTo(map);draftLayer=L.layerGroup().addTo(map);alternateLayer=L.layerGroup().addTo(map);queryLayer=L.layerGroup().addTo(map);
  map.on('click',e=>{if(mode==='draw')addDrawPoint(point(e));else if(mode==='entrance')placeDoor(point(e));});wire();rebuild();status('Click a preloaded path to edit it. Saved changes also appear in the planner.');
+ openFromQuery();
 }
 load().catch(e=>status('Could not load the editor: '+e.message));

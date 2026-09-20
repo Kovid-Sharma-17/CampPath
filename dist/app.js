@@ -1,4 +1,4 @@
-import {buildGraph, compareRoutes, resolvePlace, isConfirmed} from './router.mjs';
+import {buildGraph, compareRoutes, resolvePlace, isConfirmed, findRoute} from './router.mjs';
 import {loadDataset,applyEdits,readEdits,STORAGE_KEY} from './editor-model.mjs';
 const $ = selector => document.querySelector(selector);
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -86,6 +86,11 @@ function render(fit=false) {
   const from=resolvePlace(graph,state.origin),to=resolvePlace(graph,state.destination);
   const url=new URL('https://www.google.com/maps/dir/');url.searchParams.set('api','1');url.searchParams.set('travelmode','walking');
   if(from?.coordinates&&to?.coordinates){url.searchParams.set('origin',from.coordinates[1]+','+from.coordinates[0]);url.searchParams.set('destination',to.coordinates[1]+','+to.coordinates[0]);$('#google-compare').href=url.href;}
+  if(state.origin&&state.destination&&state.origin!==state.destination){
+    const exists=findRoute(graph,state.origin,state.destination,{}).found;
+    const link=$('#edit-route');link.hidden=false;link.textContent=exists?'Edit this route ↗':'This route isn’t mapped yet — create it ↗';
+    link.href='route-editor.html?from='+encodeURIComponent(state.origin)+'&to='+encodeURIComponent(state.destination);
+  }else{$('#edit-route').hidden=true;}
   const sameRoute=comparison.indoor.found&&comparison.outdoor.found&&JSON.stringify(comparison.indoor.legs.map(e=>e.coordinates))===JSON.stringify(comparison.outdoor.legs.map(e=>e.coordinates));
   if(sameRoute || (!comparison[state.selected].found && comparison.indoor.found))state.selected='indoor';
   const cards=[['indoor',comparison.indoor.studentRoute?'Student route':'Campus route','Follow the mapped path'],['outdoor','Outdoor only','Stay on the outdoor network']];
