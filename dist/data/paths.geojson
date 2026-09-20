@@ -3482,6 +3482,68 @@
             37.230457
           ],
           [
+            -80.42460725076482,
+            37.230326594978365
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "SEG-067",
+        "from_node": "N-GOODWIN-L4",
+        "to_node": "J-OSC-11",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "display_tier": "CONFIRMED",
+        "notes": "Added via the route editor; not yet surveyed.",
+        "route_name": "burruss-goodwin"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.42460725076482,
+            37.230326594978365
+          ],
+          [
+            -80.42422108612946,
+            37.22999031407804
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "OSC-SPLIT-4",
+        "from_node": "J-OSC-11",
+        "to_node": "J-OSC-10",
+        "operational_status": "unknown",
+        "surface": "unknown",
+        "max_grade_pct": null,
+        "width_m": null,
+        "is_indoor": false,
+        "open_hours": null,
+        "access_control": "outdoor",
+        "display_tier": "CONFIRMED",
+        "notes": "Added via the route editor; not yet surveyed.",
+        "route_name": "burruss-goodwin"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.42422108612946,
+            37.22999031407804
+          ],
+          [
             -80.423201,
             37.229102
           ],
@@ -3496,8 +3558,8 @@
         ]
       },
       "properties": {
-        "segment_id": "SEG-067",
-        "from_node": "N-GOODWIN-L4",
+        "segment_id": "OSC-SPLIT-3",
+        "from_node": "J-OSC-10",
         "to_node": "N-BURRUSS-L3",
         "operational_status": "unknown",
         "surface": "unknown",
@@ -3746,14 +3808,45 @@
             37.2292093
           ],
           [
-            -80.42613119731494,
-            37.229358818501176
+            -80.42597551633801,
+            37.229250702028196
           ]
         ]
       },
       "properties": {
         "segment_id": "VT-WALK-1102",
         "from_node": "J-VT-2891",
+        "to_node": "J-OSC-1",
+        "name": "Campus sidewalk",
+        "operational_status": "unknown",
+        "source": "VT ADA_Routes_Only geometry, 2026-09-19",
+        "source_feature_ids": [
+          8145
+        ],
+        "is_indoor": false,
+        "access_control": "outdoor",
+        "surface": "unknown",
+        "open_hours": "unknown"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.42597551633801,
+            37.229250702028196
+          ],
+          [
+            -80.42613119731494,
+            37.229358818501176
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "OSC-SPLIT-1",
+        "from_node": "J-OSC-1",
         "to_node": "J-VT-SNAP-18",
         "name": "Campus sidewalk",
         "operational_status": "unknown",
@@ -4008,6 +4101,270 @@
         "access_control": "outdoor",
         "open_hours": "unknown",
         "source": "AccessPath route editor"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.42597551633801,
+            37.229250702028196
+          ],
+          [
+            -80.4258665,
+            37.229135
+          ],
+          [
+            -80.4255513,
+            37.2288586
+          ],
+          [
+            -80.4254004,
+            37.2287715
+          ],
+          [
+            -80.4250241102646,
+            37.22844217599265
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "OSC-DERRING-HALLWAY",
+        "from_node": "J-OSC-1",
+        "to_node": "J-OSC-2",
+        "name": "Derring hallway",
+        "operational_status": "unknown",
+        "is_indoor": false,
+        "surface": "unknown",
+        "access_control": "outdoor",
+        "open_hours": "unknown",
+        "source": "OpenStreetMap changeset (iD editor), imported 2026-09-20",
+        "layer": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.4250241102646,
+            37.22844217599265
+          ],
+          [
+            -80.4249333,
+            37.2283627
+          ],
+          [
+            -80.424873,
+            37.228413
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "OSC-SPLIT-2",
+        "from_node": "J-OSC-2",
+        "to_node": "N-DOOR-VT-DERRING-1",
+        "name": "Derring hallway",
+        "operational_status": "unknown",
+        "is_indoor": false,
+        "surface": "unknown",
+        "access_control": "outdoor",
+        "open_hours": "unknown",
+        "source": "OpenStreetMap changeset (iD editor), imported 2026-09-20",
+        "layer": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.4250241102646,
+            37.22844217599265
+          ],
+          [
+            -80.4249358,
+            37.2285016
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "OSC-HITT-INFORMAL-1",
+        "from_node": "J-OSC-2",
+        "to_node": "J-OSC-3",
+        "name": "Hitt informal path",
+        "operational_status": "unknown",
+        "is_indoor": false,
+        "surface": "unknown",
+        "access_control": "outdoor",
+        "open_hours": "unknown",
+        "source": "OpenStreetMap changeset (iD editor), imported 2026-09-20"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.4261288,
+            37.2281088
+          ],
+          [
+            -80.4260641231653,
+            37.22816480888199
+          ],
+          [
+            -80.4266432,
+            37.2286051
+          ],
+          [
+            -80.4267948112168,
+            37.228697722116756
+          ],
+          [
+            -80.4269925,
+            37.228964
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "OSC-HITT-CONNECTOR",
+        "from_node": "J-OSC-4",
+        "to_node": "J-OSC-5",
+        "name": "Hitt informal connector",
+        "operational_status": "unknown",
+        "is_indoor": false,
+        "surface": "unknown",
+        "access_control": "outdoor",
+        "open_hours": "unknown",
+        "source": "OpenStreetMap changeset (iD editor), imported 2026-09-20",
+        "layer": -1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.419827,
+            37.2299075
+          ],
+          [
+            -80.41910806466908,
+            37.22916440460366
+          ],
+          [
+            -80.41896651846272,
+            37.228971653128944
+          ],
+          [
+            -80.41904229423997,
+            37.228731070816366
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "OSC-TORGERSEN-A",
+        "from_node": "J-OSC-6",
+        "to_node": "J-OSC-7",
+        "name": "Torgersen informal path A",
+        "operational_status": "unknown",
+        "is_indoor": false,
+        "surface": "unknown",
+        "access_control": "outdoor",
+        "open_hours": "unknown",
+        "source": "OpenStreetMap changeset (iD editor), imported 2026-09-20"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.41904229423997,
+            37.228731070816366
+          ],
+          [
+            -80.4190919,
+            37.2284416
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "OSC-TORGERSEN-B",
+        "from_node": "J-OSC-7",
+        "to_node": "J-OSC-8",
+        "name": "Torgersen informal path B (near elevator)",
+        "operational_status": "unknown",
+        "is_indoor": false,
+        "surface": "unknown",
+        "access_control": "outdoor",
+        "open_hours": "unknown",
+        "source": "OpenStreetMap changeset (iD editor), imported 2026-09-20"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.41904229423997,
+            37.228731070816366
+          ],
+          [
+            -80.4187301,
+            37.2288075
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "OSC-TORGERSEN-C",
+        "from_node": "J-OSC-7",
+        "to_node": "J-OSC-9",
+        "name": "Torgersen informal path C (near elevator)",
+        "operational_status": "unknown",
+        "is_indoor": false,
+        "surface": "unknown",
+        "access_control": "outdoor",
+        "open_hours": "unknown",
+        "source": "OpenStreetMap changeset (iD editor), imported 2026-09-20"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.42422108612946,
+            37.22999031407804
+          ],
+          [
+            -80.42460725076482,
+            37.230326594978365
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "OSC-HANCOCK-STEPS",
+        "from_node": "J-OSC-10",
+        "to_node": "J-OSC-11",
+        "name": "Hancock steps",
+        "operational_status": "unknown",
+        "is_indoor": false,
+        "surface": "unknown",
+        "access_control": "outdoor",
+        "open_hours": "unknown",
+        "source": "OpenStreetMap changeset (iD editor), imported 2026-09-20",
+        "layer": -1
       }
     }
   ]

@@ -821,6 +821,28 @@
         "geometry_precision": "user_marked",
         "source": "User-marked entrance in route editor"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.424873,
+          37.228413
+        ]
+      },
+      "properties": {
+        "entrance_id": "DOOR-VT-DERRING-1",
+        "node_id": "N-DOOR-VT-DERRING-1",
+        "building_id": "VT-DERRING",
+        "entrance_name": "Entrance / exit",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "entrance",
+        "operational_status": "unknown",
+        "geometry_precision": "osm_surveyed",
+        "source": "OpenStreetMap changeset (iD editor), imported 2026-09-20"
+      }
     }
   ]
 }
