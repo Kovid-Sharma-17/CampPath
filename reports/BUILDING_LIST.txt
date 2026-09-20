@@ -1,35 +1,15 @@
-AccessPath VT — Building list (178 buildings, user-curated 2026-09-19)
+AccessPath VT — Building list (115 buildings, user-curated 2026-09-19, round 2)
 Generated from dist/data/buildings.geojson
 
-(Rec Fields Storage)
-(Turfgrass Shelter)
-(Turfgrass Storage Shed)
 201 West Roanoke Street
-ACC Baseball Tower
-ACC Soccer/Lacrosse Tower
-ACC Softball Tower
-ACC Track Tower
 Agnew Hall
-Alphin-Stuart Arena
 Ambler Johnston Hall - East Wing
 Ambler Johnston Hall - West Wing
-Applied Reproduction Facility
-Aquatic Medicine Laboratory
 Architecture Annex
-Army Reserve Storage
-BASEBALL STADIUM AT ENGLISH FIELD
-BUILDING 270K [VIRGINIA TECH DRONE PARK]
 Beamer-Lawson Indoor Practice Facility
 Bishop-Favrao Hall
-Brooder House
-Building 270J [Vpas-It]
 Burchard Hall
-Burrows-Burleson Tennis Center
 Burruss Hall
-Butler Building
-Butler Building Herbicide Storage
-Cage Layer House
-Campbell Arena [Equipment Shed]
 Campbell Hall - East Wing
 Campbell Hall - Main Wing
 Carol M. Newman Library
@@ -42,22 +22,15 @@ College of Liberal Arts and Human Sciences Building
 Corps Leadership and Military Science Building
 Cowgill Hall
 Creativity and Innovation District - Living Learning Community
-DUCK POND BATHROOMS
-DUCK POND GAZEBO
 Data and Decision Sciences Building
 Davidson Hall
 Derring Hall
 Dietrick Hall
-Distler Marching Virginians Tower
 Durham Hall
 Eggleston Hall - East Wing
 Eggleston Hall - Main Wing
 Eggleston Hall - West Wing
 Engel Hall
-Fralin Biotechnology Center
-Gazebo
-Golf Course Club House
-Golf Course Garage [Brick]
 Goodwin Hall
 Graduate Life Center at Donaldson Brown
 Hahn Garden Marquee
@@ -65,19 +38,14 @@ Hahn Garden Pavilion
 Hahn Hall - North Wing
 Hahn Hall - South Wing
 Hahn-Hurst Basketball Practice Facility
-Hancock Hall
 Harper Hall
-Health & Safety Building
 Henderson Hall
 Hillcrest Hall
 Hitt Hall
 Hoge Hall
 Holden Hall
-Holding Building
 Holtzman Alumni Center
-Horse Barn
 Hutcheson Hall
-James C. Weaver Baseball Center
 John W. Hancock Jr. Hall
 Johnson Hall
 Johnston Student Center
@@ -88,94 +56,63 @@ Lane Stadium (east stands)
 Lane Stadium (north end zone)
 Lane Stadium (south end zone)
 Lane Stadium (west stands)
-Lane Stadium Scoreboard
-Lane Stadium Ticket Booth South
-Lane Storage
 Latham Hall
 Lavery Hall
-Life Sciences I Facility
 Litton-Reaves Hall
 Major Williams Hall
 McBryde Hall
 McComas Hall
-Media Annex
 Media Building
 Merryman Athletic Facility
 Miles Hall
 Military Building / Laundry
 Mitchell Hall (under construction, 2028)
-Multidiscipline Lab
-National Pan-Hellenic Council House
 New Hall West
-New Pump House at Duck Pond
 New Residence Hall East
 Newman Hall
-Newman Library
 Norris Hall
 O'Shaughnessy Hall
-Oak Lane Gazebo
-Oak Lane Picnic Shelter
 Old Security Building
 Owens Hall
 Pamplin Hall
-Parking Services
 Parking Structure - Perry Street Lot
 Patton Hall
 Payne Hall
 Pearson Hall East
 Pearson Hall West
 Peddrew-Yates Hall
-Power House
 Price Hall
 Pritchard Hall
 Public Safety Building
-Rec Sports Field House
-Recreation Fields Building
-Recycle Center
 Robeson Hall
 Sandy Hall
 Saunders Hall
 Seitz Hall
 Shanks Hall
-Sigma Phi Epsilon House
 Skelton Conference Center
 Slusher Hall
 Smith Career Center
 Smyth Hall
-Soccer Dugout
-Soccer Field Enclosure
-Soccer Restrooms
-Sochinski-McKee Marching Virginians Center
 Solitude
-South Recreation Toilets
 Southgate Center
 Squires Student Center
 Steger Hall - North Wing
 Steger Hall - South Wing
 Student Services Building
 Surge Space Building
-The Grove [President's House]
 The Inn at Virginia Tech
 Theater 101
-Third Base Baseball Dugout at English Field
 Torgersen Hall
-Town of Blacksburg Bus Shelter
 Transit Center
-Turfgrass Research Center
-Turfgrass Research Center Storage Shelter
 Undergraduate Science Laboratory Building
 University Bookstore
 Upper Quad Hall North
 Vawter Hall
-Venture Out Center
 Visitors & Undergraduate Admissions Center
 Wallace Hall
 War Memorial Chapel
 War Memorial Gymnasium
-Ware Lab Storage Building
 Whitehurst Hall
 Whittemore Hall
 Williams Hall
-Women's Softball Field & Dugouts
-Women's Softball Press Box
 Wright House
