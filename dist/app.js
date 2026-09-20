@@ -1,13 +1,14 @@
-import {buildGraph, resolvePlace, findRoute} from './router.mjs';
+import {buildGraph, resolvePlace, findRoute, haversine} from './router.mjs';
 import {loadDataset,applyEdits,readEdits,STORAGE_KEY} from './editor-model.mjs';
 const $ = selector => document.querySelector(selector);
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const state = {origin:'POI-PERRY-PLACE',destination:'VT-PAMPLIN',view:'routes',planBuilding:'VT-TORGERSEN',planFloor:'01',planZoom:1};
+const state = {origin:'POI-PERRY-PLACE',destination:'VT-PAMPLIN',view:'routes',planBuilding:'VT-TORGERSEN',planFloor:'01',planZoom:1,gps:null,gpsAccuracy:null};
+const GPS_SNAP_METERS = 150;
 const GEMINI_MODEL = 'gemini-2.5-flash', ELEVEN_VOICE = '21m00Tcm4TlvDq8ikWAM';
 const KEY_STORAGE = {gemini: 'accesspath_key_gemini', elevenlabs: 'accesspath_key_elevenlabs'};
 const getKey = name => { try { return localStorage.getItem(KEY_STORAGE[name]) || ''; } catch { return ''; } };
 const setKey = (name, value) => { try { value ? localStorage.setItem(KEY_STORAGE[name], value) : localStorage.removeItem(KEY_STORAGE[name]); } catch {} };
-let data, graph, route, map, baseLayer, routeLayer, selectedLayer, markersLayer, tilesLoaded = 0;
+let data, graph, route, map, baseLayer, routeLayer, selectedLayer, markersLayer, locationLayer, tilesLoaded = 0;
 const latLng = coords => [coords[1], coords[0]];
 const duration = r => { const m = Math.max(1, Math.round(r.seconds / 60)); return r.sameEntrance ? 'Unmapped' : r.samePlace ? '0 min' : m + '–' + (m + 2) + ' min'; };
 const distance = r => r.sameEntrance?'Shared entrance':Math.round(r.meters) + ' m';
@@ -27,6 +28,8 @@ async function load() {
   const options = '<optgroup label="Named places">' + graph.places.filter(p=>p.type!=='building').map(option).join('') + '</optgroup><optgroup label="Campus buildings">' + graph.places.filter(p=>p.type==='building').sort((a,b)=>a.name.localeCompare(b.name)).map(option).join('') + '</optgroup>';
   for (const key of ['origin','destination']) { $('#'+key).innerHTML=options; $('#'+key).value=state[key]; $('#'+key).disabled=false; }
   $('#swap').disabled=false;
+  $('#use-location').disabled=!('geolocation' in navigator);
+  if(!('geolocation' in navigator))setLocationStatus('Location is not supported in this browser.');
   $('#plan-building').innerHTML=[...graph.buildings.values()].sort((a,b)=>a.name.localeCompare(b.name)).map(b=>'<option value="'+esc(b.building_id)+'">'+esc(b.name)+'</option>').join('');
   $('#plan-building').value=state.planBuilding;
   const planCount=Object.values(data.floorplans).reduce((n,b)=>n+b.plans.length,0);
@@ -42,11 +45,19 @@ function initMap() {
   const tiles=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'});
   tiles.on('tileload',()=>{tilesLoaded++;$('#map-offline').hidden=true;});
   tiles.on('tileerror',()=>{if(!tilesLoaded)$('#map-offline').hidden=false;});
-  tiles.addTo(map); baseLayer=L.layerGroup().addTo(map); routeLayer=L.layerGroup().addTo(map); selectedLayer=L.layerGroup().addTo(map); markersLayer=L.layerGroup().addTo(map);
+  tiles.addTo(map); baseLayer=L.layerGroup().addTo(map); routeLayer=L.layerGroup().addTo(map); selectedLayer=L.layerGroup().addTo(map); markersLayer=L.layerGroup().addTo(map); locationLayer=L.layerGroup().addTo(map);
 }
 function wireEvents() {
-  for(const key of ['origin','destination']) $('#'+key).addEventListener('change',e=>{state[key]=e.target.value;render(true);});
-  $('#swap').addEventListener('click',()=>{[state.origin,state.destination]=[state.destination,state.origin];$('#origin').value=state.origin;$('#destination').value=state.destination;render(true);});
+  for(const key of ['origin','destination']) $('#'+key).addEventListener('change',e=>{
+    state[key]=e.target.value;
+    if(key==='origin'&&e.target.value!=='GPS-CURRENT'){state.gps=null;state.gpsAccuracy=null;$('#use-location').classList.remove('active');setLocationStatus('');const opt=$('#origin').querySelector('option[value="GPS-CURRENT"]');if(opt)opt.remove();}
+    render(true);
+  });
+  $('#use-location').addEventListener('click',useMyLocation);
+  $('#swap').addEventListener('click',()=>{
+    if(state.origin==='GPS-CURRENT'){setLocationStatus('Choose a starting point from the list before swapping.');return;}
+    [state.origin,state.destination]=[state.destination,state.origin];$('#origin').value=state.origin;$('#destination').value=state.destination;render(true);
+  });
   $('#fit-map').addEventListener('click',fitMap);
   $('#nav-routes').addEventListener('click',()=>switchView('routes'));
   $('#nav-plans').addEventListener('click',()=>switchView('plans'));
@@ -72,8 +83,62 @@ function switchView(view) {
   for(const [id,active] of [['nav-routes',!plans],['nav-plans',plans]]){$('#'+id).classList.toggle('active',active);$('#'+id).setAttribute('aria-pressed',String(active));}
   if(plans)renderFloor();else requestAnimationFrame(()=>{map.invalidateSize();fitMap();});
 }
+function setLocationStatus(text){ $('#location-status').textContent=text; }
+function useMyLocation(){
+  if(!('geolocation' in navigator)){setLocationStatus('Location is not supported in this browser.');return;}
+  $('#use-location').disabled=true;
+  setLocationStatus('Finding your location…');
+  navigator.geolocation.getCurrentPosition(
+    pos=>{
+      state.gps=[pos.coords.longitude,pos.coords.latitude];
+      state.gpsAccuracy=pos.coords.accuracy;
+      if(!$('#origin').querySelector('option[value="GPS-CURRENT"]')){
+        const opt=document.createElement('option');opt.value='GPS-CURRENT';opt.textContent='📍 Your location';
+        $('#origin').prepend(opt);
+      }
+      state.origin='GPS-CURRENT';$('#origin').value='GPS-CURRENT';
+      $('#use-location').disabled=false;$('#use-location').classList.add('active');
+      render(true);
+    },
+    err=>{
+      $('#use-location').disabled=false;
+      const messages={1:'Location permission was denied.',2:'Your location is unavailable right now.',3:'Finding your location timed out.'};
+      setLocationStatus(messages[err.code]||'Could not get your location.');
+    },
+    {enableHighAccuracy:true,timeout:12000,maximumAge:30000}
+  );
+}
+function injectGpsPlace(){
+  if(state.origin!=='GPS-CURRENT'||!state.gps)return;
+  let nearest=null;
+  for(const [id,n] of graph.nodes){
+    if(id.startsWith('B:')||!n.coordinates)continue;
+    const d=haversine(state.gps,n.coordinates);
+    if(!nearest||d<nearest.d)nearest={id,d,coordinates:n.coordinates};
+  }
+  if(nearest&&nearest.d<=GPS_SNAP_METERS){
+    graph.nodes.set('N-GPS-CURRENT',{coordinates:state.gps});
+    if(!graph.adj.has('N-GPS-CURRENT'))graph.adj.set('N-GPS-CURRENT',[]);
+    if(!graph.adj.has(nearest.id))graph.adj.set(nearest.id,[]);
+    graph.adj.get('N-GPS-CURRENT').push({id:'VIRT-GPS',kind:'virtual',from:'N-GPS-CURRENT',to:nearest.id,meters:nearest.d,coordinates:[state.gps,nearest.coordinates]});
+    graph.adj.get(nearest.id).push({id:'VIRT-GPS',kind:'virtual',from:nearest.id,to:'N-GPS-CURRENT',meters:nearest.d,coordinates:[nearest.coordinates,state.gps]});
+    graph.places.push({id:'GPS-CURRENT',node:'N-GPS-CURRENT',name:'Your location',coordinates:state.gps,type:'gps'});
+    setLocationStatus('Located within '+Math.round(state.gpsAccuracy)+' m'+(nearest.d>5?' · nearest mapped path is '+Math.round(nearest.d)+' m away':'')+'.');
+  }else{
+    let nearestBuilding=null;
+    for(const b of graph.buildings.values()){
+      const d=haversine(state.gps,b.coordinates);
+      if(!nearestBuilding||d<nearestBuilding.d)nearestBuilding={id:b.building_id,name:b.name,d};
+    }
+    if(nearestBuilding){
+      graph.places.push({id:'GPS-CURRENT',node:'B:'+nearestBuilding.id,name:'Your location',coordinates:state.gps,type:'gps'});
+      setLocationStatus('No mapped path within '+GPS_SNAP_METERS+' m, so routing from '+nearestBuilding.name+' (~'+Math.round(nearestBuilding.d)+' m away) instead.');
+    }
+  }
+}
 function render(fit=false) {
   graph=buildGraph(data,{enableClosures:false});
+  injectGpsPlace();
   route=findRoute(graph,state.origin,state.destination);
   const from=resolvePlace(graph,state.origin),to=resolvePlace(graph,state.destination);
   const url=new URL('https://www.google.com/maps/dir/');url.searchParams.set('api','1');url.searchParams.set('travelmode','walking');
@@ -99,7 +164,7 @@ function render(fit=false) {
   renderMap(); if(fit)fitMap();
 }
 function renderMap() {
-  baseLayer.clearLayers();routeLayer.clearLayers();selectedLayer.clearLayers();markersLayer.clearLayers();
+  baseLayer.clearLayers();routeLayer.clearLayers();selectedLayer.clearLayers();markersLayer.clearLayers();locationLayer.clearLayers();
   for(const e of graph.edges) {
     L.polyline(e.coordinates.map(latLng),{color:'#78998a',weight:2,opacity:.42,dashArray:'3 5'}).bindTooltip(esc(edgeName(e))).addTo(baseLayer);
   }
@@ -111,9 +176,14 @@ function renderMap() {
     marker.addTo(markersLayer);
   }
   for(const [key,letter] of [['origin','A'],['destination','B']]){
+    if(key==='origin'&&state.origin==='GPS-CURRENT')continue;
     const p=resolvePlace(graph,state[key]);if(!p)continue;
     const ent=route.found?(key==='origin'?route.startEntrance:route.endEntrance):null;
     L.marker(latLng(ent?.coordinates||p.coordinates),{icon:L.divIcon({className:'route-marker',html:'<span class="'+(letter==='B'?'end':'')+'">'+letter+'</span>',iconSize:[34,34],iconAnchor:[17,17]}),title:p.name,keyboard:true}).bindTooltip(esc(p.name),{direction:'top',offset:[0,-18],permanent:true,className:'endpoint-tooltip'}).addTo(markersLayer);
+  }
+  if(state.origin==='GPS-CURRENT'&&state.gps){
+    if(state.gpsAccuracy)L.circle(latLng(state.gps),{radius:state.gpsAccuracy,color:'#2869dc',weight:1,fillColor:'#2869dc',fillOpacity:.12}).addTo(locationLayer);
+    L.marker(latLng(state.gps),{icon:L.divIcon({className:'gps-marker',html:'<span></span>',iconSize:[18,18],iconAnchor:[9,9]}),keyboard:true}).bindTooltip('Your location',{direction:'top',offset:[0,-12],permanent:true,className:'endpoint-tooltip'}).addTo(locationLayer);
   }
 }
 function fitMap(){

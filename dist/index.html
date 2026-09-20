@@ -28,10 +28,11 @@
 <section id="route-controls">
 <div class="panel-heading"><h2>Where are you headed?</h2><span class="section-icon" aria-hidden="true">↗</span></div>
 <div class="places">
-<div class="place-field"><span class="point-label">A</span><div><label for="origin">Starting point</label><select id="origin" disabled><option>Loading places…</option></select></div></div>
+<div class="place-field"><span class="point-label">A</span><div><label for="origin">Starting point</label><select id="origin" disabled><option>Loading places…</option></select></div><button type="button" id="use-location" class="locate-button" aria-label="Use my current location" title="Use my current location" disabled>⌖</button></div>
 <div class="field-separator"></div><button id="swap" class="swap" aria-label="Swap starting point and destination" disabled>⇅</button>
 <div class="place-field"><span class="point-label destination">B</span><div><label for="destination">Destination</label><select id="destination" disabled><option>Loading places…</option></select></div></div>
 </div>
+<p id="location-status" class="field-hint" aria-live="polite"></p>
 <p><a id="google-compare" class="text-button" href="https://www.google.com/maps/dir/" target="_blank" rel="noopener noreferrer">Compare walking directions in Google Maps ↗</a></p>
 <p><a id="edit-route" class="text-button" href="route-editor.html" hidden>Edit this route ↗</a></p>
 <div id="route-summary" aria-live="polite" aria-atomic="true"><p class="muted">Loading your pilot dataset…</p></div>
