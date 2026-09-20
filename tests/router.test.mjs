@@ -12,7 +12,7 @@ const geoPair=['POI-MUSEUM-GEO','VT-PAMPLIN'];
 const statusData=rows=>({...source,status:rows});
 
 test('imports the campus building sweep and supplied hand-created paths with stable place IDs',()=>{
-  const g=graph();assert.equal(g.buildings.size,113);assert.equal(g.entrances.size,37);assert.equal(g.edges.length,105);assert.equal(g.connectors.length,48);assert.equal(g.places.length,121);
+  const g=graph();assert.equal(g.buildings.size,113);assert.equal(g.entrances.size,37);assert.equal(g.edges.length,106);assert.equal(g.connectors.length,48);assert.equal(g.places.length,121);
   assert.equal(resolvePlace(g,'Perry Place').node,'N-HITT-E1');
   assert.equal(resolvePlace(g,'VT-NEWMAN-LIB').type,'building');
   assert.equal(resolvePlace(g,'Newman'),null);

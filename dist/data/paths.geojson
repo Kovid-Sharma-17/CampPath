@@ -3761,19 +3761,19 @@
         "type": "LineString",
         "coordinates": [
           [
-            -80.42448162918213,
-            37.22885482496141
+            -80.41942268430932,
+            37.22666488861152
           ],
           [
-            -80.4244734,
-            37.2288528
+            -80.4194095,
+            37.2266919
           ]
         ]
       },
       "properties": {
-        "segment_id": "DOOR-LINK-1",
-        "from_node": "N-DOOR-VT-GOODWIN-1",
-        "to_node": "J-VT-7246",
+        "segment_id": "DOOR-LINK-VT-OWENS-HALL-1",
+        "from_node": "N-DOOR-VT-OWENS-HALL-1",
+        "to_node": "J-VT-8712",
         "name": "Door approach",
         "accessibility_status": "unknown",
         "operational_status": "unknown",
@@ -4266,6 +4266,37 @@
         "open_hours": "unknown",
         "source": "AccessPath route editor",
         "notes": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.42448162918213,
+            37.22885482496141
+          ],
+          [
+            -80.4244734,
+            37.2288528
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "DOOR-LINK-VT-GOODWIN-1",
+        "from_node": "N-DOOR-VT-GOODWIN-1",
+        "to_node": "J-VT-7246",
+        "name": "Door approach",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "confidence": "inferred",
+        "operational_confidence": "inferred",
+        "is_indoor": false,
+        "surface": "unknown",
+        "access_control": "outdoor",
+        "open_hours": "unknown",
+        "source": "AccessPath route editor"
       }
     }
   ]
