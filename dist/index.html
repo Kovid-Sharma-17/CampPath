@@ -28,6 +28,8 @@
 <div class="place-field"><label for="origin">FROM</label><input id="origin" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="origin-options" placeholder="Choose a starting point"><div id="origin-options" class="suggestions" role="listbox" hidden></div></div>
 <button class="swap-button" id="swap" type="button" aria-label="Swap starting point and destination"><span data-icon="swap"></span></button>
 <div class="place-field"><label for="destination">TO</label><input id="destination" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="destination-options" placeholder="Where are you headed?"><div id="destination-options" class="suggestions" role="listbox" hidden></div></div></div>
+<div class="entrance-picker" id="origin-entrance-picker" hidden><label for="origin-entrance">Leave DDS from</label><select id="origin-entrance" aria-describedby="origin-entrance-note"></select><p id="origin-entrance-note"></p></div>
+<div class="entrance-picker" id="destination-entrance-picker" hidden><label for="destination-entrance">DDS entrance</label><select id="destination-entrance" aria-describedby="destination-entrance-note"></select><p id="destination-entrance-note"></p></div>
 <div class="preferences"><span class="walking-mode"><span data-icon="walk"></span>Walking</span><label class="switch-label"><input type="checkbox" id="avoid-stairs" checked><span class="switch"></span>Avoid stairs</label></div>
 <button class="sr-only" type="submit" tabindex="-1">Find route</button>
 </form>

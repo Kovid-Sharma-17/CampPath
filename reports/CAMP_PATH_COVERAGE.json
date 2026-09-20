@@ -1219,8 +1219,8 @@
     "source_url": "https://api.openstreetmap.org/api/0.6/map?bbox=-80.4385,37.2155,-80.4105,37.2365",
     "attribution": "\u00a9 OpenStreetMap contributors",
     "license": "ODbL",
-    "snapshot_timestamp": "2026-09-20T10:42:44.706437+00:00",
-    "built_at": "2026-09-20T10:42:44.706675+00:00",
+    "snapshot_timestamp": "2026-09-20T10:51:03.052740+00:00",
+    "built_at": "2026-09-20T10:51:03.053009+00:00",
     "buildings": 113,
     "segments": 15340,
     "closed_segments": 45,
@@ -1252,6 +1252,27 @@
       "-8": 1560765618,
       "-9": 1560765619,
       "-11": 1560765620
+    },
+    "entrance_choices": {
+      "VT-DDS": [
+        {
+          "id": "dds-side",
+          "label": "Side entrance",
+          "description": "East side \u00b7 current campus route",
+          "node_id": "N-OSM-12206940090",
+          "osm_node_id": 12206940090
+        },
+        {
+          "id": "dds-second-floor",
+          "label": "Second-floor entrance",
+          "description": "West side \u00b7 continue along Prices Fork Road",
+          "node_id": "N-OSM-12206975934",
+          "osm_node_id": 12206975934,
+          "floor": "2",
+          "floor_source": "user_report",
+          "reported_at": "2026-09-20"
+        }
+      ]
     },
     "journeys": [
       {

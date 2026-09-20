@@ -9,3 +9,5 @@
 
 .place-field:has(#origin){border-bottom:1px solid var(--border)}.place-field input{font-size:16px}.preferences,.switch-label,.route-via,.demo-route,.steps-list li,.steps-details summary{font-size:14px}.place-field label{font-size:12px}.section-label,.eyebrow{font-size:12px}
 @media(max-width:640px){.workspace{padding-top:36dvh}#campus-map{height:38dvh;min-height:250px}}
+
+.entrance-picker{margin-top:14px;padding:12px 14px;background:#f7f3f6;border:1px solid #eee5eb;border-radius:10px}.entrance-picker label{display:block;font-size:13px;font-weight:650;color:var(--maroon);margin-bottom:7px}.entrance-picker select{width:100%;padding:9px 10px;font-size:14px;color:var(--ink);border:1px solid #d9ccd4;border-radius:7px;background:white}.entrance-picker p{font-size:12px;line-height:1.45;color:#766571;margin-top:7px}@media(max-width:640px){.entrance-picker select{font-size:16px}}

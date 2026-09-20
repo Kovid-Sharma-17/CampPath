@@ -24,3 +24,11 @@ test('missing GPS and invalid or stale positions are handled',()=>{
  assert.equal(usablePosition({coords:{longitude:NaN,latitude:37,accuracy:5}}),false);
  assert.equal(usablePosition({coords:{longitude:-80,latitude:37,accuracy:5},timestamp:Date.now()-60000}),false);
 });
+
+test('assistant recognizes second-floor DDS entry and rejects an invented entrance',()=>{
+ const catalog=[places[0],{...places[1],entranceChoices:[{id:'dds-side',label:'Side entrance'},{id:'dds-second-floor',label:'Second-floor entrance',floor:'2'}]}];
+ const intent=basicIntent('Take me from Goodwin to DDS second floor',catalog,{origin:'goodwin',destination:'dds',avoidStairs:true});
+ assert.equal(intent.destinationEntrance,'dds-second-floor');assert.equal(validateIntent(intent,catalog).destinationEntrance,'dds-second-floor');
+ assert.equal(basicIntent('Use the second floor entrance',catalog,{origin:'goodwin',destination:'dds',avoidStairs:true}).destinationEntrance,'dds-second-floor');
+ assert.throws(()=>validateIntent({...intent,destinationEntrance:'imaginary-floor-9'},catalog));
+});

@@ -49,3 +49,23 @@ test('GPS uncertainty and repeated deviation gate rerouting and arrival',()=>{
  assert.equal(navigationDecision(p,5,0).action,'follow');assert.equal(navigationDecision(p,5,1).action,'follow');assert.equal(navigationDecision(p,5,2).action,'reroute');
  assert.equal(navigationDecision({offRoute:0,remaining:10,arrivalDistance:35},5).action,'follow');
 });
+
+test('DDS second-floor entrance follows the existing west approach instead of the side entrance',()=>{
+ const side=findRoute(graph,'VT-GOODWIN','VT-DDS',{destinationEntrance:'dds-side'});
+ const second=findRoute(graph,'VT-GOODWIN','VT-DDS',{destinationEntrance:'dds-second-floor'});valid(side);valid(second);
+ assert.equal(side.legs.at(-1).to,'N-OSM-12206940090');assert.equal(second.legs.at(-1).to,'N-OSM-12206975934');
+ assert.ok(second.legs.some(e=>e.source_way_id===1319002041));assert.ok(second.meters>side.meters+25&&second.meters<side.meters+45);
+ assert.equal(second.endEntrance.floor,'2');assert.equal(second.endEntrance.floor_source,'user_report');assert.equal(second.endEntrance.tags.level,undefined);
+ const reverse=findRoute(graph,'VT-DDS','VT-GOODWIN',{originEntrance:'dds-second-floor'});valid(reverse);assert.equal(reverse.legs[0].from,'N-OSM-12206975934');assert.ok(Math.abs(reverse.meters-second.meters)<.1);
+});
+test('GPS and ordinary routes retain the selected DDS entrance',()=>{
+ const initial=findRoute(graph,'VT-GOODWIN','VT-DDS',{destinationEntrance:'dds-second-floor'});
+ const live=findRoute(graph,'GPS','VT-DDS',{gps:initial.legs[8].coordinates[0],destinationEntrance:'dds-second-floor'});valid(live);assert.equal(live.legs.at(-1).to,'N-OSM-12206975934');
+ const fromBurruss=findRoute(graph,'VT-BURRUSS','VT-DDS',{destinationEntrance:'dds-second-floor'});valid(fromBurruss);assert.equal(fromBurruss.endEntrance.choice_id,'dds-second-floor');
+});
+test('an invalid or blocked DDS entrance never silently falls back to a different door',()=>{
+ assert.equal(findRoute(graph,'VT-GOODWIN','VT-DDS',{destinationEntrance:'not-real'}).found,false);
+ const closedAssets=graph.edges.filter(e=>e.from_node==='N-OSM-12206975934'||e.to_node==='N-OSM-12206975934').map(e=>e.id);
+ assert.equal(findRoute(graph,'VT-GOODWIN','VT-DDS',{destinationEntrance:'dds-second-floor',closedAssets}).found,false);
+ assert.ok(findRoute(graph,'VT-GOODWIN','VT-DDS',{destinationEntrance:'dds-side',closedAssets}).found);
+});

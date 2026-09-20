@@ -8,7 +8,7 @@ const icon=n=>`<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path
 function icons(root=document){root.querySelectorAll('[data-icon]').forEach(e=>e.innerHTML=icon(e.dataset.icon));}
 icons();
 let data,graph,route,map,routeLayer,buildingLayer,markerLayer,closureLayer,gpsLayer;
-const state={origin:'VT-GOODWIN',destination:'VT-DDS',avoidStairs:true,gps:null,watch:null,navigating:false,voice:true,lastSpoken:-1,reroutedAt:0,progress:0,follow:true};
+const state={origin:'VT-GOODWIN',destination:'VT-DDS',originEntrance:null,destinationEntrance:null,avoidStairs:true,gps:null,watch:null,navigating:false,voice:true,lastSpoken:-1,reroutedAt:0,progress:0,follow:true};
 const demos=[{from:'VT-GOODWIN',to:'VT-DDS',label:'Goodwin → Data & Decision Sciences'},{from:'POI-PERRY-PLACE',to:'VT-PAMPLIN',label:'Perry Place → Pamplin'},{from:'VT-DAVIDSON',to:'VT-NCB',label:'Davidson → Classroom Building'},{from:'POI-TURNER-PLACE',to:'VT-NEWMAN-LIB',label:'Turner Place → Newman Library'}];
 const latlng=c=>[c[1],c[0]];
 const getPlace=id=>graph.places.find(p=>p.id===id);
@@ -28,10 +28,20 @@ function initMap(){
  for(const p of graph.places.filter(p=>p.type==='building'))L.circleMarker(latlng(p.coordinates),{radius:4,color:'#97607d',weight:1.5,fillColor:'white',fillOpacity:1}).bindTooltip(p.name).on('click',()=>{state.destination=p.id;stopNavigation();syncInputs();render();}).addTo(buildingLayer);
 }
 function syncInputs(){for(const k of ['origin','destination'])$('#'+k).value=k==='origin'&&state.origin==='GPS'?'Your location':getPlace(state[k])?.name||'';}
+function syncEntranceSelectors(){
+ for(const key of ['origin','destination']){
+  const choices=getPlace(state[key])?.entranceChoices||[],field=key+'Entrance',select=$('#'+key+'-entrance');
+  $('#'+key+'-entrance-picker').hidden=!choices.length;
+  if(!choices.length){state[field]=null;continue;}
+  if(!choices.some(c=>c.id===state[field]))state[field]=choices[0].id;
+  select.innerHTML=choices.map(c=>`<option value="${esc(c.id)}">${esc(c.label)}</option>`).join('');select.value=state[field];
+  $('#'+key+'-entrance-note').textContent=choices.find(c=>c.id===state[field]).description;
+ }
+}
 function wire(){
- for(const key of ['origin','destination'])setupSearch(key);
+ for(const key of ['origin','destination']){setupSearch(key);$('#'+key+'-entrance').onchange=e=>{stopNavigation();state[key+'Entrance']=e.target.value;render();};}
  $('#route-form').onsubmit=e=>{e.preventDefault();render();};
- $('#swap').onclick=()=>{if(state.origin==='GPS'){toast('Choose a building to swap your route.');return;}stopNavigation();[state.origin,state.destination]=[state.destination,state.origin];syncInputs();render();};
+ $('#swap').onclick=()=>{if(state.origin==='GPS'){toast('Choose a building to swap your route.');return;}stopNavigation();[state.origin,state.destination]=[state.destination,state.origin];[state.originEntrance,state.destinationEntrance]=[state.destinationEntrance,state.originEntrance];syncInputs();render();};
  $('#avoid-stairs').onchange=e=>{state.avoidStairs=e.target.checked;state.lastSpoken=-1;render();};
  $('#fit-map').onclick=fitRoute;$('#locate-map').onclick=()=>useLocation(false);
  for(const id of ['assistant','settings','data'])$('#'+(id==='data'?'data-open':id+'-open')).onclick=()=>{if(id==='data')renderData();if(id==='settings')loadSettings();if(id==='assistant')updateAIStatus();$('#'+id+'-dialog').showModal();};
@@ -55,7 +65,8 @@ function setupSearch(key){
  input.addEventListener('blur',()=>setTimeout(()=>{close();syncInputs();},120));
 }
 function render(fit=true){
- route=findRoute(graph,state.origin,state.destination,{avoidStairs:state.avoidStairs,gps:state.gps});
+ syncEntranceSelectors();
+ route=findRoute(graph,state.origin,state.destination,{avoidStairs:state.avoidStairs,gps:state.gps,originEntrance:state.originEntrance,destinationEntrance:state.destinationEntrance});
  routeLayer.clearLayers();markerLayer.clearLayers();
  document.querySelectorAll('[data-demo]').forEach(b=>{const d=demos[+b.dataset.demo];b.classList.toggle('active',d.from===state.origin&&d.to===state.destination);});
  if(!route.found){$('#route-result').innerHTML=`<div class="error-state"><h3>No route available</h3><p>${esc(route.reason)}</p></div>`;return;}
@@ -65,8 +76,8 @@ function render(fit=true){
  const a=coords[0]||route.start.coordinates,b=coords.at(-1)||route.end.coordinates;
  for(const [p,text,origin] of [[a,'A',true],[b,'B',false]])L.marker(latlng(p),{icon:L.divIcon({className:'',html:`<div class="place-marker ${origin?'origin':''}">${text}</div>`,iconSize:[31,31],iconAnchor:[15,15]})}).addTo(markerLayer);
  const minutes=Math.max(1,Math.round(route.seconds/60));
- $('#route-result').innerHTML=`<div class="route-topline"><div><div class="route-time">${minutes}<small>min</small></div><div class="route-distance">${route.meters>=1000?(route.meters/1000).toFixed(1)+' km':Math.round(route.meters)+' m'} · Walking</div></div><span class="route-badge">${state.avoidStairs?'Avoids mapped stairs':'Walking route'}</span></div><p class="route-via">${route.label?esc(route.label[0].toUpperCase()+route.label.slice(1)):'To <b>'+esc(route.end.name)+'</b>'}</p><div class="route-actions"><button id="start-navigation" class="primary-button">${icon(state.navigating?'stop':'navigate')}${state.navigating?'Stop navigation':'Start walking'}</button><button id="read-route" class="icon-button" aria-label="Read route directions aloud" title="Read directions">${icon('volume')}</button></div><p class="route-note">${route.endEntrance?.kind==='nearby_path'?'Arrives at a nearby mapped path; the entrance is unmapped.':route.journeyId==='turner-newman'?'Arrives inside Newman Library at the bridge elevator.':route.indoor?'Includes building passages. Doors must be open.':'Construction areas excluded.'} ${state.avoidStairs?'Stair avoidance is based on OSM tags.':''}</p><details class="steps-details"><summary>Walking directions ${icon('chevron')}</summary><ol class="steps-list">${(route.steps||route.legs.filter(l=>l.meters>5).slice(0,12).map(l=>({text:l.name?'Continue on '+l.name:'Continue along the campus path',meters:l.meters,icon:'arrow'}))).map(s=>`<li><span class="step-icon">${icon(s.icon||'arrow')}</span><span>${esc(s.text)}<small>${Math.round(s.meters)} m</small></span></li>`).join('')}<li><span class="step-icon">${icon('flag')}</span><span>Arrive at ${esc(route.end.name)}</span></li></ol></details>`;
- $('#read-route').onclick=()=>speak((route.steps||[]).map(s=>s.text).join('. ')||`Walk ${Math.round(route.meters)} meters to ${route.end.name}.`);
+ $('#route-result').innerHTML=`<div class="route-topline"><div><div class="route-time">${minutes}<small>min</small></div><div class="route-distance">${route.meters>=1000?(route.meters/1000).toFixed(1)+' km':Math.round(route.meters)+' m'} · Walking</div></div><span class="route-badge">${state.avoidStairs?'Avoids mapped stairs':'Walking route'}</span></div><p class="route-via">${route.label?esc(route.label[0].toUpperCase()+route.label.slice(1)):'To <b>'+esc(route.end.name)+'</b>'}</p><div class="route-actions"><button id="start-navigation" class="primary-button">${icon(state.navigating?'stop':'navigate')}${state.navigating?'Stop navigation':'Start walking'}</button><button id="read-route" class="icon-button" aria-label="Read route directions aloud" title="Read directions">${icon('volume')}</button></div><p class="route-note">${route.endEntrance?.kind==='nearby_path'?'Arrives at a nearby mapped path; the entrance is unmapped.':route.journeyId==='turner-newman'?'Arrives inside Newman Library at the bridge elevator.':route.indoor?'Includes building passages. Doors must be open.':'Construction areas excluded.'} ${state.avoidStairs?'Stair avoidance is based on OSM tags.':''}</p><details class="steps-details"><summary>Walking directions ${icon('chevron')}</summary><ol class="steps-list">${(route.steps||route.legs.filter(l=>l.meters>5).slice(0,12).map(l=>({text:l.name?'Continue on '+l.name:'Continue along the campus path',meters:l.meters,icon:'arrow'}))).map(s=>`<li><span class="step-icon">${icon(s.icon||'arrow')}</span><span>${esc(s.text)}<small>${Math.round(s.meters)} m</small></span></li>`).join('')}<li><span class="step-icon">${icon('flag')}</span><span>Arrive at ${esc(route.end.name)}${route.endEntrance?.choice_id?' · '+esc(route.endEntrance.entrance_name):''}</span></li></ol></details>`;
+ $('#read-route').onclick=()=>speak((route.steps||[]).map(s=>s.text).join('. ')+'. Arrive at '+route.end.name+(route.endEntrance?.choice_id?', '+route.endEntrance.entrance_name:'')+'.');
  $('#start-navigation').onclick=()=>state.navigating?stopNavigation():useLocation(true);
  if(fit)fitRoute();
 }
@@ -101,7 +112,7 @@ function receivePosition(position){
  if(!route?.found||!progress){$('#navigation-banner').innerHTML=icon('info')+'<div><strong>Move closer to campus paths</strong><small>'+esc(route?.reason||'No route at this location.')+'</small></div><button id="stop-live" class="icon-button" aria-label="Stop navigation">'+icon('close')+'</button>';$('#stop-live').onclick=()=>stopNavigation();return;}
  const decision=navigationDecision(progress,c.accuracy,offRouteSamples);offRouteSamples=decision.offRouteSamples;
  if(decision.action==='arrive'){
-  const destination=route.end.name;stopNavigation(false);locationMessage('You’ve arrived at '+destination+'.');$('#navigation-banner').hidden=false;$('#navigation-banner').innerHTML=icon('flag')+'<div><strong>You’ve arrived</strong><small>'+esc(destination)+'</small></div><button id="stop-live" class="icon-button" aria-label="Dismiss arrival">'+icon('close')+'</button>';$('#stop-live').onclick=()=>stopNavigation();if(state.voice)speak('You have arrived at '+destination);return;
+  const destination=route.end.name+(route.endEntrance?.choice_id?' · '+route.endEntrance.entrance_name:'');stopNavigation(false);locationMessage('You’ve arrived at '+destination+'.');$('#navigation-banner').hidden=false;$('#navigation-banner').innerHTML=icon('flag')+'<div><strong>You’ve arrived</strong><small>'+esc(destination)+'</small></div><button id="stop-live" class="icon-button" aria-label="Dismiss arrival">'+icon('close')+'</button>';$('#stop-live').onclick=()=>stopNavigation();if(state.voice)speak('You have arrived at '+destination);return;
  }
  if(decision.action==='reroute'&&Date.now()-state.reroutedAt>10000){state.reroutedAt=Date.now();offRouteSamples=0;state.origin='GPS';syncInputs();render(false);state.lastSpoken=-1;progress=routeProgress(route,state.gps);if(!route.found||!progress){locationMessage('Couldn’t reconnect to a mapped path. Follow your surroundings and return to a campus path.');$('#navigation-banner').hidden=true;return;}if(state.voice)speak('Updating your walking route.');}
  if(state.follow){if(map.getZoom()<17)map.setZoom(17);map.panTo(latlng(state.gps),{animate:true});}
@@ -124,8 +135,8 @@ function chatMessage(text,who='assistant'){const d=document.createElement('div')
 function routeExplanation(){if(!route?.found)return route?.reason||'Choose a route first.';if(route.samePlace)return 'Your starting point and destination are the same building.';return 'About '+Math.max(1,Math.round(route.seconds/60))+' minutes ('+Math.round(route.meters)+' m) from '+route.start.name+' to '+route.end.name+(route.label?', '+route.label:'.')+'. '+(state.avoidStairs?'Mapped stairs are excluded. ':'')+'Your construction areas are excluded.'+(route.indoor?' The route includes building passages, so doors need to be open.':'')+(route.endEntrance?.kind==='nearby_path'?' Arrival is at a nearby mapped path because OSM has no connected entrance.':'');}
 async function askAssistant(text){
  text=text.trim();if(!text||$('#assistant-send').disabled)return;$('#assistant-input').value='';chatMessage(text,'user');const pending=chatMessage('Finding your way…');$('#assistant-send').disabled=true;
- try{const intent=await aiIntent(text,graph.places,{origin:state.origin,destination:state.destination,avoidStairs:state.avoidStairs},{key:sessionStorage.getItem('camp-path-gemini-key'),model:localStorage.getItem('camp-path-model')||'gemini-2.5-flash',signal:AbortSignal.timeout(25000)});
-  if(intent.action==='route'){stopNavigation();state.origin=intent.from;state.destination=intent.to;state.avoidStairs=intent.avoidStairs;$('#avoid-stairs').checked=state.avoidStairs;syncInputs();if(state.origin==='GPS'&&!state.gps){useLocation(false);pending.textContent='Allow location access and I’ll route you to '+getPlace(state.destination).name+'.';}else{render();pending.textContent=routeExplanation();}}
+ try{const intent=await aiIntent(text,graph.places,{origin:state.origin,destination:state.destination,originEntrance:state.originEntrance,destinationEntrance:state.destinationEntrance,avoidStairs:state.avoidStairs},{key:sessionStorage.getItem('camp-path-gemini-key'),model:localStorage.getItem('camp-path-model')||'gemini-2.5-flash',signal:AbortSignal.timeout(25000)});
+  if(intent.action==='route'){stopNavigation();state.origin=intent.from;state.destination=intent.to;state.originEntrance=intent.originEntrance||null;state.destinationEntrance=intent.destinationEntrance||null;state.avoidStairs=intent.avoidStairs;$('#avoid-stairs').checked=state.avoidStairs;syncInputs();if(state.origin==='GPS'&&!state.gps){useLocation(false);pending.textContent='Allow location access and I’ll route you to '+getPlace(state.destination).name+'.';}else{render();pending.textContent=routeExplanation();}}
   else pending.textContent=intent.action==='explain'?routeExplanation():intent.message;
  }catch(e){pending.textContent=e.message;}finally{$('#assistant-send').disabled=false;updateAIStatus();$('#assistant-log').scrollTop=$('#assistant-log').scrollHeight;}
 }

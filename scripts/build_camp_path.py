@@ -148,6 +148,16 @@ pois=[]
 for pid,bid,name,alt in [('POI-PERRY-PLACE','VT-HITT','Perry Place',['Perry','Perry Place Dining']),('POI-TURNER-PLACE','VT-LAVERY-HALL','Turner Place',['Turner','Turner at Lavery'])]:
     b=next(b for b in buildings if b['properties']['building_id']==bid)
     pois.append(point(b['geometry']['coordinates'],{'poi_id':pid,'building_id':bid,'name':name,'aliases':alt,'category':'dining'}))
+# Entrance geometry is OSM. The second-floor designation is a user report,
+# supplied with the annotated DDS screenshot on 2026-09-20, not an OSM level tag.
+entrance_choices={'VT-DDS':[
+ {'id':'dds-side','label':'Side entrance','description':'East side · current campus route','node_id':'N-OSM-12206940090','osm_node_id':12206940090},
+ {'id':'dds-second-floor','label':'Second-floor entrance','description':'West side · continue along Prices Fork Road','node_id':'N-OSM-12206975934','osm_node_id':12206975934,'floor':'2','floor_source':'user_report','reported_at':'2026-09-20'}
+]}
+for bid,choices in entrance_choices.items():
+    for choice in choices:
+        if not any(e['properties']['building_id']==bid and e['properties']['node_id']==choice['node_id'] for e in entrances):
+            raise ValueError(f"Selected entrance {choice['node_id']} is not mapped for {bid}")
 journeys=[
  {'id':'goodwin-dds','required_ways':[50032697],'from':['VT-GOODWIN'],'to':['VT-DDS'],'start_node':5879642862,'end_node':12206940090,'via':[5879642846],'label':'via the north path · DDS side entrance'},
  {'id':'perry-pamplin','required_ways':[1560765611],'from':['POI-PERRY-PLACE','VT-HITT'],'to':['VT-PAMPLIN'],'start_node':12668644363,'end_node':702995777,'via':[691034622],'label':'via Derring Hall'},
@@ -158,7 +168,7 @@ for j in journeys:
     for n in [j['start_node'],j['end_node'],*j['via']]:
         if n not in all_routable:raise ValueError(f'Demo waypoint {n} is not on an OSM path')
 write('buildings.geojson',fc(buildings));write('entrances.geojson',fc(entrances));write('paths.geojson',fc(paths));write('pois.geojson',fc(pois));write('closures.geojson',fc(closures))
-manifest={'title':'Camp Path','source_url':URL,'attribution':'© OpenStreetMap contributors','license':'ODbL','snapshot_timestamp':root.find('meta').get('osm_base') if root.find('meta') is not None else datetime.datetime.now(datetime.timezone.utc).isoformat(),'built_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'buildings':len(buildings),'segments':len(paths),'closed_segments':sum(f['properties']['closed'] for f in paths),'stair_segments':sum(f['properties']['steps'] for f in paths),'construction_areas':len(closures),'node_mapping':node_map,'way_mapping':way_map,'journeys':journeys,'excluded':dict(excluded),'routing':'OSM node identity; no proximity-created path edges; supplied OSC replaces screenshot routes'}
+manifest={'title':'Camp Path','source_url':URL,'attribution':'© OpenStreetMap contributors','license':'ODbL','snapshot_timestamp':root.find('meta').get('osm_base') if root.find('meta') is not None else datetime.datetime.now(datetime.timezone.utc).isoformat(),'built_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'buildings':len(buildings),'segments':len(paths),'closed_segments':sum(f['properties']['closed'] for f in paths),'stair_segments':sum(f['properties']['steps'] for f in paths),'construction_areas':len(closures),'node_mapping':node_map,'way_mapping':way_map,'entrance_choices':entrance_choices,'journeys':journeys,'excluded':dict(excluded),'routing':'OSM node identity; no proximity-created path edges; supplied OSC replaces screenshot routes'}
 write('camp-path-manifest.json',manifest)
 (ROOT/'reports/CAMP_PATH_COVERAGE.json').write_text(json.dumps({'coverage':coverage,'main_component_nodes':len(main),'manifest':manifest},indent=2)+'\n')
 print(json.dumps({k:manifest[k] for k in ['buildings','segments','closed_segments','stair_segments','construction_areas']},indent=2))

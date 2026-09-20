@@ -8,7 +8,7 @@ export function buildGraph(data){
  function add(e,reverse=false){const from=reverse?e.to_node:e.from_node,to=reverse?e.from_node:e.to_node;if(!g.adj.has(from))g.adj.set(from,[]);g.adj.get(from).push({...e,from,to,coordinates:reverse?[...e.coordinates].reverse():e.coordinates});}
  for(const f of data.paths.features){const p=f.properties,c=f.geometry.coordinates,e={...p,id:p.segment_id,coordinates:c,meters:pathLength(c)};g.nodes.set(p.from_node,{coordinates:c[0]});g.nodes.set(p.to_node,{coordinates:c.at(-1)});g.edges.push(e);if(p.oneway!=='-1')add(e);if(p.oneway!=='yes'&&p.oneway!=='1')add(e,true);}
  for(const f of data.entrances.features){const p={...f.properties,coordinates:f.geometry.coordinates};g.entrances.set(p.entrance_id,p);}
- for(const f of data.buildings.features){const b={...f.properties,coordinates:f.geometry.coordinates};g.buildings.set(b.building_id,b);const entries=[...g.entrances.values()].filter(e=>e.building_id===b.building_id&&g.nodes.has(e.node_id));g.places.push({...b,id:b.building_id,building:b.building_id,type:'building',entries});}
+ for(const f of data.buildings.features){const b={...f.properties,coordinates:f.geometry.coordinates};g.buildings.set(b.building_id,b);const entries=[...g.entrances.values()].filter(e=>e.building_id===b.building_id&&g.nodes.has(e.node_id));g.places.push({...b,id:b.building_id,building:b.building_id,type:'building',entries,entranceChoices:g.metadata.entrance_choices?.[b.building_id]||[]});}
  for(const f of data.pois.features){const p=f.properties,b=g.places.find(b=>b.id===p.building_id);if(b)g.places.push({...b,...p,id:p.poi_id,coordinates:b.coordinates,entries:b.entries,type:p.category});}
  return g;
 }
@@ -42,26 +42,32 @@ export function findRoute(g,from,to,options={}){
  const start=from==='GPS'?{id:'GPS',name:'Your location',coordinates:options.gps,entries:[]}:resolvePlace(g,from),end=resolvePlace(g,to);
  const fail=reason=>({found:false,reason,legs:[],start,end});
  if(!start||!end)return fail('Choose a starting point and destination from the campus list.');
+ const startChoice=start.entranceChoices?.find(c=>c.id===options.originEntrance),endChoice=end.entranceChoices?.find(c=>c.id===options.destinationEntrance);
+ if((options.originEntrance&&!startChoice)||(options.destinationEntrance&&!endChoice))return fail('The selected entrance is not mapped for this building. Choose an available entrance.');
+ const startEntries=startChoice?start.entries.filter(e=>e.node_id===startChoice.node_id):start.entries;
+ const endEntries=endChoice?end.entries.filter(e=>e.node_id===endChoice.node_id):end.entries;
+ if((startChoice&&!startEntries.length)||(endChoice&&!endEntries.length))return fail('The selected entrance is not connected to the campus map.');
  if(end.under_construction)return fail(`${end.name} is under construction. Choose an open campus destination.`);
  if(start.id===end.id||start.building&&start.building===end.building)return {found:true,samePlace:true,legs:[],steps:[],meters:0,seconds:0,start,end};
  let result,journey=from==='GPS'?null:scopedJourney(g,start.id,end.id),snap=null;
+ if(journey){journey={...journey,start_node:startChoice?.osm_node_id||journey.start_node,end_node:endChoice?.osm_node_id||journey.end_node};if(journey.id==='goodwin-dds'){const choice=endChoice||startChoice;if(choice)journey.label='via the north path · DDS '+choice.label.toLowerCase();}}
  if(journey){const points=[journey.start_node,...journey.via,journey.end_node].map(nodeId);let legs=[];for(let i=0;i<points.length-1;i++){const part=search(g,[{node:points[i]}],[points[i+1]],options);if(!part)return fail('The requested campus passage is unavailable with these route settings. Try another destination or allow mapped stairs.');legs.push(...part.legs);}result={legs,startNode:points[0],endNode:points.at(-1)};}
  else{
-  let starts=start.entries.map(e=>({node:e.node_id}));
+  let starts=startEntries.map(e=>({node:e.node_id}));
   if(from==='GPS'){
    if(!options.gps||!options.gps.every(Number.isFinite))return fail('Waiting for a usable GPS location.');
    for(const e of g.edges){if(!eligible(e,options))continue;const p=projectPoint(options.gps,e.coordinates);if(!snap||p.meters<snap.meters)snap={...p,edge:e};}
    if(!snap||snap.meters>50)return fail('You’re more than 50 m from a mapped campus path. Move closer or choose a building as your starting point.');
    starts=[];if(snap.edge.oneway!=='yes'&&snap.edge.oneway!=='1')starts.push({node:snap.edge.from_node,cost:haversine(snap.coordinates,snap.edge.coordinates[0])});if(snap.edge.oneway!=='-1')starts.push({node:snap.edge.to_node,cost:haversine(snap.coordinates,snap.edge.coordinates.at(-1))});
   }
-  result=search(g,starts,end.entries.map(e=>e.node_id),options);
+  result=search(g,starts,endEntries.map(e=>e.node_id),options);
   if(!result)return fail(options.avoidStairs===false?'No connected walking route is mapped. Construction or restricted paths may block the way.':'No route avoiding mapped stairs is connected here. You can turn off “Avoid stairs” to check other mapped paths.');
   if(snap){const c=g.nodes.get(result.startNode).coordinates,m=haversine(snap.coordinates,c);if(m>.05)result.legs.unshift({...snap.edge,id:'GPS-PROJECTION',from:'GPS',to:result.startNode,coordinates:[snap.coordinates,c],meters:m});}
  }
  if(journey?.required_ways?.some(id=>!result.legs.some(e=>e.source_way_id===id||e.source_way_ids?.includes(id))))return fail('The requested campus passage is unavailable with these route settings.');
  const legs=result.legs.map(e=>({...e,seconds:e.meters/1.25})),meters=legs.reduce((s,e)=>s+e.meters,0);
- const entrance=(place,n)=>place.entries?.find(e=>e.node_id===n)||{coordinates:g.nodes.get(n)?.coordinates,kind:'entrance'};
- return {found:true,start,end,legs,meters,seconds:meters/1.25,steps:makeSteps(legs),startEntrance:entrance(start,result.startNode),endEntrance:entrance(end,result.endNode),label:journey?.label||null,journeyId:journey?.id,gpsSnap:snap?{meters:snap.meters,coordinates:snap.coordinates}:null,indoor:legs.some(e=>e.is_indoor)};
+ const entrance=(place,n,choice)=>({...place.entries?.find(e=>e.node_id===n),coordinates:g.nodes.get(n)?.coordinates,kind:place.entries?.find(e=>e.node_id===n)?.kind||'entrance',...(choice?{entrance_name:choice.label,floor:choice.floor,floor_source:choice.floor_source,choice_id:choice.id}:{})});
+ return {found:true,start,end,legs,meters,seconds:meters/1.25,steps:makeSteps(legs),startEntrance:entrance(start,result.startNode,startChoice),endEntrance:entrance(end,result.endNode,endChoice),label:journey?.label||(endChoice?'to DDS · '+endChoice.label.toLowerCase():startChoice?'from DDS · '+startChoice.label.toLowerCase():null),journeyId:journey?.id,gpsSnap:snap?{meters:snap.meters,coordinates:snap.coordinates}:null,indoor:legs.some(e=>e.is_indoor)};
 }
 export function routeProgress(route,point){
  if(!route?.found||!route.legs.length)return null;

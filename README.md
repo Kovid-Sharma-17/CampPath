@@ -23,6 +23,8 @@ The four buttons use the supplied route requirements as OSM entrance/via-node co
 | Davidson → Classroom Building | Davidson west entrance, Hahn Hall North passage, NCB west main entrance | 381 m |
 | Turner Place → Newman Library | Lavery east entrance, Upper Quad passage, Torgersen Bridge, library bridge elevator | 617 m |
 
+DDS now has an entrance selector: **Side entrance** (the original 283 m Goodwin route) or **Second-floor entrance** (the west entrance, approximately 317 m from Goodwin). The second-floor designation comes from the user's annotated screenshot; OSM supplies the entrance node and paths, not the floor label. The selected entrance is preserved during GPS rerouting, route swapping, spoken arrival instructions, and assistant requests such as ‘Goodwin to DDS second floor.’ No new path geometry is traced from the screenshot.
+
 Reverse journeys use reversed constraints. Building passages require open doors; building access hours and elevator operation are not available in this snapshot. `layer` tags are not treated as floor numbers. Live rerouting uses the connected OSM network from the user's position to the destination; it does not require backtracking to a demo journey's original waypoints.
 
 ## Navigation and voice
