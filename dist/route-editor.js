@@ -14,13 +14,22 @@ function currentFeature(id){return data.paths.features.find(f=>f.properties.segm
 function physicalFeature(f){const out=clone(f),edge=graph.edges.find(e=>e.id===f.properties.segment_id);if(edge)out.geometry.coordinates=clone(edge.coordinates);return out;}
 function hideMesh(){if(map.hasLayer(edgeLayer))map.removeLayer(edgeLayer);}
 function showMesh(){if(!map.hasLayer(edgeLayer))map.addLayer(edgeLayer);}
-function reset(){routeMode=null;queryLayer.clearLayers();showMesh();$('#route-mode-panel').hidden=true;draft=null;door=null;mode='select';selectedPoint=null;stairFirst=null;draftLayer.clearLayers();alternateLayer.clearLayers();$('#path-panel').hidden=true;$('#entrance-panel').hidden=true;$('#finish-draw').hidden=true;status('Click a path to edit it, or choose New path.');}
+function resetDraft(){draft=null;door=null;mode='select';selectedPoint=null;stairFirst=null;draftLayer.clearLayers();alternateLayer.clearLayers();$('#path-panel').hidden=true;$('#entrance-panel').hidden=true;$('#finish-draw').hidden=true;}
+function reset(){routeMode=null;queryLayer.clearLayers();showMesh();$('#route-mode-panel').hidden=true;resetDraft();status('Click a path to edit it, or choose New path.');}
 function populate(){
  const query=$('#path-search').value.toLowerCase();
  const paths=data.paths.features.filter(f=>[f.properties.route_name,f.properties.name,f.properties.segment_id,f.properties.from_node,f.properties.to_node].join(' ').toLowerCase().includes(query));
  $('#path-list').innerHTML='<option value="">Choose a path…</option>'+paths.slice(0,500).map(f=>'<option value="'+esc(f.properties.segment_id)+'" title="'+esc(f.properties.segment_id)+'">'+esc(label(f.properties))+'</option>').join('');
  const buildings=[...graph.buildings.values()].sort((a,b)=>a.name.localeCompare(b.name));
- const options=buildings.map(b=>'<option value="'+esc(b.building_id)+'">'+esc(b.name)+'</option>').join('');
+ const routeBuildingIds=[...new Set([routeMode?.fromBuildingId,routeMode?.toBuildingId].filter(Boolean))];
+ let options;
+ if(routeBuildingIds.length){
+  const priority=routeBuildingIds.map(id=>graph.buildings.get(id)).filter(Boolean);
+  const rest=buildings.filter(b=>!routeBuildingIds.includes(b.building_id));
+  options='<optgroup label="This route">'+priority.map(b=>'<option value="'+esc(b.building_id)+'">'+esc(b.name)+'</option>').join('')+'</optgroup><optgroup label="All buildings">'+rest.map(b=>'<option value="'+esc(b.building_id)+'">'+esc(b.name)+'</option>').join('')+'</optgroup>';
+ }else{
+  options=buildings.map(b=>'<option value="'+esc(b.building_id)+'">'+esc(b.name)+'</option>').join('');
+ }
  const selected=$('#entrance-building').value;$('#entrance-building').innerHTML=options;if(selected)$('#entrance-building').value=selected;
  $('#building-jump').innerHTML='<option value="">Zoom to a building…</option>'+buildings.filter(b=>b.name.toLowerCase().includes(query)).map(b=>'<option value="'+esc(b.building_id)+'">'+esc(b.name)+'</option>').join('');
  $('#network-count').textContent=data.paths.features.length.toLocaleString()+' mapped segments · '+graph.buildings.size+' buildings';
@@ -92,12 +101,12 @@ function enterRouteMode(fromId,toId){
  const a=resolvePlace(graph,fromId),b=resolvePlace(graph,toId),r=findRoute(graph,fromId,toId,{});
  if(!a||!b||!r.found||!r.legs.length){status('That route is no longer available.');return;}
  const legs=r.legs.map(e=>{const f=currentFeature(e.id)||currentFeature('TRACE-'+e.id);return f?{feature:physicalFeature(f)}:{coordinates:clone(e.coordinates)};});
- routeMode={legs,fromId,toId,fromLabel:a.name,toLabel:b.name,selected:null};
+ routeMode={legs,fromId,toId,fromLabel:a.name,toLabel:b.name,fromBuildingId:a.building,toBuildingId:b.building,selected:null};
  hideMesh();$('#route-mode-panel').hidden=false;$('#route-mode-heading').textContent=a.name+' → '+b.name;
  const editableCount=legs.filter(l=>l.feature).length;
  $('#route-mode-readonly').hidden=editableCount===legs.length;
  $('#route-mode-readonly').textContent=(legs.length-editableCount)+' of '+legs.length+' segment(s) run through connectors and can\'t be dragged here — shown dimmed for context.';
- renderRouteMode();
+ renderRouteMode();populate();
  map.fitBounds(L.latLngBounds(legs.flatMap(l=>(l.feature?l.feature.geometry.coordinates:l.coordinates).map(ll))),{padding:[60,60],maxZoom:19});
  status('Editing the route from '+a.name+' to '+b.name+'. The rest of the network is hidden. Drag any point on any highlighted segment, then Save route.');
 }
@@ -165,7 +174,16 @@ function findAlternate(){
  for(const e of r.legs)L.polyline(e.coordinates.map(ll),{color:'#6454bb',weight:6,dashArray:'6 6'}).addTo(alternateLayer);
  $('#alternate-status').textContent='Mapped stairs-avoiding alternative: '+Math.round(r.meters)+' m. Accessibility remains unverified.';
 }
-function startEntrance(){reset();mode='entrance';door={coordinates:null,existing:null};$('#entrance-panel').hidden=false;$('#entrance-name').value='Entrance / exit';$('#entrance-floor').value='';$('#entrance-direction').value='both';status('Choose a building and click its door.');}
+function startEntrance(){
+ resetDraft();mode='entrance';door={coordinates:null,existing:null};$('#entrance-panel').hidden=false;$('#entrance-name').value='Entrance / exit';$('#entrance-floor').value='';$('#entrance-direction').value='both';
+ if(routeMode){
+  const lacksRealDoor=id=>id&&![...graph.entrances.values()].some(e=>e.building_id===id&&e.node_role!=='approach');
+  const target=lacksRealDoor(routeMode.toBuildingId)?routeMode.toBuildingId:lacksRealDoor(routeMode.fromBuildingId)?routeMode.fromBuildingId:routeMode.toBuildingId;
+  if(target)$('#entrance-building').value=target;
+ }
+ populate();
+ status(routeMode?'Choose the building — '+routeMode.fromLabel+' and '+routeMode.toLabel+' are listed first. Your route stays saved in the background.':'Choose a building and click its door.');
+}
 function editDoor(f,coordinates){startEntrance();door.existing=clone(f);$('#entrance-building').value=f.properties.building_id;$('#entrance-name').value=f.properties.entrance_name;$('#entrance-floor').value=f.properties.entry_floor||'';$('#entrance-direction').value=f.properties.door_use||'both';placeDoor(coordinates);status('Drag the door marker to move it. Choose Save door to keep the change.');}
 function placeDoor(p){door.coordinates=p;draftLayer.clearLayers();const marker=L.marker(ll(p),{draggable:true,icon:L.divIcon({className:'door-drag',iconSize:[18,18],iconAnchor:[9,9]})}).addTo(draftLayer);marker.on('dragend',e=>{door.coordinates=[e.target.getLatLng().lng,e.target.getLatLng().lat];});}
 function saveDoor(){
@@ -174,15 +192,19 @@ function saveDoor(){
  const f={type:'Feature',geometry:{type:'Point',coordinates:door.coordinates},properties:{...door.existing?.properties,entrance_id:id,node_id:node,building_id:bid,entrance_name:$('#entrance-name').value.trim()||'Entrance / exit',entry_floor:$('#entrance-floor').value.trim()||null,door_use:$('#entrance-direction').value,node_role:'entrance',accessibility_status:'unknown',operational_status:'unknown',confidence:'community_report',geometry_precision:'user_marked',source:'User-marked entrance in route editor'}};
  next.entrances[id]=f;moveNode(next,node,door.coordinates);let message='Door saved. Draw a path to connect it to the sidewalk.';
  if(!door.existing){const target=snapEndpoint(door.coordinates,next,node);if(haversine(door.coordinates,target.point)<=5&&target.node!==node){const link=makePath(nextId('DOOR-LINK-',new Set([...ids(),...Object.keys(next.paths)])),node,target.node,[door.coordinates,target.point],{name:'Door approach'});next.paths[link.properties.segment_id]=link;message='Door saved and connected to the nearby path.';}}
- commit(next,message);reset();status(message);
+ const resume=routeMode?{fromId:routeMode.fromId,toId:routeMode.toId}:null;
+ commit(next,message);
+ if(resume){enterRouteMode(resume.fromId,resume.toId);status(message+' Re-checked the route with the new door — '+$('#editor-status').textContent.charAt(0).toLowerCase()+$('#editor-status').textContent.slice(1));}
+ else{reset();status(message);}
 }
+function cancelEntrance(){resetDraft();status(routeMode?'Entrance cancelled. Back to editing your route.':'Click a path to edit it, or choose New path.');}
 function wire(){
  $('#new-path').onclick=()=>newPath();$('#new-entrance').onclick=startEntrance;
  $('#path-search').oninput=populate;$('#path-list').onchange=e=>{const f=currentFeature(e.target.value);if(f){selectPath(f);map.fitBounds(L.latLngBounds(f.geometry.coordinates.map(ll)),{padding:[50,50],maxZoom:19});}};
  $('#building-jump').onchange=e=>{const b=graph.buildings.get(e.target.value);if(b){map.setView(ll(b.coordinates),18);$('#entrance-building').value=b.building_id;}};
  $('#remove-point').onclick=()=>{if(selectedPoint>0&&selectedPoint<draft.geometry.coordinates.length-1){draft.geometry.coordinates.splice(selectedPoint,1);selectedPoint=null;renderDraft();}};
  $('#finish-draw').onclick=()=>{if(draft.geometry.coordinates.length<2){status('Choose at least a start and end.');return;}mode='edit';$('#finish-draw').hidden=true;renderDraft();status('Adjust the points or details, then Save path.');};
- $('#save-path').onclick=()=>attempt(savePath);$('#cancel-edit').onclick=reset;$('#cancel-entrance').onclick=reset;$('#save-entrance').onclick=()=>attempt(saveDoor);
+ $('#save-path').onclick=()=>attempt(savePath);$('#cancel-edit').onclick=reset;$('#cancel-entrance').onclick=cancelEntrance;$('#save-entrance').onclick=()=>attempt(saveDoor);
  $('#delete-path').onclick=()=>attempt(()=>{const next=clone(edits);next.paths[draft.properties.segment_id]=null;commit(next,'Path deleted. Undo save restores it.');reset();status('Path deleted. Undo save restores it.');});
  $('#mark-stairs').onclick=()=>{if(mode==='draw'||!currentFeature(draft?.properties.segment_id)){status('Save the path before marking a stair section.');return;}mode='stairs';stairFirst=null;status('Click the first point of the stairs. Add points to the line first if needed.');renderDraft();};
  $('#find-alternate').onclick=()=>attempt(findAlternate);$('#draw-alternate').onclick=()=>newPath(stairs);
