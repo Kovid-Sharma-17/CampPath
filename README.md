@@ -35,6 +35,8 @@ Reverse journeys use reversed constraints. Building passages require open doors;
 - Three consecutive deviations beyond the accuracy-aware threshold trigger rerouting, with a ten-second cooldown.
 - Arrival requires proximity to the route endpoint and little remaining distance; a route crossing alone does not trigger arrival.
 - Browser speech synthesis supplies turn instructions without an API key. Available voices depend on the device.
+- Written and spoken directions include distances, expanded campus abbreviations, clearer departure/turn/indoor-entry/exit language, and selected-entrance arrival wording. During live navigation, the current maneuver is highlighted, the next turn is announced in advance, closely spaced turns are grouped, and Repeat/Mute controls are available.
+- GPS jitter does not replay a maneuver: low-confidence or off-path fixes pause cues, three confirmed deviations trigger a reroute, and arrival requires a close, accurate fix at the mapped endpoint.
 - “Avoid stairs” excludes OSM `highway=steps` segments. It is not a wheelchair-accessibility certification.
 
 ## AI assistant
@@ -81,6 +83,7 @@ The tests cover all four demo journeys in both directions, all open catalog dest
 
 - `dist/index.html`, `dist/styles.css`, `dist/app.js`: interface and interactions.
 - `dist/router.mjs`: OSM routing, directions, GPS projection, navigation decisions.
+- `dist/guidance.mjs`: distance formatting, narration, live cue timing, and speech queue controls.
 - `dist/location.mjs`: continuous GPS watch lifecycle.
 - `dist/assistant.mjs`: Gemini integration and basic local place matching.
 - `scripts/build_camp_path.py`: reproducible OSM + OSC import.

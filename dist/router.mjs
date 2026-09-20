@@ -28,12 +28,25 @@ function bearing(a,b){const r=Math.PI/180,x=(b[0]-a[0])*r;return (Math.atan2(Mat
 export function makeSteps(legs){
  const steps=[];let cumulative=0;
  for(let i=0;i<legs.length;i++){
-  const e=legs[i],prior=legs[i-1];const name=e.name|| (e.highway==='steps'?'the stairs':e.is_indoor?'the mapped passage':e.highway==='service'?'the access road':'the campus path');
+  const e=legs[i],prior=legs[i-1];const name=e.name|| (e.highway==='steps'?'the stairs':e.highway==='elevator'?'the elevator':e.is_indoor?'the indoor passage':e.highway==='service'?'the access road':'the campus path');
   const a=prior?bearing(prior.coordinates.at(-2),prior.coordinates.at(-1)):null,b=bearing(e.coordinates[0],e.coordinates[1]),delta=a===null?0:((b-a+540)%360)-180;
-  const turn=Math.abs(delta)>38 && (prior?.meters>4||e.meters>4);
-  const change=prior&&((e.name||'')!==(prior.name||'')||e.steps!==prior.steps||e.is_indoor!==prior.is_indoor);
-  if(!steps.length||turn||change){let text,icon='arrow-up';if(!steps.length)text='Head along '+name;else if(e.is_indoor&&!prior.is_indoor){text='Enter '+name;icon='navigate';}else if(turn){text=(delta>0?'Turn right onto ':'Turn left onto ')+name;icon=delta>0?'right':'left';}else text='Continue on '+name;
-   steps.push({text,icon,name,meters:0,at:cumulative,end:cumulative,coordinates:e.coordinates[0]});}
+  // Small bends on the same OSM way are not new navigation decisions.
+  const sameWay=prior&&e.source_way_id!=null&&e.source_way_id===prior.source_way_id;
+  const turn=Math.abs(delta)>(sameWay?60:35) && (prior?.meters>4||e.meters>4);
+  const stairs=!!e.steps||e.highway==='steps',wasStairs=!!prior?.steps||prior?.highway==='steps';
+  const change=prior&&((e.name||'')!==(prior.name||'')||stairs!==wasStairs||e.is_indoor!==prior.is_indoor||e.highway==='elevator'&&prior.highway!=='elevator');
+  if(!steps.length||turn||change){let text,icon='arrow-up',kind='continue';
+   const direction=['north','northeast','east','southeast','south','southwest','west','northwest'][Math.round(b/45)%8];
+   const side=delta>0?'right':'left',angle=Math.abs(delta);
+   const maneuver=angle>=165?'Turn around':angle>=135?'Make a sharp '+side:angle<60?'Bear '+side:'Turn '+side;
+   if(!steps.length){text='Head '+direction+' along '+name;kind='depart';}
+   else if(stairs&&!wasStairs){text=(turn?maneuver+' and take ':'Take ')+name;kind='stairs';icon=turn?side:'arrow-up';}
+   else if(e.highway==='elevator'&&prior.highway!=='elevator'){text='Use '+name;kind='elevator';}
+   else if(e.is_indoor&&!prior.is_indoor){text=(turn?maneuver+' and enter ':'Enter ')+name;icon='navigate';kind='enter';}
+   else if(!e.is_indoor&&prior.is_indoor){text='Exit '+(prior.name||'the passage')+' and '+(turn?maneuver.toLowerCase()+' onto ':'continue on ')+name;icon=turn?side:'arrow-up';kind='exit';}
+   else if(turn){text=maneuver+(sameWay?' to follow ':' onto ')+name;icon=side;kind='turn';}
+   else text='Continue on '+name;
+   steps.push({text,icon,kind,name,meters:0,at:cumulative,end:cumulative,coordinates:e.coordinates[0]});}
   const s=steps.at(-1);s.meters+=e.meters;cumulative+=e.meters;s.end=cumulative;
  }
  return steps;
@@ -73,12 +86,12 @@ export function routeProgress(route,point){
  if(!route?.found||!route.legs.length)return null;
  let best=null,offset=0;
  for(const e of route.legs){const p=projectPoint(point,e.coordinates);if(!best||p.meters<best.offRoute)best={offRoute:p.meters,along:offset+p.along,coordinates:p.coordinates};offset+=e.meters;}
- const stepIndex=route.steps.findIndex(s=>s.end>best.along+5);
+ const stepIndex=route.steps.findIndex(s=>s.end>best.along);
  return {...best,remaining:Math.max(0,route.meters-best.along),stepIndex:stepIndex<0?route.steps.length-1:stepIndex,arrivalDistance:haversine(point,route.legs.at(-1).coordinates.at(-1))};
 }
 export function navigationDecision(progress,accuracy,offRouteSamples=0){
  if(!progress||!Number.isFinite(accuracy)||accuracy>45)return {action:'wait',offRouteSamples:0};
- if(progress.remaining<22&&progress.arrivalDistance<Math.max(12,Math.min(20,accuracy)))return {action:'arrive',offRouteSamples:0};
+ if(accuracy<=20&&progress.remaining<15&&progress.arrivalDistance<12&&progress.offRoute<12)return {action:'arrive',offRouteSamples:0};
  const off=progress.offRoute>Math.max(25,accuracy*1.5);const samples=off?offRouteSamples+1:0;
  return {action:samples>=3?'reroute':'follow',offRouteSamples:samples};
 }

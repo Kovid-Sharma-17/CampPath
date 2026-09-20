@@ -11,3 +11,8 @@
 @media(max-width:640px){.workspace{padding-top:36dvh}#campus-map{height:38dvh;min-height:250px}}
 
 .entrance-picker{margin-top:14px;padding:12px 14px;background:#f7f3f6;border:1px solid #eee5eb;border-radius:10px}.entrance-picker label{display:block;font-size:13px;font-weight:650;color:var(--maroon);margin-bottom:7px}.entrance-picker select{width:100%;padding:9px 10px;font-size:14px;color:var(--ink);border:1px solid #d9ccd4;border-radius:7px;background:white}.entrance-picker p{font-size:12px;line-height:1.45;color:#766571;margin-top:7px}@media(max-width:640px){.entrance-picker select{font-size:16px}}
+
+/* Live guidance controls and the current written maneuver. */
+.navigation-copy{flex:1;min-width:0}.navigation-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.navigation-actions .button{margin:0;min-height:36px;padding:7px 10px;font-size:12px;background:#ffffff20;color:white;border:1px solid #ffffff50;border-radius:8px;display:inline-flex;align-items:center;gap:6px}.navigation-actions svg{width:15px;height:15px}.navigation-banner>svg{flex-shrink:0}.steps-list li.current-step{background:#f5eaf0;border-radius:8px;box-shadow:inset 3px 0 var(--maroon);padding-left:10px}.steps-list li.current-step .step-icon{color:var(--maroon)}
+
+#live-maneuver-icon{flex-shrink:0}#live-maneuver-icon svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:2}
