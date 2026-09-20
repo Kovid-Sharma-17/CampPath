@@ -7,90 +7,114 @@ const names={buildings:'buildings.geojson',entrances:'entrances.geojson',paths:'
 const source=Object.fromEntries(Object.entries(names).map(([key,file])=>[key,JSON.parse(readFileSync(new URL('../dist/data/'+file,import.meta.url),'utf8'))]));
 const now=new Date('2026-09-19T16:00:00Z');
 const graph=()=>buildGraph(source,{now});
-const pair=['POI-PERRY-PLACE','VT-PAMPLIN'];
-const geoPair=['POI-MUSEUM-GEO','VT-PAMPLIN'];
 const statusData=rows=>({...source,status:rows});
 
-test('imports the campus building sweep and supplied hand-created paths with stable place IDs',()=>{
-  const g=graph();assert.equal(g.buildings.size,113);assert.equal(g.entrances.size,38);assert.equal(g.edges.length,115);assert.equal(g.places.length,121);
-  assert.equal(resolvePlace(g,'Perry Place').node,'N-HITT-E1');
+test('imports the comprehensive OpenStreetMap network and every campus building',()=>{
+  const g=graph();
+  assert.equal(g.buildings.size,113);
+  assert.ok(g.entrances.size>100,'every building without a surveyed door should still get an approach point');
+  assert.ok(g.edges.length>5000,'the OSM pull should be the whole-campus network, not a handful of hand-drawn shortcuts');
   assert.equal(resolvePlace(g,'VT-NEWMAN-LIB').type,'building');
-  assert.equal(resolvePlace(g,'Newman'),null);
-  for(const id of ['VT-NCB','VT-DAVIDSON','VT-WILLIAMS'])assert.ok(resolvePlace(g,id),id+' should resolve');
+  assert.equal(resolvePlace(g,'not-a-real-place'),null);
 });
-test('Perry Place to Pamplin finds the mapped shortest route',()=>{
-  const r=findRoute(graph(),...pair);assert.ok(r.found);
-  assert.ok(Math.abs(r.meters-189.33)<.1);assert.equal(r.legs.length,4);
-});
-test('Museum of Geosciences (inside Derring’s north entrance) to Pamplin uses the indoor shortcut',()=>{
-  const r=findRoute(graph(),...geoPair);assert.ok(r.found);
-  assert.ok(Math.abs(r.meters-115.44)<.1);assert.ok(r.legs.some(l=>l.id==='IND-DERRING-1'));
-});
-test('closing Derring shortcut reroutes the Museum-of-Geosciences pair and restoring rebuilds the baseline',()=>{
-  const closed=buildGraph(source,{now,closedAssets:['IND-DERRING-1']});
-  const r=findRoute(closed,...geoPair);assert.ok(r.found);assert.ok(!r.legs.some(l=>l.id==='IND-DERRING-1'));
-  assert.ok(r.meters>findRoute(graph(),...geoPair).meters);
-});
-test('the old north/NE-corner route to Derring’s north entrance (SEG-032/033/034) still exists - not deleted, just no longer the shortest option',()=>{
+test('resolvePlace matches by id, name, and known aliases only',()=>{
   const g=graph();
-  assert.ok((g.adj.get('J-WCD-N')||[]).some(e=>e.to==='N-DERRING-EN'));
-  for(const id of ['SEG-032','SEG-033','SEG-034'])assert.ok(g.edges.some(e=>e.id===id));
+  const perry=resolvePlace(g,'Perry Place');
+  assert.ok(perry,'Perry Place should still resolve as a POI');
+  assert.equal(resolvePlace(g,'perry place').id,perry.id,'lookup is case-insensitive');
 });
-test('New Classroom Building, Davidson Hall, and Williams Hall connect into the cluster via rider-supplied route shapes',()=>{
+test('most campus building pairs are actually routable on the comprehensive network',()=>{
   const g=graph();
-  const hittToNcb=findRoute(g,'POI-PERRY-PLACE','VT-NCB');
-  assert.ok(hittToNcb.found);assert.ok(hittToNcb.meters<250);
-  const pamplinToNcb=findRoute(g,'VT-PAMPLIN','VT-NCB');
-  assert.ok(pamplinToNcb.found);
-  assert.ok(['SEG-041','SEG-042','SEG-044'].every(id=>pamplinToNcb.legs.some(l=>l.id===id)));
-  const davidsonToNcb=findRoute(g,'VT-DAVIDSON','VT-NCB');
-  assert.ok(davidsonToNcb.found);
-  assert.ok(['SEG-045','SEG-046'].every(id=>davidsonToNcb.legs.some(l=>l.id===id)));
+  const ids=[...g.buildings.keys()];
+  let found=0,checked=0;
+  const rng=(seed=>()=>((seed=(seed*1103515245+12345)&0x7fffffff)/0x7fffffff))(42);
+  for(let i=0;i<150;i++){
+    const a=ids[Math.floor(rng()*ids.length)],b=ids[Math.floor(rng()*ids.length)];
+    if(a===b)continue;
+    checked++;
+    if(findRoute(g,a,b).found)found++;
+  }
+  assert.ok(checked>100);
+  assert.ok(found/checked>0.75,`expected most sampled pairs to route; got ${found}/${checked}`);
 });
-test('Goodwin to D&DS has a direct Prices Fork Rd option alongside the existing shorter one via Goodwin’s east entrance',()=>{
+test('a concrete route between two well-known places is found with sane geometry',()=>{
   const g=graph();
-  const direct=(g.adj.get('N-GOODWIN-E1')||[]).find(e=>e.to==='N-DDS-E1');
-  assert.ok(direct,'direct Prices Fork Rd segment should exist in the graph even though it is not the Dijkstra-shortest pick');
-  const e1=g.entrances.get('N-DDS-E1'),e2=g.entrances.get('N-DDS-E2');
-  assert.ok(e1.notes.includes('1st floor'));assert.ok(e2.notes.includes('2nd floor'));
-});
-test('entrance closure affects physical paths, virtual endpoint links, and both directions',()=>{
-  const g=buildGraph(source,{now,closedAssets:['VT-PAMPLIN-EW']});
-  for(const pairToCheck of [pair,[...pair].reverse()]){
-    const r=findRoute(g,...pairToCheck);assert.ok(r.found);
-    assert.ok(r.legs.every(l=>l.from!=='N-PAMPLIN-EW'&&l.to!=='N-PAMPLIN-EW'));
-    assert.notEqual(r.endEntrance?.entrance_id,'VT-PAMPLIN-EW');
-    assert.notEqual(r.startEntrance?.entrance_id,'VT-PAMPLIN-EW');
+  const r=findRoute(g,'POI-PERRY-PLACE','VT-PAMPLIN');
+  assert.ok(r.found);
+  assert.ok(r.meters>0&&r.meters<1000);
+  assert.ok(r.legs.length>0);
+  for(let i=1;i<r.legs.length;i++){
+    const prevEnd=r.legs[i-1].coordinates.at(-1),curStart=r.legs[i].coordinates[0];
+    assert.deepEqual(prevEnd,curStart,'consecutive legs should share an exact coordinate, not just be close');
   }
 });
-test('future reports do not prematurely close a path',()=>{
-  const g=buildGraph(statusData([{asset_id:'IND-DERRING-1',status:'closed',reported_at:'2026-09-20T00:00:00Z',source:'demo'}]),{now});
-  assert.equal(g.statusLog[0].result,'scheduled');assert.ok(findRoute(g,...geoPair).legs.some(l=>l.id==='IND-DERRING-1'));
+test('closing a real entrance removes it from any route that used it',()=>{
+  const g=buildGraph(source,{now,closedAssets:['DOOR-VT-OWENS-HALL-1']});
+  const entrance=g.entrances.get('N-DOOR-VT-OWENS-HALL-1');
+  assert.equal(entrance.operational_status,'closed');
+  const r=findRoute(g,'POI-PERRY-PLACE','VT-OWENS-HALL');
+  if(r.found)assert.notEqual(r.startEntrance?.entrance_id,'DOOR-VT-OWENS-HALL-1'),assert.notEqual(r.endEntrance?.entrance_id,'DOOR-VT-OWENS-HALL-1');
 });
-test('expired closures become unknown rather than closed',()=>{
-  const g=buildGraph(statusData([{asset_id:'IND-DERRING-1',status:'closed',reported_at:'2026-09-18T00:00:00Z',expected_end:'2026-09-19T12:00:00Z',source:'demo'}]),{now});
-  assert.equal(g.statusLog[0].result,'expired');assert.equal(g.assets.get('IND-DERRING-1').operational_status,'unknown');
+test('access=private/no OSM ways are excluded from routing',()=>{
+  const g=graph();
+  const restricted=[...g.edges].find(e=>e.access_control==='restricted');
+  assert.ok(restricted,'the imported network should contain at least one restricted-access way to test against');
+  const ids=[...g.buildings.keys()];
+  const rng=(seed=>()=>((seed=(seed*1103515245+12345)&0x7fffffff)/0x7fffffff))(7);
+  for(let i=0;i<80;i++){
+    const a=ids[Math.floor(rng()*ids.length)],b=ids[Math.floor(rng()*ids.length)];
+    if(a===b)continue;
+    const r=findRoute(g,a,b);
+    if(r.found)assert.ok(r.legs.every(l=>l.id!==restricted.id));
+  }
+});
+test('future reports do not prematurely close an asset',()=>{
+  const anyPath=source.paths.features[0].properties.segment_id;
+  const g=buildGraph(statusData([{asset_id:anyPath,status:'closed',reported_at:'2026-09-20T00:00:00Z',source:'demo'}]),{now});
+  assert.equal(g.statusLog[0].result,'scheduled');
+  assert.notEqual(g.assets.get(anyPath).operational_status,'closed');
+});
+test('expired closures become unknown rather than staying closed',()=>{
+  const anyPath=source.paths.features[0].properties.segment_id;
+  const g=buildGraph(statusData([{asset_id:anyPath,status:'closed',reported_at:'2026-09-18T00:00:00Z',expected_end:'2026-09-19T12:00:00Z',source:'demo'}]),{now});
+  assert.equal(g.statusLog[0].result,'expired');
+  assert.equal(g.assets.get(anyPath).operational_status,'unknown');
 });
 test('an invalid status value is flagged and not applied',()=>{
-  const g=buildGraph(statusData([{asset_id:'VT-PAMPLIN-EW',status:'sideways',reported_at:'2026-09-18T00:00:00Z',source:'demo'}]),{now});
+  const anyPath=source.paths.features[0].properties.segment_id;
+  const g=buildGraph(statusData([{asset_id:anyPath,status:'sideways',reported_at:'2026-09-18T00:00:00Z',source:'demo'}]),{now});
   assert.equal(g.statusLog[0].result,'invalid status');
 });
 test('a report for an unknown asset is logged without throwing',()=>{
   const g=buildGraph(statusData([{asset_id:'NOT-A-REAL-ASSET',status:'closed',reported_at:'2026-09-18T00:00:00Z',source:'demo'}]),{now});
   assert.equal(g.statusLog[0].result,'unknown asset');
 });
-test('same mapped entrance and unknown inputs return clear results',()=>{
-  const g=graph();assert.equal(findRoute(g,'POI-PERRY-PLACE','POI-PERRY-PLACE').meters,0);
-  const virtualOnly=findRoute(g,'VT-HITT','POI-PROCON');
-  assert.equal(virtualOnly.found,true);assert.equal(virtualOnly.sameEntrance,true);assert.equal(virtualOnly.meters,null);assert.deepEqual(virtualOnly.legs,[]);
+test('same mapped place and unknown inputs return clear results',()=>{
+  const g=graph();
+  assert.equal(findRoute(g,'POI-PERRY-PLACE','POI-PERRY-PLACE').meters,0);
   assert.equal(findRoute(g,'not-a-place','VT-PAMPLIN').found,false);
 });
-test('restricted indoor passages are excluded',()=>{
-  const copied=structuredClone(source);copied.paths.features.find(f=>f.properties.segment_id==='IND-DERRING-1').properties.access_control='swipe_required';
-  assert.ok(!findRoute(buildGraph(copied,{now}),...geoPair).legs.some(l=>l.id==='IND-DERRING-1'));
-});
 test('status application and simulations leave imported data immutable',()=>{
-  const before=JSON.stringify(source);buildGraph(source,{now,closedAssets:['SEG-001','VT-PAMPLIN-EW']});assert.equal(JSON.stringify(source),before);
+  const before=JSON.stringify(source);
+  buildGraph(source,{now,closedAssets:[source.paths.features[0].properties.segment_id]});
+  assert.equal(JSON.stringify(source),before);
+});
+test('graph path endpoints share canonical entrance and junction coordinates',()=>{
+  const g=graph();
+  for(const e of g.edges){
+    assert.deepEqual(e.coordinates[0],g.nodes.get(e.from_node).coordinates,e.id);
+    assert.deepEqual(e.coordinates.at(-1),g.nodes.get(e.to_node).coordinates,e.id);
+  }
+});
+test('the running app disables closures while retaining their legend',()=>{
+  const g=buildGraph(source,{now,enableClosures:false,closedAssets:[source.paths.features[0].properties.segment_id]});
+  assert.ok([...g.assets.values()].every(a=>a.operational_status!=='closed'&&!a.simulated));
+  const html=readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');
+  const app=readFileSync(new URL('../dist/app.js',import.meta.url),'utf8');
+  assert.match(html,/legend-closed/);
+  assert.doesNotMatch(html,/id="(?:closure|scenario|simulate)[^"]*"/);
+  assert.doesNotMatch(app,/closedAsset/);
+  assert.match(app,/enableClosures:false/);
 });
 test('all imported floorplan references exist and special sheets are not ordinary floor numbers',()=>{
   const index=JSON.parse(readFileSync(new URL('../dist/data/floorplans.json',import.meta.url),'utf8'));

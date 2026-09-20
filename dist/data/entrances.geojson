@@ -843,6 +843,2052 @@
         "geometry_precision": "osm_surveyed",
         "source": "OpenStreetMap changeset (iD editor), imported 2026-09-20"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4146660637769,
+          37.22862483773536
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-201-WEST-ROANOKE-STREET-1",
+        "node_id": "N-APPROACH-VT-201-WEST-ROANOKE-STREET",
+        "building_id": "VT-201-WEST-ROANOKE-STREET",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4242831,
+          37.2247546
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-AGNEW-HALL-1",
+        "node_id": "N-OSM-7333072796",
+        "building_id": "VT-AGNEW-HALL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4207975,
+          37.2230679
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-AMBLER-JOHNSTON-HALL-EAST-WING-1",
+        "node_id": "N-APPROACH-VT-AMBLER-JOHNSTON-HALL-EAST-WING",
+        "building_id": "VT-AMBLER-JOHNSTON-HALL-EAST-WING",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4212427,
+          37.2230549
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-AMBLER-JOHNSTON-HALL-WEST-WING-1",
+        "node_id": "N-OSM-702995778",
+        "building_id": "VT-AMBLER-JOHNSTON-HALL-WEST-WING",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.41620301377795,
+          37.22849876109395
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-ARCHITECTURE-ANNEX-1",
+        "node_id": "N-APPROACH-VT-ARCHITECTURE-ANNEX",
+        "building_id": "VT-ARCHITECTURE-ANNEX",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4174502,
+          37.2224551
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-BEAMER-LAWSON-INDOOR-PRACTICE-FACILITY-1",
+        "node_id": "N-OSM-825979089",
+        "building_id": "VT-BEAMER-LAWSON-INDOOR-PRACTICE-FACILITY",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4255995,
+          37.2299884
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-BISHOP-FAVRAO-HALL-1",
+        "node_id": "N-OSM-1580187941",
+        "building_id": "VT-BISHOP-FAVRAO-HALL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.42436716341578,
+          37.22961029694568
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-BURCHARD-HALL-1",
+        "node_id": "N-APPROACH-VT-BURCHARD-HALL",
+        "building_id": "VT-BURCHARD-HALL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4215133,
+          37.2261284
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-CAMPBELL-HALL-EAST-WING-1",
+        "node_id": "N-OSM-903615854",
+        "building_id": "VT-CAMPBELL-HALL-EAST-WING",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.42224620421636,
+          37.22614128100466
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-CAMPBELL-HALL-MAIN-WING-1",
+        "node_id": "N-APPROACH-VT-CAMPBELL-HALL-MAIN-WING",
+        "building_id": "VT-CAMPBELL-HALL-MAIN-WING",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4186484,
+          37.2228025
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-CASSELL-COLISEUM-1",
+        "node_id": "N-OSM-691037490",
+        "building_id": "VT-CASSELL-COLISEUM",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4222812,
+          37.2238387
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-CHEATHAM-HALL-1",
+        "node_id": "N-OSM-698842089",
+        "building_id": "VT-CHEATHAM-HALL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4220641,
+          37.2229747
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-COCHRANE-HALL-1",
+        "node_id": "N-OSM-10928008338",
+        "building_id": "VT-COCHRANE-HALL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.42099052397833,
+          37.230562773929414
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-COLLEGE-OF-LIBERAL-ARTS-AND-HUMAN-SCIENC-1",
+        "node_id": "N-APPROACH-VT-COLLEGE-OF-LIBERAL-ARTS-AND-HUMAN-SCIENC",
+        "building_id": "VT-COLLEGE-OF-LIBERAL-ARTS-AND-HUMAN-SCIENC",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.420552,
+          37.2316291
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-CORPS-LEADERSHIP-AND-MILITARY-SCIENCE-BU-1",
+        "node_id": "N-OSM-12941775051",
+        "building_id": "VT-CORPS-LEADERSHIP-AND-MILITARY-SCIENCE-BU",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.42460148858748,
+          37.2297970389669
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-COWGILL-HALL-1",
+        "node_id": "N-APPROACH-VT-COWGILL-HALL",
+        "building_id": "VT-COWGILL-HALL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.416545,
+          37.2274064
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-CREATIVITY-AND-INNOVATION-DISTRICT-LIVIN-1",
+        "node_id": "N-OSM-12947656281",
+        "building_id": "VT-CREATIVITY-AND-INNOVATION-DISTRICT-LIVIN",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.42094090522473,
+          37.22437088750736
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-DIETRICK-HALL-1",
+        "node_id": "N-APPROACH-VT-DIETRICK-HALL",
+        "building_id": "VT-DIETRICK-HALL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4194273,
+          37.2276135
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-EGGLESTON-HALL-EAST-WING-1",
+        "node_id": "N-OSM-697179421",
+        "building_id": "VT-EGGLESTON-HALL-EAST-WING",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.41988748640397,
+          37.22738553575397
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-EGGLESTON-HALL-MAIN-WING-1",
+        "node_id": "N-APPROACH-VT-EGGLESTON-HALL-MAIN-WING",
+        "building_id": "VT-EGGLESTON-HALL-MAIN-WING",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.42010631310183,
+          37.22692313526978
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-EGGLESTON-HALL-WEST-WING-1",
+        "node_id": "N-APPROACH-VT-EGGLESTON-HALL-WEST-WING",
+        "building_id": "VT-EGGLESTON-HALL-WEST-WING",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4238087,
+          37.2235917
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-ENGEL-HALL-1",
+        "node_id": "N-OSM-894698046",
+        "building_id": "VT-ENGEL-HALL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4177353,
+          37.2281465
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-GRADUATE-LIFE-CENTER-AT-DONALDSON-BROWN-1",
+        "node_id": "N-OSM-725471599",
+        "building_id": "VT-GRADUATE-LIFE-CENTER-AT-DONALDSON-BROWN",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.42435150745575,
+          37.219518853283574
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-HAHN-GARDEN-MARQUEE-1",
+        "node_id": "N-APPROACH-VT-HAHN-GARDEN-MARQUEE",
+        "building_id": "VT-HAHN-GARDEN-MARQUEE",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4241139,
+          37.2192
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-HAHN-GARDEN-PAVILION-1",
+        "node_id": "N-OSM-4244721809",
+        "building_id": "VT-HAHN-GARDEN-PAVILION",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4262941942609,
+          37.22833974474715
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-HAHN-HALL-NORTH-WING-1",
+        "node_id": "N-APPROACH-VT-HAHN-HALL-NORTH-WING",
+        "building_id": "VT-HAHN-HALL-NORTH-WING",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4256434,
+          37.22789
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-HAHN-HALL-SOUTH-WING-1",
+        "node_id": "N-OSM-10927059397",
+        "building_id": "VT-HAHN-HALL-SOUTH-WING",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4176713,
+          37.2232932
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-HAHN-HURST-BASKETBALL-PRACTICE-FACILITY-1",
+        "node_id": "N-OSM-10032579313",
+        "building_id": "VT-HAHN-HURST-BASKETBALL-PRACTICE-FACILITY",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.42307026002551,
+          37.222674113240124
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-HARPER-HALL-1",
+        "node_id": "N-APPROACH-VT-HARPER-HALL",
+        "building_id": "VT-HARPER-HALL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4170696,
+          37.2303128
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-HENDERSON-HALL-1",
+        "node_id": "N-OSM-5883767826",
+        "building_id": "VT-HENDERSON-HALL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4250116,
+          37.2238466
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-HILLCREST-HALL-1",
+        "node_id": "N-OSM-701323455",
+        "building_id": "VT-HILLCREST-HALL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.41870874516832,
+          37.2246901177715
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-HOGE-HALL-1",
+        "node_id": "N-APPROACH-VT-HOGE-HALL",
+        "building_id": "VT-HOGE-HALL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.42228334931148,
+          37.230170888492815
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-HOLDEN-HALL-1",
+        "node_id": "N-APPROACH-VT-HOLDEN-HALL",
+        "building_id": "VT-HOLDEN-HALL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4229213,
+          37.2257936
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-HUTCHESON-HALL-1",
+        "node_id": "N-OSM-4164174340",
+        "building_id": "VT-HUTCHESON-HALL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4176741,
+          37.2255901
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-JOHNSON-HALL-1",
+        "node_id": "N-OSM-698866733",
+        "building_id": "VT-JOHNSON-HALL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.42454985592418,
+          37.22929999949866
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-JOHNSTON-STUDENT-CENTER-1",
+        "node_id": "N-APPROACH-VT-JOHNSTON-STUDENT-CENTER",
+        "building_id": "VT-JOHNSTON-STUDENT-CENTER",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4250466120866,
+          37.22951960682963
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-JOHNSTON-STUDENT-CENTER-ELEVATOR-TOWER-1",
+        "node_id": "N-APPROACH-VT-JOHNSTON-STUDENT-CENTER-ELEVATOR-TOWER",
+        "building_id": "VT-JOHNSTON-STUDENT-CENTER-ELEVATOR-TOWER",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4196938,
+          37.2308221
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-LANE-HALL-1",
+        "node_id": "N-OSM-728008499",
+        "building_id": "VT-LANE-HALL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.41658996223813,
+          37.22007684538467
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-LANE-STADIUM-EAST-STANDS-1",
+        "node_id": "N-APPROACH-VT-LANE-STADIUM-EAST-STANDS",
+        "building_id": "VT-LANE-STADIUM-EAST-STANDS",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4187759,
+          37.220996
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-LANE-STADIUM-NORTH-END-ZONE-1",
+        "node_id": "N-OSM-859037086",
+        "building_id": "VT-LANE-STADIUM-NORTH-END-ZONE",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.41801590032985,
+          37.21868305716798
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-LANE-STADIUM-SOUTH-END-ZONE-1",
+        "node_id": "N-APPROACH-VT-LANE-STADIUM-SOUTH-END-ZONE",
+        "building_id": "VT-LANE-STADIUM-SOUTH-END-ZONE",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.419192,
+          37.2199647
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-LANE-STADIUM-WEST-STANDS-1",
+        "node_id": "N-OSM-12918974065",
+        "building_id": "VT-LANE-STADIUM-WEST-STANDS",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4223369,
+          37.2245095
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-LATHAM-HALL-1",
+        "node_id": "N-OSM-698842134",
+        "building_id": "VT-LATHAM-HALL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4226859,
+          37.2312307
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-LAVERY-HALL-1",
+        "node_id": "N-OSM-3769532297",
+        "building_id": "VT-LAVERY-HALL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.42713,
+          37.2283265
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-LEWAS-LAB-1",
+        "node_id": "N-APPROACH-VT-LEWAS-LAB",
+        "building_id": "VT-LEWAS-LAB",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4242018,
+          37.2217986
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-LITTON-REAVES-HALL-1",
+        "node_id": "N-OSM-12918974079",
+        "building_id": "VT-LITTON-REAVES-HALL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4206541,
+          37.230989
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-MAJOR-WILLIAMS-HALL-1",
+        "node_id": "N-OSM-1916344731",
+        "building_id": "VT-MAJOR-WILLIAMS-HALL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.42233805780292,
+          37.220148165624664
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-MCCOMAS-HALL-1",
+        "node_id": "N-APPROACH-VT-MCCOMAS-HALL",
+        "building_id": "VT-MCCOMAS-HALL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4152284,
+          37.2288808
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-MEDIA-BUILDING-1",
+        "node_id": "N-OSM-1929391262",
+        "building_id": "VT-MEDIA-BUILDING",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4189116,
+          37.2216882
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-MERRYMAN-ATHLETIC-FACILITY-1",
+        "node_id": "N-OSM-859036974",
+        "building_id": "VT-MERRYMAN-ATHLETIC-FACILITY",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.41707981668775,
+          37.22557189742695
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-MILES-HALL-1",
+        "node_id": "N-APPROACH-VT-MILES-HALL",
+        "building_id": "VT-MILES-HALL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4214429560463,
+          37.231731194159664
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-MILITARY-BUILDING-LAUNDRY-1",
+        "node_id": "N-APPROACH-VT-MILITARY-BUILDING-LAUNDRY",
+        "building_id": "VT-MILITARY-BUILDING-LAUNDRY",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.42260825144109,
+          37.2222353424741
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-NEW-HALL-WEST-1",
+        "node_id": "N-APPROACH-VT-NEW-HALL-WEST",
+        "building_id": "VT-NEW-HALL-WEST",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.41920424823685,
+          37.22566931911933
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-NEW-RESIDENCE-HALL-EAST-1",
+        "node_id": "N-APPROACH-VT-NEW-RESIDENCE-HALL-EAST",
+        "building_id": "VT-NEW-RESIDENCE-HALL-EAST",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.41771435303409,
+          37.22610181330647
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-NEWMAN-HALL-1",
+        "node_id": "N-APPROACH-VT-NEWMAN-HALL",
+        "building_id": "VT-NEWMAN-HALL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.42288196782947,
+          37.22993023463218
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-NORRIS-HALL-1",
+        "node_id": "N-APPROACH-VT-NORRIS-HALL",
+        "building_id": "VT-NORRIS-HALL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4183982,
+          37.2253017
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-O-SHAUGHNESSY-HALL-1",
+        "node_id": "N-OSM-688009430",
+        "building_id": "VT-O-SHAUGHNESSY-HALL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.42152372887125,
+          37.231428600200914
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-OLD-SECURITY-BUILDING-1",
+        "node_id": "N-APPROACH-VT-OLD-SECURITY-BUILDING",
+        "building_id": "VT-OLD-SECURITY-BUILDING",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.42586487716045,
+          37.23086759082187
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-PARKING-STRUCTURE-PERRY-STREET-LOT-1",
+        "node_id": "N-APPROACH-VT-PARKING-STRUCTURE-PERRY-STREET-LOT",
+        "building_id": "VT-PARKING-STRUCTURE-PERRY-STREET-LOT",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4222557,
+          37.2292893
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-PATTON-HALL-1",
+        "node_id": "N-OSM-688009416",
+        "building_id": "VT-PATTON-HALL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.42000459696636,
+          37.225813035328564
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-PAYNE-HALL-1",
+        "node_id": "N-APPROACH-VT-PAYNE-HALL",
+        "building_id": "VT-PAYNE-HALL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4190256947837,
+          37.230926320856405
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-PEARSON-HALL-EAST-1",
+        "node_id": "N-APPROACH-VT-PEARSON-HALL-EAST",
+        "building_id": "VT-PEARSON-HALL-EAST",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.41995354755598,
+          37.23030636624719
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-PEARSON-HALL-WEST-1",
+        "node_id": "N-APPROACH-VT-PEARSON-HALL-WEST",
+        "building_id": "VT-PEARSON-HALL-WEST",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4198907,
+          37.2251707
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-PEDDREW-YATES-HALL-1",
+        "node_id": "N-OSM-559227762",
+        "building_id": "VT-PEDDREW-YATES-HALL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4241099,
+          37.2258218
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-PRICE-HALL-1",
+        "node_id": "N-OSM-721569447",
+        "building_id": "VT-PRICE-HALL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.41970552220543,
+          37.22426565149747
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-PRITCHARD-HALL-1",
+        "node_id": "N-APPROACH-VT-PRITCHARD-HALL",
+        "building_id": "VT-PRITCHARD-HALL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.41574044273105,
+          37.21903845507352
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-PUBLIC-SAFETY-BUILDING-1",
+        "node_id": "N-APPROACH-VT-PUBLIC-SAFETY-BUILDING",
+        "building_id": "VT-PUBLIC-SAFETY-BUILDING",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4252971,
+          37.2281632
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-ROBESON-HALL-1",
+        "node_id": "N-OSM-581232415",
+        "building_id": "VT-ROBESON-HALL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.42358726147593,
+          37.22566356133018
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-SANDY-HALL-1",
+        "node_id": "N-APPROACH-VT-SANDY-HALL",
+        "building_id": "VT-SANDY-HALL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4242831,
+          37.2247546
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-SAUNDERS-HALL-1",
+        "node_id": "N-OSM-7333072796",
+        "building_id": "VT-SAUNDERS-HALL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.42348937837785,
+          37.2247906215766
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-SEITZ-HALL-1",
+        "node_id": "N-APPROACH-VT-SEITZ-HALL",
+        "building_id": "VT-SEITZ-HALL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.41975908624063,
+          37.23162034237819
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-SHANKS-HALL-1",
+        "node_id": "N-APPROACH-VT-SHANKS-HALL",
+        "building_id": "VT-SHANKS-HALL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.42187118921083,
+          37.22545795625449
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-SLUSHER-HALL-1",
+        "node_id": "N-APPROACH-VT-SLUSHER-HALL",
+        "building_id": "VT-SLUSHER-HALL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4226264,
+          37.2215844
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-SMITH-CAREER-CENTER-1",
+        "node_id": "N-OSM-9967862684",
+        "building_id": "VT-SMITH-CAREER-CENTER",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.42322211444014,
+          37.22506701161032
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-SMYTH-HALL-1",
+        "node_id": "N-APPROACH-VT-SMYTH-HALL",
+        "building_id": "VT-SMYTH-HALL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4268201,
+          37.2262023
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-SOLITUDE-1",
+        "node_id": "N-OSM-12032699286",
+        "building_id": "VT-SOLITUDE",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.41666588594948,
+          37.218785890796084
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-SOUTHGATE-CENTER-1",
+        "node_id": "N-APPROACH-VT-SOUTHGATE-CENTER",
+        "building_id": "VT-SOUTHGATE-CENTER",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.42647525045653,
+          37.221275946882386
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-STEGER-HALL-NORTH-WING-1",
+        "node_id": "N-APPROACH-VT-STEGER-HALL-NORTH-WING",
+        "building_id": "VT-STEGER-HALL-NORTH-WING",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4260939,
+          37.2209687
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-STEGER-HALL-SOUTH-WING-1",
+        "node_id": "N-APPROACH-VT-STEGER-HALL-SOUTH-WING",
+        "building_id": "VT-STEGER-HALL-SOUTH-WING",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.42192459790816,
+          37.22216858518941
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-STUDENT-SERVICES-BUILDING-1",
+        "node_id": "N-APPROACH-VT-STUDENT-SERVICES-BUILDING",
+        "building_id": "VT-STUDENT-SERVICES-BUILDING",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.423168,
+          37.2328876
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-SURGE-SPACE-BUILDING-1",
+        "node_id": "N-OSM-1456436772",
+        "building_id": "VT-SURGE-SPACE-BUILDING",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4162809,
+          37.23015
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-THEATER-101-1",
+        "node_id": "N-OSM-11955146821",
+        "building_id": "VT-THEATER-101",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4258071,
+          37.2306374
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-TRANSIT-CENTER-1",
+        "node_id": "N-OSM-12720855533",
+        "building_id": "VT-TRANSIT-CENTER",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4274763,
+          37.2300187
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-UNDERGRADUATE-SCIENCE-LABORATORY-BUILDIN-1",
+        "node_id": "N-APPROACH-VT-UNDERGRADUATE-SCIENCE-LABORATORY-BUILDIN",
+        "building_id": "VT-UNDERGRADUATE-SCIENCE-LABORATORY-BUILDIN",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.41879928271919,
+          37.228139079804336
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-UNIVERSITY-BOOKSTORE-1",
+        "node_id": "N-APPROACH-VT-UNIVERSITY-BOOKSTORE",
+        "building_id": "VT-UNIVERSITY-BOOKSTORE",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.42126604488489,
+          37.23120237568087
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-UPPER-QUAD-HALL-NORTH-1",
+        "node_id": "N-APPROACH-VT-UPPER-QUAD-HALL-NORTH",
+        "building_id": "VT-UPPER-QUAD-HALL-NORTH",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.41768522371251,
+          37.22700861366353
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-VAWTER-HALL-1",
+        "node_id": "N-APPROACH-VT-VAWTER-HALL",
+        "building_id": "VT-VAWTER-HALL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4340663049119,
+          37.23083588547689
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-VISITORS-UNDERGRADUATE-ADMISSIONS-CENTER-1",
+        "node_id": "N-APPROACH-VT-VISITORS-UNDERGRADUATE-ADMISSIONS-CENTER",
+        "building_id": "VT-VISITORS-UNDERGRADUATE-ADMISSIONS-CENTER",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4244974,
+          37.2229248
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-WALLACE-HALL-1",
+        "node_id": "N-APPROACH-VT-WALLACE-HALL",
+        "building_id": "VT-WALLACE-HALL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.42037445090209,
+          37.228747910435345
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-WAR-MEMORIAL-CHAPEL-1",
+        "node_id": "N-APPROACH-VT-WAR-MEMORIAL-CHAPEL",
+        "building_id": "VT-WAR-MEMORIAL-CHAPEL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4202919,
+          37.2265771
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-WAR-MEMORIAL-GYMNASIUM-1",
+        "node_id": "N-OSM-14141217146",
+        "building_id": "VT-WAR-MEMORIAL-GYMNASIUM",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.41689678896216,
+          37.22610368281459
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-WHITEHURST-HALL-1",
+        "node_id": "N-APPROACH-VT-WHITEHURST-HALL",
+        "building_id": "VT-WHITEHURST-HALL",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4259051,
+          37.2268404
+        ]
+      },
+      "properties": {
+        "entrance_id": "APPROACH-VT-WRIGHT-HOUSE-1",
+        "node_id": "N-OSM-635414548",
+        "building_id": "VT-WRIGHT-HOUSE",
+        "entrance_name": "Approach (nearest mapped path)",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "approach",
+        "operational_status": "unknown",
+        "geometry_precision": "building_centroid_projected",
+        "source": "Nearest point on OSM network to the building centroid - not a surveyed door."
+      }
     }
   ]
 }

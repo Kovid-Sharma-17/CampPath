@@ -36,25 +36,16 @@ const source = {
   pois: read('pois.geojson'),
   metadata: read('metadata.json'),
   status: read('status-records.json'),
-  studentRoutes: (() => { try { return read('student-routes.json'); } catch { return undefined; } })(),
 };
 
 const merged = applyEdits(source, edits);
 
-// applyEdits() also materializes each screenshot leg as a runtime-only
-// TRACE-* path edge so the editor can select/drag it like any other
-// segment. That's derived from student-routes.json on every load - baking
-// it into paths.geojson would duplicate it next time the app runs.
-merged.paths.features = merged.paths.features.filter(f => !f.properties.segment_id.startsWith('TRACE-'));
-
 write('paths.geojson', merged.paths);
 write('entrances.geojson', merged.entrances);
-if (merged.studentRoutes) write('student-routes.json', merged.studentRoutes);
 
 const counts = [
   ['paths', Object.keys(edits.paths).length],
   ['entrances', Object.keys(edits.entrances).length],
-  ['screenshot legs', Object.keys(edits.studentLegs).length],
   ['moved nodes', Object.keys(edits.nodes).length],
 ];
 console.log('Baked edits into dist/data/*.geojson:');

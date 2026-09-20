@@ -15,12 +15,12 @@ export function buildGraph(data, {now = new Date(), closedAssets = [], enableClo
     graph.places.push({id: p.building_id, node: 'B:' + p.building_id, name: p.name, building: p.building_id, type: 'building', coordinates: p.coordinates});
   }
   for (const f of data.entrances.features) {
-    const p = {...f.properties, coordinates: data.studentRoutes?.entranceCoordinates?.[f.properties.node_id] || f.geometry.coordinates};
+    const p = {...f.properties, coordinates: f.geometry.coordinates};
     graph.nodes.set(p.node_id, {coordinates: p.coordinates, building: p.building_id, name: p.entrance_name});
     graph.entrances.set(p.node_id, p); graph.assets.set(p.entrance_id, p);
   }
   for (const f of data.paths.features) {
-    const p = f.properties, coordinates = data.studentRoutes?.edgeOverrides?.[p.segment_id] || f.geometry.coordinates;
+    const p = f.properties, coordinates = f.geometry.coordinates;
     if (!graph.nodes.has(p.from_node)) graph.nodes.set(p.from_node, {coordinates: coordinates[0], name: 'Campus junction'});
     if (!graph.nodes.has(p.to_node)) graph.nodes.set(p.to_node, {coordinates: coordinates.at(-1), name: 'Campus junction'});
     const e = {...p, id: p.segment_id, coordinates, meters: pathLength(coordinates)};
@@ -43,13 +43,6 @@ export function buildGraph(data, {now = new Date(), closedAssets = [], enableClo
   if (!enableClosures) for (const a of graph.assets.values()) {
     if (a.operational_status === 'closed') a.operational_status = 'unknown';
     delete a.simulated;
-  }
-  // One coordinate per graph node prevents visual jumps between incident paths.
-  if (data.studentRoutes) for (const e of graph.edges) {
-    e.coordinates = e.coordinates.map(p => [...p]);
-    e.coordinates[0] = graph.nodes.get(e.from_node).coordinates;
-    e.coordinates[e.coordinates.length - 1] = graph.nodes.get(e.to_node).coordinates;
-    e.meters = pathLength(e.coordinates);
   }
   function link(edge) {
     for (const [from, to, reverse] of [[edge.from_node, edge.to_node, false], [edge.to_node, edge.from_node, true]]) {

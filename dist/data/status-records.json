@@ -1,18 +1,1 @@
-[
-  {
-    "asset_id": "SEG-014",
-    "status": "closed",
-    "reason": "Alumni Mall resurfacing",
-    "reported_at": "2026-09-15T07:00:00-04:00",
-    "expected_end": "2026-09-26T17:00:00-04:00",
-    "source": "Facilities"
-  },
-  {
-    "asset_id": "SEG-028",
-    "status": "closed",
-    "reason": "Mitchell Hall construction site",
-    "reported_at": "2026-08-01T00:00:00-04:00",
-    "expected_end": "2028-08-01T00:00:00-04:00",
-    "source": "Facilities"
-  }
-]
+[]

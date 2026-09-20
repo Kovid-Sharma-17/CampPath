@@ -30,26 +30,8 @@ function mergeFeatures(features,changes,key){
 }
 export function applyEdits(source,edits=emptyEdits()){
   validateEdits(edits);const data=clone(source);
-  // Expose screenshot passages as regular editable edges as well as presets.
-  // Shared endpoint coordinates reuse a physical node instead of making islands.
-  const nodes=[];
-  for(const f of data.entrances.features)nodes.push([f.properties.node_id,data.studentRoutes?.entranceCoordinates?.[f.properties.node_id]||f.geometry.coordinates]);
-  for(const f of data.paths.features){const c=data.studentRoutes?.edgeOverrides?.[f.properties.segment_id]||f.geometry.coordinates;nodes.push([f.properties.from_node,c[0]],[f.properties.to_node,c.at(-1)]);}
-  const nodeFor=p=>{const found=nodes.find(([,q])=>haversine(p,q)<.4);if(found)return found[0];const id='J-TRACE-'+nodes.length;nodes.push([id,p]);return id;};
-  const traceNodes={};
-  for(const [id,leg] of Object.entries(data.studentRoutes?.legs||{})){
-    const c=leg.coordinates;
-    const from=nodeFor(c[0]),to=nodeFor(c.at(-1));traceNodes[id]=[from,to];
-    data.paths.features.push(makePath('TRACE-'+id,from,to,c,{name:leg.name,is_indoor:leg.is_indoor,source:leg.source,building:leg.building,trace_leg:id}));
-  }
   data.paths.features=mergeFeatures(data.paths.features,edits.paths,'segment_id');
   data.entrances.features=mergeFeatures(data.entrances.features,edits.entrances,'entrance_id');
-  if(data.studentRoutes){
-    for(const id of Object.keys(edits.paths))delete data.studentRoutes.edgeOverrides[id];
-    for(const [id,leg] of Object.entries(edits.studentLegs)){
-      if(leg)data.studentRoutes.legs[id]=clone(leg);else delete data.studentRoutes.legs[id];
-    }
-  }
   for(const f of data.paths.features){
     const p=f.properties,c=f.geometry.coordinates;
     if(edits.nodes[p.from_node])c[0]=clone(edits.nodes[p.from_node]);
@@ -58,7 +40,6 @@ export function applyEdits(source,edits=emptyEdits()){
   for(const f of data.entrances.features){
     const node=f.properties.node_id;
     if(edits.nodes[node])f.geometry.coordinates=clone(edits.nodes[node]);
-    if(data.studentRoutes && (edits.entrances[f.properties.entrance_id]||edits.nodes[node]))data.studentRoutes.entranceCoordinates[node]=clone(f.geometry.coordinates);
   }
   return data;
 }
@@ -88,15 +69,6 @@ export function splitPath(feature,point,nodeId,newId){
 }
 
 export async function loadDataset(){
-  const files={buildings:'buildings.geojson',entrances:'entrances.geojson',paths:'paths.geojson',pois:'pois.geojson',metadata:'metadata.json',status:'status-records.json',floorplans:'floorplans.json',studentRoutes:'student-routes.json'};
-  const data=Object.fromEntries(await Promise.all(Object.entries(files).map(async([key,file])=>{const r=await fetch('data/'+file,{cache:'no-store'});if(!r.ok)throw Error('Could not load '+file);return[key,await r.json()];})));
-  // Optional network import is separate from hand-edited pilot files.
-  const manifest=await fetch('data/network-manifest.json',{cache:'no-store'});
-  if(manifest.ok){data.networkManifest=await manifest.json();for(const [key,entry] of Object.entries(data.networkManifest.files||{})){
-    for(const file of Array.isArray(entry)?entry:[entry]){
-      const r=await fetch('data/'+file,{cache:'no-store'});if(!r.ok)throw Error('Could not load '+file);
-      const extra=await r.json();data[key].features.push(...extra.features);
-    }
-  }}
-  return data;
+  const files={buildings:'buildings.geojson',entrances:'entrances.geojson',paths:'paths.geojson',pois:'pois.geojson',metadata:'metadata.json',status:'status-records.json',floorplans:'floorplans.json'};
+  return Object.fromEntries(await Promise.all(Object.entries(files).map(async([key,file])=>{const r=await fetch('data/'+file,{cache:'no-store'});if(!r.ok)throw Error('Could not load '+file);return[key,await r.json()];})));
 }
