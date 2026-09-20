@@ -36,6 +36,12 @@ async function load() {
   $('.nav-count').textContent=planCount;
   $('#pilot-counts').textContent=graph.buildings.size+' buildings · '+graph.edges.length.toLocaleString()+' path segments';
   initMap(); wireEvents(); render(true); renderFloor(); registerAgentTools();
+  // The map container's layout can still be settling (fonts, reflow) right
+  // after this synchronous fit, which leaves the map showing a stale, too-far-
+  // zoomed-out view until the next manual interaction. A one-time correction
+  // once layout has definitely settled fixes that without fighting the
+  // user's own zoom/pan afterward.
+  setTimeout(()=>{map.invalidateSize();if(state.view==='routes')fitMap();},250);
 }
 function option(p) { return '<option value="'+esc(p.id)+'">'+esc(p.name)+'</option>'; }
 function initMap() {
