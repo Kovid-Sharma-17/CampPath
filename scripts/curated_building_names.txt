@@ -42,7 +42,6 @@ Hillcrest Hall
 Hitt Hall
 Hoge Hall
 Holden Hall
-Holtzman Alumni Center
 Hutcheson Hall
 Johnson Hall
 Johnston Student Center
@@ -55,6 +54,7 @@ Lane Stadium (south end zone)
 Lane Stadium (west stands)
 Latham Hall
 Lavery Hall
+LEWAS Lab
 Litton-Reaves Hall
 Major Williams Hall
 McBryde Hall
@@ -86,7 +86,6 @@ Sandy Hall
 Saunders Hall
 Seitz Hall
 Shanks Hall
-Skelton Conference Center
 Slusher Hall
 Smith Career Center
 Smyth Hall
@@ -97,7 +96,6 @@ Steger Hall - North Wing
 Steger Hall - South Wing
 Student Services Building
 Surge Space Building
-The Inn at Virginia Tech
 Theater 101
 Torgersen Hall
 Transit Center
