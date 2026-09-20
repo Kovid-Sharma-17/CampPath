@@ -3,7 +3,7 @@ import {clone,emptyEdits,readEdits,saveEdits,validateEdits,applyEdits,makePath,n
 const $=s=>document.querySelector(s),esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const label=p=>p.route_name||p.name||p.segment_id;
 const ll=p=>[p[1],p[0]],point=e=>[e.latlng.lng,e.latlng.lat];
-let source,data,graph,edits,map,baseLayer,draftLayer,alternateLayer,queryLayer,draft=null,mode='select',selectedPoint=null,stairFirst=null,stairs=null,door=null;
+let source,data,graph,edits,map,baseLayer,edgeLayer,draftLayer,alternateLayer,queryLayer,draft=null,mode='select',selectedPoint=null,stairFirst=null,stairs=null,door=null,routeMode=null;
 const history=[];
 function status(message){$('#editor-status').textContent=message;}
 function attempt(fn){try{fn();}catch(e){status(e.message);}}
@@ -12,7 +12,9 @@ function commit(next,message){validateEdits(next);saveEdits(next);history.push(c
 function ids(){return new Set(data.paths.features.map(f=>f.properties.segment_id));}
 function currentFeature(id){return data.paths.features.find(f=>f.properties.segment_id===id);}
 function physicalFeature(f){const out=clone(f),edge=graph.edges.find(e=>e.id===f.properties.segment_id);if(edge)out.geometry.coordinates=clone(edge.coordinates);return out;}
-function reset(){draft=null;door=null;mode='select';selectedPoint=null;stairFirst=null;draftLayer.clearLayers();alternateLayer.clearLayers();$('#path-panel').hidden=true;$('#entrance-panel').hidden=true;$('#finish-draw').hidden=true;status('Click a path to edit it, or choose New path.');}
+function hideMesh(){if(map.hasLayer(edgeLayer))map.removeLayer(edgeLayer);}
+function showMesh(){if(!map.hasLayer(edgeLayer))map.addLayer(edgeLayer);}
+function reset(){routeMode=null;queryLayer.clearLayers();showMesh();$('#route-mode-panel').hidden=true;draft=null;door=null;mode='select';selectedPoint=null;stairFirst=null;draftLayer.clearLayers();alternateLayer.clearLayers();$('#path-panel').hidden=true;$('#entrance-panel').hidden=true;$('#finish-draw').hidden=true;status('Click a path to edit it, or choose New path.');}
 function populate(){
  const query=$('#path-search').value.toLowerCase();
  const paths=data.paths.features.filter(f=>[f.properties.route_name,f.properties.name,f.properties.segment_id,f.properties.from_node,f.properties.to_node].join(' ').toLowerCase().includes(query));
@@ -24,7 +26,7 @@ function populate(){
  $('#network-count').textContent=data.paths.features.length.toLocaleString()+' mapped segments · '+graph.buildings.size+' buildings';
 }
 function renderNetwork(){
-  baseLayer.clearLayers();
+  baseLayer.clearLayers();edgeLayer.clearLayers();
   for(const f of data.barriers?.features||[]){
    const p=f.properties,isLine=f.geometry.type==='LineString',centerCoord=isLine?f.geometry.coordinates[Math.floor(f.geometry.coordinates.length/2)]:f.geometry.coordinates;
    const layer=isLine?L.polyline(f.geometry.coordinates.map(ll),{color:'#c54231',weight:5,opacity:.9,bubblingMouseEvents:false}):L.circleMarker(ll(f.geometry.coordinates),{radius:10,color:'#fff',weight:2,fillColor:'#c54231',fillOpacity:1});
@@ -35,7 +37,7 @@ function renderNetwork(){
   const stairs=e.has_recorded_stairs||['stairs','not_step_free'].includes(e.accessibility_status),student=!/^(VT-WALK-|OSM-)/.test(e.id);
   const line=L.polyline(e.coordinates.map(ll),{color:stairs?'#c54231':student?'#b77624':'#5d8171',weight:student?3:2,opacity:.78,bubblingMouseEvents:false});
   line.bindTooltip(esc(label(e))+' · '+esc(e.accessibility_status||'unknown'));
-  line.on('click',ev=>{L.DomEvent.stopPropagation(ev);if(mode==='draw'){addDrawPoint(point(ev));return;}if(mode==='entrance'){placeDoor(point(ev));return;}const f=currentFeature(e.id);if(f)selectPath(f);});line.addTo(baseLayer);
+  line.on('click',ev=>{L.DomEvent.stopPropagation(ev);if(mode==='draw'){addDrawPoint(point(ev));return;}if(mode==='entrance'){placeDoor(point(ev));return;}const f=currentFeature(e.id);if(f)selectPath(f);});line.addTo(edgeLayer);
  }
  for(const f of data.entrances.features){
   const p=f.properties,coord=graph.entrances.get(p.node_id)?.coordinates||f.geometry.coordinates,approach=p.node_role==='approach';
@@ -77,19 +79,58 @@ function openFromQuery(){
  const a=resolvePlace(graph,fromId),b=resolvePlace(graph,toId);
  if(!a||!b){status('Could not find one of the linked places in this dataset.');return;}
  const r=findRoute(graph,fromId,toId,{});
- queryLayer.clearLayers();
- if(r.found&&r.legs.length){
-  for(const e of r.legs)L.polyline(e.coordinates.map(ll),{color:'#1d6fd6',weight:7,opacity:.5,bubblingMouseEvents:false}).addTo(queryLayer);
-  map.fitBounds(L.latLngBounds(r.legs.flatMap(e=>e.coordinates.map(ll))),{padding:[60,60],maxZoom:19});
-  const editable=r.legs.map(e=>currentFeature(e.id)||currentFeature('TRACE-'+e.id)).find(Boolean);
-  if(editable)selectPath(editable);
-  status('Route from '+a.name+' to '+b.name+': '+r.legs.length+' segment(s), highlighted in blue.'+(editable?' Showing the first editable one — click any highlighted segment to edit it instead.':' None of its segments are directly editable here (it runs through connectors).'));
- }else{
+ if(r.found&&r.legs.length)enterRouteMode(fromId,toId);
+ else{
+  reset();hideMesh();
   map.fitBounds(L.latLngBounds([ll(a.coordinates),ll(b.coordinates)]),{padding:[80,80],maxZoom:18});
   newPath(null,{coordinates:[clone(a.coordinates),clone(b.coordinates)],name:a.name+' – '+b.name,label:a.name+' and '+b.name});
-  status('No route connects '+a.name+' and '+b.name+' yet. Start and end are placed near them — trace the real path, then Save.');
+  status('No route connects '+a.name+' and '+b.name+' yet. The rest of the network is hidden so you can focus on this. Start and end are placed near them — trace the real path, then Save.');
  }
 }
+function enterRouteMode(fromId,toId){
+ reset();
+ const a=resolvePlace(graph,fromId),b=resolvePlace(graph,toId),r=findRoute(graph,fromId,toId,{});
+ if(!a||!b||!r.found||!r.legs.length){status('That route is no longer available.');return;}
+ const legs=r.legs.map(e=>{const f=currentFeature(e.id)||currentFeature('TRACE-'+e.id);return f?{feature:physicalFeature(f)}:{coordinates:clone(e.coordinates)};});
+ routeMode={legs,fromId,toId,fromLabel:a.name,toLabel:b.name,selected:null};
+ hideMesh();$('#route-mode-panel').hidden=false;$('#route-mode-heading').textContent=a.name+' → '+b.name;
+ const editableCount=legs.filter(l=>l.feature).length;
+ $('#route-mode-readonly').hidden=editableCount===legs.length;
+ $('#route-mode-readonly').textContent=(legs.length-editableCount)+' of '+legs.length+' segment(s) run through connectors and can\'t be dragged here — shown dimmed for context.';
+ renderRouteMode();
+ map.fitBounds(L.latLngBounds(legs.flatMap(l=>(l.feature?l.feature.geometry.coordinates:l.coordinates).map(ll))),{padding:[60,60],maxZoom:19});
+ status('Editing the route from '+a.name+' to '+b.name+'. The rest of the network is hidden. Drag any point on any highlighted segment, then Save route.');
+}
+function renderRouteMode(){
+ queryLayer.clearLayers();if(!routeMode)return;
+ routeMode.legs.forEach((leg,li)=>{
+  if(!leg.feature){L.polyline(leg.coordinates.map(ll),{color:'#9aa6b2',weight:4,opacity:.55,dashArray:'2 6',bubblingMouseEvents:false}).addTo(queryLayer).bindTooltip('Runs through a connector — not editable here');return;}
+  const c=leg.feature.geometry.coordinates;
+  const line=L.polyline(c.map(ll),{color:'#1d6fd6',weight:6,opacity:.85,bubblingMouseEvents:false}).addTo(queryLayer);
+  line.bindTooltip(esc(label(leg.feature.properties)));
+  line.on('click',e=>{L.DomEvent.stopPropagation(e);const near=projectPoint(point(e),c);c.splice(near.index+1,0,near.coordinates);routeMode.selected={li,i:near.index+1};renderRouteMode();});
+  c.forEach((p,i)=>{
+   const sel=routeMode.selected&&routeMode.selected.li===li&&routeMode.selected.i===i;
+   const marker=L.marker(ll(p),{draggable:true,icon:L.divIcon({className:'vertex-dot'+(sel?' selected':''),iconSize:[15,15],iconAnchor:[7,7]}),bubblingMouseEvents:false}).addTo(queryLayer);
+   marker.bindTooltip('Point '+(i+1)+(i===0?' · start':i===c.length-1?' · end':''));
+   marker.on('dragend',e=>{c[i]=[e.target.getLatLng().lng,e.target.getLatLng().lat];routeMode.selected={li,i};renderRouteMode();});
+   marker.on('click',e=>{L.DomEvent.stopPropagation(e);routeMode.selected={li,i};renderRouteMode();});
+  });
+ });
+ const totalLength=routeMode.legs.reduce((m,l)=>m+pathLength(l.feature?l.feature.geometry.coordinates:l.coordinates),0);
+ $('#route-mode-length').textContent=Math.round(totalLength)+' m total';
+}
+function saveRoute(){
+ if(!routeMode)return;
+ const editable=routeMode.legs.filter(l=>l.feature);
+ if(!editable.length)throw Error('None of this route\'s segments are editable here.');
+ for(const leg of editable)if(leg.feature.geometry.coordinates.length<2)throw Error('Every segment needs at least two points.');
+ const next=clone(edits);for(const leg of editable)next.paths[leg.feature.properties.segment_id]=leg.feature;
+ const {fromId,toId}=routeMode;
+ commit(next,'Route saved — '+editable.length+' segment(s) updated. The planner now uses this edit.');
+ enterRouteMode(fromId,toId);
+}
+function exitRouteMode(){reset();status('Showing the full network again. Click a path to edit it, or choose New path.');}
 function addDrawPoint(p){if(!draft)return;const c=draft.geometry.coordinates;if(draft.alternate)c.splice(c.length-1,0,p);else c.push(p);renderDraft();}
 function snapEndpoint(p,next,excludeNode=null){
  let nearNode;
@@ -148,12 +189,13 @@ function wire(){
  $('#undo-edit').onclick=()=>attempt(()=>{const previous=history.at(-1);if(!previous)return;saveEdits(previous);history.pop();edits=previous;reset();rebuild();$('#undo-edit').disabled=!history.length;status('Last save undone.');});
  $('#export-edits').onclick=()=>{const blob=new Blob([JSON.stringify(edits,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='accesspath-network-edits.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);status('Editor backup exported.');};
  $('#import-edits').onclick=()=>$('#import-file').click();$('#import-file').onchange=async e=>{try{const file=e.target.files[0];if(!file)return;const incoming=validateEdits(JSON.parse(await file.text()));applyEdits(source,incoming);commit(incoming,'Edits imported. Undo save restores your previous edits.');reset();status('Edits imported and applied to the planner.');}catch(err){status('Import failed: '+err.message);}e.target.value='';};
+ $('#save-route').onclick=()=>attempt(saveRoute);$('#exit-route-mode').onclick=exitRouteMode;
 }
 async function load(){
  source=await loadDataset();try{edits=readEdits();}catch(e){edits=emptyEdits();status('Saved edits could not be read: '+e.message);}
  map=L.map('campus-map',{preferCanvas:true}).setView([37.2295,-80.423],16);
  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> · Paths: Virginia Tech GIS'}).addTo(map);
- baseLayer=L.layerGroup().addTo(map);draftLayer=L.layerGroup().addTo(map);alternateLayer=L.layerGroup().addTo(map);queryLayer=L.layerGroup().addTo(map);
+ baseLayer=L.layerGroup().addTo(map);edgeLayer=L.layerGroup().addTo(map);draftLayer=L.layerGroup().addTo(map);alternateLayer=L.layerGroup().addTo(map);queryLayer=L.layerGroup().addTo(map);
  map.on('click',e=>{if(mode==='draw')addDrawPoint(point(e));else if(mode==='entrance')placeDoor(point(e));});wire();rebuild();status('Click a preloaded path to edit it. Saved changes also appear in the planner.');
  openFromQuery();
 }
