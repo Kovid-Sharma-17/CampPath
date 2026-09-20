@@ -3754,6 +3754,519 @@
         "notes": "Added via the route editor; not yet surveyed.",
         "route_name": "burruss-goodwin"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.42448162918213,
+            37.22885482496141
+          ],
+          [
+            -80.4244734,
+            37.2288528
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "DOOR-LINK-1",
+        "from_node": "N-DOOR-VT-GOODWIN-1",
+        "to_node": "J-VT-7246",
+        "name": "Door approach",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "confidence": "inferred",
+        "operational_confidence": "inferred",
+        "is_indoor": false,
+        "surface": "unknown",
+        "access_control": "outdoor",
+        "open_hours": "unknown",
+        "source": "AccessPath route editor"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.42348112413546,
+            37.22815645007292
+          ],
+          [
+            -80.4236872,
+            37.228258
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "OSM-WALK-2295",
+        "from_node": "J-VT-6302",
+        "to_node": "J-VT-6303",
+        "name": "Campus path (OpenStreetMap)",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "confidence": "inferred",
+        "geometry_confidence": "official",
+        "source": "© OpenStreetMap contributors, ODbL - https://www.openstreetmap.org/copyright",
+        "source_feature_ids": [
+          "44076271"
+        ],
+        "is_indoor": false,
+        "access_control": "outdoor",
+        "surface": "unknown",
+        "open_hours": "unknown"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.42348112413546,
+            37.22815858573545
+          ],
+          [
+            -80.42312425051715,
+            37.22784250702491
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "OSM-WALK-2296",
+        "from_node": "J-VT-6302",
+        "to_node": "J-VT-6565",
+        "name": "Campus path (OpenStreetMap)",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "confidence": "inferred",
+        "geometry_confidence": "official",
+        "source": "© OpenStreetMap contributors, ODbL - https://www.openstreetmap.org/copyright",
+        "source_feature_ids": [
+          "74267686"
+        ],
+        "is_indoor": false,
+        "access_control": "outdoor",
+        "surface": "unknown",
+        "open_hours": "unknown"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.42312325958294,
+            37.227825421651474
+          ],
+          [
+            -80.42162242742054,
+            37.226561093274235
+          ],
+          [
+            -80.42060583736043,
+            37.227261602156055
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "VT-WALK-376",
+        "from_node": "J-VT-6565",
+        "to_node": "J-VT-6403",
+        "name": "Campus sidewalk",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "confidence": "inferred",
+        "geometry_confidence": "official",
+        "source": "VT ADA_Routes_Only geometry, 2026-09-19",
+        "source_feature_ids": [
+          6086,
+          6930
+        ],
+        "is_indoor": false,
+        "access_control": "outdoor",
+        "surface": "unknown",
+        "open_hours": "unknown"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.41964825965218,
+            37.22660380741674
+          ],
+          [
+            -80.42058652044935,
+            37.22725305940401
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "VT-WALK-314",
+        "from_node": "J-VT-854",
+        "to_node": "J-VT-6403",
+        "name": "Campus sidewalk",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "confidence": "inferred",
+        "geometry_confidence": "official",
+        "source": "VT ADA_Routes_Only geometry, 2026-09-19",
+        "source_feature_ids": [
+          6934
+        ],
+        "is_indoor": false,
+        "access_control": "outdoor",
+        "surface": "unknown",
+        "open_hours": "unknown"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.41964291494024,
+            37.22660380741674
+          ],
+          [
+            -80.41954633195607,
+            37.226689235629166
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "VT-WALK-313",
+        "from_node": "J-VT-854",
+        "to_node": "J-VT-937",
+        "name": "Campus sidewalk",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "confidence": "inferred",
+        "geometry_confidence": "official",
+        "source": "VT ADA_Routes_Only geometry, 2026-09-19",
+        "source_feature_ids": [
+          6150
+        ],
+        "is_indoor": false,
+        "access_control": "outdoor",
+        "surface": "unknown",
+        "open_hours": "unknown"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.41954632632577,
+            37.226687099925016
+          ],
+          [
+            -80.41942554152709,
+            37.22666787858513
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "VT-WALK-2304",
+        "from_node": "N-APPROACH-VT-OWENS-HALL",
+        "to_node": "J-VT-937",
+        "name": "Entrance approach (unverified)",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "confidence": "inferred",
+        "geometry_confidence": "inferred",
+        "source": "VT ADA_Routes_Only geometry, 2026-09-19",
+        "source_feature_ids": [],
+        "is_indoor": false,
+        "access_control": "outdoor",
+        "surface": "unknown",
+        "open_hours": "unknown"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.4265035,
+            37.2287827
+          ],
+          [
+            -80.4262581,
+            37.2289571
+          ],
+          [
+            -80.4259159,
+            37.2292093
+          ],
+          [
+            -80.42613119731494,
+            37.229358818501176
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "VT-WALK-1102",
+        "from_node": "J-VT-2891",
+        "to_node": "J-VT-SNAP-18",
+        "name": "Campus sidewalk",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "confidence": "inferred",
+        "geometry_confidence": "official",
+        "source": "VT ADA_Routes_Only geometry, 2026-09-19",
+        "source_feature_ids": [
+          8145
+        ],
+        "is_indoor": false,
+        "access_control": "outdoor",
+        "surface": "unknown",
+        "open_hours": "unknown"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.4268633859497,
+            37.228532325744496
+          ],
+          [
+            -80.4265582,
+            37.2287536
+          ],
+          [
+            -80.4265657,
+            37.2287627
+          ],
+          [
+            -80.4265035,
+            37.2287827
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "VT-WALK-1083",
+        "from_node": "J-VT-2527",
+        "to_node": "J-VT-2891",
+        "name": "Campus sidewalk",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "confidence": "inferred",
+        "geometry_confidence": "official",
+        "source": "VT ADA_Routes_Only geometry, 2026-09-19",
+        "source_feature_ids": [
+          6543,
+          6643
+        ],
+        "is_indoor": false,
+        "access_control": "outdoor",
+        "surface": "unknown",
+        "open_hours": "unknown"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.42686878696473,
+            37.22853446139638
+          ],
+          [
+            -80.42638606441284,
+            37.22794288351573
+          ],
+          [
+            -80.4262387,
+            37.2280508
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "VT-WALK-926",
+        "from_node": "J-VT-2197",
+        "to_node": "J-VT-2199",
+        "name": "Campus sidewalk",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "confidence": "inferred",
+        "geometry_confidence": "official",
+        "source": "VT ADA_Routes_Only geometry, 2026-09-19",
+        "source_feature_ids": [
+          5904
+        ],
+        "is_indoor": false,
+        "access_control": "outdoor",
+        "surface": "unknown",
+        "open_hours": "unknown"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.42590257463375,
+            37.22777286125686
+          ],
+          [
+            -80.42576645630108,
+            37.2278595923945
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "VT-WALK-2306",
+        "from_node": "N-APPROACH-VT-HAHN-HALL-SOUTH-WING",
+        "to_node": "J-VT-SNAP-84",
+        "name": "Entrance approach (unverified)",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "confidence": "inferred",
+        "geometry_confidence": "inferred",
+        "source": "VT ADA_Routes_Only geometry, 2026-09-19",
+        "source_feature_ids": [],
+        "is_indoor": false,
+        "access_control": "outdoor",
+        "surface": "unknown",
+        "open_hours": "unknown"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.42512001336807,
+            37.23068940548652
+          ],
+          [
+            -80.4253139,
+            37.2308631
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "OSM-WALK-2830",
+        "from_node": "J-VT-6825",
+        "to_node": "J-VT-11422",
+        "name": "Campus path (OpenStreetMap)",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "confidence": "inferred",
+        "geometry_confidence": "official",
+        "source": "© OpenStreetMap contributors, ODbL - https://www.openstreetmap.org/copyright",
+        "source_feature_ids": [
+          "1421919109"
+        ],
+        "is_indoor": false,
+        "access_control": "outdoor",
+        "surface": "unknown",
+        "open_hours": "unknown"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.42511197847843,
+            37.230674232230484
+          ],
+          [
+            -80.4248538,
+            37.2304005
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "OSM-WALK-2827",
+        "from_node": "J-VT-6825",
+        "to_node": "J-VT-6826",
+        "name": "Campus path (OpenStreetMap)",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "confidence": "inferred",
+        "geometry_confidence": "official",
+        "source": "© OpenStreetMap contributors, ODbL - https://www.openstreetmap.org/copyright",
+        "source_feature_ids": [
+          "55508373"
+        ],
+        "is_indoor": false,
+        "access_control": "outdoor",
+        "surface": "unknown",
+        "open_hours": "unknown"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.425819,
+            37.232313
+          ],
+          [
+            -80.42494833263473,
+            37.23067009453049
+          ],
+          [
+            -80.42540966476037,
+            37.23154572309995
+          ],
+          [
+            -80.42492149942495,
+            37.23059774970699
+          ],
+          [
+            -80.4244029,
+            37.2301094
+          ],
+          [
+            -80.42352678450793,
+            37.22939957670737
+          ],
+          [
+            -80.42361166640639,
+            37.22932622998834
+          ]
+        ]
+      },
+      "properties": {
+        "segment_id": "EDIT-1",
+        "from_node": "N-GOODWIN-L4",
+        "to_node": "N-BURRUSS-E2",
+        "name": "Goodwin Hall – Burruss Auditorium",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "confidence": "inferred",
+        "operational_confidence": "inferred",
+        "is_indoor": false,
+        "surface": "unknown",
+        "access_control": "outdoor",
+        "open_hours": "unknown",
+        "source": "AccessPath route editor",
+        "notes": ""
+      }
     }
   ]
 }

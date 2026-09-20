@@ -847,6 +847,54 @@
         "last_verified": null,
         "notes": "Positioned on the real building footprint, west side. Williams Hall is a waypoint in the rider-supplied spine route (Perry St Lot / Hitt / Derring / Williams / Davidson to D&DS), not itself a traced origin or destination - treat this entrance as lower-confidence placement than the others added in this pass."
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.41942268430932,
+          37.22666488861152
+        ]
+      },
+      "properties": {
+        "entrance_id": "DOOR-VT-OWENS-HALL-1",
+        "node_id": "N-DOOR-VT-OWENS-HALL-1",
+        "building_id": "VT-OWENS-HALL",
+        "entrance_name": "Entrance / exit",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "entrance",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "confidence": "community_report",
+        "geometry_precision": "user_marked",
+        "source": "User-marked entrance in route editor"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.42448162918213,
+          37.22885482496141
+        ]
+      },
+      "properties": {
+        "entrance_id": "DOOR-VT-GOODWIN-1",
+        "node_id": "N-DOOR-VT-GOODWIN-1",
+        "building_id": "VT-GOODWIN",
+        "entrance_name": "Entrance / exit",
+        "entry_floor": null,
+        "door_use": "both",
+        "node_role": "entrance",
+        "accessibility_status": "unknown",
+        "operational_status": "unknown",
+        "confidence": "community_report",
+        "geometry_precision": "user_marked",
+        "source": "User-marked entrance in route editor"
+      }
     }
   ]
 }
