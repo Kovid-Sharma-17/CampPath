@@ -89,3 +89,8 @@ The tests cover all four demo journeys in both directions, all open catalog dest
 - `scripts/build_camp_path.py`: reproducible OSM + OSC import.
 
 Older handoff documents, reports, import scripts, and server code describe the previous AccessPath prototype; they are historical context and are not part of the active Camp Path application. Use this README and the new importer for the current demo.
+
+Kovid Sharma: routing, agent implementation
+Arijit Bhattacharyya: routing, accessibility routing, voice guidance
+Ashrith Annamreddy: routing, UI
+Siddhartha Ramenini: routing, shortcut routing
