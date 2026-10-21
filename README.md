@@ -1,5 +1,8 @@
 # Camp Path
 
+
+[https://camppath.vercel.app/](url)
+
 Local Virginia Tech walking-navigation demonstration, redesigned around OpenStreetMap and the supplied `campus-corrections.osc`. Includes 113 destinations, search with building aliases, continuous GPS, rerouting, spoken directions, and a Gemini assistant. The route editor, historical floorplans, and screenshot-route overrides have been removed from the app.
 
 ## Run locally
